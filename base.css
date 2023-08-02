@@ -4,21 +4,21 @@
 
 @font-face {
   font-family: 'fontin';
-  src: url('./public/fonts/fontin/Fontin-Regular.otf');
+  src: url('./fonts/fontin/Fontin-Regular.otf');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'fontin';
-  src: url('./public/fonts/fontin/Fontin-Italic.otf');
+  src: url('./fonts/fontin/Fontin-Italic.otf');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'fontin';
-  src: url('./public/fonts/fontin/Fontin-Bold.otf');
+  src: url('./fonts/fontin/Fontin-Bold.otf');
   font-weight: bold;
   font-style: normal;
   font-display: swap;

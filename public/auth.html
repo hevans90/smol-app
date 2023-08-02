@@ -1,0 +1,56 @@
+/* /public/auth.html */
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+    ></script>
+    <title>Discord Auth</title>
+  </head>
+  <body></body>
+  <script type="text/javascript">
+    // dependencies: axios moment
+    // grab url hash coming back from Discord Authentication
+    var rt = document.location.hash;
+    var token = false;
+    var expires = -99;
+    // split it and look for access_token, and expires_in
+    var parts = rt.split('&');
+    parts.forEach(function (p) {
+      var vals = p.split('=');
+      if (vals.length === 2 && vals[0] === 'access_token') {
+        token = vals[1];
+      }
+      if (vals.length === 2 && vals[0] === 'expires_in') {
+        expires = parseInt(vals[1]);
+      }
+    });
+    if (token && expires > 0) {
+      // exchange access_token for user_info
+      var m = moment().add(2, 'days');
+      axios
+        .get('https://discordapp.com/api/users/@me', {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        })
+        .then((response) => {
+          // store info client-side
+          localStorage.setItem('discord_user', JSON.stringify(response.data));
+          localStorage.setItem('expires', m.format());
+          var redirTo = localStorage.getItem('afterLogin');
+          // redirect to afterLogin value or homepage
+          if (!redirTo) redirTo = '/';
+          document.location = redirTo;
+        });
+    }
+  </script>
+</html>

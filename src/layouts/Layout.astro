@@ -5,6 +5,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+import AuthUser from './../components/AuthUser.astro';
 ---
 
 <!DOCTYPE html>
@@ -17,7 +19,8 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="relative">
+    <AuthUser />
     <slot />
   </body>
 </html>

@@ -19,7 +19,7 @@ import AuthUser from './../components/AuthUser.astro';
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="relative">
+  <body>
     <AuthUser />
     <slot />
   </body>
@@ -28,9 +28,5 @@ import AuthUser from './../components/AuthUser.astro';
   html {
     background: #13151a;
     background-size: 224px;
-  }
-  code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
   }
 </style>

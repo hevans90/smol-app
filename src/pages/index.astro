@@ -2,18 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 
 import svg from '/smol-logo.svg';
+import Joke from '../components/react/Joke';
+
+const { BASE_HREF } = import.meta.env;
 ---
 
 <Layout title="Smol app">
-  <main class="flex flex-col max-w-4xl mt-20 items-start m-auto">
-    <img src={svg} alt="logo" class="w-64" />
+  <main class="flex flex-col items-start">
+    <img src={svg} alt="logo" class="w-32 md:w-64" />
 
     <p class="my-8 text-lg">Who knows what this might become?</p>
-    <a
-      class="jokes-link rounded border-primary-800 hover:border-primary-300 border-2 p-2"
-      href="/api/joke"
-    >
-      <h3>Click here to load a joke from our netlify function!</h3>
-    </a>
+    <Joke baseHref={BASE_HREF} client:load />
   </main>
 </Layout>

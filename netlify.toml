@@ -6,6 +6,10 @@
 
 [functions]
   node_bundler = "esbuild"
+
+[dev]
+  port = 3000
+  targetPort = 3001
     
 [[redirects]]
   from = "/api/*" # simplify all calls to serverless functions

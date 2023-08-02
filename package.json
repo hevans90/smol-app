@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "link": "ntl init",
-    "dev": "ntl dev",
+    "dev": "astro dev",
     "start": "ntl dev",
     "build": "astro build",
     "preview": "astro preview",

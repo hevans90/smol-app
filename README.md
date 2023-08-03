@@ -1,5 +1,7 @@
 # Smol App
 
+![smol-app-logo](public/smol-logo.svg)
+
 - install `nvm` and then run `nvm use` (alternatively manually install node.js >= 18.16.0)
 - install pnpm: https://pnpm.io/installation
 - install the netlify CLI globally so it's on your path: `pnpm install --global netlify-cli`

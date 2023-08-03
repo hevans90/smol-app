@@ -9,8 +9,8 @@
 ```
 Directory Linked
 
-Admin url: https://app.netlify.com/sites/spectacular-gelato-16a47c
-Site url:  https://spectacular-gelato-16a47c.netlify.app
+Admin url: https://app.netlify.com/sites/smol-app
+Site url:  https://smol-app.netlify.app
 ```
 
 ---

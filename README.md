@@ -1,5 +1,3 @@
-# Smol App
-
 ![smol-app-logo](public/smol-logo.svg)
 
 - install `nvm` and then run `nvm use` (alternatively manually install node.js >= 18.16.0)

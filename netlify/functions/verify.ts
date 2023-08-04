@@ -20,13 +20,6 @@ type GGGAccessTokenResponse = {
   refresh_token: string;
 };
 
-type StringifiedGGGAccessTokenResponse = Omit<
-  GGGAccessTokenResponse,
-  'expires_in'
-> & {
-  expires_in: string;
-};
-
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
 
@@ -53,23 +46,10 @@ export const handler: Handler = async (event: HandlerEvent) => {
     body: new URLSearchParams(data),
   });
 
-  console.log('RESPONSE', response);
-
   const responseData = (await response.json()) as GGGAccessTokenResponse;
 
-  console.log(responseData);
-
-  const stringifiedResponse: StringifiedGGGAccessTokenResponse = {
-    ...responseData,
-    expires_in: responseData.expires_in.toString(),
-  };
-
   return {
-    statusCode: 302,
-    headers: {
-      Location: `/login-result?${new URLSearchParams(
-        stringifiedResponse
-      ).toString()}`,
-    },
+    statusCode: 200,
+    body: JSON.stringify(responseData),
   };
 };

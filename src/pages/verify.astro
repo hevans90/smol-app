@@ -23,5 +23,14 @@ const params = new URLSearchParams({
   poe_state,
 });
 
-fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
+const redirectToLoginResult = async () => {
+  const result = await fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
+  const data = await result.json();
+
+  const resultParams = new URLSearchParams({ ...data });
+
+  window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
+};
+
+redirectToLoginResult();
 </script>

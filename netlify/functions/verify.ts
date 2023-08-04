@@ -43,6 +43,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
     code_verifier: poe_verifier,
   };
 
+  console.log('DATA', data);
+
   const response = await fetch('https://www.pathofexile.com/oauth/token', {
     method: 'POST',
     headers: {
@@ -51,7 +53,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
     body: new URLSearchParams(data),
   });
 
+  console.log('RESPONSE', response);
+
   const responseData = (await response.json()) as GGGAccessTokenResponse;
+
+  console.log(responseData);
 
   const stringifiedResponse: StringifiedGGGAccessTokenResponse = {
     ...responseData,

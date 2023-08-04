@@ -3,15 +3,19 @@ import Layout from '../layouts/Layout.astro';
 
 import svg from '/smol-logo.svg';
 import Joke from '../components/react/Joke';
+import PoEAuth from '../components/react/poe-auth/PoEAuth';
 
 const { BASE_HREF } = import.meta.env;
+
+const asyncValue = await new Promise<string>((res, rej) => res('nice'));
 ---
 
 <Layout title="Smol app">
   <main class="flex flex-col items-start">
     <img src={svg} alt="logo" class="w-32 md:w-64" />
-
+    {asyncValue}
     <p class="my-8 text-lg">Who knows what this might become?</p>
     <Joke baseHref={BASE_HREF} client:load />
+    <PoEAuth baseHref={BASE_HREF} client:load />
   </main>
 </Layout>

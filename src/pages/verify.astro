@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const code = Astro.url.searchParams.get('code')! || '';
+const state = Astro.url.searchParams.get('state')! || '';
+
+const { BASE_HREF } = import.meta.env;
+---
+
+<Layout title="Smol app">
+  <main class="h-[80vh] flex flex-col justify-center items-center">
+    <p class="my-8 text-2xl">Verifying your login... patience exile.</p>
+  </main>
+</Layout>
+
+<script define:vars={{ code, state, BASE_HREF }}>
+const poe_verifier = localStorage.getItem('poe_verifier');
+const poe_state = localStorage.getItem('poe_state');
+
+const params = new URLSearchParams({
+    auth_code,
+    poe_verifier,
+    poe_state,
+});
+
+const data = await fetch(`${baseHref}/api/verify?${params.toString()}`);
+</script>

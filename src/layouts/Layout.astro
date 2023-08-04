@@ -6,7 +6,7 @@ interface Props {
 
 const { title } = Astro.props;
 
-import AuthUser from './../components/AuthUser.astro';
+import DiscordAuth from '../components/discord-auth/DiscordAuth.astro';
 ---
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ import AuthUser from './../components/AuthUser.astro';
     <title>{title}</title>
   </head>
   <body class="max-w-sm md:max-w-xl mt-20 m-10 md:m-auto md:mt-20">
-    <AuthUser />
+    <DiscordAuth />
     <slot />
   </body>
 </html>

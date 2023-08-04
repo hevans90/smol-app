@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const access_token = Astro.url.searchParams.get('access_token')! || '';
+const username = Astro.url.searchParams.get('username')! || '';
+
+const { BASE_HREF } = import.meta.env;
+---
+
+<Layout title="Smol app">
+  <main class="h-[80vh] flex flex-col justify-center items-center">
+    <p class="my-8 text-2xl">Your login was successful!</p>
+  </main>
+</Layout>
+
+<script define:vars={{ access_token, username, BASE_HREF }}>
+localStorage.setItem('poe_token', token);
+localStorage.setItem('username', username);
+window.location.href = BASE_HREF;
+</script>

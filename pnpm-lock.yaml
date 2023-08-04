@@ -14,6 +14,12 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^4.0.0
     version: 4.0.0(astro@2.9.7)(tailwindcss@3.3.3)
+  '@netlify/functions':
+    specifier: ^1.6.0
+    version: 1.6.0
+  '@types/node':
+    specifier: ^20.4.7
+    version: 20.4.7
   '@types/react':
     specifier: ^18.0.21
     version: 18.2.18
@@ -22,13 +28,19 @@ dependencies:
     version: 18.2.7
   astro:
     specifier: ^2.9.7
-    version: 2.9.7
+    version: 2.9.7(@types/node@20.4.7)
   astro-icon:
     specifier: ^0.8.1
     version: 0.8.1
+  buffer:
+    specifier: ^6.0.3
+    version: 6.0.3
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  node-fetch:
+    specifier: ^3.3.2
+    version: 3.3.2
   react:
     specifier: ^18.0.0
     version: 18.2.0
@@ -90,7 +102,7 @@ packages:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-      astro: 2.9.7
+      astro: 2.9.7(@types/node@20.4.7)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -115,7 +127,7 @@ packages:
       '@astrojs/underscore-redirects': 0.2.0
       '@astrojs/webapi': 2.2.0
       '@netlify/functions': 1.6.0
-      astro: 2.9.7
+      astro: 2.9.7(@types/node@20.4.7)
       esbuild: 0.15.18
     dev: false
 
@@ -151,7 +163,7 @@ packages:
       astro: ^2.6.5
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 2.9.7
+      astro: 2.9.7(@types/node@20.4.7)
       autoprefixer: 10.4.14(postcss@8.4.27)
       postcss: 8.4.27
       postcss-load-config: 4.0.1(postcss@8.4.27)
@@ -996,6 +1008,10 @@ packages:
       '@types/unist': 2.0.7
     dev: false
 
+  /@types/node@20.4.7:
+    resolution: {integrity: sha512-bUBrPjEry2QUTsnuEjzjbS7voGWCc30W0qzgMf90GPeDGFRakvrz47ju+oqDAKCXLUCe39u57/ORMl/O/04/9g==}
+    dev: false
+
   /@types/parse5@6.0.3:
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
     dev: false
@@ -1131,7 +1147,7 @@ packages:
       svgo: 2.8.0
     dev: false
 
-  /astro@2.9.7:
+  /astro@2.9.7(@types/node@20.4.7):
     resolution: {integrity: sha512-gEm6SyiF2sh2qn9smPd/Z5yXhSLlsNqM5hsOo2B1ibb5S3BjxE1srmGGW7cUhM0dcxxIwixdevgamS4oxUNa/A==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -1194,7 +1210,7 @@ packages:
       typescript: 5.1.6
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.4.7
+      vite: 4.4.7(@types/node@20.4.7)
       vitefu: 0.2.4(vite@4.4.7)
       which-pm: 2.0.0
       yargs-parser: 21.1.1
@@ -4022,7 +4038,7 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
-  /vite@4.4.7:
+  /vite@4.4.7(@types/node@20.4.7):
     resolution: {integrity: sha512-6pYf9QJ1mHylfVh39HpuSfMPojPSKVxZvnclX1K1FyZ1PXDOcLBibdq5t1qxJSnL63ca8Wf4zts6mD8u8oc9Fw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -4050,6 +4066,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.4.7
       esbuild: 0.18.17
       postcss: 8.4.27
       rollup: 3.27.0
@@ -4065,7 +4082,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.7
+      vite: 4.4.7(@types/node@20.4.7)
     dev: false
 
   /vscode-css-languageservice@6.2.6:

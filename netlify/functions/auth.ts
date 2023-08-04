@@ -1,8 +1,21 @@
-export const handler = async () => {
-  // some OAuth code here to receive calls from GGG
+import type { Handler, HandlerEvent } from '@netlify/functions';
+
+import invariant from 'tiny-invariant';
+
+type GGGOauthResponse = {
+  code: string;
+  state: string;
+};
+
+export const handler: Handler = async (event: HandlerEvent) => {
+  invariant(event.queryStringParameters);
 
   return {
-    statusCode: 200,
-    body: 'not yet implemented',
+    statusCode: 302,
+    headers: {
+      Location: `/verify?${new URLSearchParams(
+        event.queryStringParameters as GGGOauthResponse
+      ).toString()}`,
+    },
   };
 };

@@ -14,7 +14,9 @@ const { BASE_HREF } = import.meta.env;
 </Layout>
 
 <script define:vars={{ access_token, username, BASE_HREF }}>
-localStorage.setItem('poe_token', token);
+localStorage.setItem('poe_token', access_token);
 localStorage.setItem('username', username);
+localStorage.removeItem('poe_verifier');
+localStorage.removeItem('poe_state');
 window.location.href = BASE_HREF;
 </script>

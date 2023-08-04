@@ -18,10 +18,10 @@ const poe_verifier = localStorage.getItem('poe_verifier');
 const poe_state = localStorage.getItem('poe_state');
 
 const params = new URLSearchParams({
-    auth_code,
-    poe_verifier,
-    poe_state,
+  auth_code,
+  poe_verifier,
+  poe_state,
 });
 
-const data = await fetch(`${baseHref}/api/verify?${params.toString()}`);
+fetch(`${baseHref}/api/verify?${params.toString()}`);
 </script>

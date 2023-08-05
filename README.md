@@ -15,4 +15,4 @@ Site url:  https://smol-app.netlify.app
 
 ---
 
-After you are setup, simply run `pnpm run dev` to start your dev server!
+After you are setup, simply run `ntl dev` to start your dev server!

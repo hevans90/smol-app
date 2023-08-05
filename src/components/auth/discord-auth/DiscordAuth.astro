@@ -8,7 +8,7 @@ const discord_oauth_url = `https://discordapp.com/oauth2/authorize?client_id=${D
 
 <div
   id="login-container"
-  class="fixed right-3 top-3 rounded border-discord-500 border-2 text-discord-500"
+  class="rounded border-discord-500 border-2 text-discord-500"
 >
   <a
     href={discord_oauth_url}
@@ -17,17 +17,18 @@ const discord_oauth_url = `https://discordapp.com/oauth2/authorize?client_id=${D
   >
     <Icon class="w-12" name="discord" />
 
-    <div class="text-primary-500 mr-2">Login</div>
+
+    <div class="text-primary-500 mr-2 grow text-end">Login</div>
   </a>
-  <div id="user-logged-in" class="hidden gap-2 items-center">
+  <div id="user-logged-in" class="hidden gap-3 items-center">
     <div class="flex gap-2 items-center bg-discord-500">
       <Icon class="w-12" name="discord" />
       <img class="mr-2" id="user-avatar" height="40" width="40" />
     </div>
-    <span id="username" class="text-primary-500"></span>
+    <span id="username" class="text-primary-500 grow"></span>
 
     <a
-      class="dropdown-item cursor-pointer mr-2 text-primary-800 hover:text-primary-500"
+      class="cursor-pointer mr-2 text-primary-800 hover:text-primary-500"
       id="action-logout"
     >
       Logout

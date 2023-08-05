@@ -1,4 +1,5 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
+import { addMilliseconds, addSeconds } from 'date-fns';
 
 import fetch from 'node-fetch';
 
@@ -13,6 +14,7 @@ type GGGOauthResponse = {
 type GGGAccessTokenResponse = {
   access_token: string;
   expires_in: number;
+  expiry?: string;
   token_type: string;
   scope: string;
   username: string;
@@ -36,8 +38,6 @@ export const handler: Handler = async (event: HandlerEvent) => {
     code_verifier: poe_verifier,
   };
 
-  console.log('DATA', data);
-
   const response = await fetch('https://www.pathofexile.com/oauth/token', {
     method: 'POST',
     headers: {
@@ -47,6 +47,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
   });
 
   const responseData = (await response.json()) as GGGAccessTokenResponse;
+
+  responseData.expiry = addSeconds(
+    new Date(),
+    responseData.expires_in
+  ).toISOString();
 
   return {
     statusCode: 200,

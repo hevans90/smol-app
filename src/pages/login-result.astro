@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 
 const access_token = Astro.url.searchParams.get('access_token')! || '';
+const expiry = Astro.url.searchParams.get('expiry')! || '';
 const username = Astro.url.searchParams.get('username')! || '';
 
 const { BASE_HREF } = import.meta.env;
@@ -13,10 +14,11 @@ const { BASE_HREF } = import.meta.env;
   </main>
 </Layout>
 
-<script define:vars={{ access_token, username, BASE_HREF }}>
-localStorage.setItem('poe_token', access_token);
-localStorage.setItem('username', username);
+<script define:vars={{ access_token, username, expiry, BASE_HREF }}>
 localStorage.removeItem('poe_verifier');
 localStorage.removeItem('poe_state');
+localStorage.setItem('poe_token', access_token);
+localStorage.setItem('poe_username', username);
+localStorage.setItem('poe_expiry', expiry);
 window.location.href = BASE_HREF;
 </script>

@@ -1,0 +1,9 @@
+---
+import DiscordAuth from './discord-auth/DiscordAuth.astro';
+import PoEAuth from './poe-auth/PoEAuth';
+---
+
+<div class="fixed right-3 top-3 flex flex-col gap-4 min-w-[10rem]">
+  <DiscordAuth />
+  <PoEAuth client:load />
+</div>

@@ -84,14 +84,13 @@ const PoEAuth = () => {
 
   if (loggedIn)
     return (
-      <button
-        onClick={logout}
-        className="flex items-center gap-3 rounded border-primary-800 hover:border-primary-300 border-2 "
-      >
+      <div className="flex items-center gap-3 rounded border-primary-800 hover:border-primary-300 border-2 ">
         <img src="/poe-logo-original.png" className="h-12" />
-        <div>{username}</div>
-        <div className="text-end mr-2 grow text-primary-500">Logout</div>
-      </button>
+        <div className="text-primary-500">{username}</div>
+        <button onClick={logout} className="text-end mr-2 grow">
+          Logout
+        </button>
+      </div>
     );
 
   return (

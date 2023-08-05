@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
 import { Buffer } from 'buffer';
-import { Spinner } from '../../react/Spinner';
-import { addMilliseconds, isAfter } from 'date-fns';
+import { isAfter } from 'date-fns';
+import { useEffect, useState } from 'react';
 
 const generateAuthSecrets = async () => {
   localStorage.removeItem('poe_verifier');
@@ -95,17 +94,13 @@ const PoEAuth = () => {
 
   return (
     <>
-      {!url ? (
-        <Spinner width={30} />
-      ) : (
-        <a
-          href={url}
-          className="flex items-center gap-3 rounded border-primary-800 hover:border-primary-300 border-2 "
-        >
-          <img src="/poe-logo-original.png" className="h-12" />
-          <div className="text-end mr-2 grow text-primary-500">Login</div>
-        </a>
-      )}
+      <a
+        href={url}
+        className="flex items-center gap-3 rounded border-primary-800 hover:border-primary-300 border-2 "
+      >
+        <img src="/poe-logo-original.png" className="h-12" />
+        <div className="text-end mr-2 grow text-primary-500">Login</div>
+      </a>
     </>
   );
 };

@@ -60,6 +60,7 @@ const PoEAuth = () => {
     localStorage.removeItem('poe_token');
     localStorage.removeItem('poe_expiry');
     localStorage.removeItem('poe_username');
+    setUsername(null);
   };
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const PoEAuth = () => {
     generateUrlParams().then((params) =>
       setUrl(`https://www.pathofexile.com/oauth/authorize?${params.toString()}`)
     );
-  }, []);
+  }, [username]);
 
   if (loggedIn)
     return (

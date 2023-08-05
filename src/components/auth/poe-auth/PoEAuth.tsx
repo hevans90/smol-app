@@ -73,9 +73,13 @@ const PoEAuth = () => {
         isAfter(new Date(existingExpiry), new Date())
     );
 
-    generateUrlParams().then((params) =>
-      setUrl(`https://www.pathofexile.com/oauth/authorize?${params.toString()}`)
-    );
+    if (!loggedIn) {
+      generateUrlParams().then((params) =>
+        setUrl(
+          `https://www.pathofexile.com/oauth/authorize?${params.toString()}`
+        )
+      );
+    }
   }, [username]);
 
   if (loggedIn)
@@ -93,7 +97,7 @@ const PoEAuth = () => {
   return (
     <>
       {!url ? (
-        <Spinner />
+        <Spinner width={30} />
       ) : (
         <a
           href={url}

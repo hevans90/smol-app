@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant';
 
 const loginCheck = () => {
   let logoutPage = '/logout';
-  const expires = localStorage.getItem('expires') || 0;
+  const expires = localStorage.getItem('discord_expires') || 0;
   const expiration = new Date(expires);
   const now = new Date();
   const container = document.getElementById('login-container');
@@ -50,6 +50,6 @@ document
   .getElementById('action-logout')
   ?.addEventListener('click', function () {
     localStorage.removeItem('discord_user');
-    localStorage.removeItem('expires');
+    localStorage.removeItem('discord_expires');
     loginCheck();
   });

@@ -45,7 +45,7 @@
         .then((response) => {
           // store info client-side
           localStorage.setItem('discord_user', JSON.stringify(response.data));
-          localStorage.setItem('expires', m.format());
+          localStorage.setItem('discord_expires', m.format());
           var redirTo = localStorage.getItem('afterLogin');
           // redirect to afterLogin value or homepage
           if (!redirTo) redirTo = '/';

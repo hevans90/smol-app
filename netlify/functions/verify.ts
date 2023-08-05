@@ -35,7 +35,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     code: auth_code,
     redirect_uri: 'https://smol-app.netlify.app/api/auth',
     scope:
-      'account:profile account:characters account:stashes account:league_accounts service:leagues service:leagues:ladder service:psapi',
+      'account:profile account:characters account:stashes account:league_accounts',
     code_verifier: poe_verifier,
   };
 

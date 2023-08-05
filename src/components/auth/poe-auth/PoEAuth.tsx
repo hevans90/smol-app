@@ -41,7 +41,7 @@ const generateUrlParams = async () => {
     client_id: 'smolapp',
     response_type: 'code',
     scope:
-      'account:profile account:characters account:stashes account:league_accounts service:leagues service:leagues:ladder service:psapi',
+      'account:profile account:characters account:stashes account:league_accounts',
     state: poeState,
     redirect_uri: 'https://smol-app.netlify.app/api/auth',
     code_challenge: codeChallenge,
@@ -67,13 +67,14 @@ const PoEAuth = () => {
     const existingToken = localStorage.getItem('poe_token');
     const existingExpiry = localStorage.getItem('poe_expiry');
 
-    setloggedIn(
+    const loggedInCheck =
       !!existingToken &&
-        !!existingExpiry &&
-        isAfter(new Date(existingExpiry), new Date())
-    );
+      !!existingExpiry &&
+      isAfter(new Date(existingExpiry), new Date());
 
-    if (!loggedIn) {
+    setloggedIn(loggedInCheck);
+
+    if (!loggedInCheck) {
       generateUrlParams().then((params) =>
         setUrl(
           `https://www.pathofexile.com/oauth/authorize?${params.toString()}`

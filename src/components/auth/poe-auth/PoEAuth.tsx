@@ -1,6 +1,8 @@
 import { Buffer } from 'buffer';
+
 import { isAfter } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { poeStore } from '../../../_state/poe.state';
 
 const generateAuthSecrets = async () => {
   localStorage.removeItem('poe_verifier');
@@ -60,19 +62,30 @@ const PoEAuth = () => {
     localStorage.removeItem('poe_token');
     localStorage.removeItem('poe_expiry');
     localStorage.removeItem('poe_username');
+    poeStore.set({ expiry: '', token: '', username: '' });
     setUsername(null);
   };
 
   useEffect(() => {
+    const existingUsername = localStorage.getItem('poe_username');
     const existingToken = localStorage.getItem('poe_token');
     const existingExpiry = localStorage.getItem('poe_expiry');
 
     const loggedInCheck =
+      !!existingUsername &&
       !!existingToken &&
       !!existingExpiry &&
       isAfter(new Date(existingExpiry), new Date());
 
     setloggedIn(loggedInCheck);
+
+    if (loggedInCheck) {
+      poeStore.set({
+        expiry: existingExpiry,
+        token: existingToken,
+        username: existingUsername,
+      });
+    }
 
     if (!loggedInCheck) {
       generateUrlParams().then((params) =>

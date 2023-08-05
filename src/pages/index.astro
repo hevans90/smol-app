@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+import PoECharacters from '../components/react/PoECharacters';
+import PoEProfile from '../components/react/PoEProfile';
 import svg from '/smol-logo.svg';
-import Joke from '../components/react/Joke';
 
 const { BASE_HREF } = import.meta.env;
 ---
@@ -11,6 +12,8 @@ const { BASE_HREF } = import.meta.env;
   <main class="flex flex-col items-start">
     <img src={svg} alt="logo" class="w-32 md:w-64 mb-8" />
 
-    <Joke baseHref={BASE_HREF} client:load />
+    <!-- <Joke baseHref={BASE_HREF} client:load /> -->
+    <PoEProfile client:load />
+    <PoECharacters client:load />
   </main>
 </Layout>

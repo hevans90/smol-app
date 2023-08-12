@@ -22,37 +22,13 @@ type GGGAccessTokenResponse = {
   refresh_token: string;
 };
 
-// const getUserByPoEId = async (poeUserId: string) => {
-//   const response = await fetch(hasuraURL, {
-//     method: 'POST',
-//     headers,
-//     body: JSON.stringify({
-//       query: `
-//         query UserByPoEUserId($poeUserId: String!) {
-//           user(where: {poe_user_id: {_eq: $poeUserId}}) {
-//             discord_name
-//             discord_user_id
-//             id
-//             poe_name
-//             poe_user_id
-//           }
-//         }
-//       `,
-//       variables: {
-//         poeUserId,
-//       },
-//     }),
-//   });
-//   return response;
-// };
-
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
 
   const hasuraURL = `https://${process.env.HASURA_GRAPHQL_URI}`;
   const headers = {
     'Content-Type': 'application/json',
-    'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_SECRET as string,
+    'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET as string,
   };
 
   const { auth_code, poe_verifier, poe_state } =
@@ -103,7 +79,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
         },
       }),
     });
-    console.log('NICE', response);
+    console.log('NICE', response.json());
   } catch (e) {
     console.error(e);
   }

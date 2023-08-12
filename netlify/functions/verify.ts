@@ -22,6 +22,16 @@ type GGGAccessTokenResponse = {
   refresh_token: string;
 };
 
+type HasuraUser = {
+  id: string;
+  poe_name: string | null;
+  poe_user_id: string | null;
+  discord_name: string | null;
+  discord_user_id: string | null;
+};
+
+type HasuraUpsertUserResponse = { data: { insert_user: HasuraUser[] } } | null;
+
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
 
@@ -56,6 +66,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const responseData = (await response.json()) as GGGAccessTokenResponse;
   console.log('Logged in via GGG OAuth', responseData);
 
+  let hasuraResponseData: HasuraUpsertUserResponse = null;
+
   try {
     const hasuraResponse = await fetch(hasuraURL, {
       method: 'POST',
@@ -80,7 +92,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
         },
       }),
     });
-    const hasuraResponseData = await hasuraResponse.json();
+    hasuraResponseData =
+      (await hasuraResponse.json()) as HasuraUpsertUserResponse;
     console.log('Upserted POE user details to Hasura', hasuraResponseData);
   } catch (e) {
     console.error(e);
@@ -93,6 +106,9 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(responseData),
+    body: JSON.stringify({
+      ...responseData,
+      hasuraUserId: hasuraResponseData?.data.insert_user?.[0].id,
+    }),
   };
 };

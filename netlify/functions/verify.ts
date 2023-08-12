@@ -1,5 +1,5 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
-import { addMilliseconds, addSeconds } from 'date-fns';
+import { addSeconds } from 'date-fns';
 
 import fetch from 'node-fetch';
 
@@ -20,6 +20,69 @@ type GGGAccessTokenResponse = {
   username: string;
   sub: string;
   refresh_token: string;
+};
+
+const hasuraURL = `https://${process.env.HASURA_GRAPHQL_URI}`;
+const headers = {
+  'Content-Type': 'application/json',
+  'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_SECRET as string,
+};
+
+const getUserByPoEId = async (poeUserId: string) => {
+  const response = await fetch(hasuraURL, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: `
+        query UserByPoEUserId($poeUserId: String!) {
+          user(where: {poe_user_id: {_eq: $poeUserId}}) {
+            discord_name
+            discord_user_id
+            id
+            poe_name
+            poe_user_id
+          }
+        }
+      `,
+      variables: {
+        poeUserId,
+      },
+    }),
+  });
+  return response;
+};
+
+const upsertPoeUser = async ({
+  poeName,
+  poeUserId,
+}: {
+  poeName: string;
+  poeUserId: string;
+}) => {
+  const response = await fetch(hasuraURL, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: `
+        mutation UpsertUserPoeDetails($poeName: String!, $poeUserId: String!) {
+          insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_pkey, update_columns: [poe_name, poe_user_id]}) {
+            returning {
+              id
+              discord_user_id
+              discord_name
+              poe_name
+              poe_user_id
+            }
+          }
+        }
+      `,
+      variables: {
+        poeName,
+        poeUserId,
+      },
+    }),
+  });
+  return response;
 };
 
 export const handler: Handler = async (event: HandlerEvent) => {
@@ -48,6 +111,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
   });
 
   const responseData = (await response.json()) as GGGAccessTokenResponse;
+
+  await upsertPoeUser({
+    poeName: responseData.username,
+    poeUserId: responseData.sub,
+  });
 
   responseData.expiry = addSeconds(
     new Date(),

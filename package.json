@@ -8,7 +8,8 @@
     "start": "ntl dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy:hasura": "cd hasura && flyctl deploy smol-hasura"
   },
   "dependencies": {
     "@astrojs/netlify": "^2.5.2",
@@ -17,6 +18,7 @@
     "@nanostores/persistent": "^0.9.1",
     "@nanostores/react": "^0.7.1",
     "@netlify/functions": "^1.6.0",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.4.7",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
@@ -24,6 +26,7 @@
     "astro-icon": "^0.8.1",
     "buffer": "^6.0.3",
     "date-fns": "^2.30.0",
+    "jsonwebtoken": "^9.0.1",
     "nanostores": "^0.9.3",
     "node-fetch": "^3.3.2",
     "react": "^18.0.0",

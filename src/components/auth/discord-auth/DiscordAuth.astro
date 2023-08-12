@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon';
 // grab values from .env file
 const { DISCORD_CLIENT_ID, DISCORD_REDIRECT } = import.meta.env;
 // build discord auth url
-const discord_oauth_url = `https://discordapp.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${DISCORD_REDIRECT}&scope=identify&response_type=token`;
+const discord_oauth_url = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${DISCORD_REDIRECT}&scope=identify&response_type=code`;
 ---
 
 <div
@@ -16,7 +16,6 @@ const discord_oauth_url = `https://discordapp.com/oauth2/authorize?client_id=${D
     id="user-logged-out"
   >
     <Icon class="w-12" name="discord" />
-
 
     <div class="text-primary-500 mr-2 grow text-end">Login</div>
   </a>

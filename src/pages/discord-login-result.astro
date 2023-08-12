@@ -18,15 +18,11 @@ const { BASE_HREF } = import.meta.env;
 <script
   define:vars={{ access_token, poeUsername, expiry, hasuraUserId, BASE_HREF }}
 >
-import { addMonths } from 'date-fns';
 localStorage.removeItem('poe_verifier');
 localStorage.removeItem('poe_state');
 localStorage.setItem('poe_token', access_token);
 localStorage.setItem('poe_username', poeUsername);
 localStorage.setItem('poe_expiry', expiry);
 localStorage.setItem('hasura_user_id', hasuraUserId);
-
-const sixMonthsFromNow = addMonths(new Date(), 6).toUTCString();
-document.cookie = `hasura_user_id=${hasuraUserId}; expires=${sixMonthsFromNow}`;
 window.location.href = BASE_HREF;
 </script>

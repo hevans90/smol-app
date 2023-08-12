@@ -2,7 +2,6 @@ import { isBefore } from 'date-fns';
 import invariant from 'tiny-invariant';
 
 const loginCheck = () => {
-  let logoutPage = '/logout';
   const expires = localStorage.getItem('discord_expires') || 0;
   const expiration = new Date(expires);
   const now = new Date();
@@ -27,7 +26,7 @@ const loginCheck = () => {
     loggedIn.classList.add('hidden');
   } else {
     // logged in
-    const userData = localStorage.getItem('discord_user');
+    const userData = localStorage.getItem('discord_userdata');
     invariant(userData);
     const user: { id: string; avatar: string; global_name: string } =
       JSON.parse(userData);
@@ -49,7 +48,8 @@ loginCheck();
 document
   .getElementById('action-logout')
   ?.addEventListener('click', function () {
-    localStorage.removeItem('discord_user');
+    localStorage.removeItem('discord_token');
+    localStorage.removeItem('discord_userdata');
     localStorage.removeItem('discord_expires');
     loginCheck();
   });

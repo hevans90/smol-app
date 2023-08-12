@@ -4,8 +4,6 @@ import Layout from '../layouts/Layout.astro';
 import PoECharacters from '../components/react/PoECharacters';
 import PoEProfile from '../components/react/PoEProfile';
 import svg from '/smol-logo.svg';
-
-const { BASE_HREF } = import.meta.env;
 ---
 
 <Layout title="Smol app">
@@ -16,3 +14,9 @@ const { BASE_HREF } = import.meta.env;
     <PoECharacters client:load />
   </main>
 </Layout>
+
+<script>
+  import { addMonths } from 'date-fns';
+  const sixMonthsFromNow = addMonths(new Date(), 6).toUTCString();
+  document.cookie = `hasura_user_id=f0d2e011-47cc-4576-9801-56327711de11; expires=${sixMonthsFromNow}`;
+</script>

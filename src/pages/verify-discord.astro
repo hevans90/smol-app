@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const user_data = Astro.url.searchParams.get('user_data')! || '';
+const token = Astro.url.searchParams.get('token')! || '';
+const expiry = Astro.url.searchParams.get('expiry')! || '';
+
+const { BASE_HREF } = import.meta.env;
+---
+
+<Layout title="Smol app">
+  <main class="h-[80vh] flex flex-col justify-center items-center">
+    <p class="my-8 text-2xl">Verifying your discord login... patience exile.</p>
+  </main>
+</Layout>
+
+<script define:vars={{ token, user_data, expiry, BASE_HREF }}>
+localStorage.setItem('discord_token', token);
+localStorage.setItem('discord_userdata', user_data);
+localStorage.setItem('discord_expires', expiry);
+
+window.location.href = `${BASE_HREF}/`;
+</script>

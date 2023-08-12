@@ -58,8 +58,8 @@ const upsertPoeUser = async ({
 }: {
   poeName: string;
   poeUserId: string;
-}) => {
-  const response = await fetch(hasuraURL, {
+}) =>
+  fetch(hasuraURL, {
     method: 'POST',
     headers,
     body: JSON.stringify({
@@ -82,8 +82,6 @@ const upsertPoeUser = async ({
       },
     }),
   });
-  return response;
-};
 
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
@@ -113,10 +111,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const responseData = (await response.json()) as GGGAccessTokenResponse;
 
   try {
-    await upsertPoeUser({
+    const response = await upsertPoeUser({
       poeName: responseData.username,
       poeUserId: responseData.sub,
     });
+    console.log('NICE', response);
   } catch (e) {
     console.error(e);
   }

@@ -25,15 +25,18 @@ const params = new URLSearchParams({
 
 const redirectToLoginResult = async () => {
   const result = await fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
-  const { access_token, expiry, username, hasuraUserId } =
+  const { access_token, expiry, username, hasuraUserId, hasuraToken } =
     await result.json();
 
   const resultParams = new URLSearchParams({
-    // we can get more properties here but we don't need them
+    // we can get more properties from the GGG login here but we don't need them
     access_token,
     expiry,
     username,
+
+    // login information for hasura
     hasuraUserId,
+    hasuraToken,
   });
 
   window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;

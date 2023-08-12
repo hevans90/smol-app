@@ -5,6 +5,8 @@ import fetch from 'node-fetch';
 
 import invariant from 'tiny-invariant';
 
+import { sign } from 'jsonwebtoken';
+
 type GGGOauthResponse = {
   auth_code: string;
   poe_verifier: string;
@@ -107,10 +109,26 @@ export const handler: Handler = async (event: HandlerEvent) => {
     responseData.expires_in
   ).toISOString();
 
+  // now generate a new JWT for use with hasura
+  const hasuraToken = sign(
+    {
+      poeUserId: responseData.sub,
+      hasuraUserId: upsertedHasuraUser?.id,
+      'https://hasura.io/jwt/claims': {
+        'x-hasura-default-role': 'user',
+        'x-hasura-allowed-roles': ['user'],
+        'x-hasura-user-id': upsertedHasuraUser?.id,
+      },
+    },
+    process.env.JWT_SECRET as string,
+    { algorithm: 'HS256' }
+  );
+
   return {
     statusCode: 200,
     body: JSON.stringify({
       ...responseData,
+      hasuraToken,
       hasuraUserId: upsertedHasuraUser?.id,
     }),
   };

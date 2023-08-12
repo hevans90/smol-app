@@ -27,6 +27,9 @@ export const handler: Handler = async (event: HandlerEvent) => {
     .filter((cookie) => cookie.includes('hasura_user_id'))?.[0]
     ?.split('=')?.[1];
 
+  console.log('COOKIE', event.headers?.cookie);
+  console.log('HASURA_ID_FROM_COOKIE', hasuraUserId);
+
   const hasuraURL = `https://${process.env.HASURA_GRAPHQL_URI}`;
   const headers = {
     'Content-Type': 'application/json',
@@ -75,6 +78,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     redirectParams.append('expiry', expiryDate);
 
     if (hasuraUserId) {
+      console.log('DISCORD DATA TO UPDATE', discordUserData);
       let updatedHasuraUser: HasuraUser | undefined = undefined;
       const hasuraResponse = await fetch(hasuraURL, {
         method: 'POST',

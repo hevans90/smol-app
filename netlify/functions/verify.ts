@@ -22,69 +22,38 @@ type GGGAccessTokenResponse = {
   refresh_token: string;
 };
 
-const hasuraURL = `https://${process.env.HASURA_GRAPHQL_URI}`;
-const headers = {
-  'Content-Type': 'application/json',
-  'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_SECRET as string,
-};
-
-const getUserByPoEId = async (poeUserId: string) => {
-  const response = await fetch(hasuraURL, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query: `
-        query UserByPoEUserId($poeUserId: String!) {
-          user(where: {poe_user_id: {_eq: $poeUserId}}) {
-            discord_name
-            discord_user_id
-            id
-            poe_name
-            poe_user_id
-          }
-        }
-      `,
-      variables: {
-        poeUserId,
-      },
-    }),
-  });
-  return response;
-};
-
-const upsertPoeUser = async ({
-  poeName,
-  poeUserId,
-}: {
-  poeName: string;
-  poeUserId: string;
-}) =>
-  fetch(hasuraURL, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      query: `
-        mutation UpsertUserPoeDetails($poeName: String!, $poeUserId: String!) {
-          insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_pkey, update_columns: [poe_name, poe_user_id]}) {
-            returning {
-              id
-              discord_user_id
-              discord_name
-              poe_name
-              poe_user_id
-            }
-          }
-        }
-      `,
-      variables: {
-        poeName,
-        poeUserId,
-      },
-    }),
-  });
+// const getUserByPoEId = async (poeUserId: string) => {
+//   const response = await fetch(hasuraURL, {
+//     method: 'POST',
+//     headers,
+//     body: JSON.stringify({
+//       query: `
+//         query UserByPoEUserId($poeUserId: String!) {
+//           user(where: {poe_user_id: {_eq: $poeUserId}}) {
+//             discord_name
+//             discord_user_id
+//             id
+//             poe_name
+//             poe_user_id
+//           }
+//         }
+//       `,
+//       variables: {
+//         poeUserId,
+//       },
+//     }),
+//   });
+//   return response;
+// };
 
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
+
+  const hasuraURL = `https://${process.env.HASURA_GRAPHQL_URI}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_SECRET as string,
+  };
 
   const { auth_code, poe_verifier, poe_state } =
     event.queryStringParameters as GGGOauthResponse;
@@ -111,9 +80,28 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const responseData = (await response.json()) as GGGAccessTokenResponse;
 
   try {
-    const response = await upsertPoeUser({
-      poeName: responseData.username,
-      poeUserId: responseData.sub,
+    const response = await fetch(hasuraURL, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        query: `
+        mutation UpsertUserPoeDetails($poeName: String!, $poeUserId: String!) {
+          insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_pkey, update_columns: [poe_name, poe_user_id]}) {
+            returning {
+              id
+              discord_user_id
+              discord_name
+              poe_name
+              poe_user_id
+            }
+          }
+        }
+      `,
+        variables: {
+          poeName: responseData.username,
+          poeUserId: responseData.sub,
+        },
+      }),
     });
     console.log('NICE', response);
   } catch (e) {

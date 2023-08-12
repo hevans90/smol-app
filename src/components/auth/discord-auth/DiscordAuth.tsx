@@ -1,6 +1,8 @@
+import { useStore } from '@nanostores/react';
 import { isAfter } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { discordStore } from '../../../_state/discord.state';
+import { poeStore } from '../../../_state/poe.state';
 
 const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
   const getUserDataFromLocalStorage = () => {
@@ -18,7 +20,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
     }
   };
 
-  const [loggedInToPoE, setloggedInToPoE] = useState<boolean>(false);
+  const { token: loggedIntoPoE } = useStore(poeStore);
 
   const [loggedIn, setloggedIn] = useState<boolean>(false);
   const [userData, setUserData] = useState<{
@@ -40,8 +42,6 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
     const existingToken = localStorage.getItem('discord_token');
     const existingExpiry = localStorage.getItem('discord_expiry');
 
-    setloggedInToPoE(!!localStorage.getItem('poe_token'));
-
     const loggedInCheck =
       !!existingUsername &&
       !!existingToken &&
@@ -59,7 +59,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
     }
   }, [userData]);
 
-  if (!loggedInToPoE) {
+  if (!loggedIntoPoE) {
     return <>Log in via PoE to enable discord linking.</>;
   }
   if (loggedIn && userData) {

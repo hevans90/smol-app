@@ -112,10 +112,16 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
   const responseData = (await response.json()) as GGGAccessTokenResponse;
 
-  await upsertPoeUser({
-    poeName: responseData.username,
-    poeUserId: responseData.sub,
-  });
+  try {
+    await upsertPoeUser({
+      poeName: responseData.username,
+      poeUserId: responseData.sub,
+    });
+  } catch (e) {
+    console.error(e);
+  }
+
+  console.log(responseData);
 
   responseData.expiry = addSeconds(
     new Date(),

@@ -30,7 +30,9 @@ type HasuraUser = {
   discord_user_id: string | null;
 };
 
-type HasuraUpsertUserResponse = { data: { insert_user: HasuraUser[] } } | null;
+type HasuraUpsertUserResponse = {
+  data: { insert_user: { returning: HasuraUser[] } };
+} | null;
 
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
@@ -108,7 +110,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     statusCode: 200,
     body: JSON.stringify({
       ...responseData,
-      hasuraUserId: hasuraResponseData?.data.insert_user?.[0].id,
+      hasuraUserId: hasuraResponseData?.data.insert_user.returning?.[0].id,
     }),
   };
 };

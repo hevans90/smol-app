@@ -1,9 +1,14 @@
 ---
-import DiscordAuth from './discord-auth/DiscordAuth.astro';
+// import DiscordAuth from './discord-auth/DiscordAuth.astro';
+import DiscordAuth from './discord-auth/DiscordAuth';
 import PoEAuth from './poe-auth/PoEAuth';
+
+const { DISCORD_CLIENT_ID, DISCORD_REDIRECT } = import.meta.env;
+// build discord auth url
+const discordOauthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${DISCORD_REDIRECT}&scope=identify&response_type=code`;
 ---
 
 <div class="fixed right-3 top-3 flex flex-col gap-4 min-w-[10rem]">
-  <DiscordAuth />
   <PoEAuth client:load />
+  <DiscordAuth client:load discordOauthUrl={discordOauthUrl} />
 </div>

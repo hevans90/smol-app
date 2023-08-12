@@ -17,7 +17,7 @@ const { BASE_HREF } = import.meta.env;
 <script define:vars={{ token, user_data, expiry, BASE_HREF }}>
 localStorage.setItem('discord_token', token);
 localStorage.setItem('discord_userdata', user_data);
-localStorage.setItem('discord_expires', expiry);
+localStorage.setItem('discord_expiry', expiry);
 
-window.location.href = `${BASE_HREF}/`;
+window.location.href = BASE_HREF;
 </script>

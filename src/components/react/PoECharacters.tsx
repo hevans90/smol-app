@@ -23,8 +23,8 @@ const PoECharacters = () => {
             </thead>
             <tbody>
               {characters.map(
-                ({ name, class: characterClass, league, level }) => (
-                  <tr>
+                ({ name, class: characterClass, league, level }, i) => (
+                  <tr key={i}>
                     <td>{name}</td>
                     <td>{characterClass}</td>
                     <td>{league}</td>

@@ -54,9 +54,10 @@ export const handler: Handler = async (event: HandlerEvent) => {
   });
 
   const responseData = (await response.json()) as GGGAccessTokenResponse;
+  console.log('Logged in via GGG OAuth', responseData);
 
   try {
-    const response = await fetch(hasuraURL, {
+    const hasuraResponse = await fetch(hasuraURL, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -79,12 +80,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
         },
       }),
     });
-    console.log('NICE', response.json());
+    const hasuraResponseData = await hasuraResponse.json();
+    console.log('Upserted POE user details to Hasura', hasuraResponseData);
   } catch (e) {
     console.error(e);
   }
-
-  console.log(responseData);
 
   responseData.expiry = addSeconds(
     new Date(),

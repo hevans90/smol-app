@@ -63,7 +63,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       body: JSON.stringify({
         query: `
         mutation UpsertUserPoeDetails($poeName: String!, $poeUserId: String!) {
-          insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_pkey, update_columns: [poe_name]}) {
+          insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_poe_user_id_key, update_columns: poe_name}) {
             returning {
               id
               discord_user_id

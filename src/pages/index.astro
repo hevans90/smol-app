@@ -14,9 +14,3 @@ import svg from '/smol-logo.svg';
     <PoECharacters client:load />
   </main>
 </Layout>
-
-<script>
-  import { addMonths } from 'date-fns';
-  const sixMonthsFromNow = addMonths(new Date(), 6).toUTCString();
-  document.cookie = `hasura_user_id=f0d2e011-47cc-4576-9801-56327711de11; expires=${sixMonthsFromNow}`;
-</script>

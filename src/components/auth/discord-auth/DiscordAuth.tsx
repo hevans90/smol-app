@@ -27,7 +27,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
     id: string;
     avatar: string;
     global_name: string;
-  } | null>(getUserDataFromLocalStorage() ?? null);
+  } | null>(null);
 
   const logout = () => {
     localStorage.removeItem('discord_token');
@@ -38,12 +38,12 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
   };
 
   useEffect(() => {
-    const existingUsername = localStorage.getItem('discord_userdata');
+    const existingUserData = getUserDataFromLocalStorage();
     const existingToken = localStorage.getItem('discord_token');
     const existingExpiry = localStorage.getItem('discord_expiry');
 
     const loggedInCheck =
-      !!existingUsername &&
+      !!existingUserData &&
       !!existingToken &&
       !!existingExpiry &&
       isAfter(new Date(existingExpiry), new Date());
@@ -51,13 +51,14 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
     setloggedIn(loggedInCheck);
 
     if (loggedInCheck) {
+      setUserData(existingUserData);
       discordStore.set({
         expiry: existingExpiry,
         token: existingToken,
-        username: existingUsername,
+        username: existingUserData.global_name,
       });
     }
-  }, [userData]);
+  }, []);
 
   if (!loggedIntoPoE) {
     return <>Log in via PoE to enable discord linking.</>;

@@ -11,7 +11,7 @@ type PoECharacter = {
   equipment?: { icon: string }[];
 };
 
-export const usePoECharacters = () => {
+export const usePoECharacters = (lazy = true) => {
   const { token: access_token } = useStore(poeStore);
 
   useEffect(() => setToken(access_token), [access_token]);
@@ -21,7 +21,7 @@ export const usePoECharacters = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
 
-  const loadProfile = async () => {
+  const loadCharacters = async () => {
     setCharacters([]);
     setLoading(true);
 
@@ -46,10 +46,10 @@ export const usePoECharacters = () => {
   };
 
   useEffect(() => {
-    if (token) {
-      void loadProfile();
+    if (token && !lazy) {
+      void loadCharacters();
     }
   }, [token]);
 
-  return { token, loading, characters, error };
+  return { token, loading, characters, error, loadCharacters };
 };

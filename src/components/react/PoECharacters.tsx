@@ -2,7 +2,9 @@ import { usePoECharacters } from '../../hooks/usePoECharacters';
 import { Spinner } from './Spinner';
 
 const PoECharacters = () => {
-  const { token, loading, characters, error } = usePoECharacters();
+  const lazy = true;
+  const { token, loading, characters, error, loadCharacters } =
+    usePoECharacters(lazy);
 
   return (
     <>
@@ -10,6 +12,15 @@ const PoECharacters = () => {
         {token ? 'PoE Characters' : 'Login via PoE to load your characters'}
       </h2>
       <div className=" mt-4 w-full">
+        {lazy && !characters.length && (
+          <button
+            onClick={loadCharacters}
+            disabled={loading}
+            className="border-primary-800 border-[1px] rounded p-2 hover:border-primary-500 hover:text-primary-500"
+          >
+            Load characters (warning - rate limited)
+          </button>
+        )}
         {loading && <Spinner width={30} />}{' '}
         {characters && characters.length > 0 && (
           <table className="table-auto w-full">

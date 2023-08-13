@@ -10,5 +10,5 @@ const discordOauthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCOR
 
 <div class="fixed right-3 top-3 flex flex-col gap-4 min-w-[10rem]">
   <PoEAuth client:load />
-  <DiscordAuth client:load discordOauthUrl={discordOauthUrl} />
+  <DiscordAuth client:only="react" discordOauthUrl={discordOauthUrl} />
 </div>

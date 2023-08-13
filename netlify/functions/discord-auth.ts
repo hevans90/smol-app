@@ -85,13 +85,14 @@ export const handler: Handler = async (event: HandlerEvent) => {
         headers,
         body: JSON.stringify({
           query: `
-          mutation UpdateUserDiscordDetails($userId: uuid!, $discordName: String!, $discordUserId: String!) {
-            update_user(where: {id: {_eq: $userId}}, _set: {discord_name: $discordName, discord_user_id: $discordUserId}) {
+          mutation UpdateUserDiscordDetails($userId: uuid!, $discordName: String!, $discordUserId: String!, $discordAvatar: String!) {
+            update_user(where: {id: {_eq: $userId}}, _set: {discord_name: $discordName, discord_user_id: $discordUserId, discord_avatar: $discordAvatar}) {
               returning {
                 id
                 poe_name
                 poe_user_id
                 discord_name
+                discord_avatar
                 discord_user_id
               }
             }
@@ -99,6 +100,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       `,
           variables: {
             userId: hasuraUserId,
+            discordAvatar: discordUserData.avatar,
             discordName: discordUserData.global_name,
             discordUserId: discordUserData.id,
           },

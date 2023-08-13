@@ -1,16 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+import GraphQLAppWrapper from '../components/react/GraphQLAppWrapper';
 import PoECharacters from '../components/react/PoECharacters';
 import PoEProfile from '../components/react/PoEProfile';
 import svg from '/smol-logo.svg';
+
+const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="Smol app">
   <main class="flex flex-col items-start">
     <img src={svg} alt="logo" class="w-32 md:w-64 mb-8" />
-
     <PoEProfile client:load />
+    <GraphQLAppWrapper uri={hasuraUri} client:only="react" />
+
     <PoECharacters client:load />
   </main>
 </Layout>

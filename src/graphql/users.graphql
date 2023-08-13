@@ -1,0 +1,19 @@
+fragment UserFields on user {
+  id
+  poe_name
+  discord_name
+  discord_avatar
+  discord_user_id
+}
+
+query Users {
+  user {
+    ...UserFields
+  }
+}
+
+subscription UsersSub {
+  user {
+    ...UserFields
+  }
+}

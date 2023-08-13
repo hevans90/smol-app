@@ -46,13 +46,13 @@ const UserList = () => {
       <table className="my-4 table-auto w-full">
         <thead>
           <tr className="border-b-primary-800 border-b-[1px]">
-            <th className="w-40">
+            <th className="w-44">
               <div className="flex items-center gap-2 mb-2">
                 <img src="/discord-logo.svg" className="h-7" />
                 Discord Account
               </div>
             </th>
-            <th className="w-40">
+            <th className="w-44 hidden md:table-cell">
               <div className="flex items-center gap-2 mb-2">
                 <img src="/poe-logo-original.png" className="h-7" />
                 PoE Account
@@ -83,7 +83,7 @@ const UserList = () => {
               <tr key={i}>
                 <td>
                   <div
-                    className={`flex items-center gap-2 my-1 ${
+                    className={`flex items-center gap-2 my-2 ${
                       i === 0 && 'mt-4'
                     }`}
                   >
@@ -108,9 +108,9 @@ const UserList = () => {
                     )}
                   </div>
                 </td>
-                <td>
+                <td className="hidden md:table-cell">
                   <div
-                    className={`flex items-center gap-2 my-1 ${
+                    className={`flex items-center gap-2 my-2 ${
                       i === 0 && 'mt-4'
                     }`}
                   >
@@ -127,7 +127,10 @@ const UserList = () => {
                   <div className="flex gap-3">
                     {user.user_league_mechanics.map(
                       ({ mechanic, id: mechanicId }, i) => (
-                        <div className="relative h-12 w-12" key={i}>
+                        <div
+                          className="relative h-8 md:h-10 w-8 md:w-10"
+                          key={i}
+                        >
                           <img
                             title={mechanic}
                             src={`/league-icons/${mechanic}.webp`}

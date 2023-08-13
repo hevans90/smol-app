@@ -32,11 +32,11 @@ const UserList = () => {
           {data?.user.map((user, i) => (
             <tr key={i}>
               <td>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 my-3">
                   <img
                     src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
-                    height="40"
-                    width="40"
+                    height="30"
+                    width="30"
                   />
                   {user?.discord_name}
                 </div>

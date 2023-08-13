@@ -19,13 +19,13 @@ const UserList = () => {
         <thead>
           <tr>
             <th>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-4">
                 <img src="/discord-logo.svg" className="h-7" />
                 Discord Account
               </div>
             </th>
             <th>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-4">
                 <img src="/poe-logo-original.png" className="h-7" />
                 PoE Account
               </div>
@@ -36,7 +36,7 @@ const UserList = () => {
           {data?.user.map((user, i) => (
             <tr key={i}>
               <td>
-                <div className="flex items-center gap-2 my-3">
+                <div className="flex items-center gap-2 mb-3">
                   {user?.discord_user_id ? (
                     <>
                       <img

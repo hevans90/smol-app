@@ -43,12 +43,17 @@ const UserList = () => {
                 >
                   {user?.discord_user_id ? (
                     <>
-                      <img
-                        className="rounded-full"
-                        src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
-                        height="30"
-                        width="30"
-                      />
+                      {user.discord_avatar ? (
+                        <img
+                          className="rounded-full h-8 w-8"
+                          src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
+                        />
+                      ) : (
+                        <div className="rounded-full bg-discord-500 h-8 w-8 flex items-center justify-center">
+                          <img src="/discord-logo.svg" className="h-4" />
+                        </div>
+                      )}
+
                       {user?.discord_name}
                       {user.discord_user_id === myDiscordId && (
                         <div className="text-primary-500">(you)</div>

@@ -40,6 +40,7 @@ const UserList = () => {
                   {user?.discord_user_id ? (
                     <>
                       <img
+                        className="rounded-full"
                         src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
                         height="30"
                         width="30"

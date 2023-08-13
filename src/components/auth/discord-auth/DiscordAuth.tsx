@@ -71,6 +71,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
           <img src="/discord-logo.svg" className="h-7" />
 
           <img
+            className="rounded-full"
             src={`https://cdn.discordapp.com/avatars/${userData?.id}/${userData?.avatar}.png`}
             height="40"
             width="40"

@@ -1,10 +1,14 @@
 import { useSubscription } from '@apollo/client';
+import { useStore } from '@nanostores/react';
+import { discordStore } from '../../../_state/discord.state';
 import { UsersSubDocument, UsersSubSubscription } from '../../../graphql-api';
 import { Spinner } from '../Spinner';
 
 const UserList = () => {
   const { data, loading } =
     useSubscription<UsersSubSubscription>(UsersSubDocument);
+
+  const { id: myDiscordId } = useStore(discordStore);
 
   if (loading) return <Spinner />;
 
@@ -33,12 +37,21 @@ const UserList = () => {
             <tr key={i}>
               <td>
                 <div className="flex items-center gap-2 my-3">
-                  <img
-                    src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
-                    height="30"
-                    width="30"
-                  />
-                  {user?.discord_name}
+                  {user?.discord_user_id ? (
+                    <>
+                      <img
+                        src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
+                        height="30"
+                        width="30"
+                      />
+                      {user?.discord_name}
+                      {user.discord_user_id === myDiscordId && (
+                        <div className="text-primary-500">(you)</div>
+                      )}
+                    </>
+                  ) : (
+                    'no discord linked'
+                  )}
                 </div>
               </td>
               <td>{user?.poe_name}</td>

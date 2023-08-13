@@ -33,7 +33,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
     localStorage.removeItem('discord_token');
     localStorage.removeItem('discord_expiry');
     localStorage.removeItem('discord_userdata');
-    discordStore.set({ expiry: '', token: '', username: '' });
+    discordStore.set({ expiry: '', token: '', username: '', id: '' });
     setUserData(null);
   };
 
@@ -56,6 +56,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
         expiry: existingExpiry,
         token: existingToken,
         username: existingUserData.global_name,
+        id: existingUserData.id,
       });
     }
   }, []);

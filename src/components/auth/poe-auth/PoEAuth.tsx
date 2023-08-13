@@ -62,7 +62,7 @@ const PoEAuth = () => {
     localStorage.removeItem('poe_token');
     localStorage.removeItem('poe_expiry');
     localStorage.removeItem('poe_username');
-    poeStore.set({ expiry: '', token: '', username: '' });
+    poeStore.set({ expiry: '', token: '', username: '', id: '' });
     setUsername(null);
   };
 
@@ -84,6 +84,7 @@ const PoEAuth = () => {
         expiry: existingExpiry,
         token: existingToken,
         username: existingUsername,
+        id: '',
       });
     }
 

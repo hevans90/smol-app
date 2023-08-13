@@ -5,4 +5,5 @@ export const poeStore = map<AuthStore>({
   token: '',
   expiry: '',
   username: '',
+  id: '',
 });

@@ -1,0 +1,20 @@
+mutation InsertUserLeagueMechanic(
+  $mechanic: league_type_enum!
+  $userId: uuid!
+) {
+  insert_user_league_mechanic_one(
+    object: { mechanic: $mechanic, user_id: $userId }
+  ) {
+    mechanic
+    user_id
+    id
+  }
+}
+
+mutation DeleteUserLeagueMechanic($mechanicId: uuid!) {
+  delete_user_league_mechanic_by_pk(id: $mechanicId) {
+    id
+    mechanic
+    user_id
+  }
+}

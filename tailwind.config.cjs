@@ -10,6 +10,7 @@ module.exports = {
           300: '#f2ecd6',
           500: '#dfcf99',
           800: '#a38d6d',
+          900: '#6c542e',
         },
         discord: {
           300: '#a2a6f8',

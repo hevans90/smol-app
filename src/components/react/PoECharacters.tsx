@@ -1,5 +1,5 @@
 import { usePoECharacters } from '../../hooks/usePoECharacters';
-import { Spinner } from './Spinner';
+import { Spinner } from './ui/Spinner';
 
 const PoECharacters = () => {
   const lazy = true;

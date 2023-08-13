@@ -1,5 +1,5 @@
 import { usePoEProfile } from '../../hooks/usePoEProfile';
-import { Spinner } from './Spinner';
+import { Spinner } from './ui/Spinner';
 
 const PoEProfile = () => {
   const { token, loading, profile } = usePoEProfile();

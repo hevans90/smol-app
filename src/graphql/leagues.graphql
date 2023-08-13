@@ -1,0 +1,5 @@
+query Leagues {
+  league_type {
+    value
+  }
+}

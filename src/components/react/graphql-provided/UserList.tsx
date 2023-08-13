@@ -77,7 +77,8 @@ const UserList = () => {
                   !user.user_league_mechanics.find(
                     ({ mechanic }) => mechanic === league.value
                   )
-              );
+              )
+              .sort((a, b) => a.value.localeCompare(b.value));
 
             return (
               <tr key={i}>
@@ -125,8 +126,9 @@ const UserList = () => {
                 </td>
                 <td>
                   <div className="flex gap-3">
-                    {user.user_league_mechanics.map(
-                      ({ mechanic, id: mechanicId }, i) => (
+                    {user.user_league_mechanics
+                      .sort((a, b) => a.mechanic.localeCompare(b.mechanic))
+                      .map(({ mechanic, id: mechanicId }, i) => (
                         <div
                           className="relative h-8 md:h-10 w-8 md:w-10"
                           key={i}
@@ -149,8 +151,7 @@ const UserList = () => {
                             </button>
                           )}
                         </div>
-                      )
-                    )}
+                      ))}
 
                     {isMe && leagues && (
                       <Select

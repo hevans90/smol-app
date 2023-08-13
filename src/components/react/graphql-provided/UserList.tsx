@@ -59,6 +59,7 @@ const UserList = () => {
                 <a
                   className="hover:text-primary-500"
                   href={`https://www.pathofexile.com/account/view-profile/${user.poe_name}`}
+                  target="_blank"
                 >
                   {user?.poe_name}
                 </a>

@@ -17,15 +17,15 @@ const UserList = () => {
       <h2 className="text-xl text-primary-500">Smol App Enjoyers</h2>
       <table className="my-4 table-auto w-full">
         <thead>
-          <tr>
+          <tr className="border-b-primary-800 border-b-[1px]">
             <th>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-2">
                 <img src="/discord-logo.svg" className="h-7" />
                 Discord Account
               </div>
             </th>
             <th>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-2">
                 <img src="/poe-logo-original.png" className="h-7" />
                 PoE Account
               </div>
@@ -36,7 +36,11 @@ const UserList = () => {
           {data?.user.map((user, i) => (
             <tr key={i}>
               <td>
-                <div className="flex items-center gap-2 mb-3">
+                <div
+                  className={`flex items-center gap-2 my-1 ${
+                    i === 0 && 'mt-4'
+                  }`}
+                >
                   {user?.discord_user_id ? (
                     <>
                       <img
@@ -56,13 +60,19 @@ const UserList = () => {
                 </div>
               </td>
               <td>
-                <a
-                  className="hover:text-primary-500"
-                  href={`https://www.pathofexile.com/account/view-profile/${user.poe_name}`}
-                  target="_blank"
+                <div
+                  className={`flex items-center gap-2 my-1 ${
+                    i === 0 && 'mt-4'
+                  }`}
                 >
-                  {user?.poe_name}
-                </a>
+                  <a
+                    className="hover:text-primary-500 flex items-center my-1"
+                    href={`https://www.pathofexile.com/account/view-profile/${user.poe_name}`}
+                    target="_blank"
+                  >
+                    {user?.poe_name}
+                  </a>
+                </div>
               </td>
             </tr>
           ))}

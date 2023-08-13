@@ -1,6 +1,7 @@
 fragment UserFields on user {
   id
   poe_name
+  poe_user_id
   discord_name
   discord_avatar
   discord_user_id

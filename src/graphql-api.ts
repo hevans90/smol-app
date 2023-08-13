@@ -413,22 +413,23 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
-export type UserFieldsFragment = { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null };
+export type UserFieldsFragment = { __typename?: 'user', id: string, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'query_root', user: Array<{ __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }> };
+export type UsersQuery = { __typename?: 'query_root', user: Array<{ __typename?: 'user', id: string, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }> };
 
 export type UsersSubSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersSubSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }> };
+export type UsersSubSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', id: string, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }> };
 
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on user {
   id
   poe_name
+  poe_user_id
   discord_name
   discord_avatar
   discord_user_id

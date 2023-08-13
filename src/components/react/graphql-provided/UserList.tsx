@@ -55,7 +55,14 @@ const UserList = () => {
                   )}
                 </div>
               </td>
-              <td>{user?.poe_name}</td>
+              <td>
+                <a
+                  className="hover:text-primary-500"
+                  href={`https://www.pathofexile.com/account/view-profile/${user.poe_name}`}
+                >
+                  {user?.poe_name}
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>

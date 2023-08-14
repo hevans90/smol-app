@@ -1,0 +1,38 @@
+---
+type Route = {
+  path: string;
+  display: string;
+};
+
+let routes: Route[] = [
+  {
+    path: '/poe-profile',
+    display: 'PoE Profile',
+  },
+];
+
+const currentPath = Astro.url.pathname
+  .split('/')
+  .filter((x) => !!x)
+  .pop();
+
+routes = routes.filter(
+  // !currentPath = home
+  ({ path }) => !currentPath || !path.includes(currentPath)
+);
+---
+
+<div class="fixed mx-auto w-fit inset-x-0 top-3">
+  <nav aria-label="Navigation" class="flex gap-2 text-lg">
+    {
+      routes.map(({ path, display }) => (
+        <a
+          href={path}
+          class="hover:text-primary-500 bg-gray-900 p-2 hover:bg-gray-800"
+        >
+          {display}
+        </a>
+      ))
+    }
+  </nav>
+</div>

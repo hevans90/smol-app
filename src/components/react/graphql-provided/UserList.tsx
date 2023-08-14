@@ -17,11 +17,14 @@ import {
 import { Spinner } from '../ui/Spinner';
 
 import { IconTrash } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
+import { isLeagueFilter, userListFilterStore } from '../../../_state/user-list';
 import Select from '../ui/Select';
+import { UserListFilters } from './UserListFilters';
 
 const UserList = () => {
-  const { data, loading } =
+  const { data: userData, loading } =
     useSubscription<UsersSubSubscription>(UsersSubDocument);
 
   const { data: leagues, loading: leaguesLoading } =
@@ -38,6 +41,29 @@ const UserList = () => {
   >(InsertUserLeagueMechanicDocument);
 
   const { id: myDiscordId } = useStore(discordStore);
+
+  const filters = useStore(userListFilterStore);
+
+  const [filteredUsers, setfilteredUsers] = useState(userData);
+
+  useEffect(() => {
+    if (userData) {
+      if (filters.length) {
+        const filtered = userData.user.filter(({ user_league_mechanics }) =>
+          filters.every(
+            (filter) =>
+              isLeagueFilter(filter) &&
+              user_league_mechanics
+                .map(({ mechanic }) => mechanic)
+                .includes(filter.league as League_Type_Enum)
+          )
+        );
+        setfilteredUsers({ user: filtered });
+      } else {
+        setfilteredUsers(userData);
+      }
+    }
+  }, [filters, userData]);
 
   if (loading || leaguesLoading) return <Spinner />;
 
@@ -59,11 +85,17 @@ const UserList = () => {
                 PoE Account
               </div>
             </th>
-            <th />
+            <th>
+              {leagues && (
+                <div className="flex items-center gap-2 mb-2">
+                  <UserListFilters leagueQuery={leagues} />
+                </div>
+              )}
+            </th>
           </tr>
         </thead>
         <tbody>
-          {data?.user.map((user, i) => {
+          {filteredUsers?.user.map((user, i) => {
             const isMe = user.discord_user_id === myDiscordId;
 
             invariant(leagues);

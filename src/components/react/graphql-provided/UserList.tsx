@@ -75,19 +75,17 @@ const UserList = () => {
           <tr className="border-b-primary-800 border-b-[1px]">
             <th className="w-44">
               <div className="flex items-center gap-2 mb-2">
-                <img src="/discord-logo.svg" className="h-7" />
-                Discord Account
+                <img src="/discord-logo.svg" className="h-8" />
               </div>
             </th>
             <th className="w-44 hidden md:table-cell">
               <div className="flex items-center gap-2 mb-2">
-                <img src="/poe-logo-original.png" className="h-7" />
-                PoE Account
+                <img src="/poe-logo-original.png" className="h-12" />
               </div>
             </th>
             <th>
               {leagues && (
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-2 w-full">
                   <UserListFilters leagueQuery={leagues} />
                 </div>
               )}

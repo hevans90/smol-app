@@ -36,36 +36,44 @@ export const UserListFilters = ({
     .sort((a, b) => a.value.localeCompare(b.value));
 
   return (
-    <div className="flex gap-2 p-2 border-[1px] border-primary-900 rounded bg-gray-900">
+    <div className="flex grow gap-2 p-2 border-[1px] border-primary-900 rounded bg-gray-900">
       <Select
         onSelectChange={(value) => addLeagueFilter(value as League_Type_Enum)}
-        placeholder="Add League Filter"
+        placeholder="Add Filter"
         showSelected={false}
         options={leagues}
       />
-      <div className="flex items-center h-12">
+      <div className="flex items-center h-10 grow">
         {filters.map((filter, i) => (
           <Fragment key={i}>
             {isLeagueFilter(filter) ? (
-              <img
+              <button
                 onClick={() => deleteLeagueFilter(i)}
-                title={filter.league}
-                className="w-12 h-12 p-1 cursor-pointer hover:bg-gray-800"
-                src={`/league-icons/${filter.league}.webp`}
-              />
+                className="cursor-pointer"
+              >
+                <img
+                  title={filter.league}
+                  className="w-10 h-10 md:w-12 md:h-12 p-1 hover:bg-gray-800"
+                  src={`/league-icons/${filter.league}.webp`}
+                />
+              </button>
             ) : (
               filter
             )}
           </Fragment>
         ))}
-        {!filters.length && 'No filters'}
+        {!filters.length && (
+          <div className="grow flex justify-end mr-2">No filters</div>
+        )}
         {filters.length ? (
-          <button
-            onClick={clearLeagueFilters}
-            className="hover:text-primary-500 hover:bg-gray-800 p-2 h-12 w-12 flex items-center"
-          >
-            <IconTrash className="w-full" />
-          </button>
+          <div className="grow flex justify-end">
+            <button
+              onClick={clearLeagueFilters}
+              className="hover:text-primary-500 hover:bg-gray-800 p-1 flex items-center"
+            >
+              <IconTrash className="w-8 h-8 md:w-10 md:h-10" />
+            </button>
+          </div>
         ) : null}
       </div>
     </div>

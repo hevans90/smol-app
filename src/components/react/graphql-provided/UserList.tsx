@@ -19,6 +19,7 @@ import { Spinner } from '../ui/Spinner';
 import { IconTrash } from '@tabler/icons-react';
 import invariant from 'tiny-invariant';
 import Select from '../ui/Select';
+
 const UserList = () => {
   const { data, loading } =
     useSubscription<UsersSubSubscription>(UsersSubDocument);

@@ -1,5 +1,6 @@
 ---
 import '../../base.css';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 interface Props {
   title: string;
 }
@@ -10,7 +11,7 @@ import Auth from '../components/auth/Auth.astro';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-gray-950">
   <head>
     <meta charset="UTF-8" />
 
@@ -30,12 +31,7 @@ import Auth from '../components/auth/Auth.astro';
     class="max-w-xl md:max-w-2xl lg:max-w-4xl mt-20 m-10 md:m-auto md:mt-20"
   >
     <Auth />
+    <Breadcrumbs />
     <slot />
   </body>
 </html>
-<style is:global>
-  html {
-    background: #13151a;
-    background-size: 224px;
-  }
-</style>

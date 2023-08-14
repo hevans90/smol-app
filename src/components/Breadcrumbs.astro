@@ -1,0 +1,50 @@
+---
+import type { AnchorHTMLAttributes } from 'react';
+import title from 'title';
+const paths = Astro.url.pathname.split('/').filter((x) => !!x);
+
+const capitaliseTitle = (value: string) => title(value).replace('Poe', 'PoE');
+
+let parts = [
+  {
+    text: 'Home',
+    href: '/',
+    'aria-current': (Astro.url.pathname === '/'
+      ? 'page'
+      : undefined) as AnchorHTMLAttributes<any>['aria-current'],
+  },
+];
+
+paths.forEach((text, i) => {
+  const href = `/${paths.slice(0, i + 1).join('/')}`;
+  parts.push({
+    text: capitaliseTitle(text.replace(/[-_]/g, ' ')),
+    href,
+    'aria-current': Astro.url.pathname === href ? 'page' : undefined,
+  });
+});
+---
+
+<div class="fixed left-3 top-3 flex flex-col gap-4 min-w-[10rem]">
+  <nav aria-label="Breadcrumb" class="breadcrumb">
+    <ol class="flex gap-2 text-lg" role="list">
+      {
+        parts.length > 1 &&
+          parts.map(({ text, ...rest }, i) => (
+            <>
+              <li class="breadcrumb" role="listitem">
+                {i < parts.length - 1 ? (
+                  <a {...rest} class="hover:text-primary-500">
+                    {text}
+                  </a>
+                ) : (
+                  <span>{text}</span>
+                )}
+              </li>
+              {i < parts.length - 1 && <>&gt;</>}
+            </>
+          ))
+      }
+    </ol>
+  </nav>
+</div>

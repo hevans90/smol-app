@@ -130,6 +130,7 @@ export enum League_Type_Enum {
   Labyrinth = 'labyrinth',
   Legion = 'legion',
   Metamorph = 'metamorph',
+  Ritual = 'ritual',
   Sanctum = 'sanctum'
 }
 
@@ -792,6 +793,8 @@ export type User_League_Mechanic_Bool_Exp = {
 
 /** unique or primary key constraints on table "user_league_mechanic" */
 export enum User_League_Mechanic_Constraint {
+  /** unique or primary key constraint on columns "mechanic", "user_id" */
+  UserLeagueMechanicMechanicUserIdKey = 'user_league_mechanic_mechanic_user_id_key',
   /** unique or primary key constraint on columns "id" */
   UserLeagueMechanicPkey = 'user_league_mechanic_pkey'
 }

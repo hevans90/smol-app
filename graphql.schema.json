@@ -1715,6 +1715,12 @@
             "deprecationReason": null
           },
           {
+            "name": "ritual",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sanctum",
             "description": null,
             "isDeprecated": false,
@@ -5831,6 +5837,12 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "user_league_mechanic_mechanic_user_id_key",
+            "description": "unique or primary key constraint on columns \"mechanic\", \"user_id\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "user_league_mechanic_pkey",
             "description": "unique or primary key constraint on columns \"id\"",

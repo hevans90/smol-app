@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import PoECharacters from '../components/react/PoECharacters';
+import PoEProfile from '../components/react/PoEProfile';
+import svg from '/smol-logo.svg';
+---
+
+<Layout title="PoE Profile">
+  <main class="flex flex-col items-start">
+    <img src={svg} alt="logo" class="w-32 md:w-64 mb-8" />
+
+    <PoEProfile client:load />
+    <PoECharacters client:load />
+  </main>
+</Layout>

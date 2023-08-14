@@ -1,11 +1,16 @@
 import { ApolloProvider } from '@apollo/client';
-import { useState } from 'react';
-import { apolloBootstrapper } from '../../_utils/apollo-bootstrapper';
+import { ReactNode, useState } from 'react';
+import { apolloBootstrapper } from './apollo-bootstrapper';
 
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
-import UserList from './graphql-provided/UserList';
 
-const GraphQLAppWrapper = ({ uri }: { uri: string }) => {
+const GraphQLAppWrapper = ({
+  uri,
+  children,
+}: {
+  uri: string;
+  children: ReactNode;
+}) => {
   if (process.env.NODE_ENV !== 'production') {
     // Adds messages only in a dev environment
     loadDevMessages();
@@ -23,7 +28,7 @@ const GraphQLAppWrapper = ({ uri }: { uri: string }) => {
     <ApolloProvider
       client={apolloBootstrapper({ uri, token: hasuraAccessToken })}
     >
-      <UserList />
+      {children}
     </ApolloProvider>
   );
 };

@@ -164,7 +164,7 @@ const UserList = () => {
                             },
                           })
                         }
-                        placeholder="Add Mechanic"
+                        placeholder="Add"
                         showSelected={false}
                         options={myUnselectedLeagues}
                       />

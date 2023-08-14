@@ -98,7 +98,7 @@ export default function Select({
         ref={refs.setReference}
         aria-labelledby="select-label"
         aria-autocomplete="none"
-        className="w-36 flex items-center cursor-pointer justify-center leading-3 p-1 border-primary-800 rounded-md border-[1px] hover:border-primary-500 hover:text-primary-500 outline-none"
+        className="w-24 md:w-36 flex items-center cursor-pointer justify-center leading-3 p-1 border-primary-800 rounded-md border-[1px] hover:border-primary-500 hover:text-primary-500 outline-none"
         {...getReferenceProps()}
       >
         {(showSelected && selectedItemLabel) || placeholder}

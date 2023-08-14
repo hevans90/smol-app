@@ -22,13 +22,15 @@ routes = routes.filter(
 );
 ---
 
-<div class="fixed mx-auto w-fit inset-x-0 top-3">
-  <nav aria-label="Navigation" class="flex gap-2 text-lg">
+<div
+  class="fixed bottom-0 left-0 md:mx-auto w-full md:w-fit md:inset-x-0 md:top-3"
+>
+  <nav aria-label="Navigation" class="flex gap-2 text-3xl md:text-xl">
     {
       routes.map(({ path, display }) => (
         <a
           href={path}
-          class="hover:text-primary-500 bg-gray-900 p-2 hover:bg-gray-800"
+          class="hover:text-primary-500 bg-gray-900 p-4 md:p-2 hover:bg-gray-800 grow basis-0 md:basis-auto text-center"
         >
           {display}
         </a>

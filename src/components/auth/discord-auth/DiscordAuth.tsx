@@ -77,7 +77,9 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
             width="40"
           />
         </div>
-        <div className="text-primary-500 grow">{userData?.global_name}</div>
+        <div className="text-primary-500 grow hidden md:block">
+          {userData?.global_name}
+        </div>
         <button
           onClick={logout}
           className="text-end mr-2 grow hover:text-primary-300"

@@ -101,7 +101,7 @@ const PoEAuth = () => {
     return (
       <div className="flex items-center gap-3 rounded border-primary-800 border-2 ">
         <img src="/poe-logo-original.png" className="h-12" />
-        <div className="text-primary-500">{username}</div>
+        <div className="text-primary-500 hidden md:block">{username}</div>
         <button
           onClick={logout}
           className="text-end mr-2 grow hover:text-primary-300"

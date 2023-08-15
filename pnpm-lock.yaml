@@ -53,6 +53,9 @@ dependencies:
   discord.js:
     specifier: ^14.12.1
     version: 14.12.1
+  fuzzy-search:
+    specifier: ^3.2.1
+    version: 3.2.1
   graphql:
     specifier: ^16.7.1
     version: 16.7.1
@@ -118,6 +121,9 @@ devDependencies:
   '@parcel/watcher':
     specifier: ^2.2.0
     version: 2.2.0
+  '@types/fuzzy-search':
+    specifier: ^2.1.2
+    version: 2.1.2
   '@types/jsonwebtoken':
     specifier: ^9.0.2
     version: 9.0.2
@@ -2373,6 +2379,10 @@ packages:
     resolution: {integrity: sha512-A9S1ijj/4MX06I1W/6on8lhaYyq1Ir7gaOvfllW1o4RzVWW88HAeqX0pUx9VgOLnNpdiGeUW2CTkg18p5LWIrA==}
     dev: false
 
+  /@types/fuzzy-search@2.1.2:
+    resolution: {integrity: sha512-YOqA50Z3xcycm4Br5+MBUpSumfdOAcv34A8A8yFn62zBQPTzJSXQk11qYE5w8BWQ0KrVThXUgEQh7ZLrYI1NaQ==}
+    dev: true
+
   /@types/hast@2.3.5:
     resolution: {integrity: sha512-SvQi0L/lNpThgPoleH53cdjB3y9zpLlVjRbqB3rH8hx1jiRSBGAhyjV3H+URFjNVRqt2EdYNrbZE5IsGlNfpRg==}
     dependencies:
@@ -4054,6 +4064,10 @@ packages:
 
   /function-bind@1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
+    dev: false
+
+  /fuzzy-search@3.2.1:
+    resolution: {integrity: sha512-vAcPiyomt1ioKAsAL2uxSABHJ4Ju/e4UeDM+g1OlR0vV4YhLGMNsdLNvZTpEDY4JCSt0E4hASCNM5t2ETtsbyg==}
     dev: false
 
   /gensync@1.0.0-beta.2:

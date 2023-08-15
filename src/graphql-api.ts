@@ -72,6 +72,144 @@ export enum Cursor_Ordering {
   Desc = 'DESC'
 }
 
+/** columns and relationships of "item_order_type" */
+export type Item_Order_Type = {
+  __typename?: 'item_order_type';
+  value: Scalars['String']['output'];
+};
+
+/** aggregated selection of "item_order_type" */
+export type Item_Order_Type_Aggregate = {
+  __typename?: 'item_order_type_aggregate';
+  aggregate?: Maybe<Item_Order_Type_Aggregate_Fields>;
+  nodes: Array<Item_Order_Type>;
+};
+
+/** aggregate fields of "item_order_type" */
+export type Item_Order_Type_Aggregate_Fields = {
+  __typename?: 'item_order_type_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Item_Order_Type_Max_Fields>;
+  min?: Maybe<Item_Order_Type_Min_Fields>;
+};
+
+
+/** aggregate fields of "item_order_type" */
+export type Item_Order_Type_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Item_Order_Type_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "item_order_type". All fields are combined with a logical 'AND'. */
+export type Item_Order_Type_Bool_Exp = {
+  _and?: InputMaybe<Array<Item_Order_Type_Bool_Exp>>;
+  _not?: InputMaybe<Item_Order_Type_Bool_Exp>;
+  _or?: InputMaybe<Array<Item_Order_Type_Bool_Exp>>;
+  value?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "item_order_type" */
+export enum Item_Order_Type_Constraint {
+  /** unique or primary key constraint on columns "value" */
+  ItemOrderTypePkey = 'item_order_type_pkey'
+}
+
+export enum Item_Order_Type_Enum {
+  Altgem = 'altgem',
+  Enchant = 'enchant',
+  Other = 'other',
+  Unique = 'unique'
+}
+
+/** Boolean expression to compare columns of type "item_order_type_enum". All fields are combined with logical 'AND'. */
+export type Item_Order_Type_Enum_Comparison_Exp = {
+  _eq?: InputMaybe<Item_Order_Type_Enum>;
+  _in?: InputMaybe<Array<Item_Order_Type_Enum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<Item_Order_Type_Enum>;
+  _nin?: InputMaybe<Array<Item_Order_Type_Enum>>;
+};
+
+/** input type for inserting data into table "item_order_type" */
+export type Item_Order_Type_Insert_Input = {
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Item_Order_Type_Max_Fields = {
+  __typename?: 'item_order_type_max_fields';
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Item_Order_Type_Min_Fields = {
+  __typename?: 'item_order_type_min_fields';
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "item_order_type" */
+export type Item_Order_Type_Mutation_Response = {
+  __typename?: 'item_order_type_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Item_Order_Type>;
+};
+
+/** on_conflict condition type for table "item_order_type" */
+export type Item_Order_Type_On_Conflict = {
+  constraint: Item_Order_Type_Constraint;
+  update_columns?: Array<Item_Order_Type_Update_Column>;
+  where?: InputMaybe<Item_Order_Type_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "item_order_type". */
+export type Item_Order_Type_Order_By = {
+  value?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: item_order_type */
+export type Item_Order_Type_Pk_Columns_Input = {
+  value: Scalars['String']['input'];
+};
+
+/** select columns of table "item_order_type" */
+export enum Item_Order_Type_Select_Column {
+  /** column name */
+  Value = 'value'
+}
+
+/** input type for updating data in table "item_order_type" */
+export type Item_Order_Type_Set_Input = {
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "item_order_type" */
+export type Item_Order_Type_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Item_Order_Type_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Item_Order_Type_Stream_Cursor_Value_Input = {
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "item_order_type" */
+export enum Item_Order_Type_Update_Column {
+  /** column name */
+  Value = 'value'
+}
+
+export type Item_Order_Type_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Item_Order_Type_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Item_Order_Type_Bool_Exp;
+};
+
 /** columns and relationships of "league_type" */
 export type League_Type = {
   __typename?: 'league_type';
@@ -227,6 +365,10 @@ export type League_Type_Updates = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "item_order_type" */
+  delete_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
+  /** delete single row from the table: "item_order_type" */
+  delete_item_order_type_by_pk?: Maybe<Item_Order_Type>;
   /** delete data from the table: "league_type" */
   delete_league_type?: Maybe<League_Type_Mutation_Response>;
   /** delete single row from the table: "league_type" */
@@ -243,6 +385,10 @@ export type Mutation_Root = {
   delete_user_league_mechanic?: Maybe<User_League_Mechanic_Mutation_Response>;
   /** delete single row from the table: "user_league_mechanic" */
   delete_user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
+  /** insert data into the table: "item_order_type" */
+  insert_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
+  /** insert a single row into the table: "item_order_type" */
+  insert_item_order_type_one?: Maybe<Item_Order_Type>;
   /** insert data into the table: "league_type" */
   insert_league_type?: Maybe<League_Type_Mutation_Response>;
   /** insert a single row into the table: "league_type" */
@@ -259,6 +405,12 @@ export type Mutation_Root = {
   insert_user_league_mechanic_one?: Maybe<User_League_Mechanic>;
   /** insert a single row into the table: "user" */
   insert_user_one?: Maybe<User>;
+  /** update data of the table: "item_order_type" */
+  update_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
+  /** update single row of the table: "item_order_type" */
+  update_item_order_type_by_pk?: Maybe<Item_Order_Type>;
+  /** update multiples rows of table: "item_order_type" */
+  update_item_order_type_many?: Maybe<Array<Maybe<Item_Order_Type_Mutation_Response>>>;
   /** update data of the table: "league_type" */
   update_league_type?: Maybe<League_Type_Mutation_Response>;
   /** update single row of the table: "league_type" */
@@ -283,6 +435,18 @@ export type Mutation_Root = {
   update_user_league_mechanic_many?: Maybe<Array<Maybe<User_League_Mechanic_Mutation_Response>>>;
   /** update multiples rows of table: "user" */
   update_user_many?: Maybe<Array<Maybe<User_Mutation_Response>>>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Item_Order_TypeArgs = {
+  where: Item_Order_Type_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Item_Order_Type_By_PkArgs = {
+  value: Scalars['String']['input'];
 };
 
 
@@ -331,6 +495,20 @@ export type Mutation_RootDelete_User_League_MechanicArgs = {
 /** mutation root */
 export type Mutation_RootDelete_User_League_Mechanic_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Item_Order_TypeArgs = {
+  objects: Array<Item_Order_Type_Insert_Input>;
+  on_conflict?: InputMaybe<Item_Order_Type_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Item_Order_Type_OneArgs = {
+  object: Item_Order_Type_Insert_Input;
+  on_conflict?: InputMaybe<Item_Order_Type_On_Conflict>;
 };
 
 
@@ -387,6 +565,26 @@ export type Mutation_RootInsert_User_League_Mechanic_OneArgs = {
 export type Mutation_RootInsert_User_OneArgs = {
   object: User_Insert_Input;
   on_conflict?: InputMaybe<User_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Item_Order_TypeArgs = {
+  _set?: InputMaybe<Item_Order_Type_Set_Input>;
+  where: Item_Order_Type_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Item_Order_Type_By_PkArgs = {
+  _set?: InputMaybe<Item_Order_Type_Set_Input>;
+  pk_columns: Item_Order_Type_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Item_Order_Type_ManyArgs = {
+  updates: Array<Item_Order_Type_Updates>;
 };
 
 
@@ -487,6 +685,12 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "item_order_type" */
+  item_order_type: Array<Item_Order_Type>;
+  /** fetch aggregated fields from the table: "item_order_type" */
+  item_order_type_aggregate: Item_Order_Type_Aggregate;
+  /** fetch data from the table: "item_order_type" using primary key columns */
+  item_order_type_by_pk?: Maybe<Item_Order_Type>;
   /** fetch data from the table: "league_type" */
   league_type: Array<League_Type>;
   /** fetch aggregated fields from the table: "league_type" */
@@ -511,6 +715,29 @@ export type Query_Root = {
   user_league_mechanic_aggregate: User_League_Mechanic_Aggregate;
   /** fetch data from the table: "user_league_mechanic" using primary key columns */
   user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
+};
+
+
+export type Query_RootItem_Order_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Item_Order_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Item_Order_Type_Order_By>>;
+  where?: InputMaybe<Item_Order_Type_Bool_Exp>;
+};
+
+
+export type Query_RootItem_Order_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Item_Order_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Item_Order_Type_Order_By>>;
+  where?: InputMaybe<Item_Order_Type_Bool_Exp>;
+};
+
+
+export type Query_RootItem_Order_Type_By_PkArgs = {
+  value: Scalars['String']['input'];
 };
 
 
@@ -607,6 +834,14 @@ export type Query_RootUser_League_Mechanic_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "item_order_type" */
+  item_order_type: Array<Item_Order_Type>;
+  /** fetch aggregated fields from the table: "item_order_type" */
+  item_order_type_aggregate: Item_Order_Type_Aggregate;
+  /** fetch data from the table: "item_order_type" using primary key columns */
+  item_order_type_by_pk?: Maybe<Item_Order_Type>;
+  /** fetch data from the table in a streaming manner: "item_order_type" */
+  item_order_type_stream: Array<Item_Order_Type>;
   /** fetch data from the table: "league_type" */
   league_type: Array<League_Type>;
   /** fetch aggregated fields from the table: "league_type" */
@@ -639,6 +874,36 @@ export type Subscription_Root = {
   user_league_mechanic_stream: Array<User_League_Mechanic>;
   /** fetch data from the table in a streaming manner: "user" */
   user_stream: Array<User>;
+};
+
+
+export type Subscription_RootItem_Order_TypeArgs = {
+  distinct_on?: InputMaybe<Array<Item_Order_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Item_Order_Type_Order_By>>;
+  where?: InputMaybe<Item_Order_Type_Bool_Exp>;
+};
+
+
+export type Subscription_RootItem_Order_Type_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Item_Order_Type_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Item_Order_Type_Order_By>>;
+  where?: InputMaybe<Item_Order_Type_Bool_Exp>;
+};
+
+
+export type Subscription_RootItem_Order_Type_By_PkArgs = {
+  value: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootItem_Order_Type_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Item_Order_Type_Stream_Cursor_Input>>;
+  where?: InputMaybe<Item_Order_Type_Bool_Exp>;
 };
 
 
@@ -904,6 +1169,7 @@ export type User_Item_Order = {
   fulfilled_by_user?: Maybe<User>;
   id: Scalars['uuid']['output'];
   link_url?: Maybe<Scalars['String']['output']>;
+  type: Item_Order_Type_Enum;
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   user: User;
@@ -968,6 +1234,7 @@ export type User_Item_Order_Bool_Exp = {
   fulfilled_by_user?: InputMaybe<User_Bool_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   link_url?: InputMaybe<String_Comparison_Exp>;
+  type?: InputMaybe<Item_Order_Type_Enum_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<User_Bool_Exp>;
   user_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -987,6 +1254,7 @@ export type User_Item_Order_Insert_Input = {
   fulfilled_by_user?: InputMaybe<User_Obj_Rel_Insert_Input>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Item_Order_Type_Enum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<User_Obj_Rel_Insert_Input>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1062,6 +1330,7 @@ export type User_Item_Order_Order_By = {
   fulfilled_by_user?: InputMaybe<User_Order_By>;
   id?: InputMaybe<Order_By>;
   link_url?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<User_Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -1085,6 +1354,8 @@ export enum User_Item_Order_Select_Column {
   /** column name */
   LinkUrl = 'link_url',
   /** column name */
+  Type = 'type',
+  /** column name */
   UpdatedAt = 'updated_at',
   /** column name */
   UserId = 'user_id'
@@ -1097,6 +1368,7 @@ export type User_Item_Order_Set_Input = {
   fulfilled_by?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Item_Order_Type_Enum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -1116,6 +1388,7 @@ export type User_Item_Order_Stream_Cursor_Value_Input = {
   fulfilled_by?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Item_Order_Type_Enum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -1132,6 +1405,8 @@ export enum User_Item_Order_Update_Column {
   Id = 'id',
   /** column name */
   LinkUrl = 'link_url',
+  /** column name */
+  Type = 'type',
   /** column name */
   UpdatedAt = 'updated_at',
   /** column name */
@@ -1475,23 +1750,30 @@ export type LeaguesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LeaguesQuery = { __typename?: 'query_root', league_type: Array<{ __typename?: 'league_type', value: string }> };
 
+export type OrderTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OrderTypesQuery = { __typename?: 'query_root', item_order_type: Array<{ __typename?: 'item_order_type', value: string }> };
+
 export type UserItemOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
+export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, type: Item_Order_Type_Enum, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
 
 export type InsertUserItemOrderMutationVariables = Exact<{
   description: Scalars['String']['input'];
   linkUrl: Scalars['String']['input'];
+  type: Item_Order_Type_Enum;
   userId: Scalars['uuid']['input'];
 }>;
 
 
-export type InsertUserItemOrderMutation = { __typename?: 'mutation_root', insert_user_item_order_one?: { __typename?: 'user_item_order', link_url?: string | null, description?: string | null, user_id: string, id: string } | null };
+export type InsertUserItemOrderMutation = { __typename?: 'mutation_root', insert_user_item_order_one?: { __typename?: 'user_item_order', type: Item_Order_Type_Enum, link_url?: string | null, description?: string | null, user_id: string, id: string } | null };
 
 export type UpdateUserItemOrderMutationVariables = Exact<{
   orderId: Scalars['uuid']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Item_Order_Type_Enum>;
   linkUrl?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -1562,6 +1844,14 @@ export const LeaguesDocument = gql`
 }
     `;
 export type LeaguesQueryResult = Apollo.QueryResult<LeaguesQuery, LeaguesQueryVariables>;
+export const OrderTypesDocument = gql`
+    query OrderTypes {
+  item_order_type {
+    value
+  }
+}
+    `;
+export type OrderTypesQueryResult = Apollo.QueryResult<OrderTypesQuery, OrderTypesQueryVariables>;
 export const UserItemOrdersDocument = gql`
     subscription UserItemOrders {
   user_item_order {
@@ -1570,6 +1860,7 @@ export const UserItemOrdersDocument = gql`
     description
     id
     link_url
+    type
     user {
       id
       poe_name
@@ -1587,10 +1878,11 @@ export const UserItemOrdersDocument = gql`
     `;
 export type UserItemOrdersSubscriptionResult = Apollo.SubscriptionResult<UserItemOrdersSubscription>;
 export const InsertUserItemOrderDocument = gql`
-    mutation InsertUserItemOrder($description: String!, $linkUrl: String!, $userId: uuid!) {
+    mutation InsertUserItemOrder($description: String!, $linkUrl: String!, $type: item_order_type_enum!, $userId: uuid!) {
   insert_user_item_order_one(
-    object: {description: $description, link_url: $linkUrl, user_id: $userId}
+    object: {description: $description, link_url: $linkUrl, user_id: $userId, type: $type}
   ) {
+    type
     link_url
     description
     user_id
@@ -1602,10 +1894,10 @@ export type InsertUserItemOrderMutationFn = Apollo.MutationFunction<InsertUserIt
 export type InsertUserItemOrderMutationResult = Apollo.MutationResult<InsertUserItemOrderMutation>;
 export type InsertUserItemOrderMutationOptions = Apollo.BaseMutationOptions<InsertUserItemOrderMutation, InsertUserItemOrderMutationVariables>;
 export const UpdateUserItemOrderDocument = gql`
-    mutation UpdateUserItemOrder($orderId: uuid!, $description: String, $linkUrl: String) {
+    mutation UpdateUserItemOrder($orderId: uuid!, $description: String, $type: item_order_type_enum, $linkUrl: String) {
   update_user_item_order_by_pk(
     pk_columns: {id: $orderId}
-    _set: {description: $description, link_url: $linkUrl}
+    _set: {description: $description, link_url: $linkUrl, type: $type}
   ) {
     id
     description

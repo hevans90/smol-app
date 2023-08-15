@@ -1,4 +1,4 @@
-import { useMutation, useSubscription } from '@apollo/client';
+import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import { useStore } from '@nanostores/react';
 import { discordStore } from '../../../_state/discord.state';
 import {
@@ -11,6 +11,9 @@ import {
   InsertUserItemOrderDocument,
   InsertUserItemOrderMutation,
   InsertUserItemOrderMutationVariables,
+  Item_Order_Type_Enum,
+  OrderTypesDocument,
+  OrderTypesQuery,
   UpdateUserItemOrderDocument,
   UpdateUserItemOrderMutation,
   UpdateUserItemOrderMutationVariables,
@@ -25,6 +28,10 @@ import en from 'javascript-time-ago/locale/en.json';
 import { useMemo, useState } from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import invariant from 'tiny-invariant';
+import {
+  orderBookShowFulfilledStore,
+  orderBookTypeFiltersStore,
+} from '../../../_state/order-book';
 import { useMyHasuraId } from '../../../hooks/useMyHasuraId';
 import { Button } from '../ui/Button';
 import {
@@ -33,7 +40,7 @@ import {
   DialogDescription,
   DialogHeading,
 } from '../ui/Dialog';
-import { Toggle } from '../ui/Toggle';
+import { OrderBookFilters } from './OrderBookFilters';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
 TimeAgo.addDefaultLocale(en);
 
@@ -42,17 +49,28 @@ export const OrderBook = () => {
     UserItemOrdersDocument
   );
 
-  const [showFulfilled, setShowFulfilled] = useState(true);
+  const { data: orderTypes } = useQuery<OrderTypesQuery>(OrderTypesDocument);
+
+  const showFulfilled = useStore(orderBookShowFulfilledStore);
+  const typeFilters = useStore(orderBookTypeFiltersStore);
 
   const filteredOrders = useMemo(() => {
-    if (showFulfilled) {
-      return orders?.user_item_order;
-    } else {
-      return orders?.user_item_order.filter(
-        ({ fulfilled_by_user }) => !fulfilled_by_user
-      );
+    let result = orders?.user_item_order;
+
+    if (!showFulfilled) {
+      result = result?.filter(({ fulfilled_by_user }) => !fulfilled_by_user);
     }
-  }, [showFulfilled, loading, orders]);
+
+    result = result?.filter(({ type }) => {
+      const enabledOrderTypes = Object.entries(typeFilters)
+        .filter(([_, value]) => !!value)
+        .map(([type]) => type);
+
+      return enabledOrderTypes.includes(type);
+    });
+
+    return result;
+  }, [showFulfilled, typeFilters, loading, orders]);
 
   const myUserId = useMyHasuraId();
 
@@ -138,11 +156,17 @@ export const OrderBook = () => {
   if (loading) return <Spinner />;
   return (
     <>
-      <Toggle
-        value={showFulfilled}
-        onChange={() => setShowFulfilled(!showFulfilled)}
-        label="Show fulfilled orders"
-      />
+      <div className="flex gap-2">
+        <Button
+          className="text-xl h-auto"
+          onClick={() => {
+            setCreateModalOpen(true);
+          }}
+        >
+          Create Order
+        </Button>
+        {orderTypes && <OrderBookFilters orderTypes={orderTypes} />}
+      </div>
       <table className="my-4 table-auto w-full">
         <thead>
           <tr className="border-b-primary-800 border-b-[1px]">
@@ -151,20 +175,13 @@ export const OrderBook = () => {
                 <img src="/discord-logo.svg" className="h-8" />
               </div>
             </th>
-            <th className="w-44 ">fulfilled by</th>
+            <th className="w-20">type</th>
             <th className="w-96"></th>
             <th className="hidden lg:table-cell">updated</th>
-            <th>
-              <Button
-                onClick={() => {
-                  setCreateModalOpen(true);
-                }}
-              >
-                Create Order
-              </Button>
-            </th>
             <th></th>
             <th></th>
+            <th></th>
+            <th className="w-44 ">fulfilled by</th>
           </tr>
         </thead>
         <tbody>
@@ -177,6 +194,7 @@ export const OrderBook = () => {
                 id: orderId,
                 user,
                 fulfilled_by_user,
+                type,
               },
               i
             ) => {
@@ -217,34 +235,16 @@ export const OrderBook = () => {
                       )}
                     </div>
                   </td>
-                  <td>
-                    <div
-                      className={`flex items-center gap-2 my-2 ${
-                        i === 0 && 'mt-4'
-                      }`}
-                    >
-                      {fulfilled_by_user && (
-                        <>
-                          {fulfilled_by_user.discord_avatar ? (
-                            <img
-                              className="rounded-full h-8 w-8"
-                              src={`https://cdn.discordapp.com/avatars/${fulfilled_by_user.discord_user_id}/${fulfilled_by_user.discord_avatar}.png`}
-                            />
-                          ) : (
-                            <div className="rounded-full bg-discord-500 h-8 w-8 flex items-center justify-center">
-                              <img src="/discord-logo.svg" className="h-4" />
-                            </div>
-                          )}
 
-                          {fulfilled_by_user.discord_name}
-                          {fulfilled_by_user.discord_user_id ===
-                            myDiscordId && (
-                            <div className="text-primary-500">(you)</div>
-                          )}
-                        </>
-                      )}
+                  <td>
+                    <div className="flex justify-center">
+                      <img
+                        className="w-10 h-10 md:w-12 md:h-12 p-1"
+                        src={`/order-types/${type}.webp`}
+                      />
                     </div>
                   </td>
+
                   <td>
                     {link_url ? (
                       <a href={link_url} target="_blank">
@@ -265,6 +265,7 @@ export const OrderBook = () => {
                           onClick={() => {
                             setUpdateModalOpen(true);
                             setUpdateModalState({
+                              type,
                               description,
                               linkUrl: link_url,
                               orderId,
@@ -309,6 +310,34 @@ export const OrderBook = () => {
                       </Button>
                     )}
                   </td>
+                  <td>
+                    <div
+                      className={`flex items-center gap-2 my-2 ${
+                        i === 0 && 'mt-4'
+                      }`}
+                    >
+                      {fulfilled_by_user && (
+                        <>
+                          {fulfilled_by_user.discord_avatar ? (
+                            <img
+                              className="rounded-full h-8 w-8"
+                              src={`https://cdn.discordapp.com/avatars/${fulfilled_by_user.discord_user_id}/${fulfilled_by_user.discord_avatar}.png`}
+                            />
+                          ) : (
+                            <div className="rounded-full bg-discord-500 h-8 w-8 flex items-center justify-center">
+                              <img src="/discord-logo.svg" className="h-4" />
+                            </div>
+                          )}
+
+                          {fulfilled_by_user.discord_name}
+                          {fulfilled_by_user.discord_user_id ===
+                            myDiscordId && (
+                            <div className="text-primary-500">(you)</div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </td>
                 </tr>
               );
             }
@@ -318,35 +347,43 @@ export const OrderBook = () => {
       <Dialog open={updateModalOpen} onOpenChange={setUpdateModalOpen}>
         <DialogContent>
           <DialogHeading>Update Order</DialogHeading>
-          <OrderForm
-            data={updateModalState}
-            onSubmit={(data) => {
-              updateItemOrder({
-                variables: {
-                  ...data,
-                  orderId: updateModalState?.orderId ?? '',
-                },
-              });
-              setUpdateModalOpen(false);
-            }}
-          />
+          {orderTypes && (
+            <OrderForm
+              orderTypes={orderTypes}
+              data={updateModalState}
+              onSubmit={(data) => {
+                updateItemOrder({
+                  variables: {
+                    ...data,
+                    orderId: updateModalState?.orderId ?? '',
+                  },
+                });
+                setUpdateModalOpen(false);
+              }}
+            />
+          )}
         </DialogContent>
       </Dialog>
+
       <Dialog open={createModalOpen} onOpenChange={setCreateModalOpen}>
         <DialogContent>
           <DialogHeading>Create Order</DialogHeading>
-          <OrderForm
-            onSubmit={(data) => {
-              createItemOrder({
-                variables: {
-                  description: data.description as string,
-                  linkUrl: data.linkUrl ?? '',
-                  userId: myUserId,
-                },
-              });
-              setCreateModalOpen(false);
-            }}
-          />
+          {orderTypes && (
+            <OrderForm
+              orderTypes={orderTypes}
+              onSubmit={(data) => {
+                createItemOrder({
+                  variables: {
+                    type: data.type ?? Item_Order_Type_Enum.Other,
+                    description: data.description as string,
+                    linkUrl: data.linkUrl ?? '',
+                    userId: myUserId,
+                  },
+                });
+                setCreateModalOpen(false);
+              }}
+            />
+          )}
         </DialogContent>
       </Dialog>
 

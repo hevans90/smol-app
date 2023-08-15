@@ -15,11 +15,16 @@
   }
 
   button {
-    @apply focus-visible:border-primary-800 focus-visible:outline-primary-500;
+    @apply focus-visible:border-primary-800 focus-visible:outline-primary-500 bg-gray-800 hover:bg-gray-700;
   }
 
-  input {
+  input,
+  select {
     @apply rounded-sm bg-gray-600 p-2 text-lg text-gray-700 outline-none outline-[3px] outline-offset-0 duration-200 ease-in-out focus-visible:border-primary-800 focus-visible:outline-primary-500 text-primary-500;
+  }
+
+  select {
+    @apply appearance-none;
   }
 
   input[type='radio'] {

@@ -1,0 +1,5 @@
+query OrderTypes {
+  item_order_type {
+    value
+  }
+}

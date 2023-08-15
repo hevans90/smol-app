@@ -89,7 +89,7 @@ function Toggle({
       <div className="flex items-center">
         <>
           {label && (
-            <Switch.Label className="mr-2 text-md leading-4 text-grey-700">
+            <Switch.Label className="mr-2 text-md leading-4 text-grey-700 hidden lg:block">
               {label}
             </Switch.Label>
           )}

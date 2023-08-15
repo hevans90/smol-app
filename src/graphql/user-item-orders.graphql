@@ -5,6 +5,7 @@ subscription UserItemOrders {
     description
     id
     link_url
+    type
     user {
       id
       poe_name
@@ -23,11 +24,18 @@ subscription UserItemOrders {
 mutation InsertUserItemOrder(
   $description: String!
   $linkUrl: String!
+  $type: item_order_type_enum!
   $userId: uuid!
 ) {
   insert_user_item_order_one(
-    object: { description: $description, link_url: $linkUrl, user_id: $userId }
+    object: {
+      description: $description
+      link_url: $linkUrl
+      user_id: $userId
+      type: $type
+    }
   ) {
+    type
     link_url
     description
     user_id
@@ -38,11 +46,12 @@ mutation InsertUserItemOrder(
 mutation UpdateUserItemOrder(
   $orderId: uuid!
   $description: String
+  $type: item_order_type_enum
   $linkUrl: String
 ) {
   update_user_item_order_by_pk(
     pk_columns: { id: $orderId }
-    _set: { description: $description, link_url: $linkUrl }
+    _set: { description: $description, link_url: $linkUrl, type: $type }
   ) {
     id
     description

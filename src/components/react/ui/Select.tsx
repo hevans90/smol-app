@@ -16,11 +16,13 @@ import {
 import * as React from 'react';
 
 export default function Select({
+  defaultIndex,
   options,
   placeholder = 'Select...',
   showSelected = true,
   onSelectChange,
 }: {
+  defaultIndex?: number;
   options: { value: string; imgSrc?: string }[];
   placeholder?: string;
   showSelected?: boolean;
@@ -28,7 +30,9 @@ export default function Select({
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(
+    defaultIndex ?? null
+  );
 
   const { refs, floatingStyles, context } = useFloating({
     placement: 'bottom-start',

@@ -1,25 +1,33 @@
+import { useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import type { UpdateUserItemOrderMutationVariables } from '../../../graphql-api';
+import type {
+  OrderTypesQuery,
+  UpdateUserItemOrderMutationVariables,
+} from '../../../graphql-api';
 import { Button } from '../ui/Button';
 
 export type OrderFormInputs = Pick<
   UpdateUserItemOrderMutationVariables,
-  'description' | 'linkUrl'
+  'description' | 'linkUrl' | 'type'
 >;
 
 export const OrderForm = ({
+  orderTypes,
   data,
-
   onSubmit,
 }: {
+  orderTypes: OrderTypesQuery;
   data?: OrderFormInputs;
   onSubmit: SubmitHandler<OrderFormInputs>;
 }) => {
   const {
+    watch,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<OrderFormInputs>();
+
+  const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
@@ -35,9 +43,37 @@ export const OrderForm = ({
         />
       </div>
       <div className="flex flex-col mb-2">
+        <label className="mb-1">Type</label>
+        <div className="flex w-1/2 gap-2">
+          <select
+            value={type ?? ''}
+            className="grow"
+            {...register('type', { required: true })}
+          >
+            <option value="">Select a type</option>
+            {orderTypes.item_order_type.map(({ value }) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+          <img
+            className="w-10 h-10 md:w-12 md:h-12 p-1"
+            src={`/order-types/${type}.webp`}
+          />
+        </div>
+        {errors.type && (
+          <span className="text-red-400">Your order requires a type.</span>
+        )}
+      </div>
+      <div className="flex flex-col mb-2">
         <label className="mb-1">Wiki link (optional)</label>
         <input defaultValue={data?.linkUrl ?? ''} {...register('linkUrl')} />
-        {errors.description && <span>Your order requires a description.</span>}
+        {errors.description && (
+          <span className="text-red-400">
+            Your order requires a description.
+          </span>
+        )}
       </div>
       {/* errors will return when field validation fails  */}
 

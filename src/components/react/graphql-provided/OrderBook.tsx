@@ -52,7 +52,7 @@ export const OrderBook = () => {
         ({ fulfilled_by_user }) => !fulfilled_by_user
       );
     }
-  }, [showFulfilled, loading]);
+  }, [showFulfilled, loading, orders]);
 
   const myUserId = useMyHasuraId();
 

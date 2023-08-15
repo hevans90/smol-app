@@ -156,7 +156,7 @@ export const DialogContent = forwardRef<
   return (
     <FloatingPortal>
       <FloatingOverlay
-        className="grid place-items-center bg-gray-700 opacity-90 z-20"
+        className="grid place-items-center bg-gray-700 bg-opacity-90 z-20"
         lockScroll
       >
         <FloatingFocusManager context={floatingContext}>

@@ -1478,7 +1478,7 @@ export type LeaguesQuery = { __typename?: 'query_root', league_type: Array<{ __t
 export type UserItemOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } }> };
+export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
 
 export type InsertUserItemOrderMutationVariables = Exact<{
   description: Scalars['String']['input'];
@@ -1573,6 +1573,11 @@ export const UserItemOrdersDocument = gql`
     user {
       id
       poe_name
+      discord_name
+      discord_user_id
+      discord_avatar
+    }
+    fulfilled_by_user {
       discord_name
       discord_user_id
       discord_avatar

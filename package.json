@@ -26,6 +26,7 @@
     "astro-icon": "^0.8.1",
     "buffer": "^6.0.3",
     "date-fns": "^2.30.0",
+    "discord.js": "^14.12.1",
     "graphql": "^16.7.1",
     "graphql-ws": "^5.14.0",
     "javascript-time-ago": "^2.5.9",

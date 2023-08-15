@@ -22,11 +22,17 @@ import { Spinner } from '../ui/Spinner';
 import { IconTrash } from '@tabler/icons-react';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReactTimeAgo from 'react-time-ago';
+import invariant from 'tiny-invariant';
 import { useMyHasuraId } from '../../../hooks/useMyHasuraId';
 import { Button } from '../ui/Button';
-import { Dialog, DialogContent, DialogHeading } from '../ui/Dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeading,
+} from '../ui/Dialog';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
 TimeAgo.addDefaultLocale(en);
 
@@ -59,15 +65,62 @@ export const OrderBook = () => {
 
   const { id: myDiscordId } = useStore(discordStore);
 
+  const [fulfillModalOpen, setFulfillModalOpen] = useState(false);
+  const [fulfillModalState, setFulfillModalState] = useState<{
+    orderId: string;
+    discordUserId: string;
+    message: string;
+    fulfillment: 'DM' | 'gstash';
+  }>({
+    discordUserId: '',
+    fulfillment: 'gstash',
+    message: '',
+    orderId: '',
+  });
+
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [updateModalState, setUpdateModalState] = useState<
     OrderFormInputs & { orderId: string }
   >();
 
-  useEffect(() => {
-    console.log('order book', updateModalOpen);
-  }, [updateModalOpen]);
+  const handleOrderFulfillment = async () => {
+    invariant(fulfillModalState);
+    await notifyDiscordUser(fulfillModalState);
+
+    await fulfillItemOrder({
+      variables: {
+        fulfilledBy: myUserId,
+        orderId: fulfillModalState.orderId,
+      },
+    });
+
+    setFulfillModalOpen(false);
+  };
+
+  const notifyDiscordUser = async ({
+    discordUserId,
+    message,
+    fulfillment,
+  }: {
+    discordUserId: string;
+    message: string;
+    fulfillment: 'DM' | 'gstash';
+  }) =>
+    fetch(`${window.location.origin}/api/discord-notify-user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        discordUserId,
+        message: `your order for \`${message}\` has been fulfilled by <@${myDiscordId}>. ${
+          fulfillment === 'DM'
+            ? 'They will message you.'
+            : 'It will be in Guild Stash 1 shortly!'
+        }`,
+      }),
+    });
 
   if (loading) return <Spinner />;
   return (
@@ -80,12 +133,8 @@ export const OrderBook = () => {
                 <img src="/discord-logo.svg" className="h-8" />
               </div>
             </th>
-            <th className="w-44 hidden lg:table-cell">
-              <div className="flex items-center gap-2 mb-2">
-                <img src="/poe-logo-original.png" className="h-12" />
-              </div>
-            </th>
-            <th>orders</th>
+            <th className="w-44 ">fulfilled by</th>
+            <th className="w-96"></th>
             <th className="hidden lg:table-cell">updated</th>
             <th>
               <Button
@@ -97,15 +146,30 @@ export const OrderBook = () => {
               </Button>
             </th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {orders?.user_item_order.map(
-            ({ description, link_url, updated_at, id: orderId, user }, i) => {
+            (
+              {
+                description,
+                link_url,
+                updated_at,
+                id: orderId,
+                user,
+                fulfilled_by_user,
+              },
+              i
+            ) => {
               const isMe = user.discord_user_id === myDiscordId;
+              const orderFulfilled = !!fulfilled_by_user;
 
               return (
-                <tr key={i}>
+                <tr
+                  key={i}
+                  className={orderFulfilled ? 'bg-gray-900 opacity-60' : ''}
+                >
                   <td>
                     <div
                       className={`flex items-center gap-2 my-2 ${
@@ -135,19 +199,31 @@ export const OrderBook = () => {
                       )}
                     </div>
                   </td>
-                  <td className="hidden lg:table-cell">
+                  <td>
                     <div
                       className={`flex items-center gap-2 my-2 ${
                         i === 0 && 'mt-4'
                       }`}
                     >
-                      <a
-                        className="hover:text-primary-500 flex items-center my-1"
-                        href={`https://www.pathofexile.com/account/view-profile/${user.poe_name}`}
-                        target="_blank"
-                      >
-                        {user?.poe_name}
-                      </a>
+                      {fulfilled_by_user && (
+                        <>
+                          {fulfilled_by_user.discord_avatar ? (
+                            <img
+                              className="rounded-full h-8 w-8"
+                              src={`https://cdn.discordapp.com/avatars/${fulfilled_by_user.discord_user_id}/${fulfilled_by_user.discord_avatar}.png`}
+                            />
+                          ) : (
+                            <div className="rounded-full bg-discord-500 h-8 w-8 flex items-center justify-center">
+                              <img src="/discord-logo.svg" className="h-4" />
+                            </div>
+                          )}
+
+                          {fulfilled_by_user.discord_name}
+                          {isMe && (
+                            <div className="text-primary-500">(you)</div>
+                          )}
+                        </>
+                      )}
                     </div>
                   </td>
                   <td>
@@ -164,7 +240,7 @@ export const OrderBook = () => {
                     <ReactTimeAgo date={new Date(updated_at)} locale="en-GB" />
                   </td>
                   <td className="text-center">
-                    {isMe && (
+                    {isMe && !orderFulfilled && (
                       <>
                         <Button
                           onClick={() => {
@@ -182,7 +258,7 @@ export const OrderBook = () => {
                     )}
                   </td>
                   <td>
-                    {isMe && (
+                    {isMe && !orderFulfilled && (
                       <button
                         className="p-1 opacity-50 rounded-full bg-primary-900  text-primary-500 hover:text-primary-300 hover:opacity-75"
                         onClick={() =>
@@ -193,6 +269,25 @@ export const OrderBook = () => {
                       >
                         <IconTrash size={25} />
                       </button>
+                    )}
+                  </td>
+                  <td>
+                    {!isMe && user.discord_user_id && !orderFulfilled && (
+                      <Button
+                        onClick={() => {
+                          invariant(user.discord_user_id);
+                          invariant(description);
+                          setFulfillModalOpen(true);
+                          setFulfillModalState({
+                            discordUserId: user.discord_user_id,
+                            orderId,
+                            message: description,
+                            fulfillment: 'gstash',
+                          });
+                        }}
+                      >
+                        Fulfill
+                      </Button>
                     )}
                   </td>
                 </tr>
@@ -233,6 +328,47 @@ export const OrderBook = () => {
               setCreateModalOpen(false);
             }}
           />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={fulfillModalOpen} onOpenChange={setFulfillModalOpen}>
+        <DialogContent>
+          <DialogHeading>Fulfill Order</DialogHeading>
+          <DialogDescription className="mb-4">
+            You are about to fulfill an order for{' '}
+            <span className="text-primary-500">
+              {fulfillModalState?.message}
+            </span>
+          </DialogDescription>
+
+          <label className="mb-2 cursor-pointer hover:text-primary-500">
+            <input
+              type="radio"
+              checked={fulfillModalState?.fulfillment === 'DM'}
+              onChange={() =>
+                setFulfillModalState({
+                  ...fulfillModalState,
+                  fulfillment: 'DM',
+                })
+              }
+            />
+            <span className="ml-2">Direct Message</span>
+          </label>
+          <label className="mb-4 cursor-pointer hover:text-primary-500">
+            <input
+              type="radio"
+              checked={fulfillModalState?.fulfillment === 'gstash'}
+              onChange={() =>
+                setFulfillModalState({
+                  ...fulfillModalState,
+                  fulfillment: 'gstash',
+                })
+              }
+            />
+            <span className="ml-2">Guild Stash 1</span>
+          </label>
+
+          <Button onClick={() => handleOrderFulfillment()}>Fulfill</Button>
         </DialogContent>
       </Dialog>
     </>

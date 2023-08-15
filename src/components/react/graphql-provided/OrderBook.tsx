@@ -219,7 +219,8 @@ export const OrderBook = () => {
                           )}
 
                           {fulfilled_by_user.discord_name}
-                          {isMe && (
+                          {fulfilled_by_user.discord_user_id ===
+                            myDiscordId && (
                             <div className="text-primary-500">(you)</div>
                           )}
                         </>

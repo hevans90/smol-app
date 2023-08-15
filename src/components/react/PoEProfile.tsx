@@ -6,7 +6,7 @@ const PoEProfile = () => {
 
   return (
     <>
-      <h2 className="text-xl text-primary-500">
+      <h2 className="text-primary-500">
         {token ? 'PoE Profile' : 'Login via PoE to load your profile'}
       </h2>
       <div className="my-4 w-full">

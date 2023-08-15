@@ -1,0 +1,67 @@
+subscription UserItemOrders {
+  user_item_order {
+    created_at
+    updated_at
+    description
+    id
+    link_url
+    user {
+      id
+      poe_name
+      discord_name
+      discord_user_id
+      discord_avatar
+    }
+  }
+}
+
+mutation InsertUserItemOrder(
+  $description: String!
+  $linkUrl: String!
+  $userId: uuid!
+) {
+  insert_user_item_order_one(
+    object: { description: $description, link_url: $linkUrl, user_id: $userId }
+  ) {
+    link_url
+    description
+    user_id
+    id
+  }
+}
+
+mutation UpdateUserItemOrder(
+  $orderId: uuid!
+  $description: String
+  $linkUrl: String
+) {
+  update_user_item_order_by_pk(
+    pk_columns: { id: $orderId }
+    _set: { description: $description, link_url: $linkUrl }
+  ) {
+    id
+    description
+    link_url
+    user_id
+  }
+}
+mutation FulfillUserItemOrder($orderId: uuid!, $fulfilledBy: uuid!) {
+  update_user_item_order_by_pk(
+    pk_columns: { id: $orderId }
+    _set: { fulfilled_by: $fulfilledBy }
+  ) {
+    id
+    description
+    link_url
+    user_id
+  }
+}
+
+mutation DeleteUserItemOrder($orderId: uuid!) {
+  delete_user_item_order_by_pk(id: $orderId) {
+    id
+    description
+    link_url
+    user_id
+  }
+}

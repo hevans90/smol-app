@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  a {
+    @apply text-primary-500 underline hover:text-primary-300 focus-visible:border-primary-800 focus-visible:outline-primary-500;
+  }
+
+  h1 {
+    @apply text-2xl mb-4;
+  }
+  h2 {
+    @apply text-xl mb-3;
+  }
+
+  button {
+    @apply focus-visible:border-primary-800 focus-visible:outline-primary-500;
+  }
+
+  input {
+    @apply rounded-sm bg-gray-600 p-2 text-lg text-gray-700 outline-none outline-[3px] outline-offset-0 duration-200 ease-in-out focus-visible:border-primary-800 focus-visible:outline-primary-500 text-primary-500;
+  }
+}
+
 @font-face {
   font-family: 'fontin';
   src: url('/fonts/fontin/Fontin-Regular.otf');

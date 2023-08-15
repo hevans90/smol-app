@@ -2,35 +2,47 @@
 type Route = {
   path: string;
   display: string;
+  home?: boolean;
 };
 
 let routes: Route[] = [
   {
+    path: '/',
+    display: 'Home',
+    home: true,
+  },
+  {
     path: '/poe-profile',
     display: 'PoE Profile',
+  },
+  {
+    path: '/order-book',
+    display: 'Orders',
   },
 ];
 
 const currentPath = Astro.url.pathname
   .split('/')
   .filter((x) => !!x)
-  .pop();
+  .pop() as string;
 
-routes = routes.filter(
-  // !currentPath = home
-  ({ path }) => !currentPath || !path.includes(currentPath)
-);
+routes = routes.filter(({ path, home }) => {
+  if (home && !currentPath) {
+    return false;
+  }
+  return !path.includes(currentPath);
+});
 ---
 
 <div
-  class="fixed bottom-0 md:bottom-auto left-0 md:mx-auto w-full md:w-fit md:inset-x-0 md:top-3 z-10"
+  class="fixed bottom-0 md:bottom-auto left-0 md:mx-auto w-full md:w-fit md:inset-x-0 md:top-0 z-10"
 >
-  <nav aria-label="Navigation" class="flex gap-2 text-3xl md:text-xl">
+  <nav aria-label="Navigation" class="flex text-3xl md:text-xl">
     {
       routes.map(({ path, display }) => (
         <a
           href={path}
-          class="hover:text-primary-500 bg-gray-900 p-4 md:p-2 hover:bg-gray-800 grow basis-0 md:basis-auto text-center"
+          class="hover:text-primary-500 bg-gray-900 p-4 md:p-3 hover:bg-gray-800 grow basis-0 md:basis-auto text-center border-primary-800 border-r-[1px] border-b-[1px] first:border-l-[1px]"
         >
           {display}
         </a>

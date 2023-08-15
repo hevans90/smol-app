@@ -104,7 +104,7 @@ const PoEAuth = () => {
         <div className="text-primary-500 hidden md:block">{username}</div>
         <button
           onClick={logout}
-          className="text-end mr-2 grow hover:text-primary-300"
+          className="bg-gray-950 hover:bg-gray-950 text-end mr-2 grow hover:text-primary-300"
         >
           Logout
         </button>

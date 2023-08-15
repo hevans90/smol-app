@@ -82,7 +82,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
         </div>
         <button
           onClick={logout}
-          className="text-end mr-2 grow hover:text-primary-300"
+          className="text-end mr-2 grow hover:text-primary-300 bg-gray-950 hover:bg-gray-950"
         >
           Logout
         </button>

@@ -22,7 +22,7 @@ import { Spinner } from '../ui/Spinner';
 import { IconTrash } from '@tabler/icons-react';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import invariant from 'tiny-invariant';
 import { useMyHasuraId } from '../../../hooks/useMyHasuraId';
@@ -33,6 +33,7 @@ import {
   DialogDescription,
   DialogHeading,
 } from '../ui/Dialog';
+import { Toggle } from '../ui/Toggle';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
 TimeAgo.addDefaultLocale(en);
 
@@ -40,6 +41,18 @@ export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
     UserItemOrdersDocument
   );
+
+  const [showFulfilled, setShowFulfilled] = useState(true);
+
+  const filteredOrders = useMemo(() => {
+    if (showFulfilled) {
+      return orders?.user_item_order;
+    } else {
+      return orders?.user_item_order.filter(
+        ({ fulfilled_by_user }) => !fulfilled_by_user
+      );
+    }
+  }, [showFulfilled, loading]);
 
   const myUserId = useMyHasuraId();
 
@@ -125,6 +138,11 @@ export const OrderBook = () => {
   if (loading) return <Spinner />;
   return (
     <>
+      <Toggle
+        value={showFulfilled}
+        onChange={() => setShowFulfilled(!showFulfilled)}
+        label="Show fulfilled orders"
+      />
       <table className="my-4 table-auto w-full">
         <thead>
           <tr className="border-b-primary-800 border-b-[1px]">
@@ -150,7 +168,7 @@ export const OrderBook = () => {
           </tr>
         </thead>
         <tbody>
-          {orders?.user_item_order.map(
+          {filteredOrders?.map(
             (
               {
                 description,

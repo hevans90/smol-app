@@ -9,7 +9,7 @@ const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 
 <Layout title="Smol app">
   <main class="flex flex-col items-start">
-    <img src={svg} alt="logo" class="w-32 md:w-64 mb-8" />
+    <img src={svg} alt="logo" class="w-48 mb-8" />
     <HomePage hasuraUri={hasuraUri} client:only="react" />
   </main>
 </Layout>

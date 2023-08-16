@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CharacterLayout from '../layouts/CharacterLayout.astro';
+import { GearSectionComponent } from '../components/react/GearSectionComponent';
+import PoBInputComponent from '../components/react/PoBInputComponent';
+
+import {
+  getHelmet,
+  getBodyArmour,
+  getGloves,
+  getBoots,
+getWeapon,
+getRing,
+getAmulet,
+getBelt
+} from '../utils/gearUtils';
+---
+
+<Layout title="Gear page">
+  <main class="flex flex-col items-start">
+    <CharacterLayout title="Character Equipment">
+      <GearSectionComponent slot="helmet" gear={getHelmet()} />
+      <GearSectionComponent slot="body-armour" gear={getBodyArmour()} />
+      <GearSectionComponent slot="belt" gear={getBelt()} />
+      <GearSectionComponent slot="gloves" gear={getGloves()} />
+      <GearSectionComponent slot="boots" gear={getBoots()} />
+      <GearSectionComponent slot="weapon-1" gear={getWeapon(1)} />
+      <GearSectionComponent slot="weapon-2" gear={getWeapon(2)} />
+      <GearSectionComponent slot="ring-1" gear={getRing(1)} />
+      <GearSectionComponent slot="ring-2" gear={getRing(2)} />
+      <GearSectionComponent slot="amulet" gear={getAmulet()} />
+      <!-- Include additional slots as needed -->
+      <!-- Include additional slots as needed -->
+      <div>
+        <h2>Import your Path of Building:</h2>
+        <PoBInputComponent />
+        <!-- Other actions or information here, like the PoB import button -->
+      </div>
+    </CharacterLayout>
+  </main>
+</Layout>

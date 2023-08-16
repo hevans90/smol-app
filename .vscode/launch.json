@@ -2,10 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Node.js - Debug Current File",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}.js",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ]
+    },
+    {
       "command": "./node_modules/.bin/astro dev",
       "name": "Development server",
       "request": "launch",
       "type": "node-terminal"
-    }
+    },
   ]
 }

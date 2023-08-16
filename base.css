@@ -39,6 +39,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'fontin';
   src: url('/fonts/fontin/Fontin-Italic.otf');
@@ -46,10 +47,141 @@
   font-style: italic;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'fontin';
   src: url('/fonts/fontin/Fontin-Bold.otf');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
+}
+
+
+
+.gear-section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item-details {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.item-details button {
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.pob-input-component textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.pob-input-component button {
+  padding: 10px 20px;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* .character-equipment {
+  display: grid;
+  grid-template-areas:
+    "head head"
+    "gloves body"
+    "boots boots";
+  grid-gap: 10px;
+  width: 300px;
+} */
+
+.gear-slot {
+  background: #333;
+  /* Dark background, like the game's UI */
+  color: #fff;
+  /* White text */
+  padding: 10px;
+  border: 2px solid #666;
+  position: relative;
+}
+
+/* .head-slot { grid-area: head; }
+.body-slot { grid-area: body; }
+.gloves-slot { grid-area: gloves; }
+.boots-slot { grid-area: boots; } */
+
+.character-equipment {
+  display: grid;
+  grid-template-columns: repeat(8, 60px);
+  grid-template-rows: repeat(6, 60px);
+  gap: 5px 5px;
+  grid-auto-flow: row;
+  overflow: hidden; /* Hide any content that overflows the element's box */
+  text-overflow: ellipsis; /* Display an ellipsis (...) when the text overflows */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  grid-template-areas:
+    "weapon-1 weapon-1 . helmet helmet . weapon-2 weapon-2"
+    "weapon-1 weapon-1 . helmet helmet . weapon-2 weapon-2"
+    "weapon-1 weapon-1 . body-armour body-armour amulet weapon-2 weapon-2"
+    ". . ring-1 body-armour body-armour ring-2 . ."
+    ". gloves gloves body-armour body-armour boots boots ."
+    ". gloves gloves belt belt boots boots .";
+}
+
+#weapon-1 {
+  grid-area: weapon-1;
+}
+
+#weapon-2 {
+  grid-area: weapon-2;
+}
+
+#helmet {
+  grid-area: helmet;
+}
+
+#body-armour {
+  grid-area: body-armour;
+}
+
+#belt {
+  grid-area: belt;
+}
+
+#boots {
+  grid-area: boots;
+}
+
+#gloves {
+  grid-area: gloves;
+}
+
+#ring-1 {
+  grid-area: ring-1;
+}
+
+#ring-2 {
+  grid-area: ring-2;
+}
+
+#amulet {
+  grid-area: amulet;
+}
+
+/* Common styles for all equipment slots */
+.character-equipment > div {
+  background: #333; /* Example background color */
+  border: 1px solid #fff; /* Example border */
+  overflow: hidden; /* Hide any content that overflows the element's box */
+  text-overflow: ellipsis; /* Display an ellipsis (...) when the text overflows */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
 }

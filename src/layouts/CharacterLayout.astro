@@ -1,0 +1,45 @@
+---
+---
+
+<div class="character-layout">
+  <div class="character-header">
+    <h1>{Astro.props.title}</h1>
+  </div>
+  <div class="character-equipment">
+    <div class="character-slot" id="weapon-1">
+      <slot name="weapon-1" />
+    </div>
+    <div class="character-slot" id="weapon-2">
+      <slot name="weapon-2" />
+    </div>
+    <div class="character-slot" id="helmet">
+      <slot name="helmet" />
+    </div>
+    <div class="character-slot" id="body-armour">
+      <slot name="body-armour" />
+    </div>
+    <div class="character-slot" id="belt">
+      <slot name="belt" />
+    </div>
+    <div class="character-slot" id="boots">
+      <slot name="boots" />
+    </div>
+    <div class="character-slot" id="gloves">
+      <slot name="gloves" />
+    </div>
+    <div class="character-slot" id="ring-1">
+      <slot name="ring-1" />
+    </div>
+    <div class="character-slot" id="ring-2">
+      <slot name="ring-2" />
+    </div>
+    <div class="character-slot" id="amulet">
+      <slot name="amulet" />
+    </div>
+    
+    <!-- Add additional slots as needed -->
+  </div>
+  <div class="character-actions">
+    <slot />
+  </div>
+</div>

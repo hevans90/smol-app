@@ -49,7 +49,7 @@ export const UserListFilters = ({
             {isLeagueFilter(filter) ? (
               <button
                 onClick={() => deleteLeagueFilter(i)}
-                className="cursor-pointer"
+                className="cursor-pointer bg-gray-900"
               >
                 <img
                   title={filter.league}
@@ -69,9 +69,9 @@ export const UserListFilters = ({
           <div className="grow flex justify-end">
             <button
               onClick={clearLeagueFilters}
-              className="hover:text-primary-500 hover:bg-gray-800 p-1 flex items-center"
+              className="hover:text-primary-500 hover:bg-gray-800 bg-gray-900 p-1 flex items-center"
             >
-              <IconTrash className="w-8 h-8 md:w-10 md:h-10" />
+              <IconTrash className="w-8 h-8 " />
             </button>
           </div>
         ) : null}

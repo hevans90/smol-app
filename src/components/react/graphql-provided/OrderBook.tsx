@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import { useStore } from '@nanostores/react';
+import { search as fuzzySearch } from 'fast-fuzzy';
 import { discordStore } from '../../../_state/discord.state';
+
 import {
   DeleteUserItemOrderDocument,
   DeleteUserItemOrderMutation,
@@ -22,13 +24,14 @@ import {
 } from '../../../graphql-api';
 import { Spinner } from '../ui/Spinner';
 
-import { IconTrash } from '@tabler/icons-react';
+import { IconSearch, IconTrash } from '@tabler/icons-react';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
 import { useMemo, useState } from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import invariant from 'tiny-invariant';
 import {
+  orderBookFuzzySearchStore,
   orderBookShowFulfilledStore,
   orderBookTypeFiltersStore,
 } from '../../../_state/order-book';
@@ -51,6 +54,7 @@ export const OrderBook = () => {
 
   const { data: orderTypes } = useQuery<OrderTypesQuery>(OrderTypesDocument);
 
+  const fuzzyQuery = useStore(orderBookFuzzySearchStore);
   const showFulfilled = useStore(orderBookShowFulfilledStore);
   const typeFilters = useStore(orderBookTypeFiltersStore);
 
@@ -68,9 +72,19 @@ export const OrderBook = () => {
 
       return enabledOrderTypes.includes(type);
     });
+    if (result && fuzzyQuery) {
+      result = fuzzySearch(fuzzyQuery, result, {
+        keySelector: (order) => [
+          order.description as string,
+          order.user.discord_name as string,
+        ],
+        threshold: 0.9,
+        ignoreSymbols: false,
+      });
+    }
 
     return result;
-  }, [showFulfilled, typeFilters, loading, orders]);
+  }, [showFulfilled, typeFilters, loading, orders, fuzzyQuery]);
 
   const { data: userProfile, loading: userLoading } = useMyHasuraUser();
 
@@ -160,6 +174,18 @@ export const OrderBook = () => {
   if (loading || userLoading) return <Spinner />;
   return (
     <>
+      <div className="flex items-center mb-2 gap-6">
+        <h1 className="mb-0">Item Orders</h1>
+        <div className="flex items-center gap-2">
+          <IconSearch />
+          <input
+            placeholder="search by user or description"
+            defaultValue={fuzzyQuery}
+            onChange={(e) => orderBookFuzzySearchStore.set(e.target.value)}
+            className="border-primary-800 bg-gray-800 grow border-[1px] min-w-[10rem] md:min-w-[15rem] lg:min-w-[25rem] "
+          ></input>
+        </div>
+      </div>
       <div className="flex gap-2">
         <Button
           className="text-xl h-auto"
@@ -180,7 +206,7 @@ export const OrderBook = () => {
               </div>
             </th>
             <th className="w-20">type</th>
-            <th className="w-96"></th>
+            <th className="w-96">description</th>
             <th className="hidden lg:table-cell">updated</th>
             <th></th>
             <th></th>
@@ -354,6 +380,13 @@ export const OrderBook = () => {
                 </tr>
               );
             }
+          )}
+          {!filteredOrders?.length && (
+            <tr>
+              <td className="text-lg">
+                <div className="mt-4">No orders found</div>
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

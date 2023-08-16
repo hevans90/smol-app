@@ -8,8 +8,7 @@ const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 
 <Layout title="Item Orders">
   <main class="flex flex-col items-start">
-    <img src={svg} alt="logo" class="w-32 md:w-64 mb-8" />
-    <h1>Item Orders</h1>
+    <img src={svg} alt="logo" class="w-32 mb-8" />
     <OrdersPage hasuraUri={hasuraUri} client:only="react" />
   </main>
 </Layout>

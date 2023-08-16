@@ -1854,7 +1854,7 @@ export const OrderTypesDocument = gql`
 export type OrderTypesQueryResult = Apollo.QueryResult<OrderTypesQuery, OrderTypesQueryVariables>;
 export const UserItemOrdersDocument = gql`
     subscription UserItemOrders {
-  user_item_order {
+  user_item_order(order_by: {updated_at: desc}) {
     created_at
     updated_at
     description

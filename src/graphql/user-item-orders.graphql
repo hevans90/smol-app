@@ -1,5 +1,5 @@
 subscription UserItemOrders {
-  user_item_order {
+  user_item_order(order_by: { updated_at: desc }) {
     created_at
     updated_at
     description

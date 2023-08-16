@@ -1,5 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { poeStore } from '../_state/poe.state';
 
 type PoEProfile = {
@@ -32,6 +33,7 @@ export const usePoEProfile = () => {
 
     setLoading(false);
     setProfile(data);
+    toast.success('Profile loaded');
   };
 
   useEffect(() => {

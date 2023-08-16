@@ -7,6 +7,7 @@ subscription UserItemOrders {
     link_url
     type
     user {
+      guild
       id
       poe_name
       discord_name

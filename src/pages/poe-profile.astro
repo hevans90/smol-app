@@ -1,16 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-import PoECharacters from '../components/react/PoECharacters';
-import PoEProfile from '../components/react/PoEProfile';
+import { ProfilePage } from '../components/ProfilePage';
 import svg from '/smol-logo.svg';
+
+const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="PoE Profile">
   <main class="flex flex-col items-start">
     <img src={svg} alt="logo" class="w-32 md:w-64 mb-8" />
 
-    <PoEProfile client:load />
-    <PoECharacters client:load />
+    <ProfilePage hasuraUri={hasuraUri} client:only="react" />
   </main>
 </Layout>

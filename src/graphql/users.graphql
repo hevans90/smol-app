@@ -1,5 +1,6 @@
 fragment UserFields on user {
   id
+  guild
   poe_name
   poe_user_id
   discord_name
@@ -17,8 +18,21 @@ query Users {
   }
 }
 
+query UserById($id: uuid!) {
+  user_by_pk(id: $id) {
+    ...UserFields
+  }
+}
+
 subscription UsersSub {
   user(order_by: { discord_name: asc }) {
     ...UserFields
+  }
+}
+
+mutation SetMyGuild($userId: uuid!, $guild: String!) {
+  update_user_by_pk(pk_columns: { id: $userId }, _set: { guild: $guild }) {
+    id
+    guild
   }
 }

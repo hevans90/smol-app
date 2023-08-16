@@ -1,8 +1,10 @@
 import { ApolloProvider } from '@apollo/client';
 import { ReactNode, useState } from 'react';
+import { Toaster, resolveValue, toast } from 'react-hot-toast';
 import { apolloBootstrapper } from './apollo-bootstrapper';
 
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
+import { Toast } from '../components/react/ui/Toast';
 
 const GraphQLAppWrapper = ({
   uri,
@@ -28,6 +30,13 @@ const GraphQLAppWrapper = ({
     <ApolloProvider
       client={apolloBootstrapper({ uri, token: hasuraAccessToken })}
     >
+      <Toaster position="bottom-center" toastOptions={{ duration: 3000 }}>
+        {(t) => (
+          <Toast onClose={() => toast.dismiss(t.id)} icon={t.icon}>
+            {resolveValue(t.message, t)}
+          </Toast>
+        )}
+      </Toaster>
       {children}
     </ApolloProvider>
   );

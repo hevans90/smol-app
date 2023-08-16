@@ -32,7 +32,7 @@ import {
   orderBookShowFulfilledStore,
   orderBookTypeFiltersStore,
 } from '../../../_state/order-book';
-import { useMyHasuraId } from '../../../hooks/useMyHasuraId';
+import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import { Button } from '../ui/Button';
 import {
   Dialog,
@@ -72,7 +72,7 @@ export const OrderBook = () => {
     return result;
   }, [showFulfilled, typeFilters, loading, orders]);
 
-  const myUserId = useMyHasuraId();
+  const { data: userProfile, loading: userLoading } = useMyHasuraUser();
 
   const [createItemOrder] = useMutation<
     InsertUserItemOrderMutation,
@@ -99,14 +99,18 @@ export const OrderBook = () => {
   const [fulfillModalOpen, setFulfillModalOpen] = useState(false);
   const [fulfillModalState, setFulfillModalState] = useState<{
     orderId: string;
+    discordUserName?: string | null;
     discordUserId: string;
     message: string;
     fulfillment: 'DM' | 'gstash';
+    inSmolGuild: boolean;
   }>({
+    discordUserName: '',
     discordUserId: '',
     fulfillment: 'gstash',
     message: '',
     orderId: '',
+    inSmolGuild: false,
   });
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -121,7 +125,7 @@ export const OrderBook = () => {
 
     await fulfillItemOrder({
       variables: {
-        fulfilledBy: myUserId,
+        fulfilledBy: userProfile?.id as string,
         orderId: fulfillModalState.orderId,
       },
     });
@@ -153,7 +157,7 @@ export const OrderBook = () => {
       }),
     });
 
-  if (loading) return <Spinner />;
+  if (loading || userLoading) return <Spinner />;
   return (
     <>
       <div className="flex gap-2">
@@ -198,13 +202,20 @@ export const OrderBook = () => {
               },
               i
             ) => {
+              const inSmolGuild = user.guild === 'Smol Groop Found';
               const isMe = user.discord_user_id === myDiscordId;
               const orderFulfilled = !!fulfilled_by_user;
 
               return (
                 <tr
                   key={i}
-                  className={orderFulfilled ? 'bg-gray-900 opacity-60' : ''}
+                  className={
+                    orderFulfilled
+                      ? 'bg-gray-900 opacity-60'
+                      : inSmolGuild
+                      ? 'bg-primary-900 bg-opacity-20'
+                      : ''
+                  }
                 >
                   <td>
                     <div
@@ -299,10 +310,12 @@ export const OrderBook = () => {
                           invariant(description);
                           setFulfillModalOpen(true);
                           setFulfillModalState({
+                            discordUserName: user?.discord_name ?? null,
                             discordUserId: user.discord_user_id,
                             orderId,
                             message: description,
-                            fulfillment: 'gstash',
+                            fulfillment: inSmolGuild ? 'gstash' : 'DM',
+                            inSmolGuild,
                           });
                         }}
                       >
@@ -377,7 +390,7 @@ export const OrderBook = () => {
                     type: data.type ?? Item_Order_Type_Enum.Other,
                     description: data.description as string,
                     linkUrl: data.linkUrl ?? '',
-                    userId: myUserId,
+                    userId: userProfile?.id as string,
                   },
                 });
                 setCreateModalOpen(false);
@@ -390,10 +403,16 @@ export const OrderBook = () => {
       <Dialog open={fulfillModalOpen} onOpenChange={setFulfillModalOpen}>
         <DialogContent>
           <DialogHeading>Fulfill Order</DialogHeading>
-          <DialogDescription className="mb-4">
-            You are about to fulfill an order for{' '}
+
+          <DialogDescription className="mb-4 max-w-xl">
+            You are about to fulfill the order{' '}
             <span className="text-primary-500">
               {fulfillModalState?.message}
+            </span>{' '}
+            for
+            <span className="text-green-500">
+              {' '}
+              {fulfillModalState.discordUserName}
             </span>
           </DialogDescription>
 
@@ -413,6 +432,7 @@ export const OrderBook = () => {
           <label className="mb-4 cursor-pointer hover:text-primary-500">
             <input
               type="radio"
+              disabled={!fulfillModalState.inSmolGuild}
               checked={fulfillModalState?.fulfillment === 'gstash'}
               onChange={() =>
                 setFulfillModalState({
@@ -421,8 +441,19 @@ export const OrderBook = () => {
                 })
               }
             />
-            <span className="ml-2">Guild Stash 1</span>
+            <span
+              className={`ml-2 ${
+                !fulfillModalState.inSmolGuild && 'text-primary-900'
+              }`}
+            >
+              Guild Stash 1
+            </span>
           </label>
+          {!fulfillModalState.inSmolGuild && (
+            <span className="text-red-400 mb-1">
+              {fulfillModalState.discordUserName} is not in the Smol Guild
+            </span>
+          )}
 
           <Button onClick={() => handleOrderFulfillment()}>Fulfill</Button>
         </DialogContent>

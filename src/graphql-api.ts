@@ -1045,6 +1045,7 @@ export type User = {
   discord_avatar?: Maybe<Scalars['String']['output']>;
   discord_name?: Maybe<Scalars['String']['output']>;
   discord_user_id?: Maybe<Scalars['String']['output']>;
+  guild?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   poe_name?: Maybe<Scalars['String']['output']>;
   poe_user_id?: Maybe<Scalars['String']['output']>;
@@ -1128,6 +1129,7 @@ export type User_Bool_Exp = {
   discord_avatar?: InputMaybe<String_Comparison_Exp>;
   discord_name?: InputMaybe<String_Comparison_Exp>;
   discord_user_id?: InputMaybe<String_Comparison_Exp>;
+  guild?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   poe_name?: InputMaybe<String_Comparison_Exp>;
   poe_user_id?: InputMaybe<String_Comparison_Exp>;
@@ -1152,6 +1154,7 @@ export type User_Insert_Input = {
   discord_avatar?: InputMaybe<Scalars['String']['input']>;
   discord_name?: InputMaybe<Scalars['String']['input']>;
   discord_user_id?: InputMaybe<Scalars['String']['input']>;
+  guild?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   poe_name?: InputMaybe<Scalars['String']['input']>;
   poe_user_id?: InputMaybe<Scalars['String']['input']>;
@@ -1609,6 +1612,7 @@ export type User_Max_Fields = {
   discord_avatar?: Maybe<Scalars['String']['output']>;
   discord_name?: Maybe<Scalars['String']['output']>;
   discord_user_id?: Maybe<Scalars['String']['output']>;
+  guild?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   poe_name?: Maybe<Scalars['String']['output']>;
   poe_user_id?: Maybe<Scalars['String']['output']>;
@@ -1620,6 +1624,7 @@ export type User_Min_Fields = {
   discord_avatar?: Maybe<Scalars['String']['output']>;
   discord_name?: Maybe<Scalars['String']['output']>;
   discord_user_id?: Maybe<Scalars['String']['output']>;
+  guild?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   poe_name?: Maybe<Scalars['String']['output']>;
   poe_user_id?: Maybe<Scalars['String']['output']>;
@@ -1653,6 +1658,7 @@ export type User_Order_By = {
   discord_avatar?: InputMaybe<Order_By>;
   discord_name?: InputMaybe<Order_By>;
   discord_user_id?: InputMaybe<Order_By>;
+  guild?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   poe_name?: InputMaybe<Order_By>;
   poe_user_id?: InputMaybe<Order_By>;
@@ -1674,6 +1680,8 @@ export enum User_Select_Column {
   /** column name */
   DiscordUserId = 'discord_user_id',
   /** column name */
+  Guild = 'guild',
+  /** column name */
   Id = 'id',
   /** column name */
   PoeName = 'poe_name',
@@ -1686,6 +1694,7 @@ export type User_Set_Input = {
   discord_avatar?: InputMaybe<Scalars['String']['input']>;
   discord_name?: InputMaybe<Scalars['String']['input']>;
   discord_user_id?: InputMaybe<Scalars['String']['input']>;
+  guild?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   poe_name?: InputMaybe<Scalars['String']['input']>;
   poe_user_id?: InputMaybe<Scalars['String']['input']>;
@@ -1704,6 +1713,7 @@ export type User_Stream_Cursor_Value_Input = {
   discord_avatar?: InputMaybe<Scalars['String']['input']>;
   discord_name?: InputMaybe<Scalars['String']['input']>;
   discord_user_id?: InputMaybe<Scalars['String']['input']>;
+  guild?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   poe_name?: InputMaybe<Scalars['String']['input']>;
   poe_user_id?: InputMaybe<Scalars['String']['input']>;
@@ -1717,6 +1727,8 @@ export enum User_Update_Column {
   DiscordName = 'discord_name',
   /** column name */
   DiscordUserId = 'discord_user_id',
+  /** column name */
+  Guild = 'guild',
   /** column name */
   Id = 'id',
   /** column name */
@@ -1758,7 +1770,7 @@ export type OrderTypesQuery = { __typename?: 'query_root', item_order_type: Arra
 export type UserItemOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, type: Item_Order_Type_Enum, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
+export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, type: Item_Order_Type_Enum, user: { __typename?: 'user', guild?: string | null, id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
 
 export type InsertUserItemOrderMutationVariables = Exact<{
   description: Scalars['String']['input'];
@@ -1810,21 +1822,37 @@ export type DeleteUserLeagueMechanicMutationVariables = Exact<{
 
 export type DeleteUserLeagueMechanicMutation = { __typename?: 'mutation_root', delete_user_league_mechanic_by_pk?: { __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum, user_id: string } | null };
 
-export type UserFieldsFragment = { __typename?: 'user', id: string, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> };
+export type UserFieldsFragment = { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'query_root', user: Array<{ __typename?: 'user', id: string, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> }> };
+export type UsersQuery = { __typename?: 'query_root', user: Array<{ __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> }> };
+
+export type UserByIdQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type UserByIdQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> } | null };
 
 export type UsersSubSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersSubSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', id: string, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> }> };
+export type UsersSubSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> }> };
+
+export type SetMyGuildMutationVariables = Exact<{
+  userId: Scalars['uuid']['input'];
+  guild: Scalars['String']['input'];
+}>;
+
+
+export type SetMyGuildMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename?: 'user', id: string, guild?: string | null } | null };
 
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on user {
   id
+  guild
   poe_name
   poe_user_id
   discord_name
@@ -1862,6 +1890,7 @@ export const UserItemOrdersDocument = gql`
     link_url
     type
     user {
+      guild
       id
       poe_name
       discord_name
@@ -1970,6 +1999,14 @@ export const UsersDocument = gql`
 }
     ${UserFieldsFragmentDoc}`;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const UserByIdDocument = gql`
+    query UserById($id: uuid!) {
+  user_by_pk(id: $id) {
+    ...UserFields
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export type UserByIdQueryResult = Apollo.QueryResult<UserByIdQuery, UserByIdQueryVariables>;
 export const UsersSubDocument = gql`
     subscription UsersSub {
   user(order_by: {discord_name: asc}) {
@@ -1978,6 +2015,17 @@ export const UsersSubDocument = gql`
 }
     ${UserFieldsFragmentDoc}`;
 export type UsersSubSubscriptionResult = Apollo.SubscriptionResult<UsersSubSubscription>;
+export const SetMyGuildDocument = gql`
+    mutation SetMyGuild($userId: uuid!, $guild: String!) {
+  update_user_by_pk(pk_columns: {id: $userId}, _set: {guild: $guild}) {
+    id
+    guild
+  }
+}
+    `;
+export type SetMyGuildMutationFn = Apollo.MutationFunction<SetMyGuildMutation, SetMyGuildMutationVariables>;
+export type SetMyGuildMutationResult = Apollo.MutationResult<SetMyGuildMutation>;
+export type SetMyGuildMutationOptions = Apollo.BaseMutationOptions<SetMyGuildMutation, SetMyGuildMutationVariables>;
 
       export interface PossibleTypesResultData {
         possibleTypes: {

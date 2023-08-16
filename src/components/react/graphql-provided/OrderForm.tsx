@@ -47,20 +47,24 @@ export const OrderForm = ({
         <div className="flex w-1/2 gap-2">
           <select
             value={type ?? ''}
-            className="grow"
+            className="grow w-[15rem]"
             {...register('type', { required: true })}
           >
-            <option value="">Select a type</option>
+            <option value="">Select type</option>
             {orderTypes.item_order_type.map(({ value }) => (
               <option key={value} value={value}>
                 {value}
               </option>
             ))}
           </select>
-          <img
-            className="w-10 h-10 md:w-12 md:h-12 p-1"
-            src={`/order-types/${type}.webp`}
-          />
+          {type ? (
+            <img
+              className="w-10 h-10 md:w-12 md:h-12 p-1"
+              src={`/order-types/${type}.webp`}
+            />
+          ) : (
+            <div className="w-10 h-10 md:w-12 md:h-12 p-1"></div>
+          )}
         </div>
         {errors.type && (
           <span className="text-red-400">Your order requires a type.</span>

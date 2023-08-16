@@ -1964,7 +1964,7 @@ export type DeleteUserLeagueMechanicMutationResult = Apollo.MutationResult<Delet
 export type DeleteUserLeagueMechanicMutationOptions = Apollo.BaseMutationOptions<DeleteUserLeagueMechanicMutation, DeleteUserLeagueMechanicMutationVariables>;
 export const UsersDocument = gql`
     query Users {
-  user {
+  user(order_by: {discord_name: asc}) {
     ...UserFields
   }
 }
@@ -1972,7 +1972,7 @@ export const UsersDocument = gql`
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
 export const UsersSubDocument = gql`
     subscription UsersSub {
-  user {
+  user(order_by: {discord_name: asc}) {
     ...UserFields
   }
 }

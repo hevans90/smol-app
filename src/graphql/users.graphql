@@ -12,13 +12,13 @@ fragment UserFields on user {
 }
 
 query Users {
-  user {
+  user(order_by: { discord_name: asc }) {
     ...UserFields
   }
 }
 
 subscription UsersSub {
-  user {
+  user(order_by: { discord_name: asc }) {
     ...UserFields
   }
 }

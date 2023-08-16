@@ -101,7 +101,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
           variables: {
             userId: hasuraUserId,
             discordAvatar: discordUserData.avatar,
-            discordName: discordUserData.global_name,
+            discordName:
+              discordUserData.global_name ?? discordUserData.username,
             discordUserId: discordUserData.id,
           },
         }),

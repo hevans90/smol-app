@@ -183,7 +183,9 @@ export const OrderBook = () => {
           <input
             placeholder="search by user or description"
             defaultValue={fuzzyQuery}
-            onChange={(e) => orderBookFuzzySearchStore.set(e.target.value)}
+            onChange={(e) =>
+              orderBookFuzzySearchStore.set(e.target.value.trim())
+            }
             className="border-primary-800 bg-gray-800 grow border-[1px] min-w-[10rem] md:min-w-[15rem] lg:min-w-[25rem] "
           ></input>
         </div>

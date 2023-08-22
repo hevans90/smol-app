@@ -72,7 +72,10 @@ export const handler: Handler = async (event: HandlerEvent) => {
       },
       body: new URLSearchParams(data),
     });
-    console.log('Got response from GGG:', JSON.stringify(response));
+    console.log('Got response from GGG:', response);
+    console.log('HEADERS:', response.headers);
+    console.log('STATUS:', response.status);
+    console.log('STATUS_TEXT:', response.statusText);
   } catch (e) {
     console.error(`Something went wrong`, e);
   }

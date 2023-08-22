@@ -40,9 +40,7 @@ const redirectToLoginResult = async () => {
     hasuraToken,
   });
 
-  console.log('login error', error);
-
-  // window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
+  window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
 };
 
 redirectToLoginResult();

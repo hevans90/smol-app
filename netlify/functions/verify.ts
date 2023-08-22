@@ -59,18 +59,27 @@ export const handler: Handler = async (event: HandlerEvent) => {
     code_verifier: poe_verifier,
   };
 
-  const response = await fetch('https://www.pathofexile.com/oauth/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams(data),
-  });
+  let responseData: GGGAccessTokenResponse | undefined;
 
-  const responseData = (await response.json()) as GGGAccessTokenResponse;
-  console.log('Logged in via GGG OAuth', responseData);
+  try {
+    const response = await fetch('https://www.pathofexile.com/oauth/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(data),
+    });
+    responseData = (await response.json()) as GGGAccessTokenResponse;
+    console.log('Logged in via GGG OAuth', responseData);
+  } catch (e) {
+    console.error(`Something went wrong`, e);
+  }
 
   let upsertedHasuraUser: HasuraUser | undefined = undefined;
+
+  if (!responseData) {
+    throw new Error('Invalid response from GGG API');
+  }
 
   try {
     const hasuraResponse = await fetch(hasuraURL, {

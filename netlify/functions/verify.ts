@@ -82,15 +82,14 @@ export const handler: Handler = async (event: HandlerEvent) => {
   if (!response) {
     throw new Error('No response from GGG API');
   }
-  if (!responseData) {
-    throw new Error('Invalid response from GGG API');
-  }
-
   try {
     responseData = (await response.json()) as GGGAccessTokenResponse;
     console.log('Logged in via GGG OAuth', responseData);
   } catch (e) {
     console.error('Something went wrong parsing your login', e);
+  }
+  if (!responseData) {
+    throw new Error('Invalid response from GGG API');
   }
 
   try {

@@ -1,7 +1,7 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import { addSeconds } from 'date-fns';
 
-import fetch from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 
 import invariant from 'tiny-invariant';
 
@@ -59,26 +59,38 @@ export const handler: Handler = async (event: HandlerEvent) => {
     code_verifier: poe_verifier,
   };
 
+  console.log('logging in with', data);
+
+  let response: Response | undefined;
   let responseData: GGGAccessTokenResponse | undefined;
 
   try {
-    const response = await fetch('https://www.pathofexile.com/oauth/token', {
+    response = await fetch('https://www.pathofexile.com/oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams(data),
     });
-    responseData = (await response.json()) as GGGAccessTokenResponse;
-    console.log('Logged in via GGG OAuth', responseData);
+    console.log('Got response from GGG:', JSON.stringify(response));
   } catch (e) {
     console.error(`Something went wrong`, e);
   }
 
   let upsertedHasuraUser: HasuraUser | undefined = undefined;
 
+  if (!response) {
+    throw new Error('No response from GGG API');
+  }
   if (!responseData) {
     throw new Error('Invalid response from GGG API');
+  }
+
+  try {
+    responseData = (await response.json()) as GGGAccessTokenResponse;
+    console.log('Logged in via GGG OAuth', responseData);
+  } catch (e) {
+    console.error('Something went wrong parsing your login', e);
   }
 
   try {

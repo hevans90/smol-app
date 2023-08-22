@@ -67,6 +67,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     response = await fetch('https://www.pathofexile.com/oauth/token', {
       method: 'POST',
       headers: {
+        'User-Agent': 'OAuth smolapp/1.0 (contact: hevans9000@gmail.com)',
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams(data),

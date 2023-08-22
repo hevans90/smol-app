@@ -10,6 +10,8 @@ type GGGOauthResponse = {
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
 
+  console.log('AUTH EVENT:', event);
+
   return {
     statusCode: 302,
     headers: {

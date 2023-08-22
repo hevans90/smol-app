@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 
 const code = Astro.url.searchParams.get('code')! || '';
 const state = Astro.url.searchParams.get('state')! || '';
+const error = Astro.url.searchParams.get('error')! || '';
 
 const { BASE_HREF } = import.meta.env;
 ---
@@ -13,7 +14,7 @@ const { BASE_HREF } = import.meta.env;
   </main>
 </Layout>
 
-<script define:vars={{ code, state, BASE_HREF }}>
+<script define:vars={{ code, state, BASE_HREF, error }}>
 const poe_verifier = localStorage.getItem('poe_verifier');
 const poe_state = localStorage.getItem('poe_state');
 
@@ -39,7 +40,9 @@ const redirectToLoginResult = async () => {
     hasuraToken,
   });
 
-  window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
+  console.log('login error', error);
+
+  // window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
 };
 
 redirectToLoginResult();

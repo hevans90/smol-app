@@ -6,6 +6,7 @@ import fetch from 'node-fetch';
 import invariant from 'tiny-invariant';
 
 import { sign } from 'jsonwebtoken';
+import { errorMap } from '../../src/_errors/error-codes';
 
 type GGGOauthResponse = {
   auth_code: string;
@@ -36,6 +37,15 @@ type HasuraUpsertUserResponse = {
   data: { insert_user: { returning: HasuraUser[] } };
 } | null;
 
+type HasuraUserQueryResponse = {
+  data: {
+    user: { id: string }[];
+    user_aggregate: {
+      aggregate: { count: number };
+    };
+  };
+} | null;
+
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
 
@@ -59,7 +69,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     code_verifier: poe_verifier,
   };
 
-  const response = await fetch('https://www.pathofexile.com/oauth/token', {
+  const gggResponse = await fetch('https://www.pathofexile.com/oauth/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -67,10 +77,75 @@ export const handler: Handler = async (event: HandlerEvent) => {
     body: new URLSearchParams(data),
   });
 
-  const responseData = (await response.json()) as GGGAccessTokenResponse;
+  console.log('GGG RESPONSE:', gggResponse);
+
+  const blob = await gggResponse.blob();
+  console.log('BLOB', blob);
+
+  const formData = await gggResponse.formData();
+  console.log('FORMDATA', formData);
+
+  const buffer = await gggResponse.arrayBuffer();
+  console.log('BUFFER', buffer);
+
+  console.log('BODY', gggResponse.body);
+
+  const responseData = (await gggResponse.json()) as GGGAccessTokenResponse;
   console.log('Logged in via GGG OAuth', responseData);
 
   let upsertedHasuraUser: HasuraUser | undefined = undefined;
+
+  const validationResponse = await fetch(hasuraURL, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: `
+      query UserByPoeId($poeId: String!) {
+        user(where: {poe_user_id: {_eq: $poeId}}) {
+          id
+        }
+        user_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }`,
+      variables: {
+        poeId: responseData.sub,
+      },
+    }),
+  });
+
+  const userValidationData =
+    (await validationResponse.json()) as HasuraUserQueryResponse;
+
+  const count = userValidationData?.data?.user_aggregate?.aggregate
+    ?.count as number;
+
+  const numberOfExistingUsersWithPoeId = userValidationData?.data?.user?.length;
+
+  let error = '';
+
+  if (numberOfExistingUsersWithPoeId && numberOfExistingUsersWithPoeId > 1) {
+    error = errorMap.MULTIPLE_USERS;
+    throw new Error(error);
+  }
+  console.log('HASURA USER COUNT', count);
+  console.log('USER LIMIT', process.env.USER_LIMIT);
+  console.log('EXISTING USER', !!numberOfExistingUsersWithPoeId);
+
+  if (count >= parseInt(process.env.USER_LIMIT as string)) {
+    if (numberOfExistingUsersWithPoeId === 0) {
+      console.log(
+        `User limit reached: ${process.env.USER_LIMIT}, hasura currently has ${count} users.`
+      );
+      console.log(`PoE User ${responseData.username} is not being upserted.`);
+      error = errorMap.USER_LIMIT_REACHED;
+      throw new Error(error);
+    }
+  }
+
+  // all good: you have a user already OR we are under the USER_LIMIT
 
   try {
     const hasuraResponse = await fetch(hasuraURL, {
@@ -78,18 +153,18 @@ export const handler: Handler = async (event: HandlerEvent) => {
       headers,
       body: JSON.stringify({
         query: `
-        mutation UpsertUserPoeDetails($poeName: String!, $poeUserId: String!) {
-          insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_poe_user_id_key, update_columns: poe_name}) {
-            returning {
-              id
-              discord_user_id
-              discord_name
-              poe_name
-              poe_user_id
+          mutation UpsertUserPoeDetails($poeName: String!, $poeUserId: String!) {
+            insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_poe_user_id_key, update_columns: poe_name}) {
+              returning {
+                id
+                discord_user_id
+                discord_name
+                poe_name
+                poe_user_id
+              }
             }
           }
-        }
-      `,
+          `,
         variables: {
           poeName: responseData.username,
           poeUserId: responseData.sub,
@@ -124,12 +199,15 @@ export const handler: Handler = async (event: HandlerEvent) => {
     { algorithm: 'HS256' }
   );
 
+  console.log('ERROR', error);
+
   return {
     statusCode: 200,
     body: JSON.stringify({
       ...responseData,
       hasuraToken,
       hasuraUserId: upsertedHasuraUser?.id,
+      error,
     }),
   };
 };

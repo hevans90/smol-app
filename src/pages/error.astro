@@ -1,0 +1,18 @@
+---
+import { errorMap, ErrorTypes } from '../_errors/error-codes';
+import Layout from '../layouts/Layout.astro';
+import svg from '/smol-logo.svg';
+
+const errorCode = (Astro.url.searchParams.get('code')! || '') as ErrorTypes;
+const errorMessage = errorMap[errorCode] || 'Something went wrong :(';
+---
+
+<Layout title="Smol app: Error" plain={true}>
+  <main class="flex flex-col items-start">
+    <img src={svg} alt="logo" class="w-48 mb-8" />
+
+    <h1>
+      {errorMessage}
+    </h1>
+  </main>
+</Layout>

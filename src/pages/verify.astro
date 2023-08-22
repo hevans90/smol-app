@@ -24,8 +24,14 @@ const params = new URLSearchParams({
 });
 
 const redirectToLoginResult = async () => {
-  const result = await fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
-  const { access_token, expiry, username, hasuraUserId, hasuraToken } =
+  let result;
+
+  try {
+    result = await fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
+  } catch (error) {
+    console.error(error);
+  }
+  const { access_token, expiry, username, hasuraUserId, hasuraToken, error } =
     await result.json();
 
   const resultParams = new URLSearchParams({
@@ -37,9 +43,14 @@ const redirectToLoginResult = async () => {
     // login information for hasura
     hasuraUserId,
     hasuraToken,
+
+    // custom error value
+    error,
   });
 
-  window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
+  window.location.replace(
+    `${BASE_HREF}/login-result?${resultParams.toString()}`
+  );
 };
 
 redirectToLoginResult();

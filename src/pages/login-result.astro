@@ -9,13 +9,20 @@ const expiry = Astro.url.searchParams.get('expiry')! || '';
 const poeUsername = Astro.url.searchParams.get('username')! || '';
 const hasuraUserId = Astro.url.searchParams.get('hasuraUserId')! || '';
 const hasuraToken = Astro.url.searchParams.get('hasuraToken')! || '';
+const loginErrorCode = Astro.url.searchParams.get('error')! || '';
+
+if (loginErrorCode) return Astro.redirect(`/error?code=${loginErrorCode}`);
+
+const pageTitle = !loginErrorCode
+  ? 'Your login was successful'
+  : 'Your login failed';
 
 const { BASE_HREF } = import.meta.env;
 ---
 
 <Layout title="Smol app">
   <main class="h-[80vh] flex flex-col justify-center items-center">
-    <p class="my-8 text-2xl">Your login was successful!</p>
+    <p class="my-8 text-2xl">{pageTitle}</p>
   </main>
 </Layout>
 
@@ -35,9 +42,17 @@ localStorage.removeItem('poe_state');
 localStorage.setItem('poe_token', access_token);
 localStorage.setItem('poe_username', poeUsername);
 localStorage.setItem('poe_expiry', expiry);
-localStorage.setItem('hasura_user_id', hasuraUserId);
-localStorage.setItem('hasura_token', hasuraToken);
+if (hasuraUserId) {
+  localStorage.setItem('hasura_user_id', hasuraUserId);
+} else {
+  localStorage.removeItem('hasura_user_id');
+}
+
+if (hasuraToken) {
+  localStorage.setItem('hasura_token', hasuraToken);
+} else {
+}
 
 document.cookie = `hasura_user_id=${hasuraUserId}; expires=${sixMonthsFromNowUTC}`;
-window.location.href = BASE_HREF;
+window.location.replace(BASE_HREF);
 </script>

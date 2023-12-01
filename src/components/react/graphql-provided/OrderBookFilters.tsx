@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react';
 import {
   orderBookShowFulfilledStore,
+  orderBookShowInactiveStore,
   orderBookTypeFiltersStore,
 } from '../../../_state/order-book';
 import type {
@@ -14,6 +15,7 @@ export const OrderBookFilters = ({
 }: {
   orderTypes: OrderTypesQuery;
 }) => {
+  const showInactive = useStore(orderBookShowInactiveStore);
   const showFulfilled = useStore(orderBookShowFulfilledStore);
 
   const typeFilters = useStore(orderBookTypeFiltersStore);
@@ -49,7 +51,11 @@ export const OrderBookFilters = ({
           />
         </div>
       ))}
-      <div></div>
+      <Toggle
+        value={showInactive}
+        onChange={() => orderBookShowInactiveStore.set(!showInactive)}
+        label="Inactive (> 1 week)"
+      />
     </div>
   );
 };

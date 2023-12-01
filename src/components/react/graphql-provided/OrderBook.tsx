@@ -3,6 +3,8 @@ import { useStore } from '@nanostores/react';
 import { search as fuzzySearch } from 'fast-fuzzy';
 import { discordStore } from '../../../_state/discord.state';
 
+import { isAfter, subWeeks } from 'date-fns';
+
 import {
   DeleteUserItemOrderDocument,
   DeleteUserItemOrderMutation,
@@ -24,7 +26,7 @@ import {
 } from '../../../graphql-api';
 import { Spinner } from '../ui/Spinner';
 
-import { IconSearch, IconTrash } from '@tabler/icons-react';
+import { IconAlertCircle, IconSearch, IconTrash } from '@tabler/icons-react';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
 import { useMemo, useState } from 'react';
@@ -33,6 +35,7 @@ import invariant from 'tiny-invariant';
 import {
   orderBookFuzzySearchStore,
   orderBookShowFulfilledStore,
+  orderBookShowInactiveStore,
   orderBookTypeFiltersStore,
 } from '../../../_state/order-book';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
@@ -55,6 +58,7 @@ export const OrderBook = () => {
   const { data: orderTypes } = useQuery<OrderTypesQuery>(OrderTypesDocument);
 
   const fuzzyQuery = useStore(orderBookFuzzySearchStore);
+  const showInactive = useStore(orderBookShowInactiveStore);
   const showFulfilled = useStore(orderBookShowFulfilledStore);
   const typeFilters = useStore(orderBookTypeFiltersStore);
 
@@ -63,6 +67,12 @@ export const OrderBook = () => {
 
     if (!showFulfilled) {
       result = result?.filter(({ fulfilled_by_user }) => !fulfilled_by_user);
+    }
+    if (!showInactive) {
+      result = result?.filter(
+        ({ priority, updated_at }) =>
+          priority || isAfter(new Date(updated_at), subWeeks(new Date(), 1))
+      );
     }
 
     result = result?.filter(({ type }) => {
@@ -84,7 +94,7 @@ export const OrderBook = () => {
     }
 
     return result;
-  }, [showFulfilled, typeFilters, loading, orders, fuzzyQuery]);
+  }, [showFulfilled, showInactive, typeFilters, loading, orders, fuzzyQuery]);
 
   const { data: userProfile, loading: userLoading } = useMyHasuraUser();
 
@@ -209,6 +219,7 @@ export const OrderBook = () => {
                 <img src="/discord-logo.svg" className="h-8" />
               </div>
             </th>
+            <th></th>
             <th className="w-20">type</th>
             <th className="w-96">description</th>
             <th className="hidden lg:table-cell">updated</th>
@@ -229,6 +240,7 @@ export const OrderBook = () => {
                 user,
                 fulfilled_by_user,
                 type,
+                priority,
               },
               i
             ) => {
@@ -280,6 +292,14 @@ export const OrderBook = () => {
                   </td>
 
                   <td>
+                    {priority ? (
+                      <div title="priority order">
+                        <IconAlertCircle />
+                      </div>
+                    ) : null}
+                  </td>
+
+                  <td>
                     <div className="flex justify-center">
                       <img
                         className="w-10 h-10 md:w-12 md:h-12 p-1"
@@ -312,6 +332,7 @@ export const OrderBook = () => {
                               description,
                               linkUrl: link_url,
                               orderId,
+                              priority,
                             });
                           }}
                         >
@@ -434,6 +455,7 @@ export const OrderBook = () => {
                     description: data.description as string,
                     linkUrl: data.linkUrl ?? '',
                     userId: userProfile?.id as string,
+                    priority: data.priority,
                   },
                 });
                 setCreateModalOpen(false);

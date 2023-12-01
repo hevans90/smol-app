@@ -18,6 +18,19 @@ export type Scalars = {
   uuid: { input: string; output: string; }
 };
 
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Boolean']['input']>;
+  _gt?: InputMaybe<Scalars['Boolean']['input']>;
+  _gte?: InputMaybe<Scalars['Boolean']['input']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['Boolean']['input']>;
+  _lte?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<Scalars['Boolean']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Int']['input']>;
@@ -1171,6 +1184,7 @@ export type User_Item_Order = {
   fulfilled_by_user?: Maybe<User>;
   id: Scalars['uuid']['output'];
   link_url?: Maybe<Scalars['String']['output']>;
+  priority: Scalars['Boolean']['output'];
   type: Item_Order_Type_Enum;
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
@@ -1186,7 +1200,23 @@ export type User_Item_Order_Aggregate = {
 };
 
 export type User_Item_Order_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<User_Item_Order_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<User_Item_Order_Aggregate_Bool_Exp_Bool_Or>;
   count?: InputMaybe<User_Item_Order_Aggregate_Bool_Exp_Count>;
+};
+
+export type User_Item_Order_Aggregate_Bool_Exp_Bool_And = {
+  arguments: User_Item_Order_Select_Column_User_Item_Order_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<User_Item_Order_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type User_Item_Order_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: User_Item_Order_Select_Column_User_Item_Order_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<User_Item_Order_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
 };
 
 export type User_Item_Order_Aggregate_Bool_Exp_Count = {
@@ -1236,6 +1266,7 @@ export type User_Item_Order_Bool_Exp = {
   fulfilled_by_user?: InputMaybe<User_Bool_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   link_url?: InputMaybe<String_Comparison_Exp>;
+  priority?: InputMaybe<Boolean_Comparison_Exp>;
   type?: InputMaybe<Item_Order_Type_Enum_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   user?: InputMaybe<User_Bool_Exp>;
@@ -1256,6 +1287,7 @@ export type User_Item_Order_Insert_Input = {
   fulfilled_by_user?: InputMaybe<User_Obj_Rel_Insert_Input>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
+  priority?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<Item_Order_Type_Enum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user?: InputMaybe<User_Obj_Rel_Insert_Input>;
@@ -1332,6 +1364,7 @@ export type User_Item_Order_Order_By = {
   fulfilled_by_user?: InputMaybe<User_Order_By>;
   id?: InputMaybe<Order_By>;
   link_url?: InputMaybe<Order_By>;
+  priority?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user?: InputMaybe<User_Order_By>;
@@ -1356,11 +1389,25 @@ export enum User_Item_Order_Select_Column {
   /** column name */
   LinkUrl = 'link_url',
   /** column name */
+  Priority = 'priority',
+  /** column name */
   Type = 'type',
   /** column name */
   UpdatedAt = 'updated_at',
   /** column name */
   UserId = 'user_id'
+}
+
+/** select "user_item_order_aggregate_bool_exp_bool_and_arguments_columns" columns of table "user_item_order" */
+export enum User_Item_Order_Select_Column_User_Item_Order_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  Priority = 'priority'
+}
+
+/** select "user_item_order_aggregate_bool_exp_bool_or_arguments_columns" columns of table "user_item_order" */
+export enum User_Item_Order_Select_Column_User_Item_Order_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  Priority = 'priority'
 }
 
 /** input type for updating data in table "user_item_order" */
@@ -1370,6 +1417,7 @@ export type User_Item_Order_Set_Input = {
   fulfilled_by?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
+  priority?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<Item_Order_Type_Enum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1390,6 +1438,7 @@ export type User_Item_Order_Stream_Cursor_Value_Input = {
   fulfilled_by?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
+  priority?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<Item_Order_Type_Enum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -1407,6 +1456,8 @@ export enum User_Item_Order_Update_Column {
   Id = 'id',
   /** column name */
   LinkUrl = 'link_url',
+  /** column name */
+  Priority = 'priority',
   /** column name */
   Type = 'type',
   /** column name */
@@ -1769,27 +1820,29 @@ export type OrderTypesQuery = { __typename?: 'query_root', item_order_type: Arra
 export type UserItemOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, type: Item_Order_Type_Enum, user: { __typename?: 'user', guild?: string | null, id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
+export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, type: Item_Order_Type_Enum, priority: boolean, user: { __typename?: 'user', guild?: string | null, id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
 
 export type InsertUserItemOrderMutationVariables = Exact<{
   description: Scalars['String']['input'];
   linkUrl: Scalars['String']['input'];
   type: Item_Order_Type_Enum;
   userId: Scalars['uuid']['input'];
+  priority: Scalars['Boolean']['input'];
 }>;
 
 
-export type InsertUserItemOrderMutation = { __typename?: 'mutation_root', insert_user_item_order_one?: { __typename?: 'user_item_order', type: Item_Order_Type_Enum, link_url?: string | null, description?: string | null, user_id: string, id: string } | null };
+export type InsertUserItemOrderMutation = { __typename?: 'mutation_root', insert_user_item_order_one?: { __typename?: 'user_item_order', type: Item_Order_Type_Enum, link_url?: string | null, description?: string | null, user_id: string, id: string, priority: boolean } | null };
 
 export type UpdateUserItemOrderMutationVariables = Exact<{
   orderId: Scalars['uuid']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Item_Order_Type_Enum>;
   linkUrl?: InputMaybe<Scalars['String']['input']>;
+  priority: Scalars['Boolean']['input'];
 }>;
 
 
-export type UpdateUserItemOrderMutation = { __typename?: 'mutation_root', update_user_item_order_by_pk?: { __typename?: 'user_item_order', id: string, description?: string | null, link_url?: string | null, user_id: string } | null };
+export type UpdateUserItemOrderMutation = { __typename?: 'mutation_root', update_user_item_order_by_pk?: { __typename?: 'user_item_order', id: string, priority: boolean, description?: string | null, link_url?: string | null, user_id: string } | null };
 
 export type FulfillUserItemOrderMutationVariables = Exact<{
   orderId: Scalars['uuid']['input'];
@@ -1888,6 +1941,7 @@ export const UserItemOrdersDocument = gql`
     id
     link_url
     type
+    priority
     user {
       guild
       id
@@ -1906,15 +1960,16 @@ export const UserItemOrdersDocument = gql`
     `;
 export type UserItemOrdersSubscriptionResult = Apollo.SubscriptionResult<UserItemOrdersSubscription>;
 export const InsertUserItemOrderDocument = gql`
-    mutation InsertUserItemOrder($description: String!, $linkUrl: String!, $type: item_order_type_enum!, $userId: uuid!) {
+    mutation InsertUserItemOrder($description: String!, $linkUrl: String!, $type: item_order_type_enum!, $userId: uuid!, $priority: Boolean!) {
   insert_user_item_order_one(
-    object: {description: $description, link_url: $linkUrl, user_id: $userId, type: $type}
+    object: {description: $description, link_url: $linkUrl, user_id: $userId, type: $type, priority: $priority}
   ) {
     type
     link_url
     description
     user_id
     id
+    priority
   }
 }
     `;
@@ -1922,12 +1977,13 @@ export type InsertUserItemOrderMutationFn = Apollo.MutationFunction<InsertUserIt
 export type InsertUserItemOrderMutationResult = Apollo.MutationResult<InsertUserItemOrderMutation>;
 export type InsertUserItemOrderMutationOptions = Apollo.BaseMutationOptions<InsertUserItemOrderMutation, InsertUserItemOrderMutationVariables>;
 export const UpdateUserItemOrderDocument = gql`
-    mutation UpdateUserItemOrder($orderId: uuid!, $description: String, $type: item_order_type_enum, $linkUrl: String) {
+    mutation UpdateUserItemOrder($orderId: uuid!, $description: String, $type: item_order_type_enum, $linkUrl: String, $priority: Boolean!) {
   update_user_item_order_by_pk(
     pk_columns: {id: $orderId}
-    _set: {description: $description, link_url: $linkUrl, type: $type}
+    _set: {description: $description, link_url: $linkUrl, type: $type, priority: $priority}
   ) {
     id
+    priority
     description
     link_url
     user_id

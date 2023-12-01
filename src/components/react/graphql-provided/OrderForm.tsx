@@ -8,7 +8,7 @@ import { Button } from '../ui/Button';
 
 export type OrderFormInputs = Pick<
   UpdateUserItemOrderMutationVariables,
-  'description' | 'linkUrl' | 'type'
+  'description' | 'linkUrl' | 'type' | 'priority'
 >;
 
 export const OrderForm = ({
@@ -25,7 +25,7 @@ export const OrderForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<OrderFormInputs>();
+  } = useForm<OrderFormInputs>({ defaultValues: { priority: data?.priority } });
 
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
 
@@ -41,6 +41,16 @@ export const OrderForm = ({
           defaultValue={data?.description ?? ''}
           {...register('description', { required: true })}
         />
+      </div>
+      <div className="flex mb-2 flex-col">
+        <div className="flex gap-2 text-primary-500">
+          Is this a priority order?
+          <input type="checkbox" {...register('priority')} />
+        </div>
+        <p className="text-primary-800">
+          (non-priority orders will go inactive after a week of not being
+          fulfilled)
+        </p>
       </div>
       <div className="flex flex-col mb-2">
         <label className="mb-1">Type</label>

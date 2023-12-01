@@ -19,8 +19,7 @@ export const OrderBookFilters = ({
   const typeFilters = useStore(orderBookTypeFiltersStore);
 
   const typeMap: { [key in Item_Order_Type_Enum]: string } = {
-    altgem: 'Alt quals',
-    enchant: 'Enchants',
+    transfiguredgem: 'Transfigured Gems',
     unique: 'Uniques',
     other: 'Other',
   };

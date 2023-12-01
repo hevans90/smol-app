@@ -115,9 +115,8 @@ export enum Item_Order_Type_Constraint {
 }
 
 export enum Item_Order_Type_Enum {
-  Altgem = 'altgem',
-  Enchant = 'enchant',
   Other = 'other',
+  Transfiguredgem = 'transfiguredgem',
   Unique = 'unique'
 }
 
@@ -268,9 +267,9 @@ export enum League_Type_Enum {
   Incursion = 'incursion',
   Labyrinth = 'labyrinth',
   Legion = 'legion',
-  Metamorph = 'metamorph',
   Ritual = 'ritual',
-  Sanctum = 'sanctum'
+  Sanctum = 'sanctum',
+  Ultimatum = 'ultimatum'
 }
 
 /** Boolean expression to compare columns of type "league_type_enum". All fields are combined with logical 'AND'. */

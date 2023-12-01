@@ -1619,19 +1619,13 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "altgem",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "enchant",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "other",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "transfiguredgem",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -2472,12 +2466,6 @@
             "deprecationReason": null
           },
           {
-            "name": "metamorph",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "ritual",
             "description": null,
             "isDeprecated": false,
@@ -2485,6 +2473,12 @@
           },
           {
             "name": "sanctum",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ultimatum",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import { useStore } from '@nanostores/react';
-import { discordStore } from '../../../_state/discord.state';
 import {
   DeleteUserLeagueMechanicDocument,
   DeleteUserLeagueMechanicMutation,
@@ -20,6 +19,7 @@ import { IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
 import { isLeagueFilter, userListFilterStore } from '../../../_state/user-list';
+import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import Select from '../ui/Select';
 import { UserListFilters } from './UserListFilters';
 
@@ -40,32 +40,44 @@ const UserList = () => {
     InsertUserLeagueMechanicMutationVariables
   >(InsertUserLeagueMechanicDocument);
 
-  const { id: myDiscordId } = useStore(discordStore);
+  const { data: userProfile, loading: userLoading } = useMyHasuraUser();
 
   const filters = useStore(userListFilterStore);
 
-  const [filteredUsers, setfilteredUsers] = useState(userData);
+  const [filteredUsers, setfilteredUsers] = useState(userData?.user);
+
+  const bumpMyUserToTop = (data: UsersSubSubscription['user']) => {
+    const myUserId = userProfile?.id;
+    const myData = data.find(({ id }) => id === myUserId);
+    invariant(myData);
+    const newData = [...data].filter(({ id }) => id !== myUserId);
+    newData.unshift(myData);
+    return newData;
+  };
 
   useEffect(() => {
-    if (userData) {
+    if (userData && userProfile) {
+      const bumpedData = bumpMyUserToTop(userData.user);
+      const myUserId = userProfile?.id;
       if (filters.length) {
-        const filtered = userData.user.filter(({ user_league_mechanics }) =>
+        let filtered = bumpedData.filter(({ id, user_league_mechanics }) =>
           filters.every(
             (filter) =>
-              isLeagueFilter(filter) &&
-              user_league_mechanics
-                .map(({ mechanic }) => mechanic)
-                .includes(filter.league as League_Type_Enum)
+              (isLeagueFilter(filter) &&
+                user_league_mechanics
+                  .map(({ mechanic }) => mechanic)
+                  .includes(filter.league as League_Type_Enum)) ||
+              id === myUserId
           )
         );
-        setfilteredUsers({ user: filtered });
+        setfilteredUsers(filtered);
       } else {
-        setfilteredUsers(userData);
+        setfilteredUsers(bumpedData);
       }
     }
   }, [filters, userData]);
 
-  if (loading || leaguesLoading) return <Spinner />;
+  if (loading || leaguesLoading || userLoading) return <Spinner />;
 
   return (
     <table className="my-4 table-auto w-full">
@@ -91,8 +103,8 @@ const UserList = () => {
         </tr>
       </thead>
       <tbody>
-        {filteredUsers?.user.map((user, i) => {
-          const isMe = user.discord_user_id === myDiscordId;
+        {filteredUsers?.map((user, i) => {
+          const isMe = user.id === userProfile?.id;
 
           invariant(leagues);
 

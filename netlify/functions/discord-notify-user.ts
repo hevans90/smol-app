@@ -17,7 +17,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
   try {
     await fetch(
-      'https://discord.com/api/webhooks/1141020892391018526/4wl8ZUD1sXu7grQzLGyQRyJmNZPstuaJ9PTKojzWXawyhxiUO0CpW-grl4ezZ3jhwesx',
+      'https://discord.com/api/webhooks/1180566422401855499/bvyyuFY6t-FH6TkZGIAn90MGK-p5Ix4tH3TLOlBKb5qVn4tfB8okP0JjoV6IN7876FEB',
       {
         method: 'post',
         headers: {

@@ -23,7 +23,7 @@ export default function Select({
   onSelectChange,
 }: {
   defaultIndex?: number;
-  options: { value: string; imgSrc?: string }[];
+  options: { value: string; display?: string; imgSrc?: string }[];
   placeholder?: string;
   showSelected?: boolean;
   onSelectChange?: (value: string) => unknown;
@@ -159,7 +159,7 @@ export default function Select({
                       alt={option.value}
                     />
                   )}
-                  {option.value}
+                  {option?.display ?? option.value}
                   {showSelected && (
                     <span aria-hidden className="absolute right-4">
                       {index === selectedIndex ? ' ✓' : ''}

@@ -108,9 +108,15 @@ const UserList = () => {
 
           invariant(leagues);
 
+          const leagueMap: { [key in League_Type_Enum]?: string } = {
+            altar_eater: 'eater altars',
+            altar_exarch: 'exarch altars',
+          };
+
           const myUnselectedLeagues = leagues.league_type
             .map(({ value }) => ({
               value,
+              display: leagueMap?.[value as League_Type_Enum] ?? value,
               imgSrc: `/league-icons/${value}.webp`,
             }))
             .filter(
@@ -172,9 +178,9 @@ const UserList = () => {
                     .map(({ mechanic, id: mechanicId }, i) => (
                       <div className="relative h-8 md:h-10 w-8 md:w-10" key={i}>
                         <img
-                          title={mechanic}
+                          title={leagueMap?.[mechanic] ?? mechanic}
                           src={`/league-icons/${mechanic}.webp`}
-                          alt={mechanic}
+                          alt={leagueMap?.[mechanic] ?? mechanic}
                         />
                         {isMe && (
                           <button

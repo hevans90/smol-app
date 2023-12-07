@@ -2517,6 +2517,18 @@
             "deprecationReason": null
           },
           {
+            "name": "altar_eater",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "altar_exarch",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "bestiary",
             "description": null,
             "isDeprecated": false,

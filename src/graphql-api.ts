@@ -266,6 +266,8 @@ export enum League_Type_Constraint {
 
 export enum League_Type_Enum {
   Abyss = 'abyss',
+  AltarEater = 'altar_eater',
+  AltarExarch = 'altar_exarch',
   Bestiary = 'bestiary',
   Betrayal = 'betrayal',
   Blight = 'blight',

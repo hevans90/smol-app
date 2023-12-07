@@ -5,6 +5,11 @@ import { isLeagueFilter, userListFilterStore } from '../../../_state/user-list';
 import type { League_Type_Enum, LeaguesQuery } from '../../../graphql-api';
 import Select from '../ui/Select';
 
+export const leagueMap: { [key in League_Type_Enum]?: string } = {
+  altar_eater: 'eater altars',
+  altar_exarch: 'exarch altars',
+};
+
 export const UserListFilters = ({
   leagueQuery,
 }: {
@@ -25,6 +30,7 @@ export const UserListFilters = ({
   const leagues = leagueQuery.league_type
     .map(({ value }) => ({
       value,
+      display: leagueMap?.[value as League_Type_Enum] ?? value,
       imgSrc: `/league-icons/${value}.webp`,
     }))
     .filter(

@@ -21,7 +21,7 @@ import invariant from 'tiny-invariant';
 import { isLeagueFilter, userListFilterStore } from '../../../_state/user-list';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import Select from '../ui/Select';
-import { UserListFilters } from './UserListFilters';
+import { UserListFilters, leagueMap } from './UserListFilters';
 
 const UserList = () => {
   const { data: userData, loading } =
@@ -107,11 +107,6 @@ const UserList = () => {
           const isMe = user.id === userProfile?.id;
 
           invariant(leagues);
-
-          const leagueMap: { [key in League_Type_Enum]?: string } = {
-            altar_eater: 'eater altars',
-            altar_exarch: 'exarch altars',
-          };
 
           const myUnselectedLeagues = leagues.league_type
             .map(({ value }) => ({

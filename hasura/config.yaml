@@ -1,4 +1,3 @@
 version: 3
-endpoint: http://localhost:8080
-admin_secret: myadminsecretkey
+endpoint: https://smol-hasura.fly.dev
 metadata_directory: metadata

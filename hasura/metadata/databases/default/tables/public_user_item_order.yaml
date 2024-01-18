@@ -1,0 +1,56 @@
+table:
+  name: user_item_order
+  schema: public
+object_relationships:
+  - name: fulfilled_by_user
+    using:
+      foreign_key_constraint_on: fulfilled_by
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - description
+        - link_url
+        - priority
+        - type
+        - user_id
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - created_at
+        - description
+        - id
+        - link_url
+        - priority
+        - type
+        - updated_at
+        - user_id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - description
+        - fulfilled_by
+        - link_url
+        - priority
+        - type
+      filter: {}
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+    comment: ""

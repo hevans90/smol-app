@@ -1,0 +1,48 @@
+table:
+  name: user
+  schema: public
+array_relationships:
+  - name: user_item_orders
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: user_item_order
+          schema: public
+  - name: user_league_mechanics
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: user_league_mechanic
+          schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - discord_avatar
+        - discord_name
+        - discord_user_id
+        - guild
+        - id
+        - poe_name
+        - poe_user_id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - guild
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    comment: ""

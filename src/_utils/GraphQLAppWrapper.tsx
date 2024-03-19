@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import { ReactNode, useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Toaster, resolveValue, toast } from 'react-hot-toast';
 import { apolloBootstrapper } from './apollo-bootstrapper';
 

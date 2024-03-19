@@ -52,7 +52,7 @@ const generateUrlParams = async () => {
   });
 };
 
-const PoEAuth = () => {
+const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
   const [url, setUrl] = useState<string>();
   const [loggedIn, setloggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(
@@ -112,6 +112,7 @@ const PoEAuth = () => {
       </div>
     );
 
+  if (logoutOnly) return <></>;
   return (
     <>
       <a

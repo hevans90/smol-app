@@ -3,8 +3,8 @@ import toast from 'react-hot-toast';
 import invariant from 'tiny-invariant';
 import {
   SetMyGuildDocument,
-  SetMyGuildMutation,
-  SetMyGuildMutationVariables,
+  type SetMyGuildMutation,
+  type SetMyGuildMutationVariables,
 } from '../../graphql-api';
 import { useMyHasuraUser } from '../../hooks/useMyHasuraId';
 import { usePoEProfile } from '../../hooks/usePoEProfile';
@@ -26,7 +26,7 @@ const PoEProfile = () => {
   return (
     <>
       <h2 className="text-primary-500">
-        {token ? 'PoE Profile' : 'Login via PoE to load your profile'}
+        {token ? 'PoE Profile' : 'Log in via PoE to load your profile'}
       </h2>
       <div className="my-4">
         {loading && <Spinner width={30} />}{' '}

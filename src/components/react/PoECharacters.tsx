@@ -9,7 +9,7 @@ const PoECharacters = () => {
   return (
     <>
       <h2 className="text-primary-500">
-        {token ? 'Characters' : 'Login via PoE to load your characters'}
+        {token ? 'Characters' : 'Log in via PoE to load your characters'}
       </h2>
       <div className=" mt-4 w-full">
         {lazy && !characters.length && (

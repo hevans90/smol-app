@@ -37,7 +37,7 @@ We have two distinctly different technologies being used for backend functionali
 
 Found here: [`./netlify/functions`](./netlify/functions/)
 
-These are run locally when running `ntl dev` and will hot reload when the files change. A note here that the POE auth stuff won't work locally as GGG don't allow local redirect URIs... but you can just login via our deployed app and copy the local storage values to your local app if you wanna test stuff.
+These are run locally when running `ntl dev` and will hot reload when the files change. A note here that the POE auth stuff won't work locally as GGG don't allow local redirect URIs... but you can just log in via our deployed app and copy the local storage values to your local app if you wanna test stuff.
 
 ---
 

@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react';
 import { discordStore } from '../../../_state/discord.state';
 import { poeStore } from '../../../_state/poe.state';
 
-const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
+const DiscordAuth = ({
+  discordOauthUrl,
+  logoutOnly,
+}: {
+  discordOauthUrl: string;
+  logoutOnly?: boolean;
+}) => {
   const getUserDataFromLocalStorage = () => {
     const existingDiscordUserDataJson =
       localStorage.getItem('discord_userdata');
@@ -61,7 +67,7 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
     }
   }, []);
 
-  if (!loggedIntoPoE) {
+  if (!loggedIntoPoE && !logoutOnly) {
     return <>Log in via PoE to enable discord linking.</>;
   }
   if (loggedIn && userData) {
@@ -89,6 +95,8 @@ const DiscordAuth = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
       </div>
     );
   }
+
+  if (logoutOnly) return <></>;
 
   return (
     <div className="group rounded border-discord-500 border-2  hover:border-discord-400">

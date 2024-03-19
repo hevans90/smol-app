@@ -8,40 +8,38 @@ const error = Astro.url.searchParams.get('error')! || '';
 const { BASE_HREF } = import.meta.env;
 ---
 
-<Layout title="Smol app">
-  <main class="h-[80vh] flex flex-col justify-center items-center">
-    <p class="my-8 text-2xl">Verifying your login... patience exile.</p>
-  </main>
-</Layout>
+<main class="h-[80vh] flex flex-col justify-center items-center">
+  <p class="my-8 text-2xl">Verifying your login... patience exile.</p>
+</main>
 
 <script define:vars={{ code, state, BASE_HREF, error }}>
-const poe_verifier = localStorage.getItem('poe_verifier');
-const poe_state = localStorage.getItem('poe_state');
+  const poe_verifier = localStorage.getItem('poe_verifier');
+  const poe_state = localStorage.getItem('poe_state');
 
-const params = new URLSearchParams({
-  auth_code: code,
-  poe_verifier,
-  poe_state,
-});
-
-const redirectToLoginResult = async () => {
-  const result = await fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
-  const { access_token, expiry, username, hasuraUserId, hasuraToken } =
-    await result.json();
-
-  const resultParams = new URLSearchParams({
-    // we can get more properties from the GGG login here but we don't need them
-    access_token,
-    expiry,
-    username,
-
-    // login information for hasura
-    hasuraUserId,
-    hasuraToken,
+  const params = new URLSearchParams({
+    auth_code: code,
+    poe_verifier,
+    poe_state,
   });
 
-  window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
-};
+  const redirectToLoginResult = async () => {
+    const result = await fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
+    const { access_token, expiry, username, hasuraUserId, hasuraToken } =
+      await result.json();
 
-redirectToLoginResult();
+    const resultParams = new URLSearchParams({
+      // we can get more properties from the GGG login here but we don't need them
+      access_token,
+      expiry,
+      username,
+
+      // login information for hasura
+      hasuraUserId,
+      hasuraToken,
+    });
+
+    window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
+  };
+
+  redirectToLoginResult();
 </script>

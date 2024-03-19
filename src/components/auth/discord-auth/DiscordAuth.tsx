@@ -97,7 +97,6 @@ const DiscordAuth = ({
   }
 
   if (logoutOnly) return <></>;
-
   return (
     <div className="group rounded border-discord-500 border-2  hover:border-discord-400">
       <a href={discordOauthUrl} className="flex gap-2 items-center">

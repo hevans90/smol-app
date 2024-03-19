@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { isAfter } from 'date-fns';
 import { Dialog, DialogContent, DialogHeading } from '../react/ui/Dialog';
 import DiscordAuth from './discord-auth/DiscordAuth';
 import PoEAuth from './poe-auth/PoEAuth';
 
 export const AuthModal = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
-  const [hasuraAccessToken, setHasuraAccessToken] = useState<string | null>(
-    localStorage.getItem('hasura_token') ?? null
-  );
+  const hasuraAccessToken = localStorage.getItem('hasura_token');
+  const discordExpiry = localStorage.getItem('discord_expiry');
+
+  const loggedIntoDiscord =
+    !!localStorage.getItem('discord_token') &&
+    !!discordExpiry &&
+    isAfter(new Date(discordExpiry), new Date());
 
   return (
-    <Dialog open={!hasuraAccessToken}>
+    <Dialog open={!hasuraAccessToken || !loggedIntoDiscord}>
       <DialogContent>
         <DialogHeading>Authorise your PoE & Discord accounts</DialogHeading>
 

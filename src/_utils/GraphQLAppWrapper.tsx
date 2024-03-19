@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import { useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Toaster, resolveValue, toast } from 'react-hot-toast';
 import { apolloBootstrapper } from './apollo-bootstrapper';
 
@@ -18,9 +18,8 @@ const GraphQLAppWrapper = ({
     loadDevMessages();
     loadErrorMessages();
   }
-  const [hasuraAccessToken, setHasuraAccessToken] = useState<string | null>(
-    localStorage.getItem('hasura_token') ?? null
-  );
+
+  const hasuraAccessToken = localStorage.getItem('hasura_token');
 
   if (!hasuraAccessToken) {
     return <>Log in via PoE to get started.</>;

@@ -3,7 +3,7 @@ import type { Item_Order_Type_Enum } from '../graphql-api';
 
 export const orderBookShowFulfilledStore = persistentAtom<boolean>(
   'orderBookShowFulfilled',
-  true,
+  false,
   {
     encode: JSON.stringify,
     decode: JSON.parse,
@@ -22,7 +22,11 @@ export const orderBookTypeFiltersStore = persistentAtom<{
   [key in Item_Order_Type_Enum]?: boolean;
 }>(
   'orderBookTypeFilters',
-  {},
+  {
+    other: true,
+    unique: true,
+    transfiguredgem: true,
+  },
   {
     encode: JSON.stringify,
     decode: JSON.parse,

@@ -4,7 +4,17 @@ import Layout from '../layouts/Layout.astro';
 import { HomePage } from '../components/HomePage';
 
 const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+
+const version = 'necropolis_1.0';
 ---
+
+<script define:vars={{ version }}>
+  // clear local storage on every update of the version number above
+  if (localStorage.getItem('version') !== version) {
+    localStorage.clear();
+    localStorage.setItem('version', version);
+  }
+</script>
 
 <Layout title="Smol app">
   <main class="flex flex-col items-start">

@@ -3,6 +3,12 @@ import { AuthModal } from './auth-modal';
 import DiscordAuth from './discord-auth/DiscordAuth';
 import PoEAuth from './poe-auth/PoEAuth';
 
+interface Props {
+  authPrompt: boolean;
+}
+
+const { authPrompt } = Astro.props;
+
 const { DISCORD_CLIENT_ID, DISCORD_REDIRECT } = import.meta.env;
 const discordOauthUrl = `
   https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${DISCORD_REDIRECT}&scope=identify&response_type=code`;
@@ -17,4 +23,8 @@ const discordOauthUrl = `
   />
 </div>
 
-<AuthModal client:only="react" discordOauthUrl={discordOauthUrl} />
+{
+  authPrompt && (
+    <AuthModal client:only="react" discordOauthUrl={discordOauthUrl} />
+  )
+}

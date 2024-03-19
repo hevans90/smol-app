@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
-<Layout title="Item Orders">
+<Layout title="Item Orders" authPrompt={true}>
   <main class="flex flex-col items-start">
     <img src="./smol-logo.svg" alt="logo" class="w-32 mb-8" />
     <OrdersPage hasuraUri={hasuraUri} client:only="react" />

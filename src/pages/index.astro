@@ -16,7 +16,7 @@ const version = 'necropolis_1.0';
   }
 </script>
 
-<Layout title="Smol app">
+<Layout title="Smol app" authPrompt={true}>
   <main class="flex flex-col items-start">
     <img src="./smol-logo.svg" alt="logo" class="w-48 mb-8" />
     <HomePage hasuraUri={hasuraUri} client:only="react" />

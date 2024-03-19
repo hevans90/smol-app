@@ -13,7 +13,7 @@ const hasuraToken = Astro.url.searchParams.get('hasuraToken')! || '';
 const { BASE_HREF } = import.meta.env;
 ---
 
-<Layout title="Smol app">
+<Layout title="Smol app" authPrompt={true}>
   <main class="h-[80vh] flex flex-col justify-center items-center">
     <p class="my-8 text-2xl">Your login was successful!</p>
   </main>
@@ -30,14 +30,14 @@ const { BASE_HREF } = import.meta.env;
     BASE_HREF,
   }}
 >
-localStorage.removeItem('poe_verifier');
-localStorage.removeItem('poe_state');
-localStorage.setItem('poe_token', access_token);
-localStorage.setItem('poe_username', poeUsername);
-localStorage.setItem('poe_expiry', expiry);
-localStorage.setItem('hasura_user_id', hasuraUserId);
-localStorage.setItem('hasura_token', hasuraToken);
+  localStorage.removeItem('poe_verifier');
+  localStorage.removeItem('poe_state');
+  localStorage.setItem('poe_token', access_token);
+  localStorage.setItem('poe_username', poeUsername);
+  localStorage.setItem('poe_expiry', expiry);
+  localStorage.setItem('hasura_user_id', hasuraUserId);
+  localStorage.setItem('hasura_token', hasuraToken);
 
-document.cookie = `hasura_user_id=${hasuraUserId}; expires=${sixMonthsFromNowUTC}`;
-window.location.href = BASE_HREF;
+  document.cookie = `hasura_user_id=${hasuraUserId}; expires=${sixMonthsFromNowUTC}`;
+  window.location.href = BASE_HREF;
 </script>

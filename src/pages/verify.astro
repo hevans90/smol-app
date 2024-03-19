@@ -8,9 +8,11 @@ const error = Astro.url.searchParams.get('error')! || '';
 const { BASE_HREF } = import.meta.env;
 ---
 
-<main class="h-[80vh] flex flex-col justify-center items-center">
-  <p class="my-8 text-2xl">Verifying your login... patience exile.</p>
-</main>
+<Layout title="Smol app" authPrompt={false}>
+  <main class="h-[80vh] flex flex-col justify-center items-center">
+    <p class="my-8 text-2xl">Verifying your login... patience exile.</p>
+  </main>
+</Layout>
 
 <script define:vars={{ code, state, BASE_HREF, error }}>
   const poe_verifier = localStorage.getItem('poe_verifier');

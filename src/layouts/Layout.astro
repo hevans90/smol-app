@@ -4,9 +4,10 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Navigation from '../components/Navigation.astro';
 interface Props {
   title: string;
+  authPrompt: boolean;
 }
 
-const { title } = Astro.props;
+const { title, authPrompt } = Astro.props;
 
 import Auth from '../components/auth/Auth.astro';
 ---
@@ -33,7 +34,7 @@ import Auth from '../components/auth/Auth.astro';
   >
     <Breadcrumbs />
     <Navigation />
-    <Auth />
+    <Auth authPrompt={authPrompt} />
     <slot />
   </body>
 </html>

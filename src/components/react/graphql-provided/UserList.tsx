@@ -2,16 +2,16 @@ import { useMutation, useQuery, useSubscription } from '@apollo/client';
 import { useStore } from '@nanostores/react';
 import {
   DeleteUserLeagueMechanicDocument,
-  DeleteUserLeagueMechanicMutation,
-  DeleteUserLeagueMechanicMutationVariables,
   InsertUserLeagueMechanicDocument,
-  InsertUserLeagueMechanicMutation,
-  InsertUserLeagueMechanicMutationVariables,
   League_Type_Enum,
   LeaguesDocument,
-  LeaguesQuery,
   UsersSubDocument,
-  UsersSubSubscription,
+  type DeleteUserLeagueMechanicMutation,
+  type DeleteUserLeagueMechanicMutationVariables,
+  type InsertUserLeagueMechanicMutation,
+  type InsertUserLeagueMechanicMutationVariables,
+  type LeaguesQuery,
+  type UsersSubSubscription,
 } from '../../../graphql-api';
 import { Spinner } from '../ui/Spinner';
 

@@ -2,8 +2,8 @@ import { useQuery } from '@apollo/client';
 import invariant from 'tiny-invariant';
 import {
   UserByIdDocument,
-  UserByIdQuery,
-  UserByIdQueryVariables,
+  type UserByIdQuery,
+  type UserByIdQueryVariables,
 } from '../graphql-api';
 
 export const useMyHasuraUser = () => {

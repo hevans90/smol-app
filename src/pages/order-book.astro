@@ -1,14 +1,13 @@
 ---
 import { OrdersPage } from '../components/OrdersPage';
 import Layout from '../layouts/Layout.astro';
-import svg from '/smol-logo.svg';
 
 const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="Item Orders">
   <main class="flex flex-col items-start">
-    <img src={svg} alt="logo" class="w-32 mb-8" />
+    <img src="/public/smol-logo.svg" alt="logo" class="w-32 mb-8" />
     <OrdersPage hasuraUri={hasuraUri} client:only="react" />
   </main>
 </Layout>

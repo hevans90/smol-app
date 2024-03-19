@@ -10,11 +10,6 @@ import {
   useRole,
 } from '@floating-ui/react';
 import {
-  ButtonHTMLAttributes,
-  Dispatch,
-  HTMLProps,
-  ReactNode,
-  SetStateAction,
   cloneElement,
   createContext,
   forwardRef,
@@ -24,6 +19,11 @@ import {
   useLayoutEffect,
   useMemo,
   useState,
+  type ButtonHTMLAttributes,
+  type Dispatch,
+  type HTMLProps,
+  type ReactNode,
+  type SetStateAction,
 } from 'react';
 import { Button } from './Button';
 

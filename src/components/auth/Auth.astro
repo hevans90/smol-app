@@ -8,6 +8,6 @@ const discordOauthUrl = `
 ---
 
 <div class="fixed right-3 top-3 flex flex-col gap-4 min-w-[10rem] z-10">
-  <PoEAuth client:load />
+  <PoEAuth client:only="react" />
   <DiscordAuth client:only="react" discordOauthUrl={discordOauthUrl} />
 </div>

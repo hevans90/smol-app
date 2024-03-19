@@ -7,22 +7,22 @@ import { isAfter, subWeeks } from 'date-fns';
 
 import {
   DeleteUserItemOrderDocument,
-  DeleteUserItemOrderMutation,
-  DeleteUserItemOrderMutationVariables,
   FulfillUserItemOrderDocument,
-  FulfillUserItemOrderMutation,
-  FulfillUserItemOrderMutationVariables,
   InsertUserItemOrderDocument,
-  InsertUserItemOrderMutation,
-  InsertUserItemOrderMutationVariables,
   Item_Order_Type_Enum,
   OrderTypesDocument,
-  OrderTypesQuery,
   UpdateUserItemOrderDocument,
-  UpdateUserItemOrderMutation,
-  UpdateUserItemOrderMutationVariables,
   UserItemOrdersDocument,
-  UserItemOrdersSubscription,
+  type DeleteUserItemOrderMutation,
+  type DeleteUserItemOrderMutationVariables,
+  type FulfillUserItemOrderMutation,
+  type FulfillUserItemOrderMutationVariables,
+  type InsertUserItemOrderMutation,
+  type InsertUserItemOrderMutationVariables,
+  type OrderTypesQuery,
+  type UpdateUserItemOrderMutation,
+  type UpdateUserItemOrderMutationVariables,
+  type UserItemOrdersSubscription,
 } from '../../../graphql-api';
 import { Spinner } from '../ui/Spinner';
 
@@ -48,7 +48,7 @@ import {
 } from '../ui/Dialog';
 import { OrderBookFilters } from './OrderBookFilters';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(en);
 
 export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(

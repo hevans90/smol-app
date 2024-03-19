@@ -49,3 +49,12 @@ I haven't (yet) set this up to run locally because it requires a docker setup wh
 - [dashboard](https://https://fly.io/dashboard/smol-app/)
 
 If you want to change tables/permissions etc [just talk to Ray! on discord and he will give you everything you need](<(https://discordapp.com/users/147766022336675841)>).
+
+## Local Data dump from Hasura
+
+```bash
+curl -H "X-Hasura-Role: admin" -H "Content-Type: application/json" -H "X-Hasura-Admin-Secret: <secret>" \
+  --request POST \
+  --data '{"opts": ["-O", "-x", "--schema", "public"], "clean_output": true, "source": "default"}' \
+  https://smol-hasura.fly.dev/v1alpha1/pg_dump
+```

@@ -1,11 +1,11 @@
 import {
   ApolloClient,
-  createHttpLink,
-  DefaultOptions,
   InMemoryCache,
-  InMemoryCacheConfig,
-  NormalizedCacheObject,
+  createHttpLink,
   split,
+  type DefaultOptions,
+  type InMemoryCacheConfig,
+  type NormalizedCacheObject,
 } from '@apollo/client';
 
 import { createClient } from 'graphql-ws';

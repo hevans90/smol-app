@@ -63,6 +63,8 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
     localStorage.removeItem('poe_token');
     localStorage.removeItem('poe_expiry');
     localStorage.removeItem('poe_username');
+    window.dispatchEvent(new Event('storage'));
+
     poeStore.set({ expiry: '', token: '', username: '', id: '' });
     setUsername(null);
   };
@@ -105,7 +107,7 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
         <div className="text-primary-500 hidden md:block">{username}</div>
         <button
           onClick={logout}
-          className="bg-gray-950 hover:bg-gray-950 text-end mr-2 grow hover:text-primary-300"
+          className="bg-transparent hover:bg-transparent text-end mr-2 grow hover:text-primary-300"
         >
           Logout
         </button>

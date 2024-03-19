@@ -39,6 +39,7 @@ const DiscordAuth = ({
     localStorage.removeItem('discord_token');
     localStorage.removeItem('discord_expiry');
     localStorage.removeItem('discord_userdata');
+    window.dispatchEvent(new Event('storage'));
     discordStore.set({ expiry: '', token: '', username: '', id: '' });
     setUserData(null);
   };
@@ -88,7 +89,7 @@ const DiscordAuth = ({
         </div>
         <button
           onClick={logout}
-          className="text-end mr-2 grow hover:text-primary-300 bg-gray-950 hover:bg-gray-950"
+          className="text-end mr-2 grow hover:text-primary-300 bg-transparent hover:bg-transparent"
         >
           Logout
         </button>

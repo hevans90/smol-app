@@ -1,0 +1,1 @@
+INSERT INTO "public"."user"("discord_avatar", "discord_name", "discord_user_id", "guild", "poe_name", "poe_user_id", "id") VALUES (E'35938f818eb6be9d3973bd54666fb662', E'ray!', E'147766022336675841', E'Smol Groop Found', E'Hevans9000', E'ef9cdef1-8a2c-4171-a0c3-7a7b84a08da5', E'0f88b961-6764-4333-b5b9-615f886e7f74');

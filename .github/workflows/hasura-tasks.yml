@@ -1,0 +1,35 @@
+name: Hasura Tasks
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      HASURA_URL: https://smol-hasura.fly.dev
+      HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+
+      - name: Apply Migrations
+        run: pnpm ci:migrate-apply
+
+      - name: Apply Metadata
+        run: pnpm ci:metadata-apply
+
+      - name: Reload Metadata
+        run: pnpm ci:metadata-reload

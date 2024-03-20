@@ -10,7 +10,17 @@
     "preview": "astro preview",
     "astro": "astro",
     "deploy:hasura": "cd hasura && flyctl deploy smol-hasura",
-    "graphql:generate": "gql-gen --config codegen.ts -r dotenv/config --watch"
+    "graphql:generate": "gql-gen --config codegen.ts -r dotenv/config --watch",
+    "docker-up": "docker compose --env-file .env up -d",
+    "docker-down": "docker compose --env-file .env down",
+    "seed-apply": "hasura seed apply --project hasura --database-name default",
+    "metadata-apply": "hasura metadata apply --project hasura",
+    "metadata-reload": "hasura metadata reload --project hasura",
+    "migrate-apply": "hasura migrate apply --project hasura --database-name default",
+    "hasura:bootstrap": "pnpm migrate-apply && pnpm seed-apply && pnpm metadata-apply && hasura console --project hasura",
+    "ci:metadata-reload": "hasura metadata reload --project hasura --endpoint $HASURA_URL  --admin-secret $HASURA_ADMIN_SECRET --skip-update-check",
+    "ci:metadata-apply": "hasura metadata apply --project hasura --endpoint $HASURA_URL  --admin-secret $HASURA_ADMIN_SECRET --skip-update-check",
+    "ci:migrate-apply": "hasura migrate apply --project hasura --endpoint $HASURA_URL  --admin-secret $HASURA_ADMIN_SECRET --database-name default --skip-update-check"
   },
   "dependencies": {
     "@apollo/client": "^3.8.1",

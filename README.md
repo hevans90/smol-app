@@ -7,6 +7,8 @@
 - run `ntl init`, and you should end up linking the netlify site with our repo:
 - [message Ray! on discord to get a .env file](https://discordapp.com/users/147766022336675841)
 - install the recommended workspace VSCode extensions to have the best time (if using VS Code)
+- [docker](https://docs.docker.com/get-docker/)
+- [docker compose](https://docs.docker.com/compose/install/)
 
 ```
 Directory Linked
@@ -41,16 +43,18 @@ These are run locally when running `ntl dev` and will hot reload when the files 
 
 ---
 
-### Hasura
+### Local Backend
 
-I haven't (yet) set this up to run locally because it requires a docker setup which makes local dev more complex for the average andy. For now we are developing against a single deployed instance which is hosted on fly.io:
+`pnpm docker-up && pnpm hasura:bootstrap`
+
+### Remote Backend
 
 - [deployed hasura console](https://smol-hasura.fly.dev/console)
 - [dashboard](https://https://fly.io/dashboard/smol-app/)
 
 If you want to change tables/permissions etc [just talk to Ray! on discord and he will give you everything you need](<(https://discordapp.com/users/147766022336675841)>).
 
-## Local Data dump from Hasura
+## Local Data dump from Remote Hasura
 
 ```bash
 curl -H "X-Hasura-Role: admin" -H "Content-Type: application/json" -H "X-Hasura-Admin-Secret: <secret>" \

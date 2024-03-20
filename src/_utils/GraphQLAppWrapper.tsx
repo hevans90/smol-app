@@ -27,7 +27,11 @@ const GraphQLAppWrapper = ({
 
   return (
     <ApolloProvider
-      client={apolloBootstrapper({ uri, token: hasuraAccessToken })}
+      client={apolloBootstrapper({
+        uri,
+        token: hasuraAccessToken,
+        secure: process.env.NODE_ENV === 'production',
+      })}
     >
       <Toaster position="bottom-center" toastOptions={{ duration: 3000 }}>
         {(t) => (

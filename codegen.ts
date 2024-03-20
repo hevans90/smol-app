@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: [
     {
-      'https://smol-hasura.fly.dev/v1/graphql': {
+      ['http://localhost:8080/v1/graphql']: {
         headers: {
           'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
         } as any,

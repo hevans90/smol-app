@@ -148,6 +148,9 @@ devDependencies:
   dotenv:
     specifier: ^16.3.1
     version: 16.3.1
+  hasura-cli:
+    specifier: ^2.36.1
+    version: 2.36.1
 
 packages:
 
@@ -4783,6 +4786,14 @@ packages:
       - supports-color
     dev: false
 
+  /axios@0.21.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
+    dependencies:
+      follow-redirects: 1.15.6(debug@4.3.4)
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
   /axobject-query@4.0.0:
     resolution: {integrity: sha512-+60uv1hiVFhHZeO+Lz0RYzsVHy5Wr1ayX0mwda9KPDVLNJgZ1T9Ny7VmFbLDzxsH0D87I86vgj3gFrjTJUYznw==}
     dependencies:
@@ -7236,7 +7247,6 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4(supports-color@9.4.0)
-    dev: false
 
   /for-in@1.0.2:
     resolution: {integrity: sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ==}
@@ -7875,6 +7885,18 @@ packages:
       property-information: 6.2.0
       space-separated-tokens: 2.0.2
     dev: false
+
+  /hasura-cli@2.36.1:
+    resolution: {integrity: sha512-h8MHlkkgjlnmFsjzJ+FYDecIB0zswtdvFszXLPsSsyOuCuIIGejAx3rSPFVIxyiZVXohbsJcgjJBe7r91BV3Wg==}
+    engines: {node: '>=8'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      axios: 0.21.4
+      chalk: 2.4.2
+    transitivePeerDependencies:
+      - debug
+    dev: true
 
   /header-case@2.0.4:
     resolution: {integrity: sha512-H/vuk5TEEVZwrR0lp2zed9OCo1uAILMlx0JEMgC26rzyJJ3N1v6XkwHHXJQdR2doSjcGPM6OKPYoJgf0plJ11Q==}

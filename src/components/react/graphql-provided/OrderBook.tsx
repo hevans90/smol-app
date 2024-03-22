@@ -101,13 +101,13 @@ export const OrderBook = () => {
 
   const myUnfilfilledPriorityOrders = useMemo(
     () =>
-      filteredOrders?.filter(
+      orders?.user_item_order?.filter(
         (order) =>
           order.user.discord_user_id === myDiscordId &&
           order.priority &&
           !order?.fulfilled_by_user
       ),
-    [filteredOrders]
+    [orders]
   );
 
   const { data: userProfile, loading: userLoading } = useMyHasuraUser();

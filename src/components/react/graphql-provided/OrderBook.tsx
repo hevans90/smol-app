@@ -104,6 +104,7 @@ export const OrderBook = () => {
       filteredOrders?.filter(
         (order) =>
           order.user.discord_user_id === myDiscordId &&
+          order.priority &&
           !order?.fulfilled_by_user
       ),
     [filteredOrders]

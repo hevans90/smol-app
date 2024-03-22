@@ -15,10 +15,12 @@ export const OrderForm = ({
   orderTypes,
   data,
   onSubmit,
+  allowPriority,
 }: {
   orderTypes: OrderTypesQuery;
   data?: OrderFormInputs;
   onSubmit: SubmitHandler<OrderFormInputs>;
+  allowPriority?: boolean;
 }) => {
   const {
     watch,
@@ -43,14 +45,23 @@ export const OrderForm = ({
         />
       </div>
       <div className="flex mb-2 flex-col">
-        <div className="flex gap-2 text-primary-500">
-          Is this a priority order?
-          <input type="checkbox" {...register('priority')} />
+        <div className="flex gap-4 text-primary-500 items-center">
+          <p>Is this a priority order?</p>
+          <input
+            disabled={!allowPriority}
+            type="checkbox"
+            {...register('priority')}
+          />
+          {!allowPriority && (
+            <p className="text-red-400">Priority order limit reached.</p>
+          )}
         </div>
-        <p className="text-primary-800">
-          (non-priority orders will go inactive after a week of not being
-          fulfilled)
-        </p>
+        {allowPriority ? (
+          <p className="text-primary-800">
+            (non-priority orders will go inactive after a week of not being
+            fulfilled)
+          </p>
+        ) : null}
       </div>
       <div className="flex flex-col mb-2">
         <label className="mb-1">Type</label>

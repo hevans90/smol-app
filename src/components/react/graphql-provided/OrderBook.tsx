@@ -50,6 +50,8 @@ import { OrderBookFilters } from './OrderBookFilters';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
 TimeAgo.addLocale(en);
 
+const priorityOrderLimit = 2;
+
 export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
     UserItemOrdersDocument
@@ -57,6 +59,7 @@ export const OrderBook = () => {
 
   const { data: orderTypes } = useQuery<OrderTypesQuery>(OrderTypesDocument);
 
+  const { id: myDiscordId } = useStore(discordStore);
   const fuzzyQuery = useStore(orderBookFuzzySearchStore);
   const showInactive = useStore(orderBookShowInactiveStore);
   const showFulfilled = useStore(orderBookShowFulfilledStore);
@@ -96,6 +99,16 @@ export const OrderBook = () => {
     return result;
   }, [showFulfilled, showInactive, typeFilters, loading, orders, fuzzyQuery]);
 
+  const myUnfilfilledPriorityOrders = useMemo(
+    () =>
+      filteredOrders?.filter(
+        (order) =>
+          order.user.discord_user_id === myDiscordId &&
+          !order?.fulfilled_by_user
+      ),
+    [filteredOrders]
+  );
+
   const { data: userProfile, loading: userLoading } = useMyHasuraUser();
 
   const [createItemOrder] = useMutation<
@@ -117,8 +130,6 @@ export const OrderBook = () => {
     FulfillUserItemOrderMutation,
     FulfillUserItemOrderMutationVariables
   >(FulfillUserItemOrderDocument);
-
-  const { id: myDiscordId } = useStore(discordStore);
 
   const [fulfillModalOpen, setFulfillModalOpen] = useState(false);
   const [fulfillModalState, setFulfillModalState] = useState<{
@@ -447,6 +458,9 @@ export const OrderBook = () => {
           <DialogHeading>Create Order</DialogHeading>
           {orderTypes && (
             <OrderForm
+              allowPriority={
+                (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
+              }
               orderTypes={orderTypes}
               onSubmit={(data) => {
                 createItemOrder({

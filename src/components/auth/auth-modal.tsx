@@ -1,11 +1,18 @@
 import { isAfter } from 'date-fns';
 import { useEffect, useState } from 'react';
+import GraphQLAppWrapper from '../../_utils/GraphQLAppWrapper';
 import { SetMyGuild } from '../react/SetMyGuild';
 import { Dialog, DialogContent, DialogHeading } from '../react/ui/Dialog';
 import DiscordAuth from './discord-auth/DiscordAuth';
 import PoEAuth from './poe-auth/PoEAuth';
 
-export const AuthModal = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
+export const AuthModal = ({
+  discordOauthUrl,
+  hasuraUri,
+}: {
+  discordOauthUrl: string;
+  hasuraUri: string;
+}) => {
   const [loginState, setLoginState] = useState<{
     hasuraAccessToken: string | null;
     discord: { token: string | null; expiry: string | null };
@@ -46,7 +53,9 @@ export const AuthModal = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
         <div className="flex flex-col gap-4 min-w-[10rem]">
           <PoEAuth />
           <DiscordAuth discordOauthUrl={discordOauthUrl} />
-          <SetMyGuild automatic={true} />
+          <GraphQLAppWrapper uri={hasuraUri}>
+            <SetMyGuild automatic={true} />
+          </GraphQLAppWrapper>
         </div>
       </DialogContent>
     </Dialog>

@@ -69,7 +69,7 @@ const DiscordAuth = ({
   }, []);
 
   if (!loggedIntoPoE && !logoutOnly) {
-    return <>Log in via PoE to enable discord linking.</>;
+    return <></>;
   }
   if (loggedIn && userData) {
     return (

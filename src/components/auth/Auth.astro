@@ -1,30 +1,21 @@
 ---
-import { AuthModal } from './auth-modal';
-import DiscordAuth from './discord-auth/DiscordAuth';
-import PoEAuth from './poe-auth/PoEAuth';
+import AuthWidget from '../react/graphql-provided/AuthWidget';
 
 interface Props {
   authPrompt: boolean;
 }
 
 const { authPrompt } = Astro.props;
+const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 
 const { DISCORD_CLIENT_ID, DISCORD_REDIRECT } = import.meta.env;
 const discordOauthUrl = `
   https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${DISCORD_REDIRECT}&scope=identify&response_type=code`;
 ---
 
-<div class="fixed right-3 top-3 flex flex-col gap-4 min-w-[10rem] z-10">
-  <PoEAuth client:only="react" logoutOnly={true} />
-  <DiscordAuth
-    client:only="react"
-    discordOauthUrl={discordOauthUrl}
-    logoutOnly={true}
-  />
-</div>
-
-{
-  authPrompt && (
-    <AuthModal client:only="react" discordOauthUrl={discordOauthUrl} />
-  )
-}
+<AuthWidget
+  client:only="react"
+  authPrompt={authPrompt}
+  discordOauthUrl={discordOauthUrl}
+  hasuraUri={hasuraUri}
+/>

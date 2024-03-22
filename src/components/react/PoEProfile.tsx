@@ -1,25 +1,12 @@
-import { useMutation } from '@apollo/client';
-import toast from 'react-hot-toast';
-import invariant from 'tiny-invariant';
-import {
-  SetMyGuildDocument,
-  type SetMyGuildMutation,
-  type SetMyGuildMutationVariables,
-} from '../../graphql-api';
 import { useMyHasuraUser } from '../../hooks/useMyHasuraId';
 import { usePoEProfile } from '../../hooks/usePoEProfile';
-import { Button } from './ui/Button';
+import { SetMyGuild } from './SetMyGuild';
 import { Spinner } from './ui/Spinner';
 
 const PoEProfile = () => {
   const { token, loading, profile } = usePoEProfile();
 
   const { data: hasuraUser, loading: userLoading } = useMyHasuraUser();
-
-  const [setMyGuild, { loading: setMyGuildLoading }] = useMutation<
-    SetMyGuildMutation,
-    SetMyGuildMutationVariables
-  >(SetMyGuildDocument);
 
   if (userLoading || !hasuraUser) return <Spinner />;
 
@@ -40,42 +27,7 @@ const PoEProfile = () => {
                 </div>
               ))}
             </div>
-            {profile?.guild?.name ? (
-              <Button
-                disabled={setMyGuildLoading || !!hasuraUser.guild}
-                onClick={() => {
-                  invariant(profile.guild);
-                  invariant(profile.guild.name);
-                  setMyGuild({
-                    variables: {
-                      userId: hasuraUser?.id as string,
-                      guild: profile.guild.name,
-                    },
-                  })
-                    .then(() => toast.success('Guild successfully saved!'))
-                    .catch((e) => {
-                      toast.error(
-                        'Something went wrong while trying to save your guild :('
-                      );
-                      toast.error(e);
-                      console.error(e);
-                    });
-                }}
-              >
-                {!!hasuraUser.guild ? (
-                  <>
-                    Guild saved:{' '}
-                    <span className="text-primary-800">{hasuraUser.guild}</span>
-                  </>
-                ) : (
-                  'Save your Guild'
-                )}
-              </Button>
-            ) : (
-              <div className="text-red-400 ">
-                You are not in a guild, go join one you loner.
-              </div>
-            )}
+            <SetMyGuild automatic={false} />
           </div>
         )}
       </div>

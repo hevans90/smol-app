@@ -33,7 +33,7 @@ export const usePoEProfile = () => {
 
     setLoading(false);
     setProfile(data);
-    toast.success('Profile loaded');
+    toast.success('POE Profile loaded');
   };
 
   useEffect(() => {

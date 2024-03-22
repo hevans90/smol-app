@@ -1,5 +1,6 @@
 import { isAfter } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { SetMyGuild } from '../react/SetMyGuild';
 import { Dialog, DialogContent, DialogHeading } from '../react/ui/Dialog';
 import DiscordAuth from './discord-auth/DiscordAuth';
 import PoEAuth from './poe-auth/PoEAuth';
@@ -45,6 +46,7 @@ export const AuthModal = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
         <div className="flex flex-col gap-4 min-w-[10rem]">
           <PoEAuth />
           <DiscordAuth discordOauthUrl={discordOauthUrl} />
+          <SetMyGuild automatic={true} />
         </div>
       </DialogContent>
     </Dialog>

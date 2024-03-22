@@ -27,7 +27,9 @@ export const OrderForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<OrderFormInputs>({ defaultValues: { priority: data?.priority } });
+  } = useForm<OrderFormInputs>({
+    defaultValues: { priority: data?.priority ?? false },
+  });
 
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
 

@@ -74,7 +74,7 @@ export const OrderBook = () => {
     if (!showInactive) {
       result = result?.filter(
         ({ priority, updated_at }) =>
-          priority || isAfter(new Date(updated_at), subWeeks(new Date(), 1))
+          priority || isAfter(new Date(updated_at), subWeeks(new Date(), 2))
       );
     }
 

@@ -58,7 +58,7 @@ export const OrderForm = ({
         </div>
         {allowPriority ? (
           <p className="text-primary-800">
-            (non-priority orders will go inactive after a week of not being
+            (non-priority orders will go inactive after 2 weeks of not being
             fulfilled)
           </p>
         ) : null}

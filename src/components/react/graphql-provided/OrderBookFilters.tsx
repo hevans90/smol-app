@@ -54,7 +54,7 @@ export const OrderBookFilters = ({
       <Toggle
         value={showInactive}
         onChange={() => orderBookShowInactiveStore.set(!showInactive)}
-        label="Inactive (> 1 week)"
+        label="Inactive (> 2 weeks)"
       />
     </div>
   );

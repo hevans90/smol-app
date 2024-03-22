@@ -1,14 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+import { Image } from 'astro:assets';
 import { ProfilePage } from '../components/ProfilePage';
+
+import logoSrc from '../assets/smol-logo.png';
 
 const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="PoE Profile" authPrompt={true}>
   <main class="flex flex-col items-start">
-    <img src="./smol-logo.svg" alt="logo" class="w-48 mb-8" />
+    <Image src={logoSrc} alt="logo" class="w-48 mb-8" />
 
     <ProfilePage hasuraUri={hasuraUri} client:only="react" />
   </main>

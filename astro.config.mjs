@@ -16,5 +16,7 @@ export default defineConfig({
     port: 3001,
   },
   output: 'server',
-  adapter: netlify(),
+  adapter: netlify({
+    imageCDN: false,
+  }),
 });

@@ -26,12 +26,17 @@ export const OrderForm = ({
     watch,
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<OrderFormInputs>({
     defaultValues: { priority: data?.priority ?? false },
   });
 
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
+
+  const createOrderPrioDisable = !data && !allowPriority;
+  const updateOrderPrioDisable =
+    data && !allowPriority && !getValues('priority');
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
@@ -50,7 +55,7 @@ export const OrderForm = ({
         <div className="flex gap-4 text-primary-500 items-center">
           <p>Is this a priority order?</p>
           <input
-            disabled={!data && !allowPriority}
+            disabled={createOrderPrioDisable || updateOrderPrioDisable}
             type="checkbox"
             {...register('priority')}
           />

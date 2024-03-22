@@ -39,7 +39,7 @@ export const AuthModal = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
   }, []);
 
   return (
-    <Dialog open={loginState && !loggedIn}>
+    <Dialog open={!loggedIn}>
       <DialogContent>
         <DialogHeading>Authorise your PoE & Discord accounts</DialogHeading>
 

@@ -438,6 +438,9 @@ export const OrderBook = () => {
           <DialogHeading>Update Order</DialogHeading>
           {orderTypes && (
             <OrderForm
+              allowPriority={
+                (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
+              }
               orderTypes={orderTypes}
               data={updateModalState}
               onSubmit={(data) => {

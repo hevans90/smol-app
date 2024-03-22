@@ -50,7 +50,7 @@ export const OrderForm = ({
         <div className="flex gap-4 text-primary-500 items-center">
           <p>Is this a priority order?</p>
           <input
-            disabled={!allowPriority}
+            disabled={!data && !allowPriority}
             type="checkbox"
             {...register('priority')}
           />
@@ -58,12 +58,11 @@ export const OrderForm = ({
             <p className="text-red-400">Priority order limit reached.</p>
           )}
         </div>
-        {allowPriority ? (
-          <p className="text-primary-800">
-            (non-priority orders will go inactive after 2 weeks of not being
-            fulfilled)
-          </p>
-        ) : null}
+
+        <p className="text-primary-800">
+          (non-priority orders will go inactive after 2 weeks of not being
+          fulfilled)
+        </p>
       </div>
       <div className="flex flex-col mb-2">
         <label className="mb-1">Type</label>

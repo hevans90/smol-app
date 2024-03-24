@@ -270,6 +270,7 @@ export enum League_Type_Enum {
   AltarExarch = 'altar_exarch',
   Bestiary = 'bestiary',
   Betrayal = 'betrayal',
+  Beyond = 'beyond',
   Blight = 'blight',
   Breach = 'breach',
   Delirium = 'delirium',

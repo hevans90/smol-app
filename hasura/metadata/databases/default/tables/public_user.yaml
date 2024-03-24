@@ -17,6 +17,18 @@ array_relationships:
           name: user_league_mechanic
           schema: public
 select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - discord_avatar
+        - discord_name
+        - discord_user_id
+        - guild
+        - poe_name
+        - poe_user_id
+        - id
+      filter: {}
+    comment: ""
   - role: user
     permission:
       columns:
@@ -30,6 +42,19 @@ select_permissions:
       filter: {}
     comment: ""
 update_permissions:
+  - role: dev
+    permission:
+      columns:
+        - discord_avatar
+        - discord_name
+        - discord_user_id
+        - guild
+        - poe_name
+        - poe_user_id
+        - id
+      filter: {}
+      check: null
+    comment: ""
   - role: user
     permission:
       columns:
@@ -40,6 +65,10 @@ update_permissions:
       check: null
     comment: ""
 delete_permissions:
+  - role: dev
+    permission:
+      filter: {}
+    comment: ""
   - role: user
     permission:
       filter:

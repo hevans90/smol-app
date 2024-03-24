@@ -132,14 +132,18 @@ export const handler: Handler = async (event: HandlerEvent) => {
     responseData.expires_in
   ).toISOString();
 
+  const dev = ['Hevans9000', 'Eplyratata', 'Thanangard'].includes(
+    responseData.username
+  );
+
   // now generate a new JWT for use with hasura
   const hasuraToken = sign(
     {
       poeUserId: responseData.sub,
       hasuraUserId: upsertedHasuraUser?.id,
       'https://hasura.io/jwt/claims': {
-        'x-hasura-default-role': 'user',
-        'x-hasura-allowed-roles': ['user'],
+        'x-hasura-default-role': dev ? 'dev' : 'user',
+        'x-hasura-allowed-roles': dev ? ['dev', 'user'] : ['user'],
         'x-hasura-user-id': upsertedHasuraUser?.id,
       },
     },

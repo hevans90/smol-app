@@ -45,6 +45,7 @@
     "graphql-ws": "^5.14.0",
     "javascript-time-ago": "^2.5.9",
     "jsonwebtoken": "^9.0.1",
+    "jwt-decode": "^4.0.0",
     "nanostores": "^0.9.3",
     "netlify-cli": "^17.19.5",
     "node-fetch": "^3.3.2",

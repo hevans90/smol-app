@@ -1,0 +1,47 @@
+table:
+  name: league_info
+  schema: public
+insert_permissions:
+  - role: dev
+    permission:
+      check: {}
+      columns:
+        - description
+        - id
+        - url
+        - end_at
+        - start_at
+    comment: ""
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - description
+        - id
+        - url
+        - end_at
+        - start_at
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - description
+        - id
+        - url
+        - end_at
+        - start_at
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: dev
+    permission:
+      columns:
+        - description
+        - id
+        - url
+        - end_at
+        - start_at
+      filter: {}
+      check: null
+    comment: ""

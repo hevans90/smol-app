@@ -1,5 +1,3 @@
-import invariant from 'tiny-invariant';
-
 import { jwtDecode } from 'jwt-decode';
 
 type Role = 'user' | 'dev';
@@ -7,7 +5,9 @@ type Role = 'user' | 'dev';
 export const useMyRole = (): Role => {
   const myToken = localStorage.getItem('hasura_token');
 
-  invariant(myToken);
+  if (!myToken) {
+    return 'user';
+  }
 
   const decoded: {
     hasuraUserId: string;

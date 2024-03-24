@@ -222,6 +222,176 @@ export type Item_Order_Type_Updates = {
   where: Item_Order_Type_Bool_Exp;
 };
 
+/** columns and relationships of "league_info" */
+export type League_Info = {
+  __typename?: 'league_info';
+  description: Scalars['String']['output'];
+  end_at: Scalars['timestamptz']['output'];
+  id: Scalars['String']['output'];
+  start_at: Scalars['timestamptz']['output'];
+  url: Scalars['String']['output'];
+};
+
+/** aggregated selection of "league_info" */
+export type League_Info_Aggregate = {
+  __typename?: 'league_info_aggregate';
+  aggregate?: Maybe<League_Info_Aggregate_Fields>;
+  nodes: Array<League_Info>;
+};
+
+/** aggregate fields of "league_info" */
+export type League_Info_Aggregate_Fields = {
+  __typename?: 'league_info_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<League_Info_Max_Fields>;
+  min?: Maybe<League_Info_Min_Fields>;
+};
+
+
+/** aggregate fields of "league_info" */
+export type League_Info_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<League_Info_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "league_info". All fields are combined with a logical 'AND'. */
+export type League_Info_Bool_Exp = {
+  _and?: InputMaybe<Array<League_Info_Bool_Exp>>;
+  _not?: InputMaybe<League_Info_Bool_Exp>;
+  _or?: InputMaybe<Array<League_Info_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  end_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<String_Comparison_Exp>;
+  start_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  url?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "league_info" */
+export enum League_Info_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  LeagueInfoPkey = 'league_info_pkey'
+}
+
+/** input type for inserting data into table "league_info" */
+export type League_Info_Insert_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  end_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  start_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type League_Info_Max_Fields = {
+  __typename?: 'league_info_max_fields';
+  description?: Maybe<Scalars['String']['output']>;
+  end_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  start_at?: Maybe<Scalars['timestamptz']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type League_Info_Min_Fields = {
+  __typename?: 'league_info_min_fields';
+  description?: Maybe<Scalars['String']['output']>;
+  end_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  start_at?: Maybe<Scalars['timestamptz']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "league_info" */
+export type League_Info_Mutation_Response = {
+  __typename?: 'league_info_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<League_Info>;
+};
+
+/** on_conflict condition type for table "league_info" */
+export type League_Info_On_Conflict = {
+  constraint: League_Info_Constraint;
+  update_columns?: Array<League_Info_Update_Column>;
+  where?: InputMaybe<League_Info_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "league_info". */
+export type League_Info_Order_By = {
+  description?: InputMaybe<Order_By>;
+  end_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  start_at?: InputMaybe<Order_By>;
+  url?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: league_info */
+export type League_Info_Pk_Columns_Input = {
+  id: Scalars['String']['input'];
+};
+
+/** select columns of table "league_info" */
+export enum League_Info_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  EndAt = 'end_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StartAt = 'start_at',
+  /** column name */
+  Url = 'url'
+}
+
+/** input type for updating data in table "league_info" */
+export type League_Info_Set_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  end_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  start_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "league_info" */
+export type League_Info_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: League_Info_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type League_Info_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  end_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  start_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "league_info" */
+export enum League_Info_Update_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  EndAt = 'end_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StartAt = 'start_at',
+  /** column name */
+  Url = 'url'
+}
+
+export type League_Info_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<League_Info_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: League_Info_Bool_Exp;
+};
+
 /** columns and relationships of "league_type" */
 export type League_Type = {
   __typename?: 'league_type';
@@ -384,6 +554,10 @@ export type Mutation_Root = {
   delete_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
   /** delete single row from the table: "item_order_type" */
   delete_item_order_type_by_pk?: Maybe<Item_Order_Type>;
+  /** delete data from the table: "league_info" */
+  delete_league_info?: Maybe<League_Info_Mutation_Response>;
+  /** delete single row from the table: "league_info" */
+  delete_league_info_by_pk?: Maybe<League_Info>;
   /** delete data from the table: "league_type" */
   delete_league_type?: Maybe<League_Type_Mutation_Response>;
   /** delete single row from the table: "league_type" */
@@ -404,6 +578,10 @@ export type Mutation_Root = {
   insert_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
   /** insert a single row into the table: "item_order_type" */
   insert_item_order_type_one?: Maybe<Item_Order_Type>;
+  /** insert data into the table: "league_info" */
+  insert_league_info?: Maybe<League_Info_Mutation_Response>;
+  /** insert a single row into the table: "league_info" */
+  insert_league_info_one?: Maybe<League_Info>;
   /** insert data into the table: "league_type" */
   insert_league_type?: Maybe<League_Type_Mutation_Response>;
   /** insert a single row into the table: "league_type" */
@@ -426,6 +604,12 @@ export type Mutation_Root = {
   update_item_order_type_by_pk?: Maybe<Item_Order_Type>;
   /** update multiples rows of table: "item_order_type" */
   update_item_order_type_many?: Maybe<Array<Maybe<Item_Order_Type_Mutation_Response>>>;
+  /** update data of the table: "league_info" */
+  update_league_info?: Maybe<League_Info_Mutation_Response>;
+  /** update single row of the table: "league_info" */
+  update_league_info_by_pk?: Maybe<League_Info>;
+  /** update multiples rows of table: "league_info" */
+  update_league_info_many?: Maybe<Array<Maybe<League_Info_Mutation_Response>>>;
   /** update data of the table: "league_type" */
   update_league_type?: Maybe<League_Type_Mutation_Response>;
   /** update single row of the table: "league_type" */
@@ -462,6 +646,18 @@ export type Mutation_RootDelete_Item_Order_TypeArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Item_Order_Type_By_PkArgs = {
   value: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_League_InfoArgs = {
+  where: League_Info_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_League_Info_By_PkArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -524,6 +720,20 @@ export type Mutation_RootInsert_Item_Order_TypeArgs = {
 export type Mutation_RootInsert_Item_Order_Type_OneArgs = {
   object: Item_Order_Type_Insert_Input;
   on_conflict?: InputMaybe<Item_Order_Type_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_League_InfoArgs = {
+  objects: Array<League_Info_Insert_Input>;
+  on_conflict?: InputMaybe<League_Info_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_League_Info_OneArgs = {
+  object: League_Info_Insert_Input;
+  on_conflict?: InputMaybe<League_Info_On_Conflict>;
 };
 
 
@@ -600,6 +810,26 @@ export type Mutation_RootUpdate_Item_Order_Type_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Item_Order_Type_ManyArgs = {
   updates: Array<Item_Order_Type_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_League_InfoArgs = {
+  _set?: InputMaybe<League_Info_Set_Input>;
+  where: League_Info_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_League_Info_By_PkArgs = {
+  _set?: InputMaybe<League_Info_Set_Input>;
+  pk_columns: League_Info_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_League_Info_ManyArgs = {
+  updates: Array<League_Info_Updates>;
 };
 
 
@@ -706,6 +936,12 @@ export type Query_Root = {
   item_order_type_aggregate: Item_Order_Type_Aggregate;
   /** fetch data from the table: "item_order_type" using primary key columns */
   item_order_type_by_pk?: Maybe<Item_Order_Type>;
+  /** fetch data from the table: "league_info" */
+  league_info: Array<League_Info>;
+  /** fetch aggregated fields from the table: "league_info" */
+  league_info_aggregate: League_Info_Aggregate;
+  /** fetch data from the table: "league_info" using primary key columns */
+  league_info_by_pk?: Maybe<League_Info>;
   /** fetch data from the table: "league_type" */
   league_type: Array<League_Type>;
   /** fetch aggregated fields from the table: "league_type" */
@@ -753,6 +989,29 @@ export type Query_RootItem_Order_Type_AggregateArgs = {
 
 export type Query_RootItem_Order_Type_By_PkArgs = {
   value: Scalars['String']['input'];
+};
+
+
+export type Query_RootLeague_InfoArgs = {
+  distinct_on?: InputMaybe<Array<League_Info_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Info_Order_By>>;
+  where?: InputMaybe<League_Info_Bool_Exp>;
+};
+
+
+export type Query_RootLeague_Info_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<League_Info_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Info_Order_By>>;
+  where?: InputMaybe<League_Info_Bool_Exp>;
+};
+
+
+export type Query_RootLeague_Info_By_PkArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -857,6 +1116,14 @@ export type Subscription_Root = {
   item_order_type_by_pk?: Maybe<Item_Order_Type>;
   /** fetch data from the table in a streaming manner: "item_order_type" */
   item_order_type_stream: Array<Item_Order_Type>;
+  /** fetch data from the table: "league_info" */
+  league_info: Array<League_Info>;
+  /** fetch aggregated fields from the table: "league_info" */
+  league_info_aggregate: League_Info_Aggregate;
+  /** fetch data from the table: "league_info" using primary key columns */
+  league_info_by_pk?: Maybe<League_Info>;
+  /** fetch data from the table in a streaming manner: "league_info" */
+  league_info_stream: Array<League_Info>;
   /** fetch data from the table: "league_type" */
   league_type: Array<League_Type>;
   /** fetch aggregated fields from the table: "league_type" */
@@ -919,6 +1186,36 @@ export type Subscription_RootItem_Order_Type_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Item_Order_Type_Stream_Cursor_Input>>;
   where?: InputMaybe<Item_Order_Type_Bool_Exp>;
+};
+
+
+export type Subscription_RootLeague_InfoArgs = {
+  distinct_on?: InputMaybe<Array<League_Info_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Info_Order_By>>;
+  where?: InputMaybe<League_Info_Bool_Exp>;
+};
+
+
+export type Subscription_RootLeague_Info_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<League_Info_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Info_Order_By>>;
+  where?: InputMaybe<League_Info_Bool_Exp>;
+};
+
+
+export type Subscription_RootLeague_Info_By_PkArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootLeague_Info_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<League_Info_Stream_Cursor_Input>>;
+  where?: InputMaybe<League_Info_Bool_Exp>;
 };
 
 
@@ -1810,6 +2107,13 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
+export type SetPrivateLeagueMutationVariables = Exact<{
+  input: League_Info_Insert_Input;
+}>;
+
+
+export type SetPrivateLeagueMutation = { __typename?: 'mutation_root', insert_league_info_one?: { __typename?: 'league_info', description: string, id: string } | null };
+
 export type LeaguesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1919,6 +2223,17 @@ export const UserFieldsFragmentDoc = gql`
   }
 }
     `;
+export const SetPrivateLeagueDocument = gql`
+    mutation SetPrivateLeague($input: league_info_insert_input!) {
+  insert_league_info_one(object: $input) {
+    description
+    id
+  }
+}
+    `;
+export type SetPrivateLeagueMutationFn = Apollo.MutationFunction<SetPrivateLeagueMutation, SetPrivateLeagueMutationVariables>;
+export type SetPrivateLeagueMutationResult = Apollo.MutationResult<SetPrivateLeagueMutation>;
+export type SetPrivateLeagueMutationOptions = Apollo.BaseMutationOptions<SetPrivateLeagueMutation, SetPrivateLeagueMutationVariables>;
 export const LeaguesDocument = gql`
     query Leagues {
   league_type {

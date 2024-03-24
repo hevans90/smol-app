@@ -40,6 +40,7 @@ services:
     restart: always
     environment:
       PORT: 4001
+      DATABASE_URL: postgres://postgres:pw@postgres:5432/postgres
 
 volumes:
   db-data:

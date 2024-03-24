@@ -13,7 +13,7 @@
     "graphql:generate": "gql-gen --config codegen.ts -r dotenv/config --watch",
     "docker-up": "docker compose --env-file .env up -d",
     "docker-down": "docker compose --env-file .env down",
-    "go:watch": "PORT=4000 gow -e=go,mod,tmpl run ./go-server/app.go",
+    "go:watch": "PORT=4000 gow -e=go,mod,tmpl run ./go-server/main.go",
     "seed-apply": "hasura seed apply --project hasura --database-name default",
     "metadata-apply": "hasura metadata apply --project hasura",
     "metadata-reload": "hasura metadata reload --project hasura",

@@ -239,7 +239,7 @@ export const OrderBook = () => {
               </div>
             </th>
             <th></th>
-            <th className="w-20">type</th>
+            <th className="w-22">type</th>
             <th className="w-96">description</th>
             <th className="hidden lg:table-cell">updated</th>
             <th></th>
@@ -323,7 +323,7 @@ export const OrderBook = () => {
                       {link_url ? (
                         <a href={link_url} target="_blank">
                           <img
-                            className="w-10 h-10 md:w-12 md:h-12 p-1"
+                            className="h-10 md:h-12 p-1 object-cover"
                             src={getWikiImgSrcFromUrl(link_url)}
                           />
                         </a>

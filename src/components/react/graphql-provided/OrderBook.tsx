@@ -52,6 +52,13 @@ TimeAgo.addLocale(en);
 
 const priorityOrderLimit = 2;
 
+const getWikiImgSrcFromUrl = (url: string) => {
+  // i.e. https://www.poewiki.net/wiki/Ming%27s_Heart
+  const itemName = url.split('/').pop();
+
+  return `https://www.poewiki.net/wiki/Special:FilePath/${itemName}_inventory_icon.png`;
+};
+
 export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
     UserItemOrdersDocument
@@ -313,10 +320,19 @@ export const OrderBook = () => {
 
                   <td>
                     <div className="flex justify-center">
-                      <img
-                        className="w-10 h-10 md:w-12 md:h-12 p-1"
-                        src={`/order-types/${type}.webp`}
-                      />
+                      {link_url ? (
+                        <a href={link_url} target="_blank">
+                          <img
+                            className="w-10 h-10 md:w-12 md:h-12 p-1"
+                            src={getWikiImgSrcFromUrl(link_url)}
+                          />
+                        </a>
+                      ) : (
+                        <img
+                          className="w-10 h-10 md:w-12 md:h-12 p-1"
+                          src={`/order-types/${type}.webp`}
+                        />
+                      )}
                     </div>
                   </td>
 

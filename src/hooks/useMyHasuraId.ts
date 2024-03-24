@@ -7,7 +7,7 @@ import {
 } from '../graphql-api';
 
 export const useMyHasuraUser = () => {
-  const myId = localStorage.getItem('hasura_user_id');
+  const myId = localStorage.getItem('hasura_user_id')?.trim();
 
   invariant(myId);
 

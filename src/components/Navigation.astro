@@ -21,17 +21,26 @@ let routes: Route[] = [
   },
 ];
 
-const currentPath = Astro.url.pathname
-  .split('/')
-  .filter((x) => !!x)
-  .pop() as string;
+const baseClasses = `         
+          no-underline
+          p-4 md:p-3
+          basis-0 md:basis-auto
+          text-center
+          
+          border-primary-800 
+          border-r-[1px]
+          border-t-[1px] md:border-t-0
+          md:border-b-[1px]
+          md:last:border-r-[1px] 
+          md:first:border-l-[1px]
+          md:first:rounded-bl-md md:last:rounded-br-md`;
 
-routes = routes.filter(({ path, home }) => {
-  if (home && !currentPath) {
-    return false;
-  }
-  return !path.includes(currentPath);
-});
+const currentPath = `/${
+  Astro.url.pathname
+    .split('/')
+    .filter((x) => !!x)
+    .pop() ?? ('' as string)
+}`;
 ---
 
 <div
@@ -39,28 +48,21 @@ routes = routes.filter(({ path, home }) => {
 >
   <nav aria-label="Navigation" class="flex text-3xl md:text-xl">
     {
-      routes.map(({ path, display }) => (
-        <a
-          href={path}
-          class="
-          no-underline
-          p-4 md:p-3
-          basis-0 md:basis-auto
-          text-center
-          bg-gray-900
-          hover:text-primary-500 hover:bg-gray-800 grow 
-          border-primary-800 
-          first:border-r-[1px] 
-          border-t-[1px] md:border-t-0
-          md:border-b-[1px]
-          md:last:border-r-[1px] 
-          md:first:border-l-[1px]
-          md:first:rounded-bl-md md:last:rounded-br-md
-          "
-        >
-          {display}
-        </a>
-      ))
+      routes.map(({ path, display }) => {
+        console.log(path, currentPath);
+        return path === currentPath ? (
+          <div class={`${baseClasses} text-primary-500 bg-gray-800`}>
+            {display}
+          </div>
+        ) : (
+          <a
+            href={path}
+            class={`${baseClasses} bg-gray-900 hover:text-primary-500 hover:bg-gray-800`}
+          >
+            {display}
+          </a>
+        );
+      })
     }
   </nav>
 </div>

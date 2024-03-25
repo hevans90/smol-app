@@ -42,7 +42,7 @@ const generateUrlParams = async () => {
   return new URLSearchParams({
     client_id: 'smolapp',
     response_type: 'code',
-    scope: 'account:profile account:leagues',
+    scope: 'account:profile',
     state: poeState,
     redirect_uri: 'https://smol-app.netlify.app/api/auth',
     code_challenge: codeChallenge,

@@ -100,6 +100,7 @@ export const OrderBook = () => {
         ],
         threshold: 0.9,
         ignoreSymbols: false,
+        ignoreCase: true,
       });
     }
 

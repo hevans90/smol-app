@@ -1,4 +1,5 @@
 import { persistentAtom } from '@nanostores/persistent';
+import { atom } from 'nanostores';
 import type { Item_Order_Type_Enum } from '../graphql-api';
 
 export const orderBookShowFulfilledStore = persistentAtom<boolean>(
@@ -33,7 +34,4 @@ export const orderBookTypeFiltersStore = persistentAtom<{
   }
 );
 
-export const orderBookFuzzySearchStore = persistentAtom<string>(
-  'orderBookFuzzySearch',
-  ''
-);
+export const orderBookFuzzySearchStore = atom<string>('');

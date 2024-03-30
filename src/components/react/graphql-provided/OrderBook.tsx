@@ -48,7 +48,7 @@ import {
 } from '../ui/Dialog';
 import { OrderBookFilters } from './OrderBookFilters';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
-TimeAgo.addLocale(en);
+TimeAgo.addDefaultLocale(en);
 
 const priorityOrderLimit = 2;
 
@@ -92,7 +92,7 @@ export const OrderBook = () => {
 
       return enabledOrderTypes.includes(type);
     });
-    if (result && fuzzyQuery) {
+    if (result?.length && fuzzyQuery?.length) {
       result = fuzzySearch(fuzzyQuery, result, {
         keySelector: (order) => [
           order.description as string,

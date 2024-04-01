@@ -74,6 +74,12 @@ update_permissions:
       check: null
     comment: ""
 delete_permissions:
+  - role: dev
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+    comment: ""
   - role: user
     permission:
       filter:

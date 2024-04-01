@@ -62,6 +62,17 @@ select_permissions:
       filter: {}
     comment: ""
 update_permissions:
+  - role: dev
+    permission:
+      columns:
+        - description
+        - fulfilled_by
+        - link_url
+        - priority
+        - type
+      filter: {}
+      check: null
+    comment: ""
   - role: user
     permission:
       columns:

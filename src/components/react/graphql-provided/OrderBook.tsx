@@ -61,7 +61,7 @@ const getWikiImgSrcFromUrl = (url: string) => {
 
 export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
-    UserItemOrdersDocument
+    UserItemOrdersDocument,
   );
 
   const { data: orderTypes } = useQuery<OrderTypesQuery>(OrderTypesDocument);
@@ -81,7 +81,7 @@ export const OrderBook = () => {
     if (!showInactive) {
       result = result?.filter(
         ({ priority, updated_at }) =>
-          priority || isAfter(new Date(updated_at), subWeeks(new Date(), 2))
+          priority || isAfter(new Date(updated_at), subWeeks(new Date(), 2)),
       );
     }
 
@@ -113,9 +113,9 @@ export const OrderBook = () => {
         (order) =>
           order.user.discord_user_id === myDiscordId &&
           order.priority &&
-          !order?.fulfilled_by_user
+          !order?.fulfilled_by_user,
       ),
-    [orders]
+    [orders],
   );
 
   const { data: userProfile, loading: userLoading } = useMyHasuraUser();
@@ -262,7 +262,7 @@ export const OrderBook = () => {
                 type,
                 priority,
               },
-              i
+              i,
             ) => {
               const guild = 'Smol Groop Found';
               const inSmolGuild = user.guild === guild;
@@ -273,13 +273,7 @@ export const OrderBook = () => {
               return (
                 <tr
                   key={i}
-                  className={
-                    orderFulfilled
-                      ? 'bg-gray-900 opacity-60'
-                      : inSmolGuild
-                      ? 'bg-primary-900 bg-opacity-20'
-                      : ''
-                  }
+                  className={orderFulfilled ? 'bg-gray-900 opacity-60' : ''}
                 >
                   <td>
                     <div
@@ -439,7 +433,7 @@ export const OrderBook = () => {
                   </td>
                 </tr>
               );
-            }
+            },
           )}
           {!filteredOrders?.length && (
             <tr>

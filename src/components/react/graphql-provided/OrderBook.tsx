@@ -46,6 +46,7 @@ import {
   DialogDescription,
   DialogHeading,
 } from '../ui/Dialog';
+import { Toggle } from '../ui/Toggle';
 import { OrderBookFilters } from './OrderBookFilters';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
 TimeAgo.addDefaultLocale(en);
@@ -218,6 +219,19 @@ export const OrderBook = () => {
             }
             className="border-primary-800 bg-gray-800 grow border-[1px] min-w-[10rem] md:min-w-[15rem] lg:min-w-[25rem] "
           ></input>
+
+          <div className="flex gap-4 ml-4">
+            <Toggle
+              value={showFulfilled}
+              onChange={() => orderBookShowFulfilledStore.set(!showFulfilled)}
+              label="Fulfilled"
+            />
+            <Toggle
+              value={showInactive}
+              onChange={() => orderBookShowInactiveStore.set(!showInactive)}
+              label="Inactive (> 2 weeks)"
+            />
+          </div>
         </div>
       </div>
       <div className="flex gap-2">
@@ -255,12 +269,15 @@ export const OrderBook = () => {
               {
                 description,
                 link_url,
+                icon_url,
                 updated_at,
                 id: orderId,
                 user,
                 fulfilled_by_user,
                 type,
                 priority,
+                item_base_type,
+                item_category,
               },
               i,
             ) => {
@@ -322,6 +339,11 @@ export const OrderBook = () => {
                             src={getWikiImgSrcFromUrl(link_url)}
                           />
                         </a>
+                      ) : icon_url ? (
+                        <img
+                          className="w-10 h-10 md:w-12 md:h-12 p-1 object-contain"
+                          src={icon_url}
+                        />
                       ) : (
                         <img
                           className="w-10 h-10 md:w-12 md:h-12 p-1"
@@ -356,6 +378,9 @@ export const OrderBook = () => {
                               linkUrl: link_url,
                               orderId,
                               priority,
+                              iconUrl: icon_url,
+                              itemBaseType: item_base_type,
+                              itemCategory: item_category
                             });
                           }}
                         >
@@ -485,6 +510,9 @@ export const OrderBook = () => {
                     linkUrl: data.linkUrl ?? '',
                     userId: userProfile?.id as string,
                     priority: data.priority,
+                    itemBaseType: data?.itemBaseType,
+                    iconUrl: data?.iconUrl,
+                    itemCategory: data?.itemCategory
                   },
                 });
                 setCreateModalOpen(false);

@@ -1,8 +1,6 @@
 import { useStore } from '@nanostores/react';
 import {
-  orderBookShowFulfilledStore,
-  orderBookShowInactiveStore,
-  orderBookTypeFiltersStore,
+  orderBookTypeFiltersStore
 } from '../../../_state/order-book';
 import type {
   Item_Order_Type_Enum,
@@ -15,24 +13,17 @@ export const OrderBookFilters = ({
 }: {
   orderTypes: OrderTypesQuery;
 }) => {
-  const showInactive = useStore(orderBookShowInactiveStore);
-  const showFulfilled = useStore(orderBookShowFulfilledStore);
-
   const typeFilters = useStore(orderBookTypeFiltersStore);
 
   const typeMap: { [key in Item_Order_Type_Enum]: string } = {
-    transfiguredgem: 'Transfigured Gems',
+    transfiguredgem: 'T Gems',
     unique: 'Uniques',
     other: 'Other',
+    base: 'Bases',
   };
 
   return (
     <div className="flex grow gap-6 p-2 border-[1px] border-primary-900 rounded bg-gray-900">
-      <Toggle
-        value={showFulfilled}
-        onChange={() => orderBookShowFulfilledStore.set(!showFulfilled)}
-        label="Fulfilled orders"
-      />
       {orderTypes.item_order_type.map(({ value }, i) => (
         <div key={i} className="flex gap-2">
           <img
@@ -51,11 +42,6 @@ export const OrderBookFilters = ({
           />
         </div>
       ))}
-      <Toggle
-        value={showInactive}
-        onChange={() => orderBookShowInactiveStore.set(!showInactive)}
-        label="Inactive (> 2 weeks)"
-      />
     </div>
   );
 };

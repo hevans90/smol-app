@@ -6,6 +6,9 @@ subscription UserItemOrders {
     id
     link_url
     type
+    item_base_type
+    item_category
+    icon_url
     priority
     user {
       guild
@@ -29,6 +32,9 @@ mutation InsertUserItemOrder(
   $type: item_order_type_enum!
   $userId: uuid!
   $priority: Boolean!
+  $itemCategory: String
+  $itemBaseType: String
+  $iconUrl: String
 ) {
   insert_user_item_order_one(
     object: {
@@ -37,6 +43,9 @@ mutation InsertUserItemOrder(
       user_id: $userId
       type: $type
       priority: $priority
+      item_base_type: $itemBaseType
+      item_category: $itemCategory
+      icon_url: $iconUrl
     }
   ) {
     type
@@ -45,6 +54,9 @@ mutation InsertUserItemOrder(
     user_id
     id
     priority
+    item_base_type
+    icon_url
+    item_category
   }
 }
 
@@ -54,6 +66,9 @@ mutation UpdateUserItemOrder(
   $type: item_order_type_enum
   $linkUrl: String
   $priority: Boolean!
+  $itemBaseType: String
+  $itemCategory: String
+  $iconUrl: String
 ) {
   update_user_item_order_by_pk(
     pk_columns: { id: $orderId }
@@ -62,6 +77,9 @@ mutation UpdateUserItemOrder(
       link_url: $linkUrl
       type: $type
       priority: $priority
+      item_base_type: $itemBaseType
+      icon_url: $iconUrl
+      item_category: $itemCategory
     }
   ) {
     id
@@ -69,6 +87,9 @@ mutation UpdateUserItemOrder(
     description
     link_url
     user_id
+    item_base_type
+    icon_url
+    item_category
   }
 }
 mutation FulfillUserItemOrder($orderId: uuid!, $fulfilledBy: uuid!) {

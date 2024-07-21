@@ -5,10 +5,8 @@ import { Image } from 'astro:assets';
 
 import logoSrc from '../assets/smol-logo.png';
 
-const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
-<!-- https://www.filterblade.xyz/?profile=Maekker&saveState=TSXFZ21JWQEIN1&platform=pc&isPreset=false -->
 <Layout title="PoE Profile" authPrompt={true}>
   <main class="flex flex-col items-start">
     <Image src={logoSrc} alt="logo" class="w-48 mb-8" />

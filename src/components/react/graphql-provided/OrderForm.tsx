@@ -1,14 +1,22 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import type {
-  OrderTypesQuery,
-  UpdateUserItemOrderMutationVariables,
+import {
+  Item_Order_Type_Enum,
+  type OrderTypesQuery,
+  type UpdateUserItemOrderMutationVariables,
 } from '../../../graphql-api';
 import { Button } from '../ui/Button';
+import { BaseItemPicker } from './BaseItemPicker';
 
 export type OrderFormInputs = Pick<
   UpdateUserItemOrderMutationVariables,
-  'description' | 'linkUrl' | 'type' | 'priority'
+  | 'description'
+  | 'linkUrl'
+  | 'type'
+  | 'priority'
+  | 'itemBaseType'
+  | 'iconUrl'
+  | 'itemCategory'
 >;
 
 export const OrderForm = ({
@@ -27,12 +35,28 @@ export const OrderForm = ({
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm<OrderFormInputs>({
     defaultValues: { priority: data?.priority ?? false },
   });
 
+  console.log(data)
+
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
+  const linkUrl = useMemo(
+    () => watch('linkUrl') ?? data?.linkUrl,
+    [watch('linkUrl')],
+  );
+
+  const validateWikiLink = (linkUrl?: string | null) =>
+    !linkUrl || linkUrl?.startsWith('https://www.poewiki.net/');
+
+  useEffect(() => {
+    if (linkUrl) {
+      console.log(linkUrl);
+    }
+  }, [linkUrl]);
 
   const createOrderPrioDisable = !data && !allowPriority;
   const updateOrderPrioDisable =
@@ -50,6 +74,11 @@ export const OrderForm = ({
           defaultValue={data?.description ?? ''}
           {...register('description', { required: true })}
         />
+        {errors.description && (
+          <span className="text-red-400 mt-1">
+            Your order requires a description
+          </span>
+        )}
       </div>
       <div className="flex mb-2 flex-col">
         <div className="flex gap-4 text-primary-500 items-center">
@@ -94,15 +123,40 @@ export const OrderForm = ({
           )}
         </div>
         {errors.type && (
-          <span className="text-red-400">Your order requires a type.</span>
+          <span className="text-red-400 mt-1">Your order requires a type</span>
         )}
       </div>
+
+      {type === Item_Order_Type_Enum.Base ? (
+        <BaseItemPicker
+          value={
+            data
+              ? {
+                  name: data.itemBaseType as string,
+                  category: data.itemCategory as string,
+                  iconUrl: data.iconUrl as string,
+                }
+              : undefined
+          }
+          onBasePicked={({ name, iconUrl, category }) => {
+            setValue('itemBaseType', name);
+            setValue('iconUrl', iconUrl);
+            setValue('itemCategory', category);
+          }}
+        />
+      ) : null}
+
       <div className="flex flex-col mb-2">
         <label className="mb-1">Wiki link (optional)</label>
-        <input defaultValue={data?.linkUrl ?? ''} {...register('linkUrl')} />
-        {errors.description && (
-          <span className="text-red-400">
-            Your order requires a description.
+        <input
+          defaultValue={data?.linkUrl ?? ''}
+          {...register('linkUrl', { validate: validateWikiLink })}
+        />
+
+        {errors.linkUrl && (
+          <span className="text-red-400 mt-1">
+            Links must begin with{' '}
+            <span className="text-primary-500">https://poewiki.net</span>
           </span>
         )}
       </div>

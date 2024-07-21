@@ -3,14 +3,42 @@ import { Image } from 'astro:assets';
 import { OrdersPage } from '../components/OrdersPage';
 import Layout from '../layouts/Layout.astro';
 
+import {
+  type BaseItemResponse,
+  type SortedBaseTypes,
+  BASE_TYPE_CATEGORIES,
+} from '../models/base-types';
+
 import logoSrc from '../assets/smol-logo.png';
 
 const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+
+const basesResponse = await fetch('https://poedb.tw/us/api/BaseItemTypes');
+const jsonData: { data: BaseItemResponse[] } = await basesResponse.json();
+const basesData = jsonData.data.filter((item) =>
+  BASE_TYPE_CATEGORIES.includes(item.ItemClassesName)
+);
+
+const sortedBaseItems = basesData.reduce<SortedBaseTypes>(
+  (acc: SortedBaseTypes, obj: BaseItemResponse) => {
+    const key = obj.ItemClassesName;
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(obj);
+    return acc;
+  },
+  {} as SortedBaseTypes
+);
 ---
 
 <Layout title="Item Orders" authPrompt={true}>
   <main class="flex flex-col items-start">
     <Image src={logoSrc} alt="logo" class="w-32 mb-8" />
-    <OrdersPage hasuraUri={hasuraUri} client:only="react" />
+    <OrdersPage
+      hasuraUri={hasuraUri}
+      sortedBaseItems={sortedBaseItems}
+      client:only="react"
+    />
   </main>
 </Layout>

@@ -27,6 +27,7 @@ export const orderBookTypeFiltersStore = persistentAtom<{
     other: true,
     unique: true,
     transfiguredgem: true,
+    base: true
   },
   {
     encode: JSON.stringify,

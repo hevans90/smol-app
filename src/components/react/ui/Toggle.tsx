@@ -3,6 +3,8 @@ import { Fragment, useState } from 'react';
 import { Switch } from '@headlessui/react';
 import { cva } from 'class-variance-authority';
 
+import { twMerge } from 'tailwind-merge';
+
 const switchVariants = cva(
   'relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-100 ease-in-out focus:outline-none',
   {
@@ -17,7 +19,7 @@ const switchVariants = cva(
         lg: 'h-8 w-14',
       },
     },
-  }
+  },
 );
 
 const switchSpanVariants = cva(
@@ -66,7 +68,7 @@ const switchSpanVariants = cva(
         class: 'translate-x-0',
       },
     ],
-  }
+  },
 );
 
 function Toggle({
@@ -75,12 +77,14 @@ function Toggle({
   onChange,
   value = false,
   size = 'md',
+  autoHide = true,
 }: {
   label?: string;
   name?: string;
   onChange?: () => void;
   value?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  autoHide?: boolean;
 }) {
   const [enabled, setEnabled] = useState(value);
 
@@ -89,7 +93,12 @@ function Toggle({
       <div className="flex items-center">
         <>
           {label && (
-            <Switch.Label className="mr-2 text-md leading-4 text-grey-700 hidden lg:block">
+            <Switch.Label
+              className={twMerge(
+                'mr-2 text-md leading-4 text-grey-700 lg:block',
+                autoHide && 'hidden',
+              )}
+            >
               {label}
             </Switch.Label>
           )}

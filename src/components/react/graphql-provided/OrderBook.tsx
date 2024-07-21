@@ -227,11 +227,13 @@ export const OrderBook = () => {
 
           <div className="flex gap-4 ml-4">
             <Toggle
+              autoHide={false}
               value={showFulfilled}
               onChange={() => orderBookShowFulfilledStore.set(!showFulfilled)}
               label="Fulfilled"
             />
             <Toggle
+              autoHide={false}
               value={showInactive}
               onChange={() => orderBookShowInactiveStore.set(!showInactive)}
               label="Inactive (> 2 weeks)"

@@ -180,6 +180,8 @@ export const OrderBook = () => {
       },
     });
 
+    await exportBaseDataToSpreadsheet();
+
     setFulfillModalOpen(false);
   };
 

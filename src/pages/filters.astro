@@ -4,16 +4,16 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 
 import logoSrc from '../assets/smol-logo.png';
-
 ---
 
 <Layout title="PoE Profile" authPrompt={true}>
   <main class="flex flex-col items-start">
     <Image src={logoSrc} alt="logo" class="w-48 mb-8" />
 
-    Daetherion has been kind enough to create a base filter for us all. <a
-      href="https://www.filterblade.xyz/?profile=Maekker&saveState=TSXFZ21JWQEIN1&platform=pc&isPreset=false"
-      >You can find it here.</a
-    >
+    Daetherion has been kind enough to create a base filter for us all. <a class="my-2"
+      href="https://www.filterblade.xyz/?profile=Maekker&saveState=BL1T09WL2FKH3C&platform=pc&isPreset=false"
+      >You can find it here.
+    </a>
+    This filter auto highlights base items from our order book!
   </main>
 </Layout>

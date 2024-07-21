@@ -16,9 +16,9 @@ const findCategoryContaining = (
   return category;
 };
 
-export const getBaseItemFromUniqueName = async (uniqueItemName: string) => {
+export const getBaseItem = async (itemName: string) => {
   const apiUrl = `https://www.poewiki.net/w/api.php?action=query&format=json&titles=${
-    uniqueItemName
+    itemName
   }&prop=revisions&rvprop=content`;
 
   try {
@@ -31,24 +31,30 @@ export const getBaseItemFromUniqueName = async (uniqueItemName: string) => {
     const content: string = page.revisions?.[0]['*']; // Accessing the wiki text content
 
     if (!content) {
-      throw new Error(`No wiki entry found for ${uniqueItemName}`);
+      throw new Error(`No wiki entry found for ${itemName}`);
     }
 
-    const regex =
-      /{{Item[\s\S]*?\|class_id\s*=\s*([^\|\n]*)[\s\S]*?\|base_item\s*=\s*([^\|\n]*)/;
+    let baseItem = itemName;
+    let category: BaseTypeCategory | undefined;
 
-    const match = regex.exec(content);
+    const baseItemRegex = /{{Item[\s\S]*?\|base_item\s*=\s*([^\|\n]*)/;
+    const baseItemMatch = baseItemRegex.exec(content);
 
-    if (match) {
-      const category = findCategoryContaining(match[1].trim());
-      const baseItem = match[2].trim();
-      console.log(`Base item for ${uniqueItemName}: ${baseItem}`);
-      console.log(`Category for ${uniqueItemName}: ${category}`);
+    const classIdRegex = /{{Item[\s\S]*?\|class_id\s*=\s*([^\|\n]*)/;
+    const classIdMatch = classIdRegex.exec(content);
 
-      return { baseItem, category };
-    } else {
-      throw new Error(`Base item not found for ${uniqueItemName}`);
+    if (classIdMatch) {
+      category = findCategoryContaining(classIdMatch[1].trim());
     }
+
+    if (baseItemMatch) {
+      baseItem = baseItemMatch[1].trim();
+    }
+
+    console.log(`Base item for ${itemName}: ${baseItem}`);
+    console.log(`Category for ${itemName}: ${category}`);
+
+    return { baseItem, category };
   } catch (error) {
     throw new Error(
       `Error fetching data from PoE Wiki API: ${(error as Error)?.message}`,
@@ -61,16 +67,9 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const { name } = event.queryStringParameters;
   invariant(name);
 
-  try {
-    const itemInfo = await getBaseItemFromUniqueName(name);
-    return {
-      statusCode: 200,
-      body: JSON.stringify(itemInfo),
-    };
-  } catch (e) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: (e as Error)?.message }),
-    };
-  }
+  const itemInfo = await getBaseItem(name);
+  return {
+    statusCode: 200,
+    body: JSON.stringify(itemInfo),
+  };
 };

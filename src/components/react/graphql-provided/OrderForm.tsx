@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 import {
@@ -8,6 +8,7 @@ import {
 } from '../../../graphql-api';
 import type { BaseTypeCategory } from '../../../models/base-types';
 import { Button } from '../ui/Button';
+import { Spinner } from '../ui/Spinner';
 import { BaseItemPicker } from './BaseItemPicker';
 
 export type OrderFormInputs = Pick<
@@ -43,6 +44,9 @@ export const OrderForm = ({
     defaultValues: { priority: data?.priority ?? false },
   });
 
+  const [validatingItem, setValidatingItem] = useState(false);
+  const [itemIsValid, setItemIsValid] = useState(false);
+
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
   const linkUrl = useMemo(
     () => watch('linkUrl') ?? data?.linkUrl,
@@ -53,18 +57,43 @@ export const OrderForm = ({
     !linkUrl || linkUrl?.startsWith('https://www.poewiki.net/');
 
   const getBaseItemInfoFromWikiLink = async () => {
+    const valid = validateWikiLink(linkUrl);
+
+    if (
+      type === Item_Order_Type_Enum.Transfiguredgem ||
+      type === Item_Order_Type_Enum.Other
+    ) {
+      return;
+    }
+
+    if (!valid) {
+      setItemIsValid(valid);
+      return;
+    }
+
     const name = linkUrl?.split('/').pop();
     if (name) {
-      const response = await fetch(
-        `${window.location.origin}/api/get-item-info?name=${name}`,
-      );
-      const data = (await response.json()) as {
-        baseItem: string;
-        category: BaseTypeCategory;
-      };
-      if (data) {
-        setValue('itemBaseType', data.baseItem);
-        setValue('itemCategory', data.category);
+      setValidatingItem(true);
+      try {
+        const response = await fetch(
+          `${window.location.origin}/api/get-item-info?name=${name}`,
+        );
+        console.log(response);
+        const data = (await response.json()) as {
+          baseItem: string;
+          category: BaseTypeCategory;
+        };
+        if (data) {
+          setValue('itemBaseType', data.baseItem);
+          setValue('itemCategory', data.category);
+          setValidatingItem(false);
+          setItemIsValid(true);
+        }
+      } catch (e) {
+        setValidatingItem(false);
+        setItemIsValid(false);
+
+        console.error(e);
       }
     }
   };
@@ -72,6 +101,8 @@ export const OrderForm = ({
   useEffect(() => {
     if (linkUrl) {
       getBaseItemInfoFromWikiLink();
+    } else {
+      setItemIsValid(true);
     }
   }, [linkUrl]);
 
@@ -164,7 +195,10 @@ export const OrderForm = ({
       ) : null}
 
       <div className="flex flex-col mb-2">
-        <label className="mb-1">Wiki link (optional)</label>
+        <div className="flex justify-between">
+          <label className="mb-1">Wiki link (optional)</label>
+
+        </div>
         <input
           defaultValue={data?.linkUrl ?? ''}
           {...register('linkUrl', { validate: validateWikiLink })}
@@ -177,10 +211,24 @@ export const OrderForm = ({
           </span>
         )}
       </div>
+
       {/* errors will return when field validation fails  */}
 
-      <Button className="p-4" type="submit">
-        Submit
+      <Button
+        className="text-primary-500 p-2 flex w-full items-center justify-center gap-4 h-12"
+        type="submit"
+        disabled={validatingItem || (!validatingItem && !itemIsValid)}
+      >
+        {validatingItem ? (
+          <>
+            Validating...
+            <Spinner />
+          </>
+        ) : itemIsValid ? (
+          'Submit'
+        ) : (
+          <span className="text-red-500">Invalid Wiki link</span>
+        )}
       </Button>
     </form>
   );

@@ -83,39 +83,31 @@ export const handler: Handler = async (event: HandlerEvent) => {
     }
   };
 
-  try {
-    // clear columns first
-    await clearRange(`${subSheetName}!A2:A`);
-    await clearRange(`${subSheetName}!B2:B`);
+  // clear columns first
+  await clearRange(`${subSheetName}!A2:A`);
+  await clearRange(`${subSheetName}!B2:B`);
 
-    // regular baseTypes
-    const regularResponse = await sheets.spreadsheets.values.update({
-      spreadsheetId,
-      range: `${subSheetName}!A3:A${3 + baseTypes.regularBaseTypes.length}`,
-      valueInputOption: 'RAW',
-      requestBody: {
-        values: baseTypes.regularBaseTypes.map((value) => [value]),
-      },
-    });
+  // regular baseTypes
+  const regularResponse = await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: `${subSheetName}!A3:A${3 + baseTypes.regularBaseTypes.length}`,
+    valueInputOption: 'RAW',
+    requestBody: {
+      values: baseTypes.regularBaseTypes.map((value) => [value]),
+    },
+  });
 
-    // unique baseTypes
-    const uniqueResponse = await sheets.spreadsheets.values.update({
-      spreadsheetId,
-      range: `${subSheetName}!B3:B${3 + baseTypes.uniqueBaseTypes.length}`,
-      valueInputOption: 'RAW',
-      requestBody: {
-        values: baseTypes.uniqueBaseTypes.map((value) => [value]),
-      },
-    });
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ regularResponse, uniqueResponse }),
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: (e as Error)?.message }),
-    };
-  }
+  // unique baseTypes
+  const uniqueResponse = await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: `${subSheetName}!B3:B${3 + baseTypes.uniqueBaseTypes.length}`,
+    valueInputOption: 'RAW',
+    requestBody: {
+      values: baseTypes.uniqueBaseTypes.map((value) => [value]),
+    },
+  });
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ regularResponse, uniqueResponse }),
+  };
 };

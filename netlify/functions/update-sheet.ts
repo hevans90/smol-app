@@ -17,7 +17,7 @@ const getCurrentDistinctBaseTypes = async () => {
     body: JSON.stringify({
       query: `
       query BaseTypes {
-          user_item_order(distinct_on: item_base_type, where: {item_base_type: {_neq: "null"}}) {
+          user_item_order(distinct_on: item_base_type, where: {item_base_type: {_neq: "null"}, fulfilled_by: {_is_null: true}}) {
             item_base_type
             type
         }

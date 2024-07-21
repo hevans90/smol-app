@@ -54,6 +54,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
     throw new Error('Google credentials not present in the environment.');
   }
 
+  console.log(process.env.GOOGLE_SHEETS_CREDENTIALS);
+
   const serviceAccountKey = JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS);
 
   serviceAccountKey.private_key = serviceAccountKey.private_key.replace(

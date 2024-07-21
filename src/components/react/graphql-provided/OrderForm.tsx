@@ -78,11 +78,14 @@ export const OrderForm = ({
         const response = await fetch(
           `${window.location.origin}/api/get-item-info?name=${name}`,
         );
-        console.log(response);
         const data = (await response.json()) as {
           baseItem: string;
           category: BaseTypeCategory;
+          errorMessage?: string;
         };
+        if (!response.ok) {
+          throw new Error(data?.errorMessage);
+        }
         if (data) {
           setValue('itemBaseType', data.baseItem);
           setValue('itemCategory', data.category);
@@ -197,7 +200,6 @@ export const OrderForm = ({
       <div className="flex flex-col mb-2">
         <div className="flex justify-between">
           <label className="mb-1">Wiki link (optional)</label>
-
         </div>
         <input
           defaultValue={data?.linkUrl ?? ''}

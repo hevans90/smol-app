@@ -55,8 +55,10 @@ export const handler: Handler = async (event: HandlerEvent) => {
   }
 
   console.log(process.env.GOOGLE_SHEETS_CREDENTIALS);
-
+  
   const serviceAccountKey = JSON.parse(process.env.GOOGLE_SHEETS_CREDENTIALS);
+
+  console.log(serviceAccountKey);
 
   serviceAccountKey.private_key = serviceAccountKey.private_key.replace(
     /\\n/g,

@@ -2,6 +2,7 @@
   "name": "smol-app",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@9.1.1",
   "scripts": {
     "link": "ntl init",
     "dev": "astro dev",

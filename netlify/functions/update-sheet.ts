@@ -50,15 +50,19 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const spreadsheetId = '1z5SNHzAVErTiZ1NAWpEpcuDPzKY3gco_epEqZvmA6Ns';
   const subSheetName = 'smol-app import';
 
-  if (!process.env.GOOGLE_SHEETS_EMAIL || !process.env.GOOGLE_SHEETS_PKEY) {
+  if (!process.env.GOOGLE_SHEETS_CREDENTIALS) {
     throw new Error('Google credentials not present in the environment.');
   }
 
-  const privateKey = process.env.GOOGLE_SHEETS_PKEY.replace(/\n/g, '\n');
+  const decodedServiceAccount = Buffer.from(
+    process.env.GOOGLE_SHEETS_CREDENTIALS,
+    'base64',
+  ).toString('utf-8');
+  const credentials = JSON.parse(decodedServiceAccount);
 
   const jwtClient = new JWT({
-    email: process.env.GOOGLE_SHEETS_EMAIL,
-    key: privateKey,
+    email: credentials.client_email,
+    key: credentials.private_key,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 

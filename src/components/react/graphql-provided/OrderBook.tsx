@@ -73,6 +73,9 @@ export const OrderBook = () => {
   const showFulfilled = useStore(orderBookShowFulfilledStore);
   const typeFilters = useStore(orderBookTypeFiltersStore);
 
+  const exportBaseDataToSpreadsheet = async () =>
+    fetch(`${window.location.origin}/api/update-sheet`);
+
   const filteredOrders = useMemo(() => {
     let result = orders?.user_item_order;
 
@@ -380,7 +383,7 @@ export const OrderBook = () => {
                               priority,
                               iconUrl: icon_url,
                               itemBaseType: item_base_type,
-                              itemCategory: item_category
+                              itemCategory: item_category,
                             });
                           }}
                         >
@@ -393,11 +396,12 @@ export const OrderBook = () => {
                     {isMe && !orderFulfilled && (
                       <button
                         className="p-1 opacity-50 rounded-full bg-primary-900  text-primary-500 hover:text-primary-300 hover:opacity-75"
-                        onClick={() =>
+                        onClick={() => {
                           deleteItemOrder({
                             variables: { orderId },
-                          })
-                        }
+                          });
+                          exportBaseDataToSpreadsheet();
+                        }}
                       >
                         <IconTrash size={25} />
                       </button>
@@ -487,6 +491,7 @@ export const OrderBook = () => {
                   },
                 });
                 setUpdateModalOpen(false);
+                exportBaseDataToSpreadsheet();
               }}
             />
           )}
@@ -512,10 +517,11 @@ export const OrderBook = () => {
                     priority: data.priority,
                     itemBaseType: data?.itemBaseType,
                     iconUrl: data?.iconUrl,
-                    itemCategory: data?.itemCategory
+                    itemCategory: data?.itemCategory,
                   },
                 });
                 setCreateModalOpen(false);
+                exportBaseDataToSpreadsheet();
               }}
             />
           )}

@@ -1,10 +1,12 @@
 import { useEffect, useMemo } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+
 import {
   Item_Order_Type_Enum,
   type OrderTypesQuery,
   type UpdateUserItemOrderMutationVariables,
 } from '../../../graphql-api';
+import type { BaseTypeCategory } from '../../../models/base-types';
 import { Button } from '../ui/Button';
 import { BaseItemPicker } from './BaseItemPicker';
 
@@ -41,8 +43,6 @@ export const OrderForm = ({
     defaultValues: { priority: data?.priority ?? false },
   });
 
-  console.log(data)
-
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
   const linkUrl = useMemo(
     () => watch('linkUrl') ?? data?.linkUrl,
@@ -52,9 +52,26 @@ export const OrderForm = ({
   const validateWikiLink = (linkUrl?: string | null) =>
     !linkUrl || linkUrl?.startsWith('https://www.poewiki.net/');
 
+  const getBaseItemInfoFromWikiLink = async () => {
+    const name = linkUrl?.split('/').pop();
+    if (name) {
+      const response = await fetch(
+        `${window.location.origin}/api/get-item-info?name=${name}`,
+      );
+      const data = (await response.json()) as {
+        baseItem: string;
+        category: BaseTypeCategory;
+      };
+      if (data) {
+        setValue('itemBaseType', data.baseItem);
+        setValue('itemCategory', data.category);
+      }
+    }
+  };
+
   useEffect(() => {
     if (linkUrl) {
-      console.log(linkUrl);
+      getBaseItemInfoFromWikiLink();
     }
   }, [linkUrl]);
 

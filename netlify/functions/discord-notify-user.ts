@@ -1,6 +1,7 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import fetch from 'node-fetch';
 import invariant from 'tiny-invariant';
+
 type QueryParams = {
   discordUserId: string;
   message: string;

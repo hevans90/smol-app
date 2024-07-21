@@ -54,9 +54,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
     throw new Error('Google credentials not present in the environment.');
   }
 
+  const privateKey = process.env.GOOGLE_SHEETS_PKEY.replace(/\n/g, '\n');
+
   const jwtClient = new JWT({
     email: process.env.GOOGLE_SHEETS_EMAIL,
-    key: process.env.GOOGLE_SHEETS_PKEY,
+    key: privateKey,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 

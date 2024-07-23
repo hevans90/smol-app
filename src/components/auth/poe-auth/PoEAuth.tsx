@@ -61,6 +61,8 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
     localStorage.removeItem('poe_token');
     localStorage.removeItem('poe_expiry');
     localStorage.removeItem('poe_username');
+    localStorage.removeItem('hasura_user_id');
+    localStorage.removeItem('hasura_token');
     window.dispatchEvent(new Event('storage'));
 
     poeStore.set({ expiry: '', token: '', username: '', id: '' });

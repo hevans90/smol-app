@@ -73,8 +73,10 @@ export const OrderBook = () => {
   const showFulfilled = useStore(orderBookShowFulfilledStore);
   const typeFilters = useStore(orderBookTypeFiltersStore);
 
-  const exportBaseDataToSpreadsheet = async () =>
-    fetch(`${window.location.origin}/api/update-sheet`);
+  const exportBaseDataToSpreadsheet = async () => {
+    window.location.hostname !== 'localhost' &&
+      fetch(`${window.location.origin}/api/update-sheet`);
+  };
 
   const filteredOrders = useMemo(() => {
     let result = orders?.user_item_order;

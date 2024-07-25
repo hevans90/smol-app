@@ -9,14 +9,13 @@ import {
   BASE_TYPE_CATEGORIES,
 } from '../models/base-types';
 
+import basesResponse from '../assets/bases/all-basetypes.json';
 import logoSrc from '../assets/smol-logo.png';
 
 const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 
-const basesResponse = await fetch('https://poedb.tw/us/api/BaseItemTypes');
-const jsonData: { data: BaseItemResponse[] } = await basesResponse.json();
-const basesData = jsonData.data.filter((item) =>
-  BASE_TYPE_CATEGORIES.includes(item.ItemClassesName)
+const basesData = (basesResponse as { data: BaseItemResponse[] }).data.filter(
+  (item) => BASE_TYPE_CATEGORIES.includes(item.ItemClassesName)
 );
 
 const sortedBaseItems = basesData.reduce<SortedBaseTypes>(

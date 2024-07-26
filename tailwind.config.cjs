@@ -1,5 +1,14 @@
 const plugin = require('tailwindcss/plugin');
 
+const screens = {
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+  '2xl': '2560px',
+  '3xl': '3500px',
+};
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -22,6 +31,7 @@ module.exports = {
         fontin: ['fontin', 'sans-serif'],
       },
     },
+    screens
   },
   plugins: [
     plugin(({ addBase, theme }) => {

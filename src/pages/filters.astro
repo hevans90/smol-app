@@ -3,12 +3,12 @@ import Layout from '../layouts/Layout.astro';
 
 import { Image } from 'astro:assets';
 
-import logoSrc from '../assets/smol-logo.png';
+import filterImage1Src from '../assets/filter_1.png';
+import filterImage2Src from '../assets/filter_2.png';
 ---
 
 <Layout title="PoE Profile" authPrompt={true}>
-  <main class="flex flex-col items-start">
-    <Image src={logoSrc} alt="logo" class="w-48 mb-8" />
+  <main class="flex flex-col items-start pt-8">
 
     Daetherion has been kind enough to create a base filter for us all. <a
       class="my-2"
@@ -17,5 +17,18 @@ import logoSrc from '../assets/smol-logo.png';
       >You can find it here.
     </a>
     This filter auto highlights unique base items from our order book!
+
+    <p class="my-4">
+      If you would like to run your own filter and still have the Smol App Order
+      highlighting, you can still do that through Filterblade, however you will
+      need to re-sync your filter whenever you want to be up to date with
+      orders. To do this, you can apply the Smol Requests Module to your filter,
+      which is publicly available on filterblade here:
+    </p>
+    <div class="flex gap-4 flex-wrap">
+      <Image src={filterImage1Src} alt="logo" class="h-96 max-w-lg object-cover" />
+      <Image src={filterImage2Src} alt="logo" class="h-96 max-w-lg object-cover" />
+    </div>
+
   </main>
 </Layout>

@@ -146,6 +146,7 @@ export const OrderBook = () => {
     FulfillUserItemOrderMutationVariables
   >(FulfillUserItemOrderDocument);
 
+  const [fulfillmentInProgress, setFulfillmentInProgress] = useState(false);
   const [fulfillModalOpen, setFulfillModalOpen] = useState(false);
   const [fulfillModalState, setFulfillModalState] = useState<{
     orderId: string;
@@ -173,14 +174,15 @@ export const OrderBook = () => {
 
   const handleOrderFulfillment = async () => {
     invariant(fulfillModalState);
+    setFulfillmentInProgress(true);
     await notifyDiscordUser(fulfillModalState);
-
     await fulfillItemOrder({
       variables: {
         fulfilledBy: userProfile?.id as string,
         orderId: fulfillModalState.orderId,
       },
     });
+    setFulfillmentInProgress(false);
 
     await exportBaseDataToSpreadsheet();
 
@@ -608,7 +610,12 @@ export const OrderBook = () => {
             </div>
           )}
 
-          <Button onClick={() => handleOrderFulfillment()}>Fulfill</Button>
+          <Button
+            onClick={() => handleOrderFulfillment()}
+            disabled={fulfillmentInProgress}
+          >
+            {fulfillmentInProgress ? 'Fulfilling...' : 'Fulfill'}
+          </Button>
         </DialogContent>
       </Dialog>
     </>

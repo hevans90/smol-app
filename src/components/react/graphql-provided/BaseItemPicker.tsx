@@ -81,11 +81,21 @@ export const BaseItemPicker = ({
               }}
             >
               <option value="">Base</option>
-              {itemsForBaseType?.map(({ Name: name }, i) => (
-                <option key={`${name}_${i}`} value={name}>
-                  {name}
-                </option>
-              ))}
+              {itemsForBaseType
+                ?.sort((a, b) => {
+                  if (a.Name < b.Name) {
+                    return -1; // `a` should come before `b`
+                  }
+                  if (a.Name > b.Name) {
+                    return 1; // `a` should come after `b`
+                  }
+                  return 0; // `a` and `b` are equal
+                })
+                .map(({ Name: name }, i) => (
+                  <option key={`${name}_${i}`} value={name}>
+                    {name}
+                  </option>
+                ))}
             </select>
           ) : null}
 

@@ -78,6 +78,7 @@
     "@types/title": "^3.4.1",
     "dotenv": "^16.3.1",
     "hasura-cli": "^2.36.1",
-    "prettier": "^3.3.3"
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.13"
   }
 }

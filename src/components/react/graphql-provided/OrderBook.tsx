@@ -101,8 +101,8 @@ export const OrderBook = () => {
     if (result?.length && fuzzyQuery?.length) {
       result = fuzzySearch(fuzzyQuery, result, {
         keySelector: (order) => [
-          order.description as string,
-          order.user.discord_name as string,
+          order.description ?? (' ' as string),
+          order.user.discord_name ?? (' ' as string),
         ],
         threshold: 0.9,
         ignoreSymbols: false,

@@ -2,8 +2,8 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 
@@ -29,7 +29,11 @@ func main() {
 	}
 
 	smoldata.Connect()
-	poe.GetToken()
+	tokenResponse := poe.GetToken()
+
+	league := poe.GetPrivateLeague(tokenResponse, "Smol Bug Found (PL43484)")
+
+	fmt.Printf("%+v\n", league)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := map[string]string{
@@ -39,6 +43,4 @@ func main() {
 		t.ExecuteTemplate(w, "index.html.tmpl", data)
 	})
 
-	log.Println("listening on", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

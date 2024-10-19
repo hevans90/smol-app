@@ -16,14 +16,14 @@ const PoECharacters = () => {
           <button
             onClick={loadCharacters}
             disabled={loading}
-            className="border-primary-800 border-[1px] rounded p-2 hover:border-primary-500 hover:text-primary-500"
+            className="rounded border-[1px] border-primary-800 p-2 hover:border-primary-500 hover:text-primary-500"
           >
             Load characters (warning - rate limited)
           </button>
         )}
         {loading && <Spinner width={30} />}{' '}
         {characters && characters.length > 0 && (
-          <table className="table-auto w-full">
+          <table className="w-full table-auto">
             <thead>
               <tr>
                 <th className="text-left">Name</th>
@@ -41,7 +41,7 @@ const PoECharacters = () => {
                     <td>{league}</td>
                     <td>{level}</td>
                   </tr>
-                )
+                ),
               )}
             </tbody>
           </table>

@@ -25,6 +25,22 @@ export const BASE_TYPE_CATEGORIES = [
   'Wands',
 ] as const;
 
+export const exclusions: {
+  [key in keyof Partial<BaseItemResponse>]: string;
+}[] = [
+  { Name: 'Royale' },
+  { Name: 'Talisman' },
+  { Name: 'Energy Blade' },
+  { Name: 'Ethereal Bow' },
+  { Name: 'Ethereal Blade' },
+
+  // race rewards
+  { Name: 'Jet Amulet' },
+  { Name: 'Jet Ring' },
+  { Name: 'Golden Hoop' },
+  { IconPath: 'Demi' },
+];
+
 export type BaseTypeCategory = (typeof BASE_TYPE_CATEGORIES)[number];
 
 export type BaseItemResponse = {

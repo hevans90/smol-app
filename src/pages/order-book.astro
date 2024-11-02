@@ -7,6 +7,7 @@ import {
   type BaseItemResponse,
   type SortedBaseTypes,
   BASE_TYPE_CATEGORIES,
+  exclusions,
 } from '../models/base-types';
 
 import basesResponse from '../assets/bases/all-basetypes.json';
@@ -18,7 +19,22 @@ const basesData = (basesResponse as { data: BaseItemResponse[] }).data.filter(
   (item) => BASE_TYPE_CATEGORIES.includes(item.ItemClassesName)
 );
 
-const sortedBaseItems = basesData.reduce<SortedBaseTypes>(
+const filterExclusions = (
+  items: BaseItemResponse[],
+  exclusions: { [key in keyof Partial<BaseItemResponse>]: string }[]
+): BaseItemResponse[] =>
+  items.filter(
+    (item) =>
+      !exclusions.some((exclusion) =>
+        Object.entries(exclusion).some(([key, value]) =>
+          item[key as keyof BaseItemResponse].includes(value)
+        )
+      )
+  );
+
+const baseItemsWithoutExclusions = filterExclusions(basesData, exclusions);
+
+const sortedBaseItems = baseItemsWithoutExclusions.reduce<SortedBaseTypes>(
   (acc: SortedBaseTypes, obj: BaseItemResponse) => {
     const key = obj.ItemClassesName;
     if (!acc[key]) {

@@ -15,7 +15,7 @@ export const useMyHasuraUser = () => {
     UserByIdDocument,
     {
       variables: { id: myId },
-    }
+    },
   );
 
   return { data: data?.user_by_pk, loading };

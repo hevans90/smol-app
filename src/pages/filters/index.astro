@@ -1,0 +1,19 @@
+---
+import logoSrc from '../../assets/smol-logo.png';
+import { FilterLab } from '../../components/FilterLab';
+import Layout from '../../layouts/Layout.astro';
+
+import { Image } from 'astro:assets';
+
+const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+---
+
+<Layout title="Filters" authPrompt={true}>
+  <main class="flex flex-col items-start pt-4 text-md xl:text-lg 2xl:text-2xl">
+    <a class="fixed top-14 text-lg" href="/filters/old"
+      >Old Filterblade Filter</a
+    >
+    <Image src={logoSrc} alt="logo" class="w-32" />
+    <FilterLab hasuraUri={hasuraUri} client:only="react" />
+  </main>
+</Layout>

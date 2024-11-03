@@ -17,7 +17,9 @@ module.exports = {
       colors: {
         primary: {
           300: '#f2ecd6',
+          400: '#dfcf79',
           500: '#dfcf99',
+          600: '#b1a478',
           800: '#a38d6d',
           900: '#6c542e',
         },
@@ -31,7 +33,7 @@ module.exports = {
         fontin: ['fontin', 'sans-serif'],
       },
     },
-    screens
+    screens,
   },
   plugins: [
     plugin(({ addBase, theme }) => {

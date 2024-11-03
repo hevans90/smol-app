@@ -1,15 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 
 import { Image } from 'astro:assets';
 
-import filterImage1Src from '../assets/filter_1.png';
-import filterImage2Src from '../assets/filter_2.png';
+import filterImage1Src from '../../assets/filter_1.png';
+import filterImage2Src from '../../assets/filter_2.png';
 ---
 
 <Layout title="Filters" authPrompt={true}>
   <main class="flex flex-col items-start pt-8 text-md xl:text-lg 2xl:text-2xl">
-
     Daetherion has been kind enough to create a base filter for us all. <a
       class="my-2"
       href="https://www.pathofexile.com/account/view-profile/Maekker/item-filters"
@@ -21,7 +20,7 @@ import filterImage2Src from '../assets/filter_2.png';
       This filter auto highlights unique base items from our order book!
     </p>
 
-    <p class="my-4 ">
+    <p class="my-4">
       If you would like to run your own filter and still have the Smol App Order
       highlighting, you can still do that through Filterblade, however you will
       need to re-sync your filter whenever you want to be up to date with
@@ -29,9 +28,16 @@ import filterImage2Src from '../assets/filter_2.png';
       which is publicly available on filterblade here:
     </p>
     <div class="flex gap-4 flex-wrap w-full justify-between">
-      <Image src={filterImage1Src} alt="logo" class="xl:max-w-xl 2xl:max-w-2xl max-w-lg object-cover" />
-      <Image src={filterImage2Src} alt="logo" class="xl:max-w-xl 2xl:max-w-2xl max-w-lg object-cover" />
+      <Image
+        src={filterImage1Src}
+        alt="logo"
+        class="xl:max-w-xl 2xl:max-w-2xl max-w-lg object-cover"
+      />
+      <Image
+        src={filterImage2Src}
+        alt="logo"
+        class="xl:max-w-xl 2xl:max-w-2xl max-w-lg object-cover"
+      />
     </div>
-
   </main>
 </Layout>

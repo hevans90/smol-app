@@ -7,5 +7,9 @@
         {{ if .Region }}
         <h2>I'm running in the {{.Region}} region</h2>
         {{end}}
+
+        <h2>League Information:</h2>
+        <pre>{{.League | json}}</pre>
+
     </body>
 </html>

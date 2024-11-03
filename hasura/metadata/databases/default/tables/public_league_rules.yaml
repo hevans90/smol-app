@@ -1,0 +1,3 @@
+table:
+  name: league_rules
+  schema: public

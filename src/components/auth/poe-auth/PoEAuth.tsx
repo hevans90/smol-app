@@ -54,7 +54,7 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
   const [url, setUrl] = useState<string>();
   const [loggedIn, setloggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(
-    localStorage.getItem('poe_username')
+    localStorage.getItem('poe_username'),
   );
 
   const logout = () => {
@@ -94,20 +94,22 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
     if (!loggedInCheck) {
       generateUrlParams().then((params) =>
         setUrl(
-          `https://www.pathofexile.com/oauth/authorize?${params.toString()}`
-        )
+          `https://www.pathofexile.com/oauth/authorize?${params.toString()}`,
+        ),
       );
     }
   }, [username]);
 
   if (loggedIn)
     return (
-      <div className="flex items-center gap-3 rounded border-primary-800 border-2 ">
+      <div className="flex items-center gap-3 rounded border-2 border-primary-800 ">
         <img src="/poe-logo-original.png" className="h-12" />
-        <div className="text-primary-500 hidden md:block">{username}</div>
+        <a href="/profile">
+          <div className="hidden text-primary-500 md:block">{username}</div>
+        </a>
         <button
           onClick={logout}
-          className="bg-transparent hover:bg-transparent text-end mr-2 grow hover:text-primary-300"
+          className="mr-2 grow bg-transparent text-end hover:bg-transparent hover:text-primary-300"
         >
           Logout
         </button>
@@ -119,10 +121,10 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
     <>
       <a
         href={url}
-        className="flex items-center gap-3 rounded border-primary-800 hover:border-primary-300 border-2 "
+        className="flex items-center gap-3 rounded border-2 border-primary-800 hover:border-primary-300 "
       >
         <img src="/poe-logo-original.png" className="h-12" />
-        <div className="text-end mr-2 grow text-primary-500">Login</div>
+        <div className="mr-2 grow text-end text-primary-500">Login</div>
       </a>
     </>
   );

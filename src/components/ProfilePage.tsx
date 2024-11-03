@@ -1,12 +1,12 @@
 import GraphQLAppWrapper from '../_utils/GraphQLAppWrapper';
 import PoECharacters from './react/PoECharacters';
-import PoEProfile from './react/PoEProfile';
+import Profile from './react/Profile';
 
 export const ProfilePage = ({ hasuraUri }: { hasuraUri: string }) => {
   return (
     <>
       <GraphQLAppWrapper uri={hasuraUri}>
-        <PoEProfile />
+        <Profile />
         <PoECharacters />
       </GraphQLAppWrapper>
     </>

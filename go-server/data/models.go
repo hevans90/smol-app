@@ -96,12 +96,28 @@ type ItemOrderType struct {
 	Value string
 }
 
-type LeagueInfo struct {
-	ID          string
-	Url         string
+type League struct {
+	ID          uuid.UUID
+	Realm       string
+	Url         sql.NullString
 	StartAt     time.Time
 	EndAt       time.Time
-	Description string
+	Description sql.NullString
+	CategoryID  uuid.NullUUID
+	RegisterAt  time.Time
+	DelveEvent  bool
+}
+
+type LeagueCategory struct {
+	ID      uuid.UUID
+	Current bool
+}
+
+type LeagueRule struct {
+	ID          uuid.UUID
+	Name        string
+	Description sql.NullString
+	LeagueID    uuid.NullUUID
 }
 
 type LeagueType struct {
@@ -118,7 +134,6 @@ type User struct {
 	Guild         sql.NullString
 }
 
-// Item orders by specific users
 type UserItemOrder struct {
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
@@ -134,7 +149,6 @@ type UserItemOrder struct {
 	ItemCategory sql.NullString
 }
 
-// League mechanics that a given user is focussing on
 type UserLeagueMechanic struct {
 	ID       uuid.UUID
 	Mechanic string

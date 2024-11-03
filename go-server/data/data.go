@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/fatih/color"
+
 	_ "github.com/lib/pq"
 )
 
@@ -14,6 +16,7 @@ var db *sql.DB
 // This function will make a connection to the database only once.
 func Connect() {
 	var err error
+	green := color.New(color.FgGreen)
 
 	dbUrl := os.Getenv("DATABASE_URL")
 	if dbUrl == "" {
@@ -24,13 +27,16 @@ func Connect() {
 
 	db, err = sql.Open("postgres", dbUrl)
 
+	fmt.Print("Database: ")
 	if err != nil {
+		green.Print("connection failure\n")
 		panic(err)
 	}
 
 	if err = db.Ping(); err != nil {
+		green.Print("ping failure\n")
 		panic(err)
 	}
-	// this will be printed in the terminal, confirming the connection to the database
-	fmt.Println("The database is connected")
+
+	green.Print("success\n\n")
 }

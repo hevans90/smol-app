@@ -9,6 +9,8 @@ import (
 	"net/url"
 	"os"
 	"strings"
+
+	"github.com/fatih/color"
 )
 
 type TokenResponse struct {
@@ -61,7 +63,19 @@ func GetToken() TokenResponse {
 		fmt.Printf("There was an error decoding the json. err = %s", err2)
 		panic(err2)
 	}
-	fmt.Printf("%+v\n", tokenResponse)
+
+	prettyJSON, err := json.MarshalIndent(tokenResponse, "", "    ") // 4 spaces for indentation
+	if err != nil {
+		fmt.Println("Error marshaling JSON:", err)
+		os.Exit(1)
+	}
+
+	green := color.New(color.FgGreen)
+
+	fmt.Print("POE API:  ")
+	green.Print("success\n\n")
+
+	fmt.Println(string(prettyJSON))
 
 	return tokenResponse
 }

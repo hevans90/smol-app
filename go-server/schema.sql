@@ -17,13 +17,11 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: hdb_catalog; Type: SCHEMA; Schema: -; Owner: postgres
+-- Name: hdb_catalog; Type: SCHEMA; Schema: -; Owner: -
 --
 
 CREATE SCHEMA hdb_catalog;
 
-
-ALTER SCHEMA hdb_catalog OWNER TO postgres;
 
 --
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
@@ -33,14 +31,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
-
-
---
--- Name: gen_hasura_uuid(); Type: FUNCTION; Schema: hdb_catalog; Owner: postgres
+-- Name: gen_hasura_uuid(); Type: FUNCTION; Schema: hdb_catalog; Owner: -
 --
 
 CREATE FUNCTION hdb_catalog.gen_hasura_uuid() RETURNS uuid
@@ -48,10 +39,8 @@ CREATE FUNCTION hdb_catalog.gen_hasura_uuid() RETURNS uuid
     AS $$select gen_random_uuid()$$;
 
 
-ALTER FUNCTION hdb_catalog.gen_hasura_uuid() OWNER TO postgres;
-
 --
--- Name: set_current_timestamp_updated_at(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: set_current_timestamp_updated_at(); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.set_current_timestamp_updated_at() RETURNS trigger
@@ -67,14 +56,12 @@ END;
 $$;
 
 
-ALTER FUNCTION public.set_current_timestamp_updated_at() OWNER TO postgres;
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: hdb_action_log; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_action_log; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_action_log (
@@ -92,10 +79,8 @@ CREATE TABLE hdb_catalog.hdb_action_log (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_action_log OWNER TO postgres;
-
 --
--- Name: hdb_cron_event_invocation_logs; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_event_invocation_logs; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_cron_event_invocation_logs (
@@ -108,10 +93,8 @@ CREATE TABLE hdb_catalog.hdb_cron_event_invocation_logs (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_cron_event_invocation_logs OWNER TO postgres;
-
 --
--- Name: hdb_cron_events; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_events; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_cron_events (
@@ -126,10 +109,8 @@ CREATE TABLE hdb_catalog.hdb_cron_events (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_cron_events OWNER TO postgres;
-
 --
--- Name: hdb_metadata; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_metadata; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_metadata (
@@ -139,10 +120,8 @@ CREATE TABLE hdb_catalog.hdb_metadata (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_metadata OWNER TO postgres;
-
 --
--- Name: hdb_scheduled_event_invocation_logs; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_scheduled_event_invocation_logs; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_scheduled_event_invocation_logs (
@@ -155,10 +134,8 @@ CREATE TABLE hdb_catalog.hdb_scheduled_event_invocation_logs (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_scheduled_event_invocation_logs OWNER TO postgres;
-
 --
--- Name: hdb_scheduled_events; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_scheduled_events; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_scheduled_events (
@@ -177,10 +154,8 @@ CREATE TABLE hdb_catalog.hdb_scheduled_events (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_scheduled_events OWNER TO postgres;
-
 --
--- Name: hdb_schema_notifications; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_schema_notifications; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_schema_notifications (
@@ -193,10 +168,8 @@ CREATE TABLE hdb_catalog.hdb_schema_notifications (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_schema_notifications OWNER TO postgres;
-
 --
--- Name: hdb_version; Type: TABLE; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_version; Type: TABLE; Schema: hdb_catalog; Owner: -
 --
 
 CREATE TABLE hdb_catalog.hdb_version (
@@ -210,10 +183,8 @@ CREATE TABLE hdb_catalog.hdb_version (
 );
 
 
-ALTER TABLE hdb_catalog.hdb_version OWNER TO postgres;
-
 --
--- Name: item_order_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: item_order_type; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.item_order_type (
@@ -221,25 +192,47 @@ CREATE TABLE public.item_order_type (
 );
 
 
-ALTER TABLE public.item_order_type OWNER TO postgres;
-
 --
--- Name: league_info; Type: TABLE; Schema: public; Owner: postgres
+-- Name: league; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.league_info (
-    id text NOT NULL,
-    url text NOT NULL,
+CREATE TABLE public.league (
+    id uuid NOT NULL,
+    realm character varying(255) NOT NULL,
+    url character varying(255),
     start_at timestamp with time zone NOT NULL,
     end_at timestamp with time zone NOT NULL,
-    description text NOT NULL
+    description text,
+    category_id uuid,
+    register_at timestamp with time zone NOT NULL,
+    delve_event boolean NOT NULL
 );
 
 
-ALTER TABLE public.league_info OWNER TO postgres;
+--
+-- Name: league_category; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.league_category (
+    id uuid NOT NULL,
+    current boolean NOT NULL
+);
+
 
 --
--- Name: league_type; Type: TABLE; Schema: public; Owner: postgres
+-- Name: league_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.league_rules (
+    id uuid NOT NULL,
+    name character varying(255) NOT NULL,
+    description text,
+    league_id uuid
+);
+
+
+--
+-- Name: league_type; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.league_type (
@@ -247,10 +240,8 @@ CREATE TABLE public.league_type (
 );
 
 
-ALTER TABLE public.league_type OWNER TO postgres;
-
 --
--- Name: user; Type: TABLE; Schema: public; Owner: postgres
+-- Name: user; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public."user" (
@@ -264,10 +255,8 @@ CREATE TABLE public."user" (
 );
 
 
-ALTER TABLE public."user" OWNER TO postgres;
-
 --
--- Name: user_item_order; Type: TABLE; Schema: public; Owner: postgres
+-- Name: user_item_order; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.user_item_order (
@@ -286,17 +275,8 @@ CREATE TABLE public.user_item_order (
 );
 
 
-ALTER TABLE public.user_item_order OWNER TO postgres;
-
 --
--- Name: TABLE user_item_order; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON TABLE public.user_item_order IS 'Item orders by specific users';
-
-
---
--- Name: user_league_mechanic; Type: TABLE; Schema: public; Owner: postgres
+-- Name: user_league_mechanic; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.user_league_mechanic (
@@ -306,17 +286,8 @@ CREATE TABLE public.user_league_mechanic (
 );
 
 
-ALTER TABLE public.user_league_mechanic OWNER TO postgres;
-
 --
--- Name: TABLE user_league_mechanic; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON TABLE public.user_league_mechanic IS 'League mechanics that a given user is focussing on';
-
-
---
--- Name: hdb_action_log hdb_action_log_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_action_log hdb_action_log_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_action_log
@@ -324,7 +295,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_action_log
 
 
 --
--- Name: hdb_cron_event_invocation_logs hdb_cron_event_invocation_logs_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_event_invocation_logs hdb_cron_event_invocation_logs_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_cron_event_invocation_logs
@@ -332,7 +303,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_cron_event_invocation_logs
 
 
 --
--- Name: hdb_cron_events hdb_cron_events_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_events hdb_cron_events_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_cron_events
@@ -340,7 +311,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_cron_events
 
 
 --
--- Name: hdb_metadata hdb_metadata_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_metadata hdb_metadata_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_metadata
@@ -348,7 +319,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_metadata
 
 
 --
--- Name: hdb_metadata hdb_metadata_resource_version_key; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_metadata hdb_metadata_resource_version_key; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_metadata
@@ -356,7 +327,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_metadata
 
 
 --
--- Name: hdb_scheduled_event_invocation_logs hdb_scheduled_event_invocation_logs_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_scheduled_event_invocation_logs hdb_scheduled_event_invocation_logs_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_scheduled_event_invocation_logs
@@ -364,7 +335,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_scheduled_event_invocation_logs
 
 
 --
--- Name: hdb_scheduled_events hdb_scheduled_events_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_scheduled_events hdb_scheduled_events_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_scheduled_events
@@ -372,7 +343,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_scheduled_events
 
 
 --
--- Name: hdb_schema_notifications hdb_schema_notifications_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_schema_notifications hdb_schema_notifications_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_schema_notifications
@@ -380,7 +351,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_schema_notifications
 
 
 --
--- Name: hdb_version hdb_version_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_version hdb_version_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_version
@@ -388,7 +359,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_version
 
 
 --
--- Name: item_order_type item_order_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: item_order_type item_order_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.item_order_type
@@ -396,15 +367,31 @@ ALTER TABLE ONLY public.item_order_type
 
 
 --
--- Name: league_info league_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: league_category league_category_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.league_info
-    ADD CONSTRAINT league_info_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.league_category
+    ADD CONSTRAINT league_category_pkey PRIMARY KEY (id);
 
 
 --
--- Name: league_type league_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: league league_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.league
+    ADD CONSTRAINT league_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: league_rules league_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.league_rules
+    ADD CONSTRAINT league_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: league_type league_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.league_type
@@ -412,7 +399,7 @@ ALTER TABLE ONLY public.league_type
 
 
 --
--- Name: user user_discord_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user user_discord_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -420,7 +407,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: user_item_order user_item_order_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_item_order user_item_order_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_item_order
@@ -428,7 +415,7 @@ ALTER TABLE ONLY public.user_item_order
 
 
 --
--- Name: user_league_mechanic user_league_mechanic_mechanic_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_league_mechanic user_league_mechanic_mechanic_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_league_mechanic
@@ -436,7 +423,7 @@ ALTER TABLE ONLY public.user_league_mechanic
 
 
 --
--- Name: user_league_mechanic user_league_mechanic_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_league_mechanic user_league_mechanic_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_league_mechanic
@@ -444,7 +431,7 @@ ALTER TABLE ONLY public.user_league_mechanic
 
 
 --
--- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -452,7 +439,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: user user_poe_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user user_poe_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
@@ -460,56 +447,63 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: hdb_cron_event_invocation_event_id; Type: INDEX; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_event_invocation_event_id; Type: INDEX; Schema: hdb_catalog; Owner: -
 --
 
 CREATE INDEX hdb_cron_event_invocation_event_id ON hdb_catalog.hdb_cron_event_invocation_logs USING btree (event_id);
 
 
 --
--- Name: hdb_cron_event_status; Type: INDEX; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_event_status; Type: INDEX; Schema: hdb_catalog; Owner: -
 --
 
 CREATE INDEX hdb_cron_event_status ON hdb_catalog.hdb_cron_events USING btree (status);
 
 
 --
--- Name: hdb_cron_events_unique_scheduled; Type: INDEX; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_events_unique_scheduled; Type: INDEX; Schema: hdb_catalog; Owner: -
 --
 
 CREATE UNIQUE INDEX hdb_cron_events_unique_scheduled ON hdb_catalog.hdb_cron_events USING btree (trigger_name, scheduled_time) WHERE (status = 'scheduled'::text);
 
 
 --
--- Name: hdb_scheduled_event_status; Type: INDEX; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_scheduled_event_status; Type: INDEX; Schema: hdb_catalog; Owner: -
 --
 
 CREATE INDEX hdb_scheduled_event_status ON hdb_catalog.hdb_scheduled_events USING btree (status);
 
 
 --
--- Name: hdb_version_one_row; Type: INDEX; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_version_one_row; Type: INDEX; Schema: hdb_catalog; Owner: -
 --
 
 CREATE UNIQUE INDEX hdb_version_one_row ON hdb_catalog.hdb_version USING btree (((version IS NOT NULL)));
 
 
 --
--- Name: user_item_order set_public_user_item_order_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: idx_league_rules_league_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_league_rules_league_id ON public.league_rules USING btree (league_id);
+
+
+--
+-- Name: idx_leagues_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_leagues_category_id ON public.league USING btree (category_id);
+
+
+--
+-- Name: user_item_order set_public_user_item_order_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER set_public_user_item_order_updated_at BEFORE UPDATE ON public.user_item_order FOR EACH ROW EXECUTE FUNCTION public.set_current_timestamp_updated_at();
 
 
 --
--- Name: TRIGGER set_public_user_item_order_updated_at ON user_item_order; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON TRIGGER set_public_user_item_order_updated_at ON public.user_item_order IS 'trigger to set value of column "updated_at" to current timestamp on row update';
-
-
---
--- Name: hdb_cron_event_invocation_logs hdb_cron_event_invocation_logs_event_id_fkey; Type: FK CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_cron_event_invocation_logs hdb_cron_event_invocation_logs_event_id_fkey; Type: FK CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_cron_event_invocation_logs
@@ -517,7 +511,7 @@ ALTER TABLE ONLY hdb_catalog.hdb_cron_event_invocation_logs
 
 
 --
--- Name: hdb_scheduled_event_invocation_logs hdb_scheduled_event_invocation_logs_event_id_fkey; Type: FK CONSTRAINT; Schema: hdb_catalog; Owner: postgres
+-- Name: hdb_scheduled_event_invocation_logs hdb_scheduled_event_invocation_logs_event_id_fkey; Type: FK CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
 ALTER TABLE ONLY hdb_catalog.hdb_scheduled_event_invocation_logs
@@ -525,7 +519,23 @@ ALTER TABLE ONLY hdb_catalog.hdb_scheduled_event_invocation_logs
 
 
 --
--- Name: user_item_order user_item_order_fulfilled_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: league league_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.league
+    ADD CONSTRAINT league_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.league_category(id) ON DELETE SET NULL;
+
+
+--
+-- Name: league_rules league_rules_league_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.league_rules
+    ADD CONSTRAINT league_rules_league_id_fkey FOREIGN KEY (league_id) REFERENCES public.league(id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_item_order user_item_order_fulfilled_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_item_order
@@ -533,7 +543,7 @@ ALTER TABLE ONLY public.user_item_order
 
 
 --
--- Name: user_item_order user_item_order_type_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_item_order user_item_order_type_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_item_order
@@ -541,7 +551,7 @@ ALTER TABLE ONLY public.user_item_order
 
 
 --
--- Name: user_item_order user_item_order_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_item_order user_item_order_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_item_order
@@ -549,7 +559,7 @@ ALTER TABLE ONLY public.user_item_order
 
 
 --
--- Name: user_league_mechanic user_league_mechanic_mechanic_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_league_mechanic user_league_mechanic_mechanic_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_league_mechanic
@@ -557,7 +567,7 @@ ALTER TABLE ONLY public.user_league_mechanic
 
 
 --
--- Name: user_league_mechanic user_league_mechanic_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_league_mechanic user_league_mechanic_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_league_mechanic

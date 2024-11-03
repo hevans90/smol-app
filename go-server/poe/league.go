@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -99,19 +98,6 @@ func GetPrivateLeague(tokenResponse TokenResponse, leagueName string) LeagueResp
 		fmt.Printf("There was an error decoding the json: %s", err2)
 		panic(err2)
 	}
-
-	file, err := os.Create("response.json")
-	if err != nil {
-		fmt.Println("Error creating the file:", err)
-	}
-	defer file.Close()
-
-	// Write the JSON directly to the file
-	if _, err := file.Write(body); err != nil {
-		fmt.Println("Error writing to the file:", err)
-	}
-
-	fmt.Println("JSON response saved to response.json")
 
 	return leagueResponse
 }

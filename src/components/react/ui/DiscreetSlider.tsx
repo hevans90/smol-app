@@ -82,37 +82,43 @@ export const DiscreteSlider = <T,>({
               width: `${(values.indexOf(selectedValue) / (values.length - 1)) * 100}%`,
             }}
           ></div>
-        </div>
 
-        {/* Slider Options (Indicators) */}
-        <div className="relative -ml-[1%] mt-2 flex w-[102%] justify-between">
-          {values.map((value, index) => (
-            <RadioGroup.Option key={value} value={value} className="relative">
-              {({ checked }: { checked: boolean }) => (
-                <span
-                  className={twMerge(
-                    'flex flex-col items-center',
-                    checked ? 'cursor-auto' : 'cursor-pointer',
-                    selectedIndex > index ? 'opacity-40' : 'opacity-100',
-                  )}
-                >
-                  {/* Dot */}
-                  <img className="h-8 w-8" src={images?.[index]} />
-
-                  {/* Value Label */}
+          {/* Slider Options (Indicators) */}
+          <div className="absolute -top-8 -ml-[1%]  flex w-[102%] justify-between">
+            {values.map((value, index) => (
+              <RadioGroup.Option key={value} value={value} className="relative">
+                {({ checked }: { checked: boolean }) => (
                   <span
                     className={twMerge(
-                      'absolute top-9 whitespace-nowrap text-center',
-                      checked ? 'text-primary-300' : 'text-primary-800',
+                      'flex flex-col items-center opacity-40',
+                      checked ? 'cursor-auto' : 'cursor-pointer',
+                      selectedIndex === index && 'opacity-100',
                     )}
                   >
-                    {value}
+                    {/* Dot */}
+                    <img
+                      className={twMerge(
+                        'h-8 w-8',
+                        selectedIndex === index && 'h-12 w-12',
+                      )}
+                      src={images?.[index]}
+                    />
+
+                    {/* Value Label */}
+                    <span
+                      className={twMerge(
+                        'absolute top-14 whitespace-nowrap text-center',
+                        checked ? 'text-primary-300' : 'text-primary-800',
+                      )}
+                    >
+                      {value}
+                    </span>
+                    <span className="absolute -top-6 h-20 w-20 " />
                   </span>
-                  <span className="absolute -top-6 h-20 w-20 " />
-                </span>
-              )}
-            </RadioGroup.Option>
-          ))}
+                )}
+              </RadioGroup.Option>
+            ))}
+          </div>
         </div>
       </RadioGroup>
     </div>

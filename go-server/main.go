@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -31,9 +30,9 @@ func main() {
 	smoldata.Connect()
 	tokenResponse := poe.GetToken()
 
-	league := poe.GetPrivateLeague(tokenResponse, "Smol Bug Found (PL43484)")
+	poe.GetPrivateLeague(tokenResponse, "Smoldew Valley (PL49469)")
 
-	fmt.Printf("%+v\n", league)
+	// fmt.Printf("%+v\n", league)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := map[string]string{

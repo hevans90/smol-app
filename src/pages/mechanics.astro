@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { Image } from 'astro:assets';
+
+import logoSrc from '../assets/smol-logo.png';
+import { UserLeagueMechanicsPage } from '../components/UserLeagueMechanicsPage';
+
+const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+---
+
+<Layout title="Mechanics" authPrompt={true}>
+  <main class="flex flex-col items-start">
+    <Image src={logoSrc} alt="logo" class="w-48 mb-8" />
+
+    <UserLeagueMechanicsPage hasuraUri={hasuraUri} client:only="react" />
+  </main>
+</Layout>

@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 
 import logoSrc from '../assets/smol-logo.png';
-import { HomePage } from '../components/HomePage';
+import { LadderPage } from '../components/LadderPage';
 
 const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 
@@ -21,8 +21,8 @@ const version = 'settlers_1.0.2';
 
 <Layout title="Smol app" authPrompt={true}>
   <main class="flex flex-col items-start">
-    <Image src={logoSrc} alt="logo" class="w-48 mb-8" />
+    <Image src={logoSrc} alt="logo" class="w-32" />
 
-    <HomePage hasuraUri={hasuraUri} client:only="react" />
+    <LadderPage hasuraUri={hasuraUri} client:only="react" />
   </main>
 </Layout>

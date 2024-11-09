@@ -1,11 +1,11 @@
 import GraphQLAppWrapper from '../_utils/GraphQLAppWrapper';
-import UserList from './react/graphql-provided/UserList';
+import { LeagueLadder } from './react/graphql-provided/LeagueLadder';
 
-export const HomePage = ({ hasuraUri }: { hasuraUri: string }) => {
+export const LadderPage = ({ hasuraUri }: { hasuraUri: string }) => {
   return (
     <>
       <GraphQLAppWrapper uri={hasuraUri}>
-        <UserList />
+        <LeagueLadder />
       </GraphQLAppWrapper>
     </>
   );

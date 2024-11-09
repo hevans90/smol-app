@@ -21,9 +21,12 @@ import invariant from 'tiny-invariant';
 import { isLeagueFilter, userListFilterStore } from '../../../_state/user-list';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import Select from '../ui/Select';
-import { UserListFilters, leagueMap } from './UserListFilters';
+import {
+  UserLeagueMechanicFilters,
+  leagueMap,
+} from './UserLeagueMechanicFilters';
 
-const UserList = () => {
+export const UserLeagueMechanics = () => {
   const { data: userData, loading } =
     useSubscription<UsersSubSubscription>(UsersSubDocument);
 
@@ -67,8 +70,8 @@ const UserList = () => {
                 user_league_mechanics
                   .map(({ mechanic }) => mechanic)
                   .includes(filter.league as League_Type_Enum)) ||
-              id === myUserId
-          )
+              id === myUserId,
+          ),
         );
         setfilteredUsers(filtered);
       } else {
@@ -80,23 +83,23 @@ const UserList = () => {
   if (loading || leaguesLoading || userLoading) return <Spinner />;
 
   return (
-    <table className="my-4 table-auto w-full">
+    <table className="my-4 w-full table-auto">
       <thead>
-        <tr className="border-b-primary-800 border-b-[1px]">
+        <tr className="border-b-[1px] border-b-primary-800">
           <th className="w-44">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="mb-2 flex items-center gap-2">
               <img src="/discord-logo.svg" className="h-8" />
             </div>
           </th>
-          <th className="w-44 hidden md:table-cell">
-            <div className="flex items-center gap-2 mb-2">
+          <th className="hidden w-44 md:table-cell">
+            <div className="mb-2 flex items-center gap-2">
               <img src="/poe-logo-original.png" className="h-12" />
             </div>
           </th>
           <th>
             {leagues && (
-              <div className="flex items-center gap-2 mb-2 w-full">
-                <UserListFilters leagueQuery={leagues} />
+              <div className="mb-2 flex w-full items-center gap-2">
+                <UserLeagueMechanicFilters leagueQuery={leagues} />
               </div>
             )}
           </th>
@@ -117,8 +120,8 @@ const UserList = () => {
             .filter(
               (league) =>
                 !user.user_league_mechanics.find(
-                  ({ mechanic }) => mechanic === league.value
-                )
+                  ({ mechanic }) => mechanic === league.value,
+                ),
             )
             .sort((a, b) => a.value.localeCompare(b.value));
 
@@ -126,7 +129,7 @@ const UserList = () => {
             <tr key={i}>
               <td>
                 <div
-                  className={`flex items-center gap-2 my-2 ${
+                  className={`my-2 flex items-center gap-2 ${
                     i === 0 && 'mt-4'
                   }`}
                 >
@@ -134,11 +137,11 @@ const UserList = () => {
                     <>
                       {user.discord_avatar ? (
                         <img
-                          className="rounded-full h-8 w-8"
+                          className="h-8 w-8 rounded-full"
                           src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
                         />
                       ) : (
-                        <div className="rounded-full bg-discord-500 h-8 w-8 flex items-center justify-center">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-discord-500">
                           <img src="/discord-logo.svg" className="h-4" />
                         </div>
                       )}
@@ -153,12 +156,12 @@ const UserList = () => {
               </td>
               <td className="hidden md:table-cell">
                 <div
-                  className={`flex items-center gap-2 my-2 ${
+                  className={`my-2 flex items-center gap-2 ${
                     i === 0 && 'mt-4'
                   }`}
                 >
                   <a
-                    className="flex items-center my-1"
+                    className="my-1 flex items-center"
                     href={`https://www.pathofexile.com/account/view-profile/${user.poe_name}`}
                     target="_blank"
                   >
@@ -171,7 +174,7 @@ const UserList = () => {
                   {user.user_league_mechanics
                     .sort((a, b) => a.mechanic.localeCompare(b.mechanic))
                     .map(({ mechanic, id: mechanicId }, i) => (
-                      <div className="relative h-8 md:h-10 w-8 md:w-10" key={i}>
+                      <div className="relative h-8 w-8 md:h-10 md:w-10" key={i}>
                         <img
                           title={leagueMap?.[mechanic] ?? mechanic}
                           src={`/league-icons/${mechanic}.webp`}
@@ -179,7 +182,7 @@ const UserList = () => {
                         />
                         {isMe && (
                           <button
-                            className="p-1 opacity-50 rounded-full bg-primary-900 absolute -top-2 -right-2 text-primary-500 hover:text-primary-300 hover:opacity-75"
+                            className="absolute -right-2 -top-2 rounded-full bg-primary-900 p-1 text-primary-500 opacity-50 hover:text-primary-300 hover:opacity-75"
                             onClick={() =>
                               deleteLeagueMechanic({
                                 variables: { mechanicId },
@@ -216,5 +219,3 @@ const UserList = () => {
     </table>
   );
 };
-
-export default UserList;

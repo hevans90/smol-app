@@ -1,5 +1,5 @@
 subscription LeagueCharacters {
-  character {
+  character(order_by: { rank: asc }) {
     twitch
     retired
     poe_account_name

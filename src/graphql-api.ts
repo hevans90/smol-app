@@ -3340,7 +3340,7 @@ export const UserFieldsFragmentDoc = gql`
     `;
 export const LeagueCharactersDocument = gql`
     subscription LeagueCharacters {
-  character {
+  character(order_by: {rank: asc}) {
     twitch
     retired
     poe_account_name

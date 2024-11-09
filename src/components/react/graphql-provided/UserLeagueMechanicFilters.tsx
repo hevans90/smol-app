@@ -10,7 +10,7 @@ export const leagueMap: { [key in League_Type_Enum]?: string } = {
   altar_exarch: 'exarch altars',
 };
 
-export const UserListFilters = ({
+export const UserLeagueMechanicFilters = ({
   leagueQuery,
 }: {
   leagueQuery: LeaguesQuery;
@@ -36,20 +36,20 @@ export const UserListFilters = ({
     .filter(
       (league) =>
         !filters.find(
-          (filter) => isLeagueFilter(filter) && filter.league === league.value
-        )
+          (filter) => isLeagueFilter(filter) && filter.league === league.value,
+        ),
     )
     .sort((a, b) => a.value.localeCompare(b.value));
 
   return (
-    <div className="flex grow gap-2 p-2 border-[1px] border-primary-900 rounded bg-gray-900">
+    <div className="flex grow gap-2 rounded border-[1px] border-primary-900 bg-gray-900 p-2">
       <Select
         onSelectChange={(value) => addLeagueFilter(value as League_Type_Enum)}
         placeholder="Add Filter"
         showSelected={false}
         options={leagues}
       />
-      <div className="flex items-center h-10 grow">
+      <div className="flex h-10 grow items-center">
         {filters.map((filter, i) => (
           <Fragment key={i}>
             {isLeagueFilter(filter) ? (
@@ -59,7 +59,7 @@ export const UserListFilters = ({
               >
                 <img
                   title={filter.league}
-                  className="w-10 h-10 md:w-12 md:h-12 p-1 hover:bg-gray-800"
+                  className="h-10 w-10 p-1 hover:bg-gray-800 md:h-12 md:w-12"
                   src={`/league-icons/${filter.league}.webp`}
                 />
               </button>
@@ -69,15 +69,15 @@ export const UserListFilters = ({
           </Fragment>
         ))}
         {!filters.length && (
-          <div className="grow flex justify-end mr-2">No filters</div>
+          <div className="mr-2 flex grow justify-end">No filters</div>
         )}
         {filters.length ? (
-          <div className="grow flex justify-end">
+          <div className="flex grow justify-end">
             <button
               onClick={clearLeagueFilters}
-              className="hover:text-primary-500 hover:bg-gray-800 bg-gray-900 p-1 flex items-center"
+              className="flex items-center bg-gray-900 p-1 hover:bg-gray-800 hover:text-primary-500"
             >
-              <IconTrash className="w-8 h-8 " />
+              <IconTrash className="h-8 w-8 " />
             </button>
           </div>
         ) : null}

@@ -184,6 +184,25 @@ CREATE TABLE hdb_catalog.hdb_version (
 
 
 --
+-- Name: character; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."character" (
+    rank integer NOT NULL,
+    poe_account_name text NOT NULL,
+    name text NOT NULL,
+    class text NOT NULL,
+    level integer NOT NULL,
+    experience bigint NOT NULL,
+    retired boolean NOT NULL,
+    dead boolean NOT NULL,
+    id text NOT NULL,
+    challenges integer NOT NULL,
+    twitch text
+);
+
+
+--
 -- Name: item_order_type; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -359,6 +378,14 @@ ALTER TABLE ONLY hdb_catalog.hdb_version
 
 
 --
+-- Name: character character_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."character"
+    ADD CONSTRAINT character_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: item_order_type item_order_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -439,6 +466,14 @@ ALTER TABLE ONLY public."user"
 
 
 --
+-- Name: user user_poe_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_poe_name_key UNIQUE (poe_name);
+
+
+--
 -- Name: user user_poe_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -493,6 +528,13 @@ CREATE INDEX idx_league_rules_league_id ON public.league_rules USING btree (leag
 --
 
 CREATE INDEX idx_leagues_category_id ON public.league USING btree (category_id);
+
+
+--
+-- Name: idx_poe_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_poe_name ON public."user" USING btree (poe_name);
 
 
 --

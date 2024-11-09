@@ -64,18 +64,16 @@ func GetToken() TokenResponse {
 		panic(err2)
 	}
 
-	prettyJSON, err := json.MarshalIndent(tokenResponse, "", "    ") // 4 spaces for indentation
-	if err != nil {
-		fmt.Println("Error marshaling JSON:", err)
+	_, err3 := json.MarshalIndent(tokenResponse, "", "    ") // 4 spaces for indentation
+	if err3 != nil {
+		fmt.Println("Error marshaling JSON:", err3)
 		os.Exit(1)
 	}
 
 	green := color.New(color.FgGreen)
 
-	fmt.Print("POE API:  ")
-	green.Print("success\n\n")
-
-	fmt.Println(string(prettyJSON))
+	fmt.Print("POE API: ")
+	green.Print("connected succesfully\n\n")
 
 	return tokenResponse
 }

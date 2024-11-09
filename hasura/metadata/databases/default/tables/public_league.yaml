@@ -1,3 +1,32 @@
 table:
   name: league
   schema: public
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - delve_event
+        - realm
+        - url
+        - category_id
+        - description
+        - id
+        - end_at
+        - register_at
+        - start_at
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - delve_event
+        - realm
+        - url
+        - category_id
+        - description
+        - id
+        - end_at
+        - register_at
+        - start_at
+      filter: {}
+    comment: ""

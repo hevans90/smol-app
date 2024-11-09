@@ -13,6 +13,20 @@ import (
 	"github.com/sqlc-dev/pqtype"
 )
 
+type Character struct {
+	Rank           int32
+	PoeAccountName string
+	Name           string
+	Class          string
+	Level          int32
+	Experience     int64
+	Retired        bool
+	Dead           bool
+	ID             string
+	Challenges     int32
+	Twitch         sql.NullString
+}
+
 type HdbCatalogHdbActionLog struct {
 	ID                 uuid.UUID
 	ActionName         sql.NullString

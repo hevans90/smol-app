@@ -1,0 +1,36 @@
+table:
+  name: character
+  schema: public
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - experience
+        - dead
+        - retired
+        - challenges
+        - level
+        - rank
+        - class
+        - id
+        - name
+        - poe_account_name
+        - twitch
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - experience
+        - dead
+        - retired
+        - challenges
+        - level
+        - rank
+        - class
+        - id
+        - name
+        - poe_account_name
+        - twitch
+      filter: {}
+    comment: ""

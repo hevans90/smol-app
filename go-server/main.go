@@ -30,6 +30,9 @@ func jsonMarshal(v interface{}) string {
 
 func main() {
 
+	green := color.New(color.FgGreen)
+	red := color.New(color.FgRed)
+
 	// Create a template function map
 	funcMap := template.FuncMap{
 		"json": jsonMarshal, // Add the json function to the template
@@ -58,15 +61,22 @@ func main() {
 
 	var leagueResponse = poe.GetLeague(tokenResponse, "Smoldew Valley (PL49469)")
 
-	leagueId, err := smoldata.InsertLeague(ctx, queries, leagueResponse.League)
+	leagueId, leagueInsertError := smoldata.InsertLeague(ctx, queries, leagueResponse.League)
 
-	green := color.New(color.FgGreen)
-	red := color.New(color.FgRed)
-
-	if err != nil {
-		red.Printf("Could not save league: %v", err)
+	if leagueInsertError != nil {
+		red.Printf("Could not save league: %v\n\n", leagueInsertError)
 	} else {
-		green.Print(leagueId + "saved successfully\n\n")
+		green.Print(leagueId + " saved successfully\n\n")
+	}
+
+	leagueCharacters := smoldata.MapLadderToCharacters(leagueResponse.Ladder)
+
+	numberInserted, characterInsertError := smoldata.InsertCharacters(db, leagueCharacters)
+
+	if characterInsertError != nil {
+		red.Printf("Could not save characters: %v\n\n", characterInsertError)
+	} else {
+		green.Printf("%v characters saved successfully\n\n", numberInserted)
 	}
 
 	// Set up the HTTP handler

@@ -47,7 +47,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
   characters,
 }) => {
   const initialRowsPerPage = parseInt(
-    localStorage.getItem('rowsPerPage') || '10',
+    localStorage.getItem('rowsPerPage') || '25',
     10,
   );
 
@@ -81,13 +81,6 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
           `${window.location.pathname}?${params.toString()}`,
         );
       }
-
-      // 2. Load rowsPerPage from localStorage
-      const storedRowsPerPage = parseInt(
-        localStorage.getItem('rowsPerPage') || '10',
-        10,
-      );
-      setRowsPerPage(storedRowsPerPage > 0 ? storedRowsPerPage : 10);
     }
   }, [characters.length]);
 

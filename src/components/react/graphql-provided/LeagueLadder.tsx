@@ -21,7 +21,7 @@ export const LeagueLadder = () => {
 
   return (
     <>
-      <div className="flex items-baseline">
+      <div className="mb-6 flex items-baseline">
         {league && league?.url ? (
           <>
             <h1 className="text-2xl">
@@ -49,13 +49,34 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // Calculate total pages
-  const totalPages = Math.ceil(characters.length / rowsPerPage);
+  const [sortConfig, setSortConfig] = useState<{
+    key: string | null;
+    direction: 'asc' | 'desc' | null;
+  }>({
+    key: null,
+    direction: null,
+  });
 
-  // Get the current page's data slice
+  // Function to handle sorting
+  const sortedCharacters = sortConfig.key
+    ? [...characters].sort((a, b) => {
+        //@ts-ignore
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        //@ts-ignore
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      })
+    : characters;
+
+  const totalPages = Math.ceil(sortedCharacters.length / rowsPerPage);
+
   const indexOfLastCharacter = currentPage * rowsPerPage;
   const indexOfFirstCharacter = indexOfLastCharacter - rowsPerPage;
-  const currentCharacters = characters.slice(
+  const currentCharacters = sortedCharacters.slice(
     indexOfFirstCharacter,
     indexOfLastCharacter,
   );
@@ -67,12 +88,31 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     }
   };
 
-  // Handle rows per page change
   const handleRowsPerPageChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setRowsPerPage(Number(event.target.value));
-    setCurrentPage(1); // Reset to first page
+    setCurrentPage(1);
+  };
+
+  const handleSort = (column: string) => {
+    setCurrentPage(1);
+    if (!sortConfig.direction) {
+      setSortConfig({
+        key: column,
+        direction: 'asc',
+      });
+    }
+    if (sortConfig.direction === 'asc') {
+      setSortConfig({
+        key: column,
+        direction: 'desc',
+      });
+    }
+
+    if (sortConfig.direction === 'desc') {
+      setSortConfig({ key: null, direction: null });
+    }
   };
 
   return (
@@ -83,9 +123,30 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
             <th className="w-16 px-4 py-2 font-medium">Rank</th>
             <th className="w-32 px-4 py-2 font-medium">Account</th>
             <th className="w-48 px-4 py-2 font-medium">Character</th>
-            <th className="w-auto px-4 py-2 font-medium">Class</th>
+            <th
+              className="text w-32 cursor-pointer select-none px-4 py-3 font-medium"
+              onClick={() => handleSort('class')}
+            >
+              <button className="flex w-full whitespace-nowrap bg-transparent hover:bg-transparent">
+                <span>Class &nbsp;&nbsp;&nbsp;</span>
+
+                {sortConfig.key === null && (
+                  <span className="text-primary-800 opacity-50">↑ ↓</span>
+                )}
+
+                {sortConfig.key === 'class' ? (
+                  sortConfig.direction === 'asc' ? (
+                    <span>↑</span>
+                  ) : (
+                    <span>↓</span>
+                  )
+                ) : (
+                  ''
+                )}
+              </button>
+            </th>
             <th className="w-32 px-4 py-2 font-medium">Level</th>
-            <th className="w-32 py-2 font-medium">Experience</th>
+            <th className="w-32 px-4 py-2 font-medium">Experience</th>
           </tr>
         </thead>
         <tbody className="bg-gray-950 text-primary-800">
@@ -126,7 +187,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
         <div>
           <label>Rows per page:</label>
           <select
-            className="ml-2 rounded bg-gray-800 p-1"
+            className="ml-2 rounded bg-gray-800 px-2 py-1 text-center"
             value={rowsPerPage}
             onChange={handleRowsPerPageChange}
           >

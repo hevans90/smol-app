@@ -18,9 +18,13 @@
     @apply bg-gray-800 hover:bg-gray-700 focus-visible:border-primary-800 focus-visible:outline-primary-500;
   }
 
+  button:disabled {
+    @apply cursor-not-allowed bg-gray-900 opacity-50 hover:bg-gray-900;
+  }
+
   input,
   select {
-    @apply rounded-sm bg-gray-600 p-2 text-lg text-gray-700 text-primary-500 outline-none outline-[1px] outline-offset-0 duration-200 ease-in-out focus-visible:border-primary-800 focus-visible:outline-primary-500;
+    @apply rounded-sm bg-gray-600 p-2 text-lg text-primary-500 outline-none outline-[1px] outline-offset-0 duration-200 ease-in-out focus-visible:border-primary-800 focus-visible:outline-primary-500;
   }
 
   select {

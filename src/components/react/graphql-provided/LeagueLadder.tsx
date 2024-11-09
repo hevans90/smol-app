@@ -201,7 +201,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
 
         <div className="flex items-center">
           <button
-            className="rounded-l bg-gray-900 px-4 py-2  hover:bg-gray-800"
+            className="rounded-l bg-gray-900 px-4 py-2 hover:bg-gray-800"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >

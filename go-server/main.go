@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
 	"embed"
 	"encoding/json"
 	"html/template"
+	"log"
 	"net/http"
 	"os"
 
+	"github.com/fatih/color"
 	"github.com/joho/godotenv"
 
 	"poe"
@@ -42,10 +45,29 @@ func main() {
 		port = "8080"
 	}
 
-	smoldata.Connect()
+	db, err := smoldata.Connect()
+	if err != nil {
+		log.Fatalf("Could not connect to database: %v", err)
+	}
+	defer db.Close()
+
+	queries := smoldata.New(db)
+	ctx := context.Background()
+
 	tokenResponse := poe.GetToken()
 
-	var leagueResponse = poe.GetPrivateLeague(tokenResponse, "Smoldew Valley (PL49469)")
+	var leagueResponse = poe.GetLeague(tokenResponse, "Smoldew Valley (PL49469)")
+
+	leagueId, err := smoldata.InsertLeague(ctx, queries, leagueResponse.League)
+
+	green := color.New(color.FgGreen)
+	red := color.New(color.FgRed)
+
+	if err != nil {
+		red.Printf("Could not save league: %v", err)
+	} else {
+		green.Print(leagueId + "saved successfully\n\n")
+	}
 
 	// Set up the HTTP handler
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

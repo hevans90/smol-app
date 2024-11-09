@@ -64,7 +64,7 @@ type LeagueResponse struct {
 	Ladder Ladder `json:"ladder"`
 }
 
-func GetPrivateLeague(tokenResponse TokenResponse, leagueName string) LeagueResponse {
+func GetLeague(tokenResponse TokenResponse, leagueName string) LeagueResponse {
 	var leagueResponse LeagueResponse
 
 	bearer := fmt.Sprintf("bearer %v", tokenResponse.AccessToken)

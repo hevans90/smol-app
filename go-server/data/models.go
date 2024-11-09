@@ -97,27 +97,27 @@ type ItemOrderType struct {
 }
 
 type League struct {
-	ID          uuid.UUID
+	ID          string
 	Realm       string
 	Url         sql.NullString
 	StartAt     time.Time
 	EndAt       time.Time
 	Description sql.NullString
-	CategoryID  uuid.NullUUID
+	CategoryID  sql.NullString
 	RegisterAt  time.Time
 	DelveEvent  bool
 }
 
 type LeagueCategory struct {
-	ID      uuid.UUID
+	ID      string
 	Current bool
 }
 
 type LeagueRule struct {
-	ID          uuid.UUID
+	ID          string
 	Name        string
 	Description sql.NullString
-	LeagueID    uuid.NullUUID
+	LeagueID    sql.NullString
 }
 
 type LeagueType struct {

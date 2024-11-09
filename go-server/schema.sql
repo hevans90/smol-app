@@ -197,13 +197,13 @@ CREATE TABLE public.item_order_type (
 --
 
 CREATE TABLE public.league (
-    id uuid NOT NULL,
+    id text NOT NULL,
     realm character varying(255) NOT NULL,
     url character varying(255),
     start_at timestamp with time zone NOT NULL,
     end_at timestamp with time zone NOT NULL,
     description text,
-    category_id uuid,
+    category_id text,
     register_at timestamp with time zone NOT NULL,
     delve_event boolean NOT NULL
 );
@@ -214,7 +214,7 @@ CREATE TABLE public.league (
 --
 
 CREATE TABLE public.league_category (
-    id uuid NOT NULL,
+    id text NOT NULL,
     current boolean NOT NULL
 );
 
@@ -224,10 +224,10 @@ CREATE TABLE public.league_category (
 --
 
 CREATE TABLE public.league_rules (
-    id uuid NOT NULL,
+    id text NOT NULL,
     name character varying(255) NOT NULL,
     description text,
-    league_id uuid
+    league_id text
 );
 
 
@@ -531,7 +531,7 @@ ALTER TABLE ONLY public.league
 --
 
 ALTER TABLE ONLY public.league_rules
-    ADD CONSTRAINT league_rules_league_id_fkey FOREIGN KEY (league_id) REFERENCES public.league(id) ON DELETE CASCADE;
+    ADD CONSTRAINT league_rules_league_id_fkey FOREIGN KEY (league_id) REFERENCES public.league(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 
 
 --

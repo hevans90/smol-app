@@ -21,7 +21,7 @@ export const LeagueLadder = () => {
 
   return (
     <>
-      <div className="mb-6 flex items-baseline">
+      <div className="my-4 flex items-baseline">
         {league && league?.url ? (
           <>
             <h1 className="text-2xl">

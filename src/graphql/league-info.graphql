@@ -1,6 +1,13 @@
-mutation SetPrivateLeague($input: league_info_insert_input!) {
-  insert_league_info_one(object: $input) {
-    description
+query League {
+  league {
+    url
+    start_at
+    register_at
+    realm
     id
+    end_at
+    delve_event
+    description
+    category_id
   }
 }

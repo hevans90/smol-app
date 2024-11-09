@@ -1,0 +1,15 @@
+subscription LeagueCharacters {
+  character {
+    twitch
+    retired
+    poe_account_name
+    rank
+    name
+    level
+    id
+    experience
+    dead
+    class
+    challenges
+  }
+}

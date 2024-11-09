@@ -25,13 +25,15 @@ export const LeagueLadder = () => {
       <div className="my-4 flex items-baseline">
         {league && league?.url ? (
           <>
-            <h1 className="text-2xl">
+            <h1 className="text-2xl xl:text-3xl 2xl:text-4xl">
               <a href={league.url} target="_blank">
                 {leagueName}
               </a>
             </h1>
             &nbsp; &nbsp; &nbsp; &nbsp;
-            <span className="text-xl">{league.description}</span>
+            <span className="text-xl xl:text-2xl 2xl:text-3xl">
+              {league.description}
+            </span>
           </>
         ) : (
           <Spinner />
@@ -151,7 +153,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     <div className="flex h-[90%] w-full flex-col">
       {/* Table Wrapper */}
       <div className="grow overflow-auto">
-        <table className="min-w-full table-fixed text-left text-sm text-gray-400">
+        <table className="min-w-full table-fixed text-left text-sm text-gray-400 xl:text-base 2xl:text-xl">
           <thead className="sticky top-0 bg-gray-900 text-primary-500">
             <tr>
               <th className="w-16 px-4 py-2 font-medium">Rank</th>
@@ -187,7 +189,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
             {currentCharacters.map((character) => (
               <tr
                 key={character.id}
-                className="border-b border-primary-900 border-opacity-30 text-xs hover:bg-gray-900 hover:bg-opacity-50"
+                className="border-b border-primary-900 border-opacity-30 text-xs hover:bg-gray-900 hover:bg-opacity-50 xl:text-base 2xl:text-lg"
               >
                 <td className="px-4 py-2">{character.rank}</td>
                 <td className="px-4 py-2">{character.poe_account_name}</td>
@@ -245,7 +247,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
           </button>
           <span className="px-4 py-2 text-primary-500">{`Page ${currentPage} of ${totalPages}`}</span>
           <button
-            className="rounded-r bg-gray-900 px-4 py-2  hover:bg-gray-800"
+            className="rounded-r bg-gray-900 px-4 py-2 hover:bg-gray-800"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >

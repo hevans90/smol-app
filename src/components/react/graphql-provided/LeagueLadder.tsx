@@ -226,7 +226,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
       </div>
 
       {/* Pagination Controls - Always at the Bottom */}
-      <div className="mt-4 flex grow-0 items-center justify-between px-4 py-4 text-primary-600">
+      <div className="mt-4 flex grow-0 items-center justify-between py-4 text-primary-600">
         <div>
           <label>Rows per page:</label>
           <select

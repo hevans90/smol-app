@@ -24,8 +24,6 @@ export const DiscreteSlider = <T,>({
 
   const selectedIndex = values.findIndex((val) => val === selectedValue);
 
-  console.log({ selectedIndex });
-
   const trackRef = useRef<HTMLDivElement>(null);
 
   const handleTrackClick = (e: React.MouseEvent<HTMLDivElement>) => {

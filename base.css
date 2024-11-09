@@ -8,19 +8,19 @@
   }
 
   h1 {
-    @apply text-2xl mb-4;
+    @apply mb-4 text-2xl;
   }
   h2 {
-    @apply text-xl mb-3;
+    @apply mb-3 text-xl;
   }
 
   button {
-    @apply focus-visible:border-primary-800 focus-visible:outline-primary-500 bg-gray-800 hover:bg-gray-700;
+    @apply bg-gray-800 hover:bg-gray-700 focus-visible:border-primary-800 focus-visible:outline-primary-500;
   }
 
   input,
   select {
-    @apply rounded-sm bg-gray-600 p-2 text-lg text-gray-700 outline-none outline-[1px] outline-offset-0 duration-200 ease-in-out focus-visible:border-primary-800 focus-visible:outline-primary-500 text-primary-500;
+    @apply rounded-sm bg-gray-600 p-2 text-lg text-gray-700 text-primary-500 outline-none outline-[1px] outline-offset-0 duration-200 ease-in-out focus-visible:border-primary-800 focus-visible:outline-primary-500;
   }
 
   select {
@@ -53,3 +53,16 @@
   font-style: normal;
   font-display: swap;
 }
+
+:focus {
+  @apply z-10 outline-none ring-2 ring-primary-500 ring-opacity-50;
+}
+
+/* Optionally, customize specific elements
+button:focus {
+  @apply outline-none ring-2 ring-green-500 ring-opacity-50;
+}
+
+input:focus {
+  @apply border-blue-500 outline-none ring-2 ring-blue-500 ring-opacity-50;
+} */

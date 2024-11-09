@@ -73,8 +73,8 @@ const DiscordAuth = ({
   }
   if (loggedIn && userData) {
     return (
-      <div className="flex items-center rounded border-discord-500 border-2 gap-3">
-        <div className="h-12 p-2 bg-discord-500 flex items-center gap-2">
+      <div className="flex items-center gap-3 rounded border-2 border-discord-500 bg-gray-950">
+        <div className="flex h-12 items-center gap-2 bg-discord-500 p-2">
           <img src="/discord-logo.svg" className="h-7" />
 
           <img
@@ -84,12 +84,12 @@ const DiscordAuth = ({
             width="40"
           />
         </div>
-        <div className="text-primary-500 grow hidden md:block">
+        <div className="hidden grow text-primary-500 md:block">
           {userData?.global_name}
         </div>
         <button
           onClick={logout}
-          className="text-end mr-2 grow hover:text-primary-300 bg-transparent hover:bg-transparent"
+          className="mr-2 grow bg-transparent text-end hover:bg-transparent hover:text-primary-300"
         >
           Logout
         </button>
@@ -99,13 +99,13 @@ const DiscordAuth = ({
 
   if (logoutOnly) return <></>;
   return (
-    <div className="group rounded border-discord-500 border-2  hover:border-discord-400">
-      <a href={discordOauthUrl} className="flex gap-2 items-center">
-        <div className="h-12 p-2 bg-discord-500 flex items-center group-hover:bg-discord-400">
+    <div className="group rounded border-2 border-discord-500  hover:border-discord-400">
+      <a href={discordOauthUrl} className="flex items-center gap-2">
+        <div className="flex h-12 items-center bg-discord-500 p-2 group-hover:bg-discord-400">
           <img src="/discord-logo.svg" className="h-7" />
         </div>
 
-        <div className="text-primary-500 mr-2 grow text-end">Login</div>
+        <div className="mr-2 grow text-end text-primary-500">Login</div>
       </a>
     </div>
   );

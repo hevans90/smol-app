@@ -102,7 +102,7 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
 
   if (loggedIn)
     return (
-      <div className="flex items-center gap-3 rounded border-2 border-primary-800 ">
+      <div className="flex items-center gap-3 rounded border-2 border-primary-800 bg-gray-950">
         <img src="/poe-logo-original.png" className="h-12" />
         <a href="/profile">
           <div className="hidden text-primary-500 md:block">{username}</div>

@@ -192,7 +192,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
           {currentCharacters.map((character) => (
             <tr
               key={character.id}
-              className="border-b border-primary-900 text-xs hover:bg-gray-900"
+              className="border-b border-primary-900 text-xs hover:bg-gray-900 hover:bg-opacity-50"
             >
               <td className="px-4 py-2">{character.rank}</td>
               <td className="px-4 py-2">{character.poe_account_name}</td>

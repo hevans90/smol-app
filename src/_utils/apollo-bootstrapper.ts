@@ -14,6 +14,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 
 import { getMainDefinition } from '@apollo/client/utilities';
 import type { OperationDefinitionNode } from 'graphql';
+import type { User_Item_Order } from '../graphql-api';
 
 export type ApolloBootstrapperProps = {
   uri: string;
@@ -27,7 +28,35 @@ export const apolloBootstrapper = ({
   uri,
   token,
   secure = true,
-  cacheConfig = {},
+  cacheConfig = {
+    typePolicies: {
+      Subscription: {
+        fields: {
+          user_item_order: {
+            merge(existing: User_Item_Order[] = [], incoming) {
+              const merged = [...existing];
+
+              incoming.forEach((incomingItem: User_Item_Order) => {
+                // Find if the item already exists in the cache
+                const existingItemIndex = existing.findIndex(
+                  (item) => item.id === incomingItem.id,
+                );
+
+                // If the item exists, update it; otherwise, add it to the list
+                if (existingItemIndex > -1) {
+                  merged[existingItemIndex] = incomingItem;
+                } else {
+                  merged.push(incomingItem);
+                }
+              });
+
+              return merged;
+            },
+          },
+        },
+      },
+    },
+  },
   options = {},
 }: ApolloBootstrapperProps) => {
   const headers = { Authorization: `Bearer ${token}` };
@@ -43,7 +72,7 @@ export const apolloBootstrapper = ({
       connectionParams: {
         headers,
       },
-    })
+    }),
   );
 
   //   const wsLink = new GraphQLWsLink({
@@ -61,12 +90,12 @@ export const apolloBootstrapper = ({
   const link = split(
     ({ query }) => {
       const { kind, operation } = getMainDefinition(
-        query
+        query,
       ) as OperationDefinitionNode;
       return kind === 'OperationDefinition' && operation === 'subscription';
     },
     wsLink,
-    httpLink
+    httpLink,
   );
 
   // Initialize ApolloClient

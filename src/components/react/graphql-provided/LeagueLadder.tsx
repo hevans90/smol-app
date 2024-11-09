@@ -1,5 +1,6 @@
 import { useQuery, useSubscription } from '@apollo/client';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import {
   LeagueCharactersDocument,
   LeagueDocument,
@@ -45,10 +46,13 @@ export const LeagueLadder = () => {
 const CharacterTable: React.FC<{ characters: Character[] }> = ({
   characters,
 }) => {
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const initialRowsPerPage = parseInt(
+    localStorage.getItem('rowsPerPage') || '10',
+    10,
+  );
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: 'asc' | 'desc' | null;
@@ -57,7 +61,36 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     direction: null,
   });
 
-  // Function to handle sorting
+  // Load `currentPage` from query string and `rowsPerPage` from localStorage on initial load
+  useEffect(() => {
+    if (characters.length) {
+      const params = new URLSearchParams(window.location.search);
+
+      // 1. Load currentPage from query string
+      const pageFromQuery = parseInt(params.get('page') || '1', 10);
+      const totalPages = Math.ceil(characters.length / rowsPerPage);
+
+      if (pageFromQuery > 0 && pageFromQuery <= totalPages) {
+        setCurrentPage(pageFromQuery);
+      } else {
+        // Invalid page, remove page from query string
+        params.delete('page');
+        window.history.replaceState(
+          null,
+          '',
+          `${window.location.pathname}?${params.toString()}`,
+        );
+      }
+
+      // 2. Load rowsPerPage from localStorage
+      const storedRowsPerPage = parseInt(
+        localStorage.getItem('rowsPerPage') || '10',
+        10,
+      );
+      setRowsPerPage(storedRowsPerPage > 0 ? storedRowsPerPage : 10);
+    }
+  }, [characters.length]);
+
   const sortedCharacters = sortConfig.key
     ? [...characters].sort((a, b) => {
         //@ts-ignore
@@ -85,13 +118,22 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
+      const params = new URLSearchParams(window.location.search);
+      params.set('page', page.toString());
+      window.history.replaceState(
+        null,
+        '',
+        `${window.location.pathname}?${params.toString()}`,
+      );
     }
   };
 
   const handleRowsPerPageChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    setRowsPerPage(Number(event.target.value));
+    const newValue = Number(event.target.value);
+    setRowsPerPage(newValue);
+    localStorage.setItem('rowsPerPage', newValue.toString());
     setCurrentPage(1);
   };
 
@@ -102,15 +144,12 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
         key: column,
         direction: 'asc',
       });
-    }
-    if (sortConfig.direction === 'asc') {
+    } else if (sortConfig.direction === 'asc') {
       setSortConfig({
         key: column,
         direction: 'desc',
       });
-    }
-
-    if (sortConfig.direction === 'desc') {
+    } else {
       setSortConfig({ key: null, direction: null });
     }
   };
@@ -220,3 +259,5 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     </div>
   );
 };
+
+export default CharacterTable;

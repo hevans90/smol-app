@@ -29,13 +29,15 @@ export const FilterLab = ({ hasuraUri }: { hasuraUri: string }) => {
   return (
     <>
       <GraphQLAppWrapper uri={hasuraUri}>
-        <DiscreteSlider
-          initialValue={values[1]}
-          values={values}
-          colors={colorMap}
-          images={images}
-          onChange={(val) => console.log(val)}
-        />
+        <div className="mt-40 h-full w-full">
+          <DiscreteSlider
+            initialValue={values[1]}
+            values={values}
+            colors={colorMap}
+            images={images}
+            onChange={(val) => console.log(val)}
+          />
+        </div>
       </GraphQLAppWrapper>
     </>
   );

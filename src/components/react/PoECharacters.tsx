@@ -11,7 +11,7 @@ const PoECharacters = () => {
       <h2 className="text-primary-500">
         {token ? 'Characters' : 'Log in via PoE to load your characters'}
       </h2>
-      <div className=" mt-4 w-full">
+      <div className="mt-4">
         {lazy && !characters.length && (
           <button
             onClick={loadCharacters}
@@ -23,7 +23,7 @@ const PoECharacters = () => {
         )}
         {loading && <Spinner width={30} />}{' '}
         {characters && characters.length > 0 && (
-          <table className="w-full table-auto">
+          <table className="table-auto">
             <thead>
               <tr>
                 <th className="text-left">Name</th>

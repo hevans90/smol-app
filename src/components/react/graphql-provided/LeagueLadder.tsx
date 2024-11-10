@@ -21,17 +21,17 @@ export const LeagueLadder = () => {
   const leagueName = league?.id;
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden">
-      <div className="my-4 flex items-baseline">
+    <div className="mt-44 flex h-full w-full flex-col overflow-hidden md:mt-32 lg:mt-24">
+      <div className="my-3 flex items-center px-4 md:my-6 md:items-baseline">
         {league && league?.url ? (
           <>
-            <h1 className="text-2xl xl:text-3xl 2xl:text-4xl">
+            <h1 className="m-0 text-2xl xl:text-3xl 2xl:text-4xl">
               <a href={league.url} target="_blank">
                 {leagueName}
               </a>
             </h1>
-            &nbsp; &nbsp; &nbsp; &nbsp;
-            <span className="text-xl xl:text-2xl 2xl:text-3xl">
+            <span className="hidden text-xl md:inline xl:text-2xl 2xl:text-3xl">
+              &nbsp; &nbsp; &nbsp; &nbsp;
               {league.description}
             </span>
           </>
@@ -150,7 +150,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
   };
 
   return (
-    <div className="flex h-[90%] w-full flex-col">
+    <div className="flex h-[85%] w-full flex-col lg:h-[90%]">
       {/* Table Wrapper */}
       <div className="grow overflow-auto">
         <table className="min-w-full table-fixed text-left text-sm text-gray-400 xl:text-base 2xl:text-xl">
@@ -221,11 +221,11 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
       </div>
 
       {/* Pagination Controls - Always at the Bottom */}
-      <div className="mt-4 flex grow-0 items-center justify-between py-4 text-primary-600">
+      <div className="flex grow-0 items-center justify-between px-4 py-2 text-primary-600 sm:px-0 md:mt-4">
         <div>
-          <label>Rows per page:</label>
+          <label className="hidden md:inline">Rows per page:</label>
           <select
-            className="ml-2 rounded bg-gray-800 px-2 py-1 text-center"
+            className="rounded bg-gray-800 px-2 py-1 text-center md:ml-2"
             value={rowsPerPage}
             onChange={handleRowsPerPageChange}
           >
@@ -245,7 +245,8 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
           >
             Prev
           </button>
-          <span className="px-4 py-2 text-primary-500">{`Page ${currentPage} of ${totalPages}`}</span>
+          <span className="whitespace-nowrap px-4 py-2 text-primary-500 md:hidden">{`${currentPage} / ${totalPages}`}</span>
+          <span className="hidden px-4 py-2 text-primary-500 md:inline">{`Page ${currentPage} of ${totalPages}`}</span>
           <button
             className="rounded-r bg-gray-900 px-4 py-2 hover:bg-gray-800"
             onClick={() => handlePageChange(currentPage + 1)}

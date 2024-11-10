@@ -48,8 +48,12 @@ const sortedBaseItems = baseItemsWithoutExclusions.reduce<SortedBaseTypes>(
 ---
 
 <Layout title="Orders" authPrompt={true}>
-  <main class="flex flex-col items-start">
-    <Image src={logoSrc} alt="logo" class="w-32 mb-8" />
+  <main class="flex flex-col items-start relative">
+    <Image
+      src={logoSrc}
+      alt="logo"
+      class="w-16 md:w-28 absolute top-6 md:top-12 left-20 md:left-0"
+    />
     <OrdersPage
       hasuraUri={hasuraUri}
       sortedBaseItems={sortedBaseItems}

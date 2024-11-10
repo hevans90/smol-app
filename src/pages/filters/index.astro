@@ -9,11 +9,17 @@ const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="Filters" authPrompt={true}>
-  <main class="flex flex-col items-start pt-4 text-md xl:text-lg 2xl:text-2xl">
-    <a class="fixed top-14 text-lg" href="/filters/old"
+  <main
+    class="flex flex-col items-start text-md xl:text-lg 2xl:text-2xl h-full relative"
+  >
+    <a class="absolute top-14 left-32 text-lg" href="/filters/old"
       >Old Filterblade Filter</a
     >
-    <Image src={logoSrc} alt="logo" class="w-32" />
+    <Image
+      src={logoSrc}
+      alt="logo"
+      class="w-16 md:w-28 absolute top-6 md:top-12 left-20 md:left-0"
+    />
     <FilterLab hasuraUri={hasuraUri} client:only="react" />
   </main>
 </Layout>

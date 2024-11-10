@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 
 import react from '@astrojs/react';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -16,5 +18,7 @@ export default defineConfig({
     port: 3001,
   },
   output: 'server',
-  adapter: netlify(),
+  adapter: netlify({
+    imageCDN: isDevelopment ? false : true,
+  }),
 });

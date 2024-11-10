@@ -83,7 +83,7 @@ export const UserLeagueMechanics = () => {
   if (loading || leaguesLoading || userLoading) return <Spinner />;
 
   return (
-    <table className="my-4 w-full table-auto">
+    <table className="my-4 mt-48 w-full table-auto">
       <thead>
         <tr className="border-b-[1px] border-b-primary-800">
           <th className="w-44">

@@ -10,8 +10,12 @@ const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="Profile" authPrompt={true}>
-  <main class="flex flex-col items-start">
-    <Image src={logoSrc} alt="logo" class="w-48 mb-8" />
+  <main class="flex flex-col items-start relative">
+    <Image
+      src={logoSrc}
+      alt="logo"
+      class="w-16 md:w-28 absolute top-6 md:top-12 left-20 md:left-0"
+    />
 
     <ProfilePage hasuraUri={hasuraUri} client:only="react" />
   </main>

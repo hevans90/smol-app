@@ -20,8 +20,12 @@ const version = 'settlers_1.0.2';
 </script>
 
 <Layout title="Smol app" authPrompt={true}>
-  <main class="flex flex-col items-start h-full">
-    <Image src={logoSrc} alt="logo" class="w-32" />
+  <main class="flex flex-col items-start h-full relative">
+    <Image
+      src={logoSrc}
+      alt="logo"
+      class="w-16 md:w-28 absolute top-6 left-20 md:left-0"
+    />
 
     <LadderPage hasuraUri={hasuraUri} client:only="react" />
   </main>

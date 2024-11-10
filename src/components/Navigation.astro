@@ -48,7 +48,7 @@ const currentPath = `/${
 ---
 
 <div
-  class="fixed top-0 md:bottom-auto md:mx-auto left-0 w-full md:inset-x-0 md:w-fit z-10"
+  class="fixed top-0 md:bottom-auto md:mx-auto left-0 w-full md:inset-x-0 md:w-fit z-30"
 >
   <!-- Hidden checkbox to control the menu state on mobile -->
   <input type="checkbox" id="menu-toggle" class="menu-toggle hidden" />
@@ -65,7 +65,7 @@ const currentPath = `/${
   <nav aria-label="Navigation" class="md:flex md:text-xl text-3xl">
     <!-- Mobile Menu -->
     <div
-      class="mobile-menu hidden fixed top-0 left-0 w-full h-full bg-gray-900 flex-col items-start px-3 pt-52 space-y-2 z-20 md:hidden"
+      class="mobile-menu hidden fixed top-0 left-0 w-full h-full bg-gray-900 flex-col items-start px-3 pt-52 space-y-2 md:hidden"
     >
       {
         routes.map(({ path, display }) => (
@@ -114,6 +114,10 @@ const currentPath = `/${
   /* Toggle the mobile menu based on checkbox state */
   .menu-toggle:checked ~ nav .mobile-menu {
     display: flex;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
   }
 
   /* Change the hamburger icon to an 'X' when the menu is open */

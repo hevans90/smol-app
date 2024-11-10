@@ -15,12 +15,12 @@ const AuthWidget = ({
   const role = useMyRole();
   return (
     <>
-      <div className="fixed right-3 top-3 flex flex-col gap-4 min-w-[10rem] z-10">
+      <div className="fixed right-3 top-3 z-10 flex min-w-[10rem] flex-col gap-2">
         <PoEAuth logoutOnly={true} />
         <DiscordAuth discordOauthUrl={discordOauthUrl} logoutOnly={true} />
         {role === 'dev' ? (
           <div className="flex justify-end ">
-            <div className="bg-primary-800 py-1 px-2 text-gray-900 rounded">
+            <div className="rounded bg-primary-800 px-2 py-1 text-gray-900">
               ADMIN
             </div>
           </div>

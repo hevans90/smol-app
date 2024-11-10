@@ -110,6 +110,10 @@ export const OrderBook = () => {
       });
     }
 
+    if (!result) {
+      return [];
+    }
+
     return result;
   }, [showFulfilled, showInactive, typeFilters, loading, orders, fuzzyQuery]);
 
@@ -215,10 +219,22 @@ export const OrderBook = () => {
 
   if (loading || userLoading) return <Spinner />;
   return (
-    <>
-      <div className="flex items-center mb-2 gap-6">
-        <h1 className="mb-0">Item Orders</h1>
-        <div className="flex items-center gap-2">
+    <div
+      id="order-book-container"
+      className="mt-40 flex h-[calc(100vh-10rem)] w-full flex-col gap-2 px-4"
+    >
+      <div className="flex  items-center gap-6  sm:w-full">
+        <h1 className="mb-0 hidden sm:inline">Item Orders</h1>
+
+        <Button
+          className="h-auto text-xl sm:hidden"
+          onClick={() => {
+            setCreateModalOpen(true);
+          }}
+        >
+          Create
+        </Button>
+        <div className="flex grow items-center gap-2">
           <IconSearch />
           <input
             placeholder="search by user or description"
@@ -226,10 +242,10 @@ export const OrderBook = () => {
             onChange={(e) =>
               orderBookFuzzySearchStore.set(e.target.value.trim())
             }
-            className="border-primary-800 bg-gray-800 grow border-[1px] min-w-[10rem] md:min-w-[15rem] lg:min-w-[25rem] "
+            className="max-w-md grow border-[1px] border-primary-800 bg-gray-800"
           ></input>
 
-          <div className="flex gap-4 ml-4">
+          <div className="ml-4 hidden gap-4 md:flex">
             <Toggle
               autoHide={false}
               value={showFulfilled}
@@ -245,9 +261,9 @@ export const OrderBook = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex w-[calc(100%-2rem)] gap-2 sm:w-full">
         <Button
-          className="text-xl h-auto"
+          className="hidden h-auto text-xl sm:block"
           onClick={() => {
             setCreateModalOpen(true);
           }}
@@ -256,231 +272,244 @@ export const OrderBook = () => {
         </Button>
         {orderTypes && <OrderBookFilters orderTypes={orderTypes} />}
       </div>
-      <table className="my-4 table-auto w-full">
-        <thead>
-          <tr className="border-b-primary-800 border-b-[1px]">
-            <th className="w-44">
-              <div className="flex items-center gap-2 mb-2">
-                <img src="/discord-logo.svg" className="h-8" />
-              </div>
-            </th>
-            <th></th>
-            <th className="w-22">type</th>
-            <th className="w-96">description</th>
-            <th className="hidden lg:table-cell">updated</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th className="w-44 ">fulfilled by</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredOrders?.map(
-            (
-              {
-                description,
-                link_url,
-                icon_url,
-                updated_at,
-                id: orderId,
-                user,
-                fulfilled_by_user,
-                type,
-                priority,
-                item_base_type,
-                item_category,
-              },
-              i,
-            ) => {
-              const guild = 'Smol Groop Found';
-              const inSmolGuild = user.guild === guild;
-              const myUserIsInSmolGuild = userProfile?.guild === guild;
-              const isMe = user.discord_user_id === myDiscordId;
-              const orderFulfilled = !!fulfilled_by_user;
+      <div className="mt-1 grow overflow-y-auto">
+        <table className="w-full table-auto border-separate border-spacing-0">
+          <thead className="sticky top-0 z-10 bg-gray-950">
+            <tr>
+              <th className="w-28 border-b border-primary-500">
+                <div className="mb-2 flex items-center gap-2">
+                  <img src="/discord-logo.svg" className="h-8 pt-1" />
+                </div>
+              </th>
+              <th className="hidden border-b border-primary-500 lg:table-cell"></th>
+              <th className="w-22 border-b border-primary-500">type</th>
+              <th className="w-44 border-b border-primary-500 sm:w-64 md:w-72 lg:w-96">
+                description
+              </th>
+              <th className="hidden border-b border-primary-500 lg:table-cell">
+                updated
+              </th>
+              <th className="border-b border-primary-500"></th>
+              <th className="border-b border-primary-500"></th>
+              <th className="border-b border-primary-500"></th>
+              <th className="hidden w-44 border-b border-primary-500 lg:table-cell">
+                fulfilled by
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredOrders?.map(
+              (
+                {
+                  description,
+                  link_url,
+                  icon_url,
+                  updated_at,
+                  id: orderId,
+                  user,
+                  fulfilled_by_user,
+                  type,
+                  priority,
+                  item_base_type,
+                  item_category,
+                },
+                i,
+              ) => {
+                const guild = 'Smol Groop Found';
+                const inSmolGuild = user.guild === guild;
+                const myUserIsInSmolGuild = userProfile?.guild === guild;
+                const isMe = user.discord_user_id === myDiscordId;
+                const orderFulfilled = !!fulfilled_by_user;
 
-              return (
-                <tr
-                  key={i}
-                  className={orderFulfilled ? 'bg-gray-900 opacity-60' : ''}
-                >
-                  <td>
-                    <div
-                      className={`flex items-center gap-2 my-2 ${
-                        i === 0 && 'mt-4'
-                      }`}
-                    >
-                      {user?.discord_user_id ? (
-                        <>
-                          {user.discord_avatar ? (
-                            <img
-                              className="rounded-full h-8 w-8"
-                              src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
-                            />
-                          ) : (
-                            <div className="rounded-full bg-discord-500 h-8 w-8 flex items-center justify-center">
-                              <img src="/discord-logo.svg" className="h-4" />
-                            </div>
-                          )}
+                return (
+                  <tr
+                    key={i}
+                    className={orderFulfilled ? 'bg-gray-900 opacity-60' : ''}
+                  >
+                    <td>
+                      <div
+                        className={`my-2 flex items-center gap-2 ${
+                          i === 0 && 'mt-4'
+                        }`}
+                      >
+                        {user?.discord_user_id ? (
+                          <>
+                            {user.discord_avatar ? (
+                              <img
+                                className="h-8 w-8 rounded-full"
+                                src={`https://cdn.discordapp.com/avatars/${user?.discord_user_id}/${user?.discord_avatar}.png`}
+                              />
+                            ) : (
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-discord-500">
+                                <img src="/discord-logo.svg" className="h-4" />
+                              </div>
+                            )}
 
-                          {user?.discord_name}
-                          {isMe && (
-                            <div className="text-primary-500">(you)</div>
-                          )}
-                        </>
-                      ) : (
-                        'no discord linked'
-                      )}
-                    </div>
-                  </td>
-
-                  <td>
-                    {priority ? (
-                      <div title="priority order">
-                        <IconAlertCircle />
+                            {user?.discord_name}
+                            {isMe && (
+                              <div className="hidden text-primary-500 lg:block">
+                                (you)
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          'no discord linked'
+                        )}
                       </div>
-                    ) : null}
-                  </td>
+                    </td>
 
-                  <td>
-                    <div className="flex justify-center">
+                    <td className="hidden lg:table-cell">
+                      {priority ? (
+                        <div title="priority order">
+                          <IconAlertCircle />
+                        </div>
+                      ) : null}
+                    </td>
+
+                    <td>
+                      <div className="flex justify-center">
+                        {link_url ? (
+                          <a href={link_url} target="_blank">
+                            <img
+                              className="h-10 object-cover p-1 md:h-12"
+                              src={getWikiImgSrcFromUrl(link_url)}
+                            />
+                          </a>
+                        ) : icon_url ? (
+                          <img
+                            className="h-10 w-10 object-contain p-1 md:h-12 md:w-12"
+                            src={icon_url}
+                          />
+                        ) : (
+                          <img
+                            className="h-10 w-10 p-1 md:h-12 md:w-12"
+                            src={`/order-types/${type}.webp`}
+                          />
+                        )}
+                      </div>
+                    </td>
+
+                    <td className="max-w-0 truncate">
                       {link_url ? (
                         <a href={link_url} target="_blank">
-                          <img
-                            className="h-10 md:h-12 p-1 object-cover"
-                            src={getWikiImgSrcFromUrl(link_url)}
-                          />
+                          {description}
                         </a>
-                      ) : icon_url ? (
-                        <img
-                          className="w-10 h-10 md:w-12 md:h-12 p-1 object-contain"
-                          src={icon_url}
-                        />
                       ) : (
-                        <img
-                          className="w-10 h-10 md:w-12 md:h-12 p-1"
-                          src={`/order-types/${type}.webp`}
-                        />
+                        description
                       )}
-                    </div>
-                  </td>
+                    </td>
 
-                  <td>
-                    {link_url ? (
-                      <a href={link_url} target="_blank">
-                        {description}
-                      </a>
-                    ) : (
-                      description
-                    )}
-                  </td>
-
-                  <td className="text-center hidden lg:table-cell">
-                    <ReactTimeAgo date={new Date(updated_at)} locale="en-GB" />
-                  </td>
-                  <td className="text-center">
-                    {isMe && !orderFulfilled && (
-                      <>
+                    <td className="hidden text-center lg:table-cell">
+                      <ReactTimeAgo
+                        date={new Date(updated_at)}
+                        locale="en-GB"
+                      />
+                    </td>
+                    <td className="text-center">
+                      {isMe && !orderFulfilled && (
+                        <>
+                          <Button
+                            onClick={() => {
+                              setUpdateModalOpen(true);
+                              setUpdateModalState({
+                                type,
+                                description,
+                                linkUrl: link_url,
+                                orderId,
+                                priority,
+                                iconUrl: icon_url,
+                                itemBaseType: item_base_type,
+                                itemCategory: item_category,
+                              });
+                            }}
+                          >
+                            Update
+                          </Button>
+                        </>
+                      )}
+                    </td>
+                    <td className="text-center">
+                      {isMe && !orderFulfilled && (
+                        <button
+                          className="rounded-full bg-primary-900 p-1 text-primary-500  opacity-50 hover:text-primary-300 hover:opacity-75"
+                          onClick={() => {
+                            deleteItemOrder({
+                              variables: { orderId },
+                            });
+                            exportBaseDataToSpreadsheet();
+                          }}
+                        >
+                          <IconTrash size={25} />
+                        </button>
+                      )}
+                    </td>
+                    <td>
+                      {!isMe && user.discord_user_id && !orderFulfilled && (
                         <Button
                           onClick={() => {
-                            setUpdateModalOpen(true);
-                            setUpdateModalState({
-                              type,
-                              description,
-                              linkUrl: link_url,
+                            invariant(user.discord_user_id);
+                            invariant(description);
+                            setFulfillModalOpen(true);
+                            setFulfillModalState({
+                              discordUserName: user?.discord_name ?? null,
+                              discordUserId: user.discord_user_id,
                               orderId,
-                              priority,
-                              iconUrl: icon_url,
-                              itemBaseType: item_base_type,
-                              itemCategory: item_category,
+                              message: description,
+                              fulfillment:
+                                inSmolGuild && myUserIsInSmolGuild
+                                  ? 'gstash'
+                                  : 'DM',
+                              recipientInSmolGuild: inSmolGuild,
+                              fulfillerInSmolGuild: myUserIsInSmolGuild,
                             });
                           }}
                         >
-                          Update
+                          Fulfill
                         </Button>
-                      </>
-                    )}
-                  </td>
-                  <td>
-                    {isMe && !orderFulfilled && (
-                      <button
-                        className="p-1 opacity-50 rounded-full bg-primary-900  text-primary-500 hover:text-primary-300 hover:opacity-75"
-                        onClick={() => {
-                          deleteItemOrder({
-                            variables: { orderId },
-                          });
-                          exportBaseDataToSpreadsheet();
-                        }}
-                      >
-                        <IconTrash size={25} />
-                      </button>
-                    )}
-                  </td>
-                  <td>
-                    {!isMe && user.discord_user_id && !orderFulfilled && (
-                      <Button
-                        onClick={() => {
-                          invariant(user.discord_user_id);
-                          invariant(description);
-                          setFulfillModalOpen(true);
-                          setFulfillModalState({
-                            discordUserName: user?.discord_name ?? null,
-                            discordUserId: user.discord_user_id,
-                            orderId,
-                            message: description,
-                            fulfillment:
-                              inSmolGuild && myUserIsInSmolGuild
-                                ? 'gstash'
-                                : 'DM',
-                            recipientInSmolGuild: inSmolGuild,
-                            fulfillerInSmolGuild: myUserIsInSmolGuild,
-                          });
-                        }}
-                      >
-                        Fulfill
-                      </Button>
-                    )}
-                  </td>
-                  <td>
-                    <div
-                      className={`flex items-center gap-2 my-2 ${
-                        i === 0 && 'mt-4'
-                      }`}
-                    >
-                      {fulfilled_by_user && (
-                        <>
-                          {fulfilled_by_user.discord_avatar ? (
-                            <img
-                              className="rounded-full h-8 w-8"
-                              src={`https://cdn.discordapp.com/avatars/${fulfilled_by_user.discord_user_id}/${fulfilled_by_user.discord_avatar}.png`}
-                            />
-                          ) : (
-                            <div className="rounded-full bg-discord-500 h-8 w-8 flex items-center justify-center">
-                              <img src="/discord-logo.svg" className="h-4" />
-                            </div>
-                          )}
-
-                          {fulfilled_by_user.discord_name}
-                          {fulfilled_by_user.discord_user_id ===
-                            myDiscordId && (
-                            <div className="text-primary-500">(you)</div>
-                          )}
-                        </>
                       )}
-                    </div>
-                  </td>
-                </tr>
-              );
-            },
-          )}
-          {!filteredOrders?.length && (
-            <tr>
-              <td className="text-lg">
-                <div className="mt-4">No orders found</div>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                    </td>
+                    <td id="fulfilled-cell" className="hidden lg:table-cell">
+                      <div
+                        className={`my-2 flex items-center gap-2 ${
+                          i === 0 && 'mt-4'
+                        }`}
+                      >
+                        {fulfilled_by_user && (
+                          <>
+                            {fulfilled_by_user.discord_avatar ? (
+                              <img
+                                className="h-8 w-8 rounded-full"
+                                src={`https://cdn.discordapp.com/avatars/${fulfilled_by_user.discord_user_id}/${fulfilled_by_user.discord_avatar}.png`}
+                              />
+                            ) : (
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-discord-500">
+                                <img src="/discord-logo.svg" className="h-4" />
+                              </div>
+                            )}
+
+                            {fulfilled_by_user.discord_name}
+                            {fulfilled_by_user.discord_user_id ===
+                              myDiscordId && (
+                              <div className="text-primary-500">(you)</div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              },
+            )}
+            {!filteredOrders?.length && (
+              <tr>
+                <td className="text-lg" colSpan={3}>
+                  <div className="mt-4">No orders found</div>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
       <Dialog open={updateModalOpen} onOpenChange={setUpdateModalOpen}>
         <DialogContent>
           <DialogHeading>Update Order</DialogHeading>
@@ -591,13 +620,13 @@ export const OrderBook = () => {
             </span>
           </label>
           {!fulfillModalState.recipientInSmolGuild && (
-            <div className="flex flex-col mb-4">
-              <span className="text-red-400 mb-2">
+            <div className="mb-4 flex flex-col">
+              <span className="mb-2 text-red-400">
                 {fulfillModalState.discordUserName} is not in the Smol Guild
               </span>
               {!fulfillModalState.fulfillerInSmolGuild && (
                 <>
-                  <span className="text-red-400 mb-2 font-bold">
+                  <span className="mb-2 font-bold text-red-400">
                     YOU are not in the Smol Guild
                   </span>
                   <div>
@@ -618,6 +647,6 @@ export const OrderBook = () => {
           </Button>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };

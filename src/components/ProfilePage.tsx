@@ -6,8 +6,10 @@ export const ProfilePage = ({ hasuraUri }: { hasuraUri: string }) => {
   return (
     <>
       <GraphQLAppWrapper uri={hasuraUri}>
-        <Profile />
-        <PoECharacters />
+        <div className="mt-48 flex w-full flex-col items-center justify-center">
+          <Profile />
+          <PoECharacters />
+        </div>
       </GraphQLAppWrapper>
     </>
   );

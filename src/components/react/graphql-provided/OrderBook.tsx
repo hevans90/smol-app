@@ -281,7 +281,7 @@ export const OrderBook = () => {
                   <img src="/discord-logo.svg" className="h-8 pt-1" />
                 </div>
               </th>
-              <th className="hidden border-b border-primary-500 lg:table-cell"></th>
+              <th className="hidden w-20 border-b border-primary-500 lg:table-cell"></th>
               <th className="w-22 border-b border-primary-500">type</th>
               <th className="w-44 border-b border-primary-500 sm:w-64 md:w-72 lg:w-96">
                 description
@@ -344,7 +344,6 @@ export const OrderBook = () => {
                                 <img src="/discord-logo.svg" className="h-4" />
                               </div>
                             )}
-
                             {user?.discord_name}
                             {isMe && (
                               <div className="hidden text-primary-500 lg:block">
@@ -360,7 +359,7 @@ export const OrderBook = () => {
 
                     <td className="hidden lg:table-cell">
                       {priority ? (
-                        <div title="priority order">
+                        <div className="mt-2 flex items-end justify-end">
                           <IconAlertCircle />
                         </div>
                       ) : null}

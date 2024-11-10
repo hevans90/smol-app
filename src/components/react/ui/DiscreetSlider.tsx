@@ -1,5 +1,5 @@
 import { RadioGroup } from '@headlessui/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 // Generic type for slider values
@@ -11,7 +11,7 @@ type DiscreteSliderProps = {
   onChange?: (value: string) => void; // Callback for value change
 };
 
-export const DiscreteSlider = <T,>({
+export const DiscreteSlider = ({
   values,
   images,
   colors,
@@ -21,31 +21,102 @@ export const DiscreteSlider = <T,>({
   const [selectedValue, setSelectedValue] = useState<string>(
     initialValue ?? values[0],
   );
+  const [dragging, setDragging] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
 
   const selectedIndex = values.findIndex((val) => val === selectedValue);
 
-  const trackRef = useRef<HTMLDivElement>(null);
+  const updateSliderPosition = (clientX: number) => {
+    if (!dragging || !trackRef.current) return;
 
-  const handleTrackClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const trackRect = trackRef.current.getBoundingClientRect();
+    const clickX = clientX - trackRect.left;
+    const trackWidth = trackRect.width;
+
+    // Normalize position within the track range [0, 1]
+    const clickPosition = Math.min(Math.max(0, clickX), trackWidth);
+    const closestValueIndex = Math.round(
+      (clickPosition / trackWidth) * (values.length - 1),
+    );
+    const closestValue = values[closestValueIndex];
+
+    setSelectedValue(closestValue);
+  };
+
+  const handlePointerMove = (e: MouseEvent | TouchEvent) => {
+    if (!dragging) return;
+    e.preventDefault(); // prevents edge overscoll on touch devices
+
+    const clientX = (e as TouchEvent).touches
+      ? (e as TouchEvent).touches[0].clientX
+      : (e as MouseEvent).clientX;
+
+    updateSliderPosition(clientX);
+  };
+
+  useEffect(() => {
+    if (dragging) {
+      document.body.style.cursor = 'grabbing';
+
+      window.addEventListener('mousemove', handlePointerMove);
+      window.addEventListener('touchmove', handlePointerMove, {
+        passive: false,
+      });
+      window.addEventListener('mouseup', () => {
+        setDragging(false);
+        document.body.style.cursor = 'default';
+      });
+      window.addEventListener('touchend', () => setDragging(false));
+    } else {
+      onChange?.(selectedValue);
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handlePointerMove);
+      window.removeEventListener('touchmove', handlePointerMove);
+      window.removeEventListener('mouseup', () => setDragging(false));
+      window.removeEventListener('touchend', () => setDragging(false));
+      document.body.style.cursor = 'default';
+    };
+  }, [dragging, selectedValue, onChange]);
+
+  // Handle clicks or taps on the track to update the selected value
+  const handleTrackClick = (
+    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+  ) => {
     if (trackRef.current) {
       const trackRect = trackRef.current.getBoundingClientRect();
-      const clickX = e.clientX - trackRect.left;
+      const clientX =
+        e.type === 'touchstart'
+          ? (e as React.TouchEvent).touches[0].clientX
+          : (e as React.MouseEvent).clientX;
+
+      const clickX = clientX - trackRect.left;
       const trackWidth = trackRect.width;
 
-      const clickPosition = clickX / trackWidth;
+      const clickPosition = Math.min(Math.max(0, clickX), trackWidth);
+      const closestValueIndex = Math.round(
+        (clickPosition / trackWidth) * (values.length - 1),
+      );
+      const closestValue = values[closestValueIndex];
 
-      const closestValueIndex = Math.round(clickPosition * (values.length - 1));
-      setSelectedValue(values[closestValueIndex]);
+      setSelectedValue(closestValue);
     }
   };
 
+  const handleThumbPointerDown = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    setDragging(true);
+  };
+
   return (
-    <div className="w-full px-4 py-8">
+    <div className="w-full select-none px-4 py-8">
       <RadioGroup
         value={selectedValue}
         onChange={(value: string) => {
           setSelectedValue(value);
-          onChange?.(value); // Call onChange callback if provided
+          onChange?.(value);
         }}
         className="relative"
       >
@@ -55,25 +126,16 @@ export const DiscreteSlider = <T,>({
         <div
           ref={trackRef}
           onClick={handleTrackClick}
-          className="relative h-4 cursor-pointer rounded bg-primary-900 bg-opacity-30"
+          onTouchStart={handleTrackClick} // Handle touch start on track
+          className={twMerge(
+            'relative h-4 rounded bg-primary-900 bg-opacity-30',
+            dragging ? '' : 'cursor-pointer',
+          )}
         >
-          <div
-            className={twMerge(
-              'absolute -inset-1 rounded bg-gradient-to-r from-gray-900 to-primary-300 opacity-0 blur',
-              selectedIndex === values.length - 1 && '-inset-2 opacity-90',
-              selectedIndex === values.length - 2 && 'opacity-60',
-              selectedIndex === values.length - 3 && 'opacity-40',
-            )}
-            style={{
-              width: `${(values.indexOf(selectedValue) / (values.length - 1)) * 100 + (selectedIndex === values.length - 1 ? 2 : 1)}%`,
-            }}
-          ></div>
-
           {/* Active Segment: dynamically set to align with selected option */}
           <div
             className={twMerge(
               'absolute h-full rounded-l transition-all',
-              selectedIndex === values.length - 1 && 'rounded-r',
               colors[values.indexOf(selectedValue)],
             )}
             style={{
@@ -82,40 +144,49 @@ export const DiscreteSlider = <T,>({
           ></div>
 
           {/* Slider Options (Indicators) */}
-          <div className="absolute -top-8 -ml-[1%]  flex w-[102%] justify-between">
+          <div className="absolute bottom-0 flex w-full justify-between px-4">
             {values.map((value, index) => (
               <RadioGroup.Option key={value} value={value} className="relative">
                 {({ checked }: { checked: boolean }) => (
                   <span
                     className={twMerge(
-                      'flex flex-col items-center opacity-40',
-                      checked ? 'cursor-auto' : 'cursor-pointer',
+                      'opacity-40',
                       selectedIndex === index && 'opacity-100',
                     )}
                   >
-                    {/* Dot */}
-                    <img
-                      className={twMerge(
-                        'h-8 w-8',
-                        selectedIndex === index && 'h-12 w-12',
-                      )}
-                      src={images?.[index]}
-                    />
-
-                    {/* Value Label */}
+                    {/* Text Label - Centered Under Each Value */}
                     <span
                       className={twMerge(
-                        'absolute top-14 whitespace-nowrap text-center',
+                        'absolute left-1/2 top-4 -translate-x-1/2 transform text-center',
                         checked ? 'text-primary-300' : 'text-primary-800',
                       )}
                     >
                       {value}
                     </span>
-                    <span className="absolute -top-6 h-20 w-20 " />
                   </span>
                 )}
               </RadioGroup.Option>
             ))}
+          </div>
+
+          {/* Draggable Thumb (Circular Notch) - the image of the selected value */}
+          <div
+            ref={thumbRef}
+            className={twMerge(
+              'absolute -top-4 z-10 h-12 w-12 transition-transform',
+              dragging ? 'cursor-grabbing' : 'cursor-grab',
+            )}
+            style={{
+              left: `calc(${(values.indexOf(selectedValue) / (values.length - 1)) * 100}% - 1.5rem)`,
+            }}
+            onMouseDown={handleThumbPointerDown}
+            onTouchStart={handleThumbPointerDown}
+          >
+            <img
+              className="h-full w-full rounded-full border-[3px] border-primary-800 object-contain"
+              src={images?.[selectedIndex]}
+              alt={selectedValue}
+            />
           </div>
         </div>
       </RadioGroup>

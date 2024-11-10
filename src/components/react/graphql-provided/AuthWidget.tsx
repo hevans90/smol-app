@@ -19,7 +19,7 @@ const AuthWidget = ({
         <PoEAuth logoutOnly={true} />
         <DiscordAuth discordOauthUrl={discordOauthUrl} logoutOnly={true} />
         {role === 'dev' ? (
-          <div className="flex justify-end ">
+          <div className="flex justify-end text-xs">
             <div className="rounded bg-primary-800 px-2 py-1 text-gray-900">
               ADMIN
             </div>

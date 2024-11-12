@@ -111,7 +111,7 @@ export const DiscreteSlider = ({
   };
 
   return (
-    <div className="w-full select-none px-4 py-8">
+    <div className="w-full select-none">
       <RadioGroup
         value={selectedValue}
         onChange={(value: string) => {

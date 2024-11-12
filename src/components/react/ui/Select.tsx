@@ -14,6 +14,7 @@ import {
   useTypeahead,
 } from '@floating-ui/react';
 import * as React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export default function Select({
   defaultIndex,
@@ -21,17 +22,19 @@ export default function Select({
   placeholder = 'Select...',
   showSelected = true,
   onSelectChange,
+  className,
 }: {
   defaultIndex?: number;
   options: { value: string; display?: string; imgSrc?: string }[];
   placeholder?: string;
   showSelected?: boolean;
   onSelectChange?: (value: string) => unknown;
+  className?: string;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(
-    defaultIndex ?? null
+    defaultIndex ?? null,
   );
 
   const { refs, floatingStyles, context } = useFloating({
@@ -80,7 +83,7 @@ export default function Select({
   });
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [dismiss, role, listNav, typeahead, click]
+    [dismiss, role, listNav, typeahead, click],
   );
 
   const handleSelect = ({ value, index }: { value: string; index: number }) => {
@@ -95,6 +98,9 @@ export default function Select({
   const selectedItemLabel =
     selectedIndex !== null ? options[selectedIndex]?.value : undefined;
 
+  const selectedItemImg =
+    selectedIndex !== null ? options[selectedIndex]?.imgSrc : undefined;
+
   return (
     <>
       <div
@@ -102,16 +108,31 @@ export default function Select({
         ref={refs.setReference}
         aria-labelledby="select-label"
         aria-autocomplete="none"
-        className="w-24 md:w-36 flex items-center cursor-pointer justify-center leading-3 p-1 border-primary-800 rounded-md border-[1px] hover:border-primary-500 hover:text-primary-500 outline-none"
+        className={twMerge(
+          'flex w-24 cursor-pointer items-center justify-center rounded-md border-[1px] border-primary-800 p-1 outline-none hover:border-primary-500 hover:text-primary-500 md:w-36',
+          showSelected &&
+            selectedIndex !== null &&
+            selectedItemImg &&
+            'justify-start',
+          className,
+        )}
         {...getReferenceProps()}
       >
-        {(showSelected && selectedItemLabel) || placeholder}
+        {(showSelected && selectedIndex !== null && (
+          <>
+            {selectedItemImg && (
+              <img className="mr-4 h-8 w-8" src={selectedItemImg} />
+            )}
+            {selectedItemLabel}
+          </>
+        )) ||
+          placeholder}
       </div>
       {isOpen && (
         <FloatingPortal>
           <FloatingFocusManager context={context} modal={false}>
             <div
-              className="overflow-y-auto rounded-md bg-gray-900 border-[1px] border-primary-500 outline-none"
+              className="overflow-y-auto rounded-md border-[1px] border-primary-500 bg-gray-900 outline-none"
               ref={refs.setFloating}
               style={{
                 ...floatingStyles,
@@ -120,10 +141,15 @@ export default function Select({
             >
               {options.map((option, index) => (
                 <div
-                  className={`flex gap-2 items-center p-2 cursor-pointer ${
+                  className={twMerge(
+                    'flex cursor-pointer items-center gap-2 p-2',
+                    showSelected &&
+                      index === selectedIndex &&
+                      'cursor-default bg-gray-700',
                     index === activeIndex &&
-                    'bg-gray-800 text-primary-300 outline-none'
-                  }`}
+                      index !== selectedIndex &&
+                      'bg-gray-800 text-primary-300 outline-none',
+                  )}
                   key={option.value}
                   ref={(node) => {
                     listRef.current[index] = node;
@@ -154,7 +180,7 @@ export default function Select({
                 >
                   {option.imgSrc && (
                     <img
-                      className="w-8 h-8"
+                      className="h-8 w-8"
                       src={option.imgSrc}
                       alt={option.value}
                     />

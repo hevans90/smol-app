@@ -9810,7 +9810,7 @@
     },
     {
       "Name": "Cabalist Regalia",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyStrDexInt1C.png?scale=1&w=2&h=3",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyInt1C.png?scale=1&w=2&h=3",
       "ItemClassesID": "24",
       "ItemClassesName": "Body Armours",
       "ItemLevel": "35"
@@ -9845,7 +9845,7 @@
     },
     {
       "Name": "Destroyer Regalia",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyStrDexInt1C.png?scale=1&w=2&h=3",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyInt1C.png?scale=1&w=2&h=3",
       "ItemClassesID": "24",
       "ItemClassesName": "Body Armours",
       "ItemLevel": "53"
@@ -9880,7 +9880,7 @@
     },
     {
       "Name": "Vaal Regalia",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyStrDexInt1C.png?scale=1&w=2&h=3",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyInt1C.png?scale=1&w=2&h=3",
       "ItemClassesID": "24",
       "ItemClassesName": "Body Armours",
       "ItemLevel": "68"
@@ -9901,7 +9901,7 @@
     },
     {
       "Name": "Twilight Regalia",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyStrDexInt1C.png?scale=1&w=2&h=3",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Armours/BodyArmours/BodyInt1C.png?scale=1&w=2&h=3",
       "ItemClassesID": "24",
       "ItemClassesName": "Body Armours",
       "ItemLevel": "84"

@@ -29,6 +29,8 @@ export const getSortedBaseItems = () => {
       acc[key] = [];
     }
     acc[key].push(obj);
+    acc[key].sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel));
+
     return acc;
   }, {} as SortedBaseTypes);
 };

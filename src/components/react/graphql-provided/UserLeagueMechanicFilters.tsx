@@ -3,7 +3,7 @@ import { IconTrash } from '@tabler/icons-react';
 import { Fragment } from 'react';
 import { isLeagueFilter, userListFilterStore } from '../../../_state/user-list';
 import type { League_Type_Enum, LeaguesQuery } from '../../../graphql-api';
-import Select from '../ui/Select';
+import { Select } from '../ui/Select';
 
 export const leagueMap: { [key in League_Type_Enum]?: string } = {
   altar_eater: 'eater altars',

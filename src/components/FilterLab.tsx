@@ -9,7 +9,7 @@ import { DiscreteSlider } from './react/ui/DiscreetSlider';
 
 import { useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import Select from './react/ui/Select';
+import { MultiSelect } from './react/ui/Select';
 
 const DefenceSelection = ({
   className,
@@ -18,45 +18,30 @@ const DefenceSelection = ({
   className?: string;
   sortedBaseTypes: SortedBaseTypes;
 }) => {
-  const [selectedDefenceType, setSelectedDefenceType] =
-    useState<ArmorDefenceType | null>(null);
+  const [selectedDefenceTypes, setSelectedDefenceTypes] = useState<
+    ArmorDefenceType[]
+  >([]);
 
   const [selectedHelmets, setselectedHelmets] = useState<string[]>([]);
   const [selectedBodyArmours, setSelectedBodyArmours] = useState<string[]>([]);
   const [selectedGloves, setSelectedGloves] = useState<string[]>([]);
   const [selectedBoots, setSelectedBoots] = useState<string[]>([]);
 
-  const helmets = useMemo(
-    () =>
-      sortedBaseTypes.Helmets.filter(
-        (item) => item.DefenceType === selectedDefenceType,
-      ),
-    [selectedDefenceType],
-  );
+  const getFilteredItems = (category: keyof typeof sortedBaseTypes) =>
+    useMemo(
+      () =>
+        sortedBaseTypes[category].filter(
+          (item) =>
+            item.DefenceType && selectedDefenceTypes.includes(item.DefenceType),
+        ),
+      [sortedBaseTypes, category, selectedDefenceTypes],
+    );
 
-  const bodyArmours = useMemo(
-    () =>
-      sortedBaseTypes['Body Armours'].filter(
-        (item) => item.DefenceType === selectedDefenceType,
-      ),
-    [selectedDefenceType],
-  );
-
-  const gloves = useMemo(
-    () =>
-      sortedBaseTypes.Gloves.filter(
-        (item) => item.DefenceType === selectedDefenceType,
-      ),
-    [selectedDefenceType],
-  );
-
-  const boots = useMemo(
-    () =>
-      sortedBaseTypes.Boots.filter(
-        (item) => item.DefenceType === selectedDefenceType,
-      ),
-    [selectedDefenceType],
-  );
+  // Use the utility function for each category
+  const helmets = getFilteredItems('Helmets');
+  const bodyArmours = getFilteredItems('Body Armours');
+  const gloves = getFilteredItems('Gloves');
+  const boots = getFilteredItems('Boots');
 
   const clearSelections = () => {
     setselectedHelmets([]);
@@ -71,12 +56,12 @@ const DefenceSelection = ({
         <div className="mr-12 flex items-center gap-6">
           <h2 className="text-primary-light m-0">Defence</h2>
 
-          <Select
-            className="h-10"
-            onSelectChange={(value) => {
+          <MultiSelect
+            onSelectionChange={(val) => {
               clearSelections();
-              setSelectedDefenceType(value as ArmorDefenceType);
+              setSelectedDefenceTypes(val as ArmorDefenceType[]);
             }}
+            className="h-10"
             placeholder="Select defence"
             options={ARMOR_DEFENCE_TYPES.map((val) => ({
               value: val,
@@ -116,12 +101,12 @@ const DefenceSelection = ({
 
           return (
             <>
-              {selectedDefenceType && (
+              {selectedDefenceTypes && (
                 <div className="flex flex-col items-center gap-2">
                   <span>{display}</span>
-                  <Select
+                  <MultiSelect
                     className="md:w-48"
-                    key={selectedDefenceType}
+                    key={selectedDefenceTypes.toString()}
                     options={options.map((option) => ({
                       value: option.Name,
                       display: option.Name,

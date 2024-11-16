@@ -20,7 +20,8 @@ import { useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
 import { isLeagueFilter, userListFilterStore } from '../../../_state/user-list';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
-import Select from '../ui/Select';
+
+import { Select } from '../ui/Select';
 import {
   UserLeagueMechanicFilters,
   leagueMap,

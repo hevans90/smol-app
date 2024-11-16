@@ -16,26 +16,25 @@ import {
 import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export default function Select({
-  defaultIndex,
+export function BaseSelect({
   options,
   placeholder = 'Select...',
   showSelected = true,
-  onSelectChange,
+  multi = false,
+  selectedIndices,
+  onSelectionChange,
   className,
 }: {
-  defaultIndex?: number;
   options: { value: string; display?: string; imgSrc?: string }[];
   placeholder?: string;
   showSelected?: boolean;
-  onSelectChange?: (value: string) => unknown;
+  multi?: boolean;
+  selectedIndices: number[];
+  onSelectionChange: (indices: number[]) => void;
   className?: string;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(
-    defaultIndex ?? null,
-  );
 
   const { refs, floatingStyles, context } = useFloating({
     placement: 'bottom-start',
@@ -67,16 +66,19 @@ export default function Select({
   const listNav = useListNavigation(context, {
     listRef,
     activeIndex,
-    selectedIndex,
+    selectedIndex: selectedIndices.length > 0 ? selectedIndices[0] : null,
     onNavigate: setActiveIndex,
-    // This is a large list, allow looping.
     loop: true,
   });
   const typeahead = useTypeahead(context, {
     listRef: listContentRef,
     activeIndex,
-    selectedIndex,
-    onMatch: isOpen ? setActiveIndex : setSelectedIndex,
+    selectedIndex: selectedIndices.length > 0 ? selectedIndices[0] : null,
+    onMatch: multi
+      ? undefined // Disable typeahead matching for multi-select
+      : (index) => {
+          setActiveIndex(index);
+        },
     onTypingChange(isTyping) {
       isTypingRef.current = isTyping;
     },
@@ -86,20 +88,23 @@ export default function Select({
     [dismiss, role, listNav, typeahead, click],
   );
 
-  const handleSelect = ({ value, index }: { value: string; index: number }) => {
-    setSelectedIndex(index);
-    setIsOpen(false);
+  const handleSelect = (index: number) => {
+    const isAlreadySelected = selectedIndices.includes(index);
 
-    if (onSelectChange) {
-      onSelectChange(value);
+    let updatedIndices: number[];
+    if (multi) {
+      updatedIndices = isAlreadySelected
+        ? selectedIndices.filter((i) => i !== index)
+        : [...selectedIndices, index];
+    } else {
+      updatedIndices = [index];
     }
+
+    onSelectionChange(updatedIndices);
+    if (!multi) setIsOpen(false);
   };
 
-  const selectedItemLabel =
-    selectedIndex !== null ? options[selectedIndex]?.value : undefined;
-
-  const selectedItemImg =
-    selectedIndex !== null ? options[selectedIndex]?.imgSrc : undefined;
+  const selectedItems = selectedIndices.map((i) => options[i]);
 
   return (
     <>
@@ -109,24 +114,26 @@ export default function Select({
         aria-labelledby="select-label"
         aria-autocomplete="none"
         className={twMerge(
-          'flex w-24 cursor-pointer items-center justify-center rounded-md border-[1px] border-primary-800 p-1 outline-none hover:border-primary-500 hover:text-primary-500 md:w-36',
-          showSelected &&
-            selectedIndex !== null &&
-            selectedItemImg &&
-            'justify-start',
+          'flex cursor-pointer items-center justify-between rounded-md border-[1px] border-primary-800 p-2 outline-none hover:border-primary-500 hover:text-primary-500 md:w-36',
           className,
         )}
         {...getReferenceProps()}
       >
-        {(showSelected && selectedIndex !== null && (
-          <>
-            {selectedItemImg && (
-              <img className="mr-4 h-8 w-8" src={selectedItemImg} />
-            )}
-            {selectedItemLabel}
-          </>
-        )) ||
-          placeholder}
+        {selectedItems.length > 0 && showSelected ? (
+          <div className="flex flex-wrap gap-1">
+            {selectedItems.map((item, i) => (
+              <div
+                key={item.value}
+                className="flex items-center gap-1 rounded bg-gray-700 px-2 py-1 text-sm"
+              >
+                {item.imgSrc && <img className="h-4 w-4" src={item.imgSrc} />}
+                {item.display ?? item.value}
+              </div>
+            ))}
+          </div>
+        ) : (
+          placeholder
+        )}
       </div>
       {isOpen && (
         <FloatingPortal>
@@ -143,12 +150,10 @@ export default function Select({
                 <div
                   className={twMerge(
                     'flex cursor-pointer items-center gap-2 p-2',
-                    showSelected &&
-                      index === selectedIndex &&
-                      'cursor-default bg-gray-700',
+                    selectedIndices.includes(index) && 'bg-gray-700',
                     index === activeIndex &&
-                      index !== selectedIndex &&
-                      'bg-gray-800 text-primary-300 outline-none',
+                      !selectedIndices.includes(index) &&
+                      'bg-gray-800 text-primary-300',
                   )}
                   key={option.value}
                   ref={(node) => {
@@ -156,24 +161,20 @@ export default function Select({
                   }}
                   role="option"
                   tabIndex={index === activeIndex ? 0 : -1}
-                  aria-selected={
-                    index === selectedIndex && index === activeIndex
-                  }
+                  aria-selected={selectedIndices.includes(index)}
                   {...getItemProps({
-                    // Handle pointer select.
                     onClick() {
-                      handleSelect({ value: option.value, index });
+                      handleSelect(index);
                     },
-                    // Handle keyboard select.
                     onKeyDown(event) {
                       if (event.key === 'Enter') {
                         event.preventDefault();
-                        handleSelect({ value: option.value, index });
+                        handleSelect(index);
                       }
 
                       if (event.key === ' ' && !isTypingRef.current) {
                         event.preventDefault();
-                        handleSelect({ value: option.value, index });
+                        handleSelect(index);
                       }
                     },
                   })}
@@ -185,12 +186,10 @@ export default function Select({
                       alt={option.value}
                     />
                   )}
-                  {option?.display ?? option.value}
-                  {showSelected && (
-                    <span aria-hidden className="absolute right-4">
-                      {index === selectedIndex ? ' ✓' : ''}
-                    </span>
-                  )}
+                  {option.display ?? option.value}
+                  <span aria-hidden className="absolute right-4">
+                    {selectedIndices.includes(index) ? ' ✓' : ''}
+                  </span>
                 </div>
               ))}
             </div>

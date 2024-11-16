@@ -180,14 +180,14 @@ export function BaseSelect({
         selectedItems.length > 0 && (
           <FloatingPortal>
             <div
-              className="z-50 rounded-md  bg-gray-800 p-2 shadow-lg"
+              className="z-50 rounded-md  bg-gray-800 p-1 shadow-lg"
               ref={hoverFloating.refs.setFloating}
               style={hoverFloating.floatingStyles}
             >
               {selectedItems.map((item) => (
                 <div
                   key={item.value}
-                  className="flex items-center gap-2 p-1 text-sm"
+                  className="flex items-center gap-1 p-1 text-sm"
                 >
                   {item.imgSrc && <img className="h-4 w-4" src={item.imgSrc} />}
                   {item.display ?? item.value}

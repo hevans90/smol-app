@@ -69,13 +69,13 @@ const DefenceSelection = ({
   return (
     <div className={twMerge('mx-auto', className)}>
       <div className="flex flex-wrap gap-4 rounded-lg border border-primary-900 p-4 sm:gap-6">
-        <div className="flex w-full items-center gap-6 sm:mr-4 sm:w-auto">
+        <div className="flex w-full items-center gap-6 md:mr-4 md:w-auto">
           <MultiSelect
             onSelectionChange={(val) => {
               clearSelections();
               setSelectedDefenceTypes(val as ArmorDefenceType[]);
             }}
-            className="w-full sm:w-60"
+            className="w-full md:w-72"
             placeholder="Select defence(s)"
             options={ARMOR_DEFENCE_TYPES.map((val) => ({
               value: val,
@@ -116,13 +116,13 @@ const DefenceSelection = ({
           return (
             <div
               key={index}
-              className="flex w-[47%] flex-col items-center justify-between gap-2 sm:w-auto"
+              className="flex w-[47%] flex-col items-center justify-between gap-2 md:w-52"
             >
               <span>{display}</span>
               <MultiSelect
                 disabled={!selectedDefenceTypes.length}
                 compactDisplay={true}
-                className="w-full sm:w-32"
+                className="w-full"
                 key={selectedDefenceTypes.toString()}
                 options={options.map((option) => ({
                   value: option.Name,

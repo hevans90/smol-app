@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BaseSelect } from './base';
+import { BaseSelect, type SelectOption } from './base';
 
 export function Select({
   options,
@@ -9,7 +9,7 @@ export function Select({
   onSelectChange,
   className,
 }: {
-  options: { value: string; display?: string; imgSrc?: string }[];
+  options: SelectOption[];
   placeholder?: string;
   showSelected?: boolean;
   defaultIndex?: number;

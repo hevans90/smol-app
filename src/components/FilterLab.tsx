@@ -10,6 +10,7 @@ import { DiscreteSlider } from './react/ui/DiscreetSlider';
 import { useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { MultiSelect } from './react/ui/Select';
+import type { SelectOption } from './react/ui/Select/base';
 
 const DefenceSelection = ({
   className,
@@ -27,13 +28,28 @@ const DefenceSelection = ({
   const [selectedGloves, setSelectedGloves] = useState<string[]>([]);
   const [selectedBoots, setSelectedBoots] = useState<string[]>([]);
 
+  const colourMap: { [key in ArmorDefenceType]: SelectOption['imgBg'] } = {
+    DexInt: { primary: 'bg-green-700', secondary: 'bg-blue-700' },
+    Dex: { primary: 'bg-green-700' },
+    Int: { primary: 'bg-blue-700' },
+    Str: { primary: 'bg-red-700' },
+    StrDex: { primary: 'bg-red-700', secondary: 'bg-green-700' },
+    StrInt: { primary: 'bg-red-700', secondary: 'bg-blue-700' },
+  };
+
   const getFilteredItems = (category: keyof typeof sortedBaseTypes) =>
     useMemo(
       () =>
-        sortedBaseTypes[category].filter(
-          (item) =>
-            item.DefenceType && selectedDefenceTypes.includes(item.DefenceType),
-        ),
+        sortedBaseTypes[category]
+          .filter(
+            (item) =>
+              item.DefenceType &&
+              selectedDefenceTypes.includes(item.DefenceType),
+          )
+          .map((item) => ({
+            ...item,
+            imgBg: item?.DefenceType ? colourMap[item.DefenceType] : undefined,
+          })),
       [sortedBaseTypes, category, selectedDefenceTypes],
     );
 
@@ -73,7 +89,7 @@ const DefenceSelection = ({
             number,
             {
               display: string;
-              options: BaseType[];
+              options: (BaseType & { imgBg?: SelectOption['imgBg'] })[];
               setter: React.Dispatch<React.SetStateAction<string[]>>;
             }
           > = {
@@ -98,7 +114,10 @@ const DefenceSelection = ({
           const { display, options, setter } = categoryMap[index];
 
           return (
-            <div className="flex w-[47%] flex-col items-center justify-between gap-2 sm:w-auto">
+            <div
+              key={index}
+              className="flex w-[47%] flex-col items-center justify-between gap-2 sm:w-auto"
+            >
               <span>{display}</span>
               <MultiSelect
                 disabled={!selectedDefenceTypes.length}
@@ -109,6 +128,7 @@ const DefenceSelection = ({
                   value: option.Name,
                   display: option.Name,
                   imgSrc: option.IconPath,
+                  imgBg: option?.imgBg,
                 }))}
               />
             </div>
@@ -130,7 +150,7 @@ export const FilterLab = ({
     'bg-primary-800',
     'bg-primary-800',
     'bg-primary-600',
-    'bg-primary-500',
+    'bg-primary-800',
     'bg-primary-400',
   ];
 

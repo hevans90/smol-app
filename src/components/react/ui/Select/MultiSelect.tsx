@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BaseSelect } from './base';
+import { BaseSelect, type SelectOption } from './base';
 
 export function MultiSelect({
   className,
@@ -16,7 +16,7 @@ export function MultiSelect({
   defaultIndices?: number[];
   disabled?: boolean;
   onSelectionChange?: (values: string[]) => void;
-  options: { value: string; display?: string; imgSrc?: string }[];
+  options: SelectOption[];
   placeholder?: string;
   showSelected?: boolean;
 }) {

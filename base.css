@@ -62,6 +62,15 @@
   @apply z-10 outline-none ring-2 ring-primary-500 ring-opacity-50;
 }
 
+@layer utilities {
+  .clip-path-diagonal-tl {
+    clip-path: polygon(0 100%, 0 0%, 100% 0%);
+  }
+  .clip-path-diagonal-br {
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+}
+
 /* Optionally, customize specific elements
 button:focus {
   @apply outline-none ring-2 ring-green-500 ring-opacity-50;

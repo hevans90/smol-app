@@ -16,6 +16,13 @@ import {
 import * as React from 'react';
 import { twMerge } from 'tailwind-merge';
 
+export type SelectOption = {
+  value: string;
+  display?: string;
+  imgSrc?: string;
+  imgBg?: { primary: string; secondary?: string };
+};
+
 export function BaseSelect({
   options,
   placeholder = '---',
@@ -27,7 +34,7 @@ export function BaseSelect({
   onSelectionChange,
   className,
 }: {
-  options: { value: string; display?: string; imgSrc?: string }[];
+  options: SelectOption[];
   placeholder?: string;
   showSelected?: boolean;
   compactDisplay?: boolean;
@@ -173,7 +180,7 @@ export function BaseSelect({
         selectedItems.length > 0 && (
           <FloatingPortal>
             <div
-              className="z-50 rounded-md border-[1px] border-primary-500 bg-gray-800 p-2 shadow-lg"
+              className="z-50 rounded-md  bg-gray-800 p-2 shadow-lg"
               ref={hoverFloating.refs.setFloating}
               style={hoverFloating.floatingStyles}
             >
@@ -204,11 +211,13 @@ export function BaseSelect({
               {options.map((option, index) => (
                 <div
                   className={twMerge(
-                    'flex cursor-pointer items-center gap-2 p-2',
-                    selectedIndices.includes(index) && 'bg-gray-700',
-                    index === activeIndex &&
-                      !selectedIndices.includes(index) &&
-                      'bg-gray-800 text-primary-300',
+                    'relative flex cursor-pointer items-center gap-2 border-b-[1px] border-primary-800 bg-gray-900',
+                    !option.imgSrc && 'p-2',
+                    selectedIndices.includes(index) &&
+                      'bg-gray-700 bg-opacity-70 text-primary-300 opacity-100',
+                    !selectedIndices.includes(index) &&
+                      index === activeIndex &&
+                      'bg-opacity-60 text-primary-500',
                   )}
                   key={option.value}
                   ref={(node) => {
@@ -235,13 +244,39 @@ export function BaseSelect({
                   })}
                 >
                   {option.imgSrc && (
-                    <img
-                      className="h-8 w-8"
-                      src={option.imgSrc}
-                      alt={option.value}
-                    />
+                    <div className="relative z-10 m-1 flex w-10 justify-center">
+                      {option.imgBg && (
+                        <>
+                          <div
+                            className={twMerge(
+                              'absolute inset-0 opacity-40',
+                              option.imgBg.secondary && 'clip-path-diagonal-tl',
+                              selectedIndices.includes(index) && 'opacity-100',
+                              option.imgBg.primary,
+                            )}
+                          ></div>
+                          {option.imgBg.secondary && (
+                            <div
+                              className={twMerge(
+                                'clip-path-diagonal-br absolute inset-0 opacity-40',
+                                selectedIndices.includes(index) &&
+                                  'opacity-100',
+                                option.imgBg.secondary,
+                              )}
+                            ></div>
+                          )}
+                        </>
+                      )}
+                      <img
+                        className="relative z-10 h-10 object-fill p-1"
+                        src={option.imgSrc}
+                        alt={option.value}
+                      />
+                    </div>
                   )}
-                  {option.display ?? option.value}
+                  <div className="relative z-10 mr-4 select-none">
+                    {option.display ?? option.value}
+                  </div>
                 </div>
               ))}
             </div>

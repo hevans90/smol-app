@@ -52,8 +52,8 @@ const DefenceSelection = ({
 
   return (
     <div className={twMerge('mx-auto', className)}>
-      <div className="flex gap-8 rounded-lg border border-primary-900 p-4">
-        <div className="mr-12 flex items-center gap-6">
+      <div className="flex flex-wrap gap-4 rounded-lg border border-primary-900 p-4 sm:gap-6">
+        <div className="flex w-full items-center gap-6 sm:mr-4 sm:w-auto">
           <h2 className="text-primary-light m-0">Defence</h2>
 
           <MultiSelect
@@ -61,7 +61,7 @@ const DefenceSelection = ({
               clearSelections();
               setSelectedDefenceTypes(val as ArmorDefenceType[]);
             }}
-            className="w-48"
+            className="w-full sm:w-60"
             placeholder="Select defence"
             options={ARMOR_DEFENCE_TYPES.map((val) => ({
               value: val,
@@ -100,24 +100,20 @@ const DefenceSelection = ({
           const { display, options, setter } = categoryMap[index];
 
           return (
-            <>
-              {
-                <div className="flex flex-col items-center gap-2">
-                  <span>{display}</span>
-                  <MultiSelect
-                    disabled={!selectedDefenceTypes.length}
-                    compactDisplay={true}
-                    className="md:w-48"
-                    key={selectedDefenceTypes.toString()}
-                    options={options.map((option) => ({
-                      value: option.Name,
-                      display: option.Name,
-                      imgSrc: option.IconPath,
-                    }))}
-                  />
-                </div>
-              }
-            </>
+            <div className="flex w-[47%] flex-col items-center justify-between gap-2 sm:w-auto">
+              <span>{display}</span>
+              <MultiSelect
+                disabled={!selectedDefenceTypes.length}
+                compactDisplay={true}
+                className="w-full sm:w-32"
+                key={selectedDefenceTypes.toString()}
+                options={options.map((option) => ({
+                  value: option.Name,
+                  display: option.Name,
+                  imgSrc: option.IconPath,
+                }))}
+              />
+            </div>
           );
         })}
       </div>

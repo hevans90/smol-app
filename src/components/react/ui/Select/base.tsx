@@ -242,9 +242,6 @@ export function BaseSelect({
                     />
                   )}
                   {option.display ?? option.value}
-                  <span aria-hidden className="absolute right-4">
-                    {selectedIndices.includes(index) ? ' ✓' : ''}
-                  </span>
                 </div>
               ))}
             </div>

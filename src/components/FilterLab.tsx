@@ -105,6 +105,7 @@ const DefenceSelection = ({
                 <div className="flex flex-col items-center gap-2">
                   <span>{display}</span>
                   <MultiSelect
+                    compactDisplay={true}
                     className="md:w-48"
                     key={selectedDefenceTypes.toString()}
                     options={options.map((option) => ({

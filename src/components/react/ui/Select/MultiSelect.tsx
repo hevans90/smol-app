@@ -8,6 +8,7 @@ export function MultiSelect({
   defaultIndices = [],
   onSelectionChange,
   className,
+  compactDisplay = false,
 }: {
   options: { value: string; display?: string; imgSrc?: string }[];
   placeholder?: string;
@@ -15,6 +16,7 @@ export function MultiSelect({
   defaultIndices?: number[];
   onSelectionChange?: (values: string[]) => void;
   className?: string;
+  compactDisplay?: boolean;
 }) {
   const [selectedIndices, setSelectedIndices] =
     useState<number[]>(defaultIndices);
@@ -28,6 +30,7 @@ export function MultiSelect({
 
   return (
     <BaseSelect
+      compactDisplay={compactDisplay}
       options={options}
       placeholder={placeholder}
       showSelected={showSelected}

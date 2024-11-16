@@ -54,15 +54,13 @@ const DefenceSelection = ({
     <div className={twMerge('mx-auto', className)}>
       <div className="flex flex-wrap gap-4 rounded-lg border border-primary-900 p-4 sm:gap-6">
         <div className="flex w-full items-center gap-6 sm:mr-4 sm:w-auto">
-          <h2 className="text-primary-light m-0">Defence</h2>
-
           <MultiSelect
             onSelectionChange={(val) => {
               clearSelections();
               setSelectedDefenceTypes(val as ArmorDefenceType[]);
             }}
             className="w-full sm:w-60"
-            placeholder="Select defence"
+            placeholder="Select defence(s)"
             options={ARMOR_DEFENCE_TYPES.map((val) => ({
               value: val,
               display: val,

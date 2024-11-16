@@ -166,7 +166,8 @@ export function BaseSelect({
         )}
       </div>
 
-      {isHovering &&
+      {!isOpen &&
+        isHovering &&
         compactDisplay &&
         !disabled &&
         selectedItems.length > 0 && (

@@ -1,6 +1,8 @@
 import { useQuery, useSubscription } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 
+import { twMerge } from 'tailwind-merge';
+import { playerLevelExperienceMap } from '../../../_utils/constants';
 import {
   LeagueCharactersDocument,
   LeagueDocument,
@@ -149,6 +151,18 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     }
   };
 
+  const calculateProgress = (level: number, experience: number) => {
+    const currentLevelExperience = playerLevelExperienceMap[level];
+    const nextLevelExperience = playerLevelExperienceMap[level + 1];
+    if (!nextLevelExperience || !currentLevelExperience) return 100;
+
+    const progress =
+      ((experience - currentLevelExperience) /
+        (nextLevelExperience - currentLevelExperience)) *
+      100;
+    return Math.min(progress, 100);
+  };
+
   return (
     <div className="flex h-[85%] w-full flex-col lg:h-[90%]">
       {/* Table Wrapper */}
@@ -183,18 +197,25 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
               </th>
               <th className="w-32 px-4 py-2 font-medium">Level</th>
               <th className="w-32 px-4 py-2 font-medium">Experience</th>
+              <th className="w-32 px-4 py-2 font-medium"></th>
             </tr>
           </thead>
           <tbody className="bg-gray-950 text-primary-800">
-            {currentCharacters.map((character) => (
-              <tr
-                key={character.id}
-                className="border-b border-primary-900 border-opacity-30 text-xs hover:bg-gray-900 hover:bg-opacity-50 xl:text-base 2xl:text-lg"
-              >
-                <td className="px-4 py-2">{character.rank}</td>
-                <td className="px-4 py-2">{character.poe_account_name}</td>
-                <td className="px-4 py-2">
-                  <div>
+            {currentCharacters.map((character) => {
+              const progress = calculateProgress(
+                character.level,
+                character.experience,
+              );
+              const isLevel100 = character.level === 100;
+
+              return (
+                <tr
+                  key={character.id}
+                  className="border-b border-primary-900 border-opacity-30 hover:bg-gray-900"
+                >
+                  <td className="px-4 py-2">{character.rank}</td>
+                  <td className="px-4 py-2">{character.poe_account_name}</td>
+                  <td className="px-4 py-2">
                     <a
                       href={`https://www.pathofexile.com/account/view-profile/${character.poe_account_name}/characters?characterName=${character.name}`}
                       target="_blank"
@@ -203,19 +224,29 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
                       {character.name}
                     </a>
                     {character.retired && (
-                      <>
-                        <span className="text-primary-900"> (</span>
-                        <span className="font-bold text-red-700">Retired</span>
-                        <span className="text-primary-900">)</span>
-                      </>
+                      <span className="text-red-700"> (Retired)</span>
                     )}
-                  </div>
-                </td>
-                <td className="px-4 py-2">{character.class}</td>
-                <td className="px-4 py-2">{character.level}</td>
-                <td className="px-4 py-2">{character.experience}</td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="px-4 py-2">{character.class}</td>
+                  <td className="px-4 py-2">{character.level}</td>
+                  <td className="px-4 py-2">{character.experience}</td>
+                  <td className="px-4 py-2">
+                    <div className="relative h-2">
+                      <div
+                        className={twMerge(
+                          'absolute z-10 h-full bg-gray-600',
+                          isLevel100 ? 'bg-primary-400' : 'bg-primary-800',
+                        )}
+                        style={{
+                          width: `${progress}%`,
+                        }}
+                      />
+                      <div className="absolute h-full w-full bg-gray-700"></div>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

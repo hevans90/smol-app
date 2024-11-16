@@ -153,7 +153,7 @@ export const FilterLab = ({
     'bg-primary-400',
   ];
 
-  const values = ['Semi', 'Regular', 'Very', 'Uber', 'OMEGA'];
+  const values = ['Regular', 'Semi', 'Very', 'Uber', 'OMEGA'];
 
   const images = [
     '/KEKWAIT.png',

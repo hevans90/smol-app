@@ -2,21 +2,23 @@ import { useState } from 'react';
 import { BaseSelect } from './base';
 
 export function MultiSelect({
+  className,
+  compactDisplay = false,
+  defaultIndices = [],
+  disabled = false,
+  onSelectionChange,
   options,
   placeholder,
   showSelected,
-  defaultIndices = [],
-  onSelectionChange,
-  className,
-  compactDisplay = false,
 }: {
+  className?: string;
+  compactDisplay?: boolean;
+  defaultIndices?: number[];
+  disabled?: boolean;
+  onSelectionChange?: (values: string[]) => void;
   options: { value: string; display?: string; imgSrc?: string }[];
   placeholder?: string;
   showSelected?: boolean;
-  defaultIndices?: number[];
-  onSelectionChange?: (values: string[]) => void;
-  className?: string;
-  compactDisplay?: boolean;
 }) {
   const [selectedIndices, setSelectedIndices] =
     useState<number[]>(defaultIndices);
@@ -30,6 +32,7 @@ export function MultiSelect({
 
   return (
     <BaseSelect
+      disabled={disabled}
       compactDisplay={compactDisplay}
       options={options}
       placeholder={placeholder}

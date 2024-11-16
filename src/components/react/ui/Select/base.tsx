@@ -18,10 +18,11 @@ import { twMerge } from 'tailwind-merge';
 
 export function BaseSelect({
   options,
-  placeholder = 'Select...',
+  placeholder = '---',
   showSelected = true,
-  compactDisplay = false, // New prop for compact display
+  compactDisplay = false,
   multi = false,
+  disabled = false, // New prop for disabled state
   selectedIndices,
   onSelectionChange,
   className,
@@ -31,13 +32,14 @@ export function BaseSelect({
   showSelected?: boolean;
   compactDisplay?: boolean;
   multi?: boolean;
+  disabled?: boolean;
   selectedIndices: number[];
   onSelectionChange: (indices: number[]) => void;
   className?: string;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
-  const [isHovering, setIsHovering] = React.useState(false); // Hover state
+  const [isHovering, setIsHovering] = React.useState(false);
 
   const { refs, floatingStyles, context } = useFloating({
     placement: 'bottom-start',
@@ -60,7 +62,7 @@ export function BaseSelect({
   });
 
   const hoverFloating = useFloating({
-    placement: 'top', // Tooltip above the select
+    placement: 'top',
     whileElementsMounted: autoUpdate,
     middleware: [offset(5), flip({ padding: 10 })],
   });
@@ -84,7 +86,7 @@ export function BaseSelect({
     activeIndex,
     selectedIndex: selectedIndices.length > 0 ? selectedIndices[0] : null,
     onMatch: multi
-      ? undefined // Disable typeahead matching for multi-select
+      ? undefined
       : (index) => {
           setActiveIndex(index);
         },
@@ -94,10 +96,12 @@ export function BaseSelect({
   });
 
   const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [dismiss, role, listNav, typeahead, click],
+    disabled ? [] : [dismiss, role, listNav, typeahead, click],
   );
 
   const handleSelect = (index: number) => {
+    if (disabled) return; // Prevent interaction when disabled
+
     const isAlreadySelected = selectedIndices.includes(index);
 
     let updatedIndices: number[];
@@ -118,26 +122,32 @@ export function BaseSelect({
   return (
     <>
       <div
-        tabIndex={0}
+        tabIndex={disabled ? -1 : 0}
         ref={(node) => {
           refs.setReference(node);
-          hoverFloating.refs.setReference(node); // Attach hover floating reference
+          hoverFloating.refs.setReference(node);
         }}
         aria-labelledby="select-label"
         aria-autocomplete="none"
+        aria-disabled={disabled}
         className={twMerge(
-          'flex cursor-pointer items-center justify-between rounded-md border-[1px] border-primary-800 p-2 outline-none hover:border-primary-500 hover:text-primary-500 md:w-36',
+          'flex cursor-pointer items-center justify-between rounded-md border-[1px] border-primary-800 p-2 outline-none',
+          disabled
+            ? 'cursor-not-allowed opacity-50'
+            : ' hover:border-primary-500 hover:text-primary-500',
           className,
         )}
-        onMouseEnter={() => setIsHovering(true)} // Set hover state
-        onMouseLeave={() => setIsHovering(false)} // Reset hover state
+        onMouseEnter={() => !disabled && setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         {...getReferenceProps()}
       >
         {selectedItems.length > 0 && showSelected ? (
           compactDisplay ? (
-            <span>{selectedItems.length} selected</span>
+            <span className="flex w-full items-center justify-center">
+              {selectedItems.length} selected
+            </span>
           ) : (
-            <div className="flex flex-wrap gap-1">
+            <div className="flex w-full flex-wrap gap-1">
               {selectedItems.map((item) => (
                 <div
                   key={item.value}
@@ -150,31 +160,36 @@ export function BaseSelect({
             </div>
           )
         ) : (
-          placeholder
+          <span className="flex w-full items-center justify-center">
+            {placeholder}
+          </span>
         )}
       </div>
 
-      {!isOpen && isHovering && compactDisplay && selectedItems.length > 0 && (
-        <FloatingPortal>
-          <div
-            className="z-50 rounded-md border-[1px] border-primary-500 bg-gray-800 p-2 shadow-lg"
-            ref={hoverFloating.refs.setFloating}
-            style={hoverFloating.floatingStyles}
-          >
-            {selectedItems.map((item) => (
-              <div
-                key={item.value}
-                className="flex items-center gap-2 p-1 text-sm"
-              >
-                {item.imgSrc && <img className="h-4 w-4" src={item.imgSrc} />}
-                {item.display ?? item.value}
-              </div>
-            ))}
-          </div>
-        </FloatingPortal>
-      )}
+      {isHovering &&
+        compactDisplay &&
+        !disabled &&
+        selectedItems.length > 0 && (
+          <FloatingPortal>
+            <div
+              className="z-50 rounded-md border-[1px] border-primary-500 bg-gray-800 p-2 shadow-lg"
+              ref={hoverFloating.refs.setFloating}
+              style={hoverFloating.floatingStyles}
+            >
+              {selectedItems.map((item) => (
+                <div
+                  key={item.value}
+                  className="flex items-center gap-2 p-1 text-sm"
+                >
+                  {item.imgSrc && <img className="h-4 w-4" src={item.imgSrc} />}
+                  {item.display ?? item.value}
+                </div>
+              ))}
+            </div>
+          </FloatingPortal>
+        )}
 
-      {isOpen && (
+      {isOpen && !disabled && (
         <FloatingPortal>
           <FloatingFocusManager context={context} modal={false}>
             <div

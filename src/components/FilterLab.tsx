@@ -61,7 +61,7 @@ const DefenceSelection = ({
               clearSelections();
               setSelectedDefenceTypes(val as ArmorDefenceType[]);
             }}
-            className="h-10"
+            className="w-48"
             placeholder="Select defence"
             options={ARMOR_DEFENCE_TYPES.map((val) => ({
               value: val,
@@ -101,10 +101,11 @@ const DefenceSelection = ({
 
           return (
             <>
-              {selectedDefenceTypes && (
+              {
                 <div className="flex flex-col items-center gap-2">
                   <span>{display}</span>
                   <MultiSelect
+                    disabled={!selectedDefenceTypes.length}
                     compactDisplay={true}
                     className="md:w-48"
                     key={selectedDefenceTypes.toString()}
@@ -115,7 +116,7 @@ const DefenceSelection = ({
                     }))}
                   />
                 </div>
-              )}
+              }
             </>
           );
         })}

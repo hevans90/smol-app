@@ -10,6 +10,8 @@ import {
   type LeagueCharactersSubscription,
   type LeagueQuery,
 } from '../../../graphql-api';
+import useCharacterItems from '../../../hooks/useCharacterItems';
+import { ModalDrawer } from '../ui/ModalDrawer';
 import { Spinner } from '../ui/Spinner';
 
 export const LeagueLadder = () => {
@@ -54,6 +56,23 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     localStorage.getItem('rowsPerPage') || '25',
     10,
   );
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null,
+  );
+
+  const { items, loading, error, fetchItems } = useCharacterItems();
+
+  useEffect(() => {
+    if (selectedCharacter) {
+      fetchItems(
+        selectedCharacter.poe_account_name,
+        'pc',
+        selectedCharacter.name,
+      );
+    }
+  }, [selectedCharacter]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
@@ -164,130 +183,148 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
   };
 
   return (
-    <div className="flex h-[85%] w-full flex-col lg:h-[90%]">
-      {/* Table Wrapper */}
-      <div className="grow overflow-auto">
-        <table className="min-w-full table-fixed text-left text-sm text-gray-400 xl:text-base 2xl:text-xl">
-          <thead className="sticky top-0 bg-gray-900 text-primary-500">
-            <tr>
-              <th className="w-16 px-4 py-2 font-medium">Rank</th>
-              <th className="w-32 px-4 py-2 font-medium">Account</th>
-              <th className="w-48 px-4 py-2 font-medium">Character</th>
-              <th
-                className="text w-32 cursor-pointer select-none px-4 py-3 font-medium"
-                onClick={() => handleSort('class')}
-              >
-                <button className="flex w-full whitespace-nowrap bg-transparent hover:bg-transparent">
-                  <span>Class &nbsp;&nbsp;&nbsp;</span>
-
-                  {sortConfig.key === null && (
-                    <span className="text-primary-800 opacity-50">↑ ↓</span>
-                  )}
-
-                  {sortConfig.key === 'class' ? (
-                    sortConfig.direction === 'asc' ? (
-                      <span>↑</span>
-                    ) : (
-                      <span>↓</span>
-                    )
-                  ) : (
-                    ''
-                  )}
-                </button>
-              </th>
-              <th className="w-32 px-4 py-2 font-medium">Level</th>
-              <th className="w-32 px-4 py-2 font-medium">Experience</th>
-              <th className="w-32 px-4 py-2 font-medium"></th>
-            </tr>
-          </thead>
-          <tbody className="bg-gray-950 text-primary-800">
-            {currentCharacters.map((character) => {
-              const progress = calculateProgress(
-                character.level,
-                character.experience,
-              );
-              const isLevel100 = character.level === 100;
-
-              return (
-                <tr
-                  key={character.id}
-                  className="border-b border-primary-900 border-opacity-30 hover:bg-gray-900"
+    <>
+      <div className="flex h-[85%] w-full flex-col lg:h-[90%]">
+        {/* Table Wrapper */}
+        <div className="grow overflow-auto">
+          <table className="min-w-full table-fixed text-left text-sm xl:text-base 2xl:text-xl">
+            <thead className="sticky top-0 bg-gray-900 bg-opacity-50 text-primary-500">
+              <tr>
+                <th className="w-16 px-4 py-2 font-medium">Rank</th>
+                <th className="w-32 px-4 py-2 font-medium">Account</th>
+                <th className="w-48 px-4 py-2 font-medium">Character</th>
+                <th
+                  className="text w-32 cursor-pointer select-none px-4 py-3 font-medium"
+                  onClick={() => handleSort('class')}
                 >
-                  <td className="px-4 py-2">{character.rank}</td>
-                  <td className="px-4 py-2">{character.poe_account_name}</td>
-                  <td className="px-4 py-2">
-                    <a
-                      href={`https://www.pathofexile.com/account/view-profile/${character.poe_account_name}/characters?characterName=${character.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {character.name}
-                    </a>
-                    {character.retired && (
-                      <span className="text-red-700"> (Retired)</span>
+                  <button className="flex w-full whitespace-nowrap bg-transparent hover:bg-transparent">
+                    <span>Class &nbsp;&nbsp;&nbsp;</span>
+
+                    {sortConfig.key === null && (
+                      <span className="text-primary-800 opacity-50">↑ ↓</span>
                     )}
-                  </td>
-                  <td className="px-4 py-2">{character.class}</td>
-                  <td className="px-4 py-2">{character.level}</td>
-                  <td className="px-4 py-2">{character.experience}</td>
-                  <td className="px-4 py-2">
-                    <div className="relative h-2">
-                      <div
-                        className={twMerge(
-                          'absolute z-10 h-full bg-gray-600',
-                          isLevel100 ? 'bg-primary-400' : 'bg-primary-800',
-                        )}
-                        style={{
-                          width: `${progress}%`,
-                        }}
-                      />
-                      <div className="absolute h-full w-full bg-gray-700"></div>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
 
-      {/* Pagination Controls - Always at the Bottom */}
-      <div className="flex grow-0 items-center justify-between px-4 py-2 text-primary-600 sm:px-0 md:mt-4">
-        <div>
-          <label className="hidden md:inline">Rows per page:</label>
-          <select
-            className="rounded bg-gray-800 px-2 py-1 text-center md:ml-2"
-            value={rowsPerPage}
-            onChange={handleRowsPerPageChange}
-          >
-            {[10, 25, 50, 100].map((rows) => (
-              <option key={rows} value={rows}>
-                {rows}
-              </option>
-            ))}
-          </select>
+                    {sortConfig.key === 'class' ? (
+                      sortConfig.direction === 'asc' ? (
+                        <span>↑</span>
+                      ) : (
+                        <span>↓</span>
+                      )
+                    ) : (
+                      ''
+                    )}
+                  </button>
+                </th>
+                <th className="w-32 px-4 py-2 font-medium">Level</th>
+                <th className="w-32 px-4 py-2 font-medium">Experience</th>
+                <th className="w-32 px-4 py-2 font-medium"></th>
+              </tr>
+            </thead>
+            <tbody className="bg-gray-950 text-primary-800">
+              {currentCharacters.map((character) => {
+                const progress = calculateProgress(
+                  character.level,
+                  character.experience,
+                );
+                const isLevel100 = character.level === 100;
+
+                return (
+                  <tr
+                    onClick={() => {
+                      setDrawerOpen(true);
+                      setSelectedCharacter(character);
+                    }}
+                    key={character.id}
+                    className="cursor-pointer border-b border-primary-900 border-opacity-30 hover:bg-gray-900"
+                  >
+                    <td className="px-4 py-2">{character.rank}</td>
+                    <td className="px-4 py-2">{character.poe_account_name}</td>
+                    <td className="px-4 py-2">
+                      <a
+                        href={`https://www.pathofexile.com/account/view-profile/${character.poe_account_name}/characters?characterName=${character.name}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {character.name}
+                      </a>
+                      {character.retired && (
+                        <span className="text-red-700"> (Retired)</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-2">{character.class}</td>
+                    <td className="px-4 py-2">{character.level}</td>
+                    <td className="px-4 py-2">{character.experience}</td>
+                    <td className="px-4 py-2">
+                      <div className="relative h-2">
+                        <div
+                          className={twMerge(
+                            'absolute z-10 h-full bg-gray-600',
+                            isLevel100 ? 'bg-primary-400' : 'bg-primary-800',
+                          )}
+                          style={{
+                            width: `${progress}%`,
+                          }}
+                        />
+                        <div className="absolute h-full w-full bg-gray-700"></div>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
 
-        <div className="flex items-center">
-          <button
-            className="rounded-l bg-gray-900 px-4 py-2 hover:bg-gray-800"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          <span className="whitespace-nowrap px-4 py-2 text-primary-500 md:hidden">{`${currentPage} / ${totalPages}`}</span>
-          <span className="hidden px-4 py-2 text-primary-500 md:inline">{`Page ${currentPage} of ${totalPages}`}</span>
-          <button
-            className="rounded-r bg-gray-900 px-4 py-2 hover:bg-gray-800"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
+        {/* Pagination Controls - Always at the Bottom */}
+        <div className="flex grow-0 items-center justify-between px-4 py-2 text-primary-600 sm:px-0 md:mt-4">
+          <div>
+            <label className="hidden md:inline">Rows per page:</label>
+            <select
+              className="rounded bg-gray-800 px-2 py-1 text-center md:ml-2"
+              value={rowsPerPage}
+              onChange={handleRowsPerPageChange}
+            >
+              {[10, 25, 50, 100].map((rows) => (
+                <option key={rows} value={rows}>
+                  {rows}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex items-center">
+            <button
+              className="rounded-l bg-gray-900 px-4 py-2 hover:bg-gray-800"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+            <span className="whitespace-nowrap px-4 py-2 text-primary-500 md:hidden">{`${currentPage} / ${totalPages}`}</span>
+            <span className="hidden px-4 py-2 text-primary-500 md:inline">{`Page ${currentPage} of ${totalPages}`}</span>
+            <button
+              className="rounded-r bg-gray-900 px-4 py-2 hover:bg-gray-800"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      <ModalDrawer
+        isOpen={drawerOpen}
+        onClose={() => {
+          setDrawerOpen(false);
+          setSelectedCharacter(null);
+        }}
+      >
+        {JSON.stringify(loading)}
+        {JSON.stringify(error)}
+        {JSON.stringify(items)}
+      </ModalDrawer>
+    </>
   );
 };
 

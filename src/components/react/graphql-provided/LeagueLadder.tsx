@@ -11,6 +11,8 @@ import {
   type LeagueQuery,
 } from '../../../graphql-api';
 import useCharacterItems from '../../../hooks/useCharacterItems';
+import { CharacterInventory } from '../character-sheet/CharacterInventory';
+import { CharacterSummary } from '../character-sheet/CharacterSummary';
 import { ModalDrawer } from '../ui/ModalDrawer';
 import { Spinner } from '../ui/Spinner';
 
@@ -62,7 +64,13 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     null,
   );
 
-  const { items, loading, error, fetchItems } = useCharacterItems();
+  const {
+    items,
+    character,
+    loading: characterDetailsLoading,
+    error,
+    fetchItems,
+  } = useCharacterItems();
 
   useEffect(() => {
     if (selectedCharacter) {
@@ -70,7 +78,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
         selectedCharacter.poe_account_name,
         'pc',
         selectedCharacter.name,
-      );
+      ).then(() => setDrawerOpen(true));
     }
   }, [selectedCharacter]);
 
@@ -231,22 +239,19 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
                 return (
                   <tr
                     onClick={() => {
-                      setDrawerOpen(true);
                       setSelectedCharacter(character);
                     }}
                     key={character.id}
-                    className="cursor-pointer border-b border-primary-900 border-opacity-30 hover:bg-gray-900"
+                    className={twMerge(
+                      'cursor-pointer border-b border-primary-900 border-opacity-30 hover:bg-gray-900',
+                      character.retired && 'opacity-50',
+                    )}
                   >
                     <td className="px-4 py-2">{character.rank}</td>
                     <td className="px-4 py-2">{character.poe_account_name}</td>
                     <td className="px-4 py-2">
-                      <a
-                        href={`https://www.pathofexile.com/account/view-profile/${character.poe_account_name}/characters?characterName=${character.name}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {character.name}
-                      </a>
+                      {character.name}
+
                       {character.retired && (
                         <span className="text-red-700"> (Retired)</span>
                       )}
@@ -320,9 +325,22 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
           setSelectedCharacter(null);
         }}
       >
-        {JSON.stringify(loading)}
-        {JSON.stringify(error)}
-        {JSON.stringify(items)}
+        {!characterDetailsLoading &&
+          selectedCharacter &&
+          character &&
+          items?.length && (
+            <div className="flex h-full grow  gap-4">
+              <CharacterSummary
+                accountName={selectedCharacter.poe_account_name}
+                character={character}
+              />
+              <CharacterInventory items={items} />
+
+              <div className="flex h-full grow items-center justify-center border-[1px] border-primary-500 text-2xl">
+                GEMS & ITEM HOVERS COMING SOON
+              </div>
+            </div>
+          )}
       </ModalDrawer>
     </>
   );

@@ -65,29 +65,21 @@ export const ModalDrawer: React.FC<FullScreenDrawerProps> = ({
               refs.setFloating(node);
               drawerRef.current = node;
             }}
-            className="absolute bottom-0 flex h-2/3 w-full flex-col overflow-hidden bg-gray-800 shadow-lg md:max-w-7xl md:rounded-t-xl"
+            className="absolute bottom-0 flex h-1/2 w-full flex-col overflow-hidden bg-gray-800 shadow-lg md:max-w-7xl md:rounded-t-xl"
           >
             {/* Close Button */}
-            <div className="flex justify-end p-4">
+            <div className="absolute right-0 flex justify-end p-6">
               <button
                 onClick={onClose}
-                className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                className="rounded bg-primary-800 px-4 py-2 text-white hover:bg-primary-900"
               >
                 Close
               </button>
             </div>
 
             {/* Drawer Content */}
-            <div className="flex-1 p-6 text-white">
-              {children || (
-                <>
-                  <h2 className="text-2xl font-bold">Drawer Content</h2>
-                  <p className="mt-4">
-                    This is a full-screen modal drawer that slides up from the
-                    bottom of the screen.
-                  </p>
-                </>
-              )}
+            <div className="flex flex-1 items-center justify-between p-6">
+              {children}
             </div>
           </div>
         </FloatingOverlay>

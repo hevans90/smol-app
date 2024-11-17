@@ -16,7 +16,7 @@ const useCharacterItems = (): {
 
   const fetchItems = useCallback(
     async (accountName: string, realm: string, character: string) => {
-      const url = 'https://www.pathofexile.com/character-window/get-items';
+      const url = '/api/get-character-items';
 
       const params = new URLSearchParams({
         accountName,
@@ -25,7 +25,7 @@ const useCharacterItems = (): {
       });
 
       setLoading(true);
-      setError(null); // Reset error on new fetch attempt
+      setError(null);
 
       try {
         const response = await fetch(url, {

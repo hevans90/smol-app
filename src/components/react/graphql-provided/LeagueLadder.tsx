@@ -195,7 +195,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
         {/* Table Wrapper */}
         <div className="grow overflow-auto">
           <table className="min-w-full table-fixed text-left text-sm xl:text-base 2xl:text-xl">
-            <thead className="sticky top-0 bg-gray-900 bg-opacity-50 text-primary-500">
+            <thead className="sticky top-0 z-30 bg-gray-900 text-primary-500">
               <tr>
                 <th className="w-16 px-4 py-2 font-medium">Rank</th>
                 <th className="w-32 px-4 py-2 font-medium">Account</th>

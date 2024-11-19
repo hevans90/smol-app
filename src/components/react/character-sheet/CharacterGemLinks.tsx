@@ -38,9 +38,9 @@ export const SocketTreeVisualizer = ({ item }: { item: GGGItem }) => {
   };
 
   // Helper to get gem quality from properties
-  const getGemQuality = (properties: GGGItemProperty[] | undefined): string => {
+  const getGemQuality = (properties: GGGItemProperty[] | undefined) => {
     const qualityProp = properties?.find((p) => p.name === 'Quality');
-    return qualityProp?.values[0][0] || '0%';
+    return qualityProp?.values[0][0] || null;
   };
 
   if (!item.socketedItems) return null;
@@ -89,52 +89,55 @@ export const SocketTreeVisualizer = ({ item }: { item: GGGItem }) => {
         </div>
 
         {/* Gems */}
-        {sortedSocketedItems?.map((socketedItem, index) => (
-          <div
-            key={socketedItem.id}
-            className="relative ml-8 flex h-14 items-center"
-          >
-            {/* Horizontal line */}
-            <div className="h-1 w-8 bg-primary-600" />
-
+        {sortedSocketedItems?.map((socketedItem, index) => {
+          const quality = getGemQuality(socketedItem.properties);
+          return (
             <div
-              className={twMerge(
-                `relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`,
-                iconSize,
-                getSocketColor(socketedItem.colour),
-              )}
+              key={socketedItem.id}
+              className="relative ml-8 flex h-14 items-center"
             >
-              <img
-                src={socketedItem.icon}
-                alt={socketedItem.typeLine}
-                className={`${iconSize} object-contain`}
-              />
-            </div>
+              {/* Horizontal line */}
+              <div className="h-1 w-8 bg-primary-600" />
 
-            {/* Item details */}
-            <div className="ml-4">
               <div
                 className={twMerge(
-                  socketedItem.support && getTextColor(socketedItem.frameType),
-                  !socketedItem.support && 'font-bold text-cyan-200',
+                  `relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`,
+                  iconSize,
+                  getSocketColor(socketedItem.colour),
                 )}
               >
-                {socketedItem.typeLine}
+                <img
+                  src={socketedItem.icon}
+                  alt={socketedItem.typeLine}
+                  className={`${iconSize} object-contain`}
+                />
               </div>
-              <div className="flex gap-2 text-sm text-gray-400">
-                <span
-                  className={twMerge(!socketedItem.support && 'text-gray-100')}
+
+              {/* Item details */}
+              <div className="ml-4">
+                <div
+                  className={twMerge(
+                    socketedItem.support &&
+                      getTextColor(socketedItem.frameType),
+                    !socketedItem.support && 'font-bold text-cyan-200',
+                  )}
                 >
-                  {socketedItem.support ? 'Support' : 'Active'}
-                </span>
-                <span>•</span>
-                <span>Level {getGemLevel(socketedItem.properties)}</span>
-                <span>•</span>
-                <span>Quality {getGemQuality(socketedItem.properties)}</span>
+                  {socketedItem.typeLine}
+                </div>
+                <div className="flex gap-2 text-sm text-gray-400">
+                  <span>Lvl {getGemLevel(socketedItem.properties)}</span>
+
+                  {quality && (
+                    <>
+                      <span>•</span>
+                      <span>Qual {quality}</span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

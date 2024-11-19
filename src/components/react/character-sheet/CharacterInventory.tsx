@@ -31,7 +31,7 @@ export const CharacterInventory = ({
   const potions = getItemsById('flask').sort((a, b) => a.x - b.x);
 
   return (
-    <div className="relative h-full w-[32rem]">
+    <div className="relative h-full w-[32rem] min-w-[32rem]">
       <div
         onMouseEnter={() => onItemHovered(weapon?.id as string)}
         className="absolute left-8 top-0 flex h-[14.5rem] w-24 items-center justify-center rounded-md border-primary-600 bg-gray-950 hover:border-2"

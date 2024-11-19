@@ -65,7 +65,7 @@ export const ModalDrawer: React.FC<FullScreenDrawerProps> = ({
               refs.setFloating(node);
               drawerRef.current = node;
             }}
-            className="absolute bottom-0 flex h-1/2 w-full flex-col overflow-hidden bg-gray-800 shadow-lg md:max-w-7xl md:rounded-t-xl"
+            className="absolute bottom-0 flex h-[30rem] w-full flex-col overflow-hidden bg-gray-800 shadow-lg md:max-w-7xl md:rounded-t-xl"
           >
             {/* Close Button */}
             <div className="absolute right-0 flex justify-end p-6">
@@ -78,7 +78,7 @@ export const ModalDrawer: React.FC<FullScreenDrawerProps> = ({
             </div>
 
             {/* Drawer Content */}
-            <div className="flex flex-1 items-center justify-between p-6">
+            <div className="flex flex-1 items-center justify-between p-4">
               {children}
             </div>
           </div>

@@ -11,8 +11,7 @@ import {
   type LeagueQuery,
 } from '../../../graphql-api';
 import useCharacterItems from '../../../hooks/useCharacterItems';
-import { CharacterInventory } from '../character-sheet/CharacterInventory';
-import { CharacterSummary } from '../character-sheet/CharacterSummary';
+import { CharacterSheet } from '../character-sheet/CharacterSheet';
 import { ModalDrawer } from '../ui/ModalDrawer';
 import { Spinner } from '../ui/Spinner';
 
@@ -329,17 +328,11 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
           selectedCharacter &&
           character &&
           items?.length && (
-            <div className="flex h-full grow  gap-4">
-              <CharacterSummary
-                accountName={selectedCharacter.poe_account_name}
-                character={character}
-              />
-              <CharacterInventory items={items} />
-
-              <div className="flex h-full grow items-center justify-center border-[1px] border-primary-500 text-2xl">
-                GEMS & ITEM HOVERS COMING SOON
-              </div>
-            </div>
+            <CharacterSheet
+              accountName={selectedCharacter.poe_account_name}
+              items={items}
+              character={character}
+            />
           )}
       </ModalDrawer>
     </>

@@ -9,44 +9,58 @@ export type GGGCharacterResponse = {
   };
 };
 
-export type GGGItem = {
+export interface GGGItem {
   verified: boolean;
   w: number;
   h: number;
   icon: string;
   league: string;
   id: string;
+  sockets?: GGGItemSocket[];
   name: string;
   typeLine: string;
   baseType: string;
-  rarity: 'Rare' | 'Magic' | 'Unique';
+  rarity: string;
   ilvl: number;
   identified: boolean;
-  properties: Property[];
-  requirements: Requirement[];
-  enchantMods: string[];
-  implicitMods?: string[];
-  explicitMods: string[];
+  corrupted?: boolean;
+  properties?: GGGItemProperty[];
+  requirements?: GGGItemRequirement[];
+  enchantMods?: string[];
+  explicitMods?: string[];
+  flavourText?: string[];
   frameType: number;
   x: number;
   y: number;
   inventoryId: string;
-  utilityMods?: string[];
-  craftedMods?: string[];
-  descrText?: string;
-  flavourText?: string[];
-};
+  socketedItems?: GGGSocketedItem[]; // Reference socketed item structure
+}
 
-type Property = {
+interface GGGSocketedItem extends GGGItem {
+  support?: boolean;
+  socket?: number;
+  colour?: string;
+  additionalProperties?: GGGItemProperty[];
+}
+
+interface GGGItemSocket {
+  group: number;
+  attr: string;
+  sColour: string;
+}
+
+export interface GGGItemProperty {
+  name: string;
+  values: [string, number][];
+  displayMode: number;
+  progress?: number;
+  type: number;
+}
+
+interface GGGItemRequirement {
   name: string;
   values: [string, number][];
   displayMode: number;
   type: number;
-};
-
-type Requirement = {
-  name: string;
-  values: [string, number][];
-  displayMode: number;
-  type: number;
-};
+  suffix?: string;
+}

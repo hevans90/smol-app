@@ -28,9 +28,23 @@ module.exports = {
           400: '#7983f5',
           500: '#5865F2',
         },
+        poeItem: {
+          gem: '#1ba29b',
+          unique: '#af6025',
+          rare: '#ffff77',
+          magic: '#8888ff',
+          enchant: '#b4b4ff',
+          darkGrey: '#7f7f7f',
+          corrupted: '#ff0000',
+
+          fire: '#ca2424',
+          cold: '#4179b1',
+          lightning: '#ffd900',
+        },
       },
       fontFamily: {
         fontin: ['fontin', 'sans-serif'],
+        fontinSmallcaps: ['fontin-smallcaps', 'sans-serif'],
       },
     },
     screens,

@@ -1,4 +1,12 @@
 import type { GGGItem } from '../../../models/ggg-responses';
+import { ItemDetail } from '../item-detail/ItemDetail';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
+
+type InventorySlot = {
+  id: string;
+  className: string;
+  size: { width: string; height: string };
+};
 
 export const CharacterInventory = ({
   items,
@@ -9,104 +17,109 @@ export const CharacterInventory = ({
   className?: string;
   onItemHovered: (itemId: string) => void;
 }) => {
-  // Utility to find a single item by inventoryId
   const getItemById = (id: string) =>
     items.find((item) => item.inventoryId.toLowerCase() === id.toLowerCase());
 
-  // Utility to filter multiple items by inventoryId
   const getItemsById = (id: string) =>
     items.filter((item) => item.inventoryId.toLowerCase() === id.toLowerCase());
 
-  // Fetch items
-  const weapon = getItemById('weapon');
-  const offhand = getItemById('offhand');
-  const helm = getItemById('helm');
-  const gloves = getItemById('gloves');
-  const boots = getItemById('boots');
-  const body = getItemById('bodyarmour');
-  const ring1 = getItemById('ring');
-  const ring2 = getItemById('ring2');
-  const neck = getItemById('amulet');
-  const belt = getItemById('belt');
   const potions = getItemsById('flask').sort((a, b) => a.x - b.x);
+
+  const inventorySlots: InventorySlot[] = [
+    {
+      id: 'weapon',
+      className: 'left-8 top-0',
+      size: { width: 'w-24', height: 'h-[14.5rem]' },
+    },
+    {
+      id: 'offhand',
+      className: 'right-8 top-0',
+      size: { width: 'w-24', height: 'h-[14.5rem]' },
+    },
+    {
+      id: 'helm',
+      className: 'left-1/2 top-0 transform -translate-x-1/2',
+      size: { width: 'w-24', height: 'h-24' },
+    },
+    {
+      id: 'bodyarmour',
+      className: 'left-1/2 top-48 transform -translate-x-1/2 -translate-y-1/2',
+      size: { width: 'w-24', height: 'h-40' },
+    },
+    {
+      id: 'belt',
+      className: 'left-1/2 top-[18rem] transform -translate-x-1/2',
+      size: { width: 'w-24', height: 'h-14' },
+    },
+    {
+      id: 'gloves',
+      className: 'left-24 top-[15.5rem]',
+      size: { width: 'w-24', height: 'h-24' },
+    },
+    {
+      id: 'boots',
+      className: 'right-24 top-[15.5rem]',
+      size: { width: 'w-24', height: 'h-24' },
+    },
+    {
+      id: 'ring',
+      className: 'left-36 top-[11.5rem]',
+      size: { width: 'w-12', height: 'h-12' },
+    },
+    {
+      id: 'ring2',
+      className: 'right-36 top-[11.5rem]',
+      size: { width: 'w-12', height: 'h-12' },
+    },
+    {
+      id: 'amulet',
+      className: 'right-36 top-28',
+      size: { width: 'w-12', height: 'h-12' },
+    },
+  ];
 
   return (
     <div className="relative h-full w-[32rem] min-w-[32rem]">
-      <div
-        onMouseEnter={() => onItemHovered(weapon?.id as string)}
-        className="absolute left-8 top-0 flex h-[14.5rem] w-24 items-center justify-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={weapon?.icon} alt="weapon" />
-      </div>
-      <div
-        onMouseEnter={() => onItemHovered(offhand?.id as string)}
-        className="absolute right-8 top-0 flex h-[14.5rem] w-24 items-center justify-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={offhand?.icon} />
-      </div>
+      {inventorySlots.map(({ id, className, size: { width, height } }, i) => {
+        const item = getItemById(id);
 
-      {/* centered items */}
-      <div
-        onMouseEnter={() => onItemHovered(body?.id as string)}
-        className="absolute left-1/2 top-48 flex h-40 w-24 -translate-x-1/2 -translate-y-1/2 transform items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={body?.icon} />
-      </div>
-      <div
-        onMouseEnter={() => onItemHovered(helm?.id as string)}
-        className="absolute left-1/2 top-0 flex h-24 w-24 -translate-x-1/2 transform items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={helm?.icon} />
-      </div>
-      <div
-        onMouseEnter={() => onItemHovered(belt?.id as string)}
-        className="absolute left-1/2 top-[18rem] flex h-14 w-24 -translate-x-1/2 transform items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={belt?.icon} />
-      </div>
-
-      <div
-        onMouseEnter={() => onItemHovered(gloves?.id as string)}
-        className="absolute left-24 top-[15.5rem] flex h-24 w-24 items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={gloves?.icon} />
-      </div>
-      <div
-        onMouseEnter={() => onItemHovered(boots?.id as string)}
-        className="absolute right-24 top-[15.5rem] flex h-24 w-24 items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={boots?.icon} />
-      </div>
-
-      <div
-        onMouseEnter={() => onItemHovered(ring1?.id as string)}
-        className="absolute left-36 top-[11.5rem] flex h-12 w-12 items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={ring1?.icon} />
-      </div>
-      <div
-        onMouseEnter={() => onItemHovered(ring2?.id as string)}
-        className="absolute right-36 top-[11.5rem] flex h-12 w-12 items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={ring2?.icon} />
-      </div>
-
-      <div
-        onMouseEnter={() => onItemHovered(neck?.id as string)}
-        className="absolute right-36 top-28 flex h-12 w-12 items-center rounded-md border-primary-600 bg-gray-950 hover:border-2"
-      >
-        <img src={neck?.icon} />
-      </div>
+        return (
+          <Popover key={id}>
+            <PopoverTrigger asChild>
+              <div
+                onMouseEnter={() => onItemHovered(item?.id as string)}
+                className={`${className} absolute flex items-center justify-center rounded-md border-primary-600 bg-gray-950 hover:border-2 ${width} ${height}`}
+              >
+                {item && <img src={item.icon} alt={id} />}
+              </div>
+            </PopoverTrigger>
+            {item && (
+              <PopoverContent className="outline-none focus:ring-0">
+                <ItemDetail item={item} />
+              </PopoverContent>
+            )}
+          </Popover>
+        );
+      })}
 
       <div className="absolute left-1/2 top-[25.5rem] flex -translate-x-1/2 -translate-y-1/2 transform items-center gap-2 ">
         {potions.map((potion, i) => (
-          <div
-            onMouseEnter={() => onItemHovered(potion?.id as string)}
-            key={i}
-            className="flex h-24 w-14 items-center justify-center rounded-md bg-gray-950"
-          >
-            <img src={potion?.icon} />
-          </div>
+          <Popover key={potion.id}>
+            <PopoverTrigger asChild>
+              <div
+                onMouseEnter={() => onItemHovered(potion?.id as string)}
+                key={i}
+                className="flex h-24 w-14 items-center justify-center rounded-md bg-gray-950"
+              >
+                <img src={potion?.icon} />
+              </div>
+            </PopoverTrigger>
+            {potion && (
+              <PopoverContent className="outline-none focus:ring-0">
+                <ItemDetail item={potion} />
+              </PopoverContent>
+            )}
+          </Popover>
         ))}
       </div>
 

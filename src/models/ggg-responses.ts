@@ -27,6 +27,7 @@ export interface GGGItem {
   properties?: GGGItemProperty[];
   requirements?: GGGItemRequirement[];
   enchantMods?: string[];
+  implicitMods?: string[];
   explicitMods?: string[];
   flavourText?: string[];
   frameType: number;
@@ -64,3 +65,11 @@ interface GGGItemRequirement {
   type: number;
   suffix?: string;
 }
+
+export type GGGItemRarity =
+  | 'normal'
+  | 'magic'
+  | 'rare'
+  | 'unique'
+  | 'gem'
+  | 'currency';

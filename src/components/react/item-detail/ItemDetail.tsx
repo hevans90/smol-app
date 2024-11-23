@@ -18,6 +18,8 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
   );
   const headerFontColor = itemHeaderFontColor(rarity);
 
+  console.log(item);
+
   return (
     <div className="font-fontinSmallcaps flex flex-col items-center bg-black pb-2 text-center">
       <div
@@ -68,6 +70,15 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
       {item.explicitMods?.length && (
         <div className="text-poeItem-magic flex flex-col text-[15px] leading-[18px]">
           {item.explicitMods.map((mod) => (
+            <span key={mod} className="mx-2">
+              {mod}
+            </span>
+          ))}
+        </div>
+      )}
+      {item.craftedMods?.length && (
+        <div className="text-poeItem-enchant flex flex-col text-[15px] leading-[18px]">
+          {item.craftedMods.map((mod) => (
             <span key={mod} className="mx-2">
               {mod}
             </span>

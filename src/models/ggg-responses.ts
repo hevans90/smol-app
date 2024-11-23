@@ -27,6 +27,7 @@ export interface GGGItem {
   properties?: GGGItemProperty[];
   requirements?: GGGItemRequirement[];
   enchantMods?: string[];
+  craftedMods?: string[];
   implicitMods?: string[];
   explicitMods?: string[];
   flavourText?: string[];

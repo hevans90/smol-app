@@ -18,8 +18,6 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
   );
   const headerFontColor = itemHeaderFontColor(rarity);
 
-  console.log(item);
-
   return (
     <div className="font-fontinSmallcaps flex flex-col items-center bg-black pb-2 text-center">
       <div
@@ -65,6 +63,15 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
             </span>
           ))}
           <ItemSeparator rarity={rarity} className="my-0.5" />
+        </div>
+      )}
+      {item.fracturedMods?.length && (
+        <div className="flex flex-col text-[15px] leading-[18px] text-primary-800">
+          {item.fracturedMods.map((mod) => (
+            <span key={mod} className="mx-2">
+              {mod}
+            </span>
+          ))}
         </div>
       )}
       {item.explicitMods?.length && (

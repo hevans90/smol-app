@@ -26,6 +26,7 @@ export interface GGGItem {
   corrupted?: boolean;
   properties?: GGGItemProperty[];
   requirements?: GGGItemRequirement[];
+  fracturedMods?: string[];
   enchantMods?: string[];
   craftedMods?: string[];
   implicitMods?: string[];

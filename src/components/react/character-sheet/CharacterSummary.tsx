@@ -30,7 +30,7 @@ export const CharacterSummary = ({
       </div>
 
       <a
-        href={`https://www.pathofexile.com/account/view-profile/${accountName}/characters?characterName=${character.name}`}
+        href={`https://www.pathofexile.com/account/view-profile/${accountName.replace('#', '-')}/characters?characterName=${character.name}`}
         target="_blank"
         rel="noopener noreferrer"
       >

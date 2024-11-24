@@ -78,7 +78,13 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
         <div className="text-poeItem-magic flex flex-col text-[15px] leading-[18px]">
           {item.explicitMods.map((mod) => (
             <span key={mod} className="mx-2">
-              {mod}
+              {' '}
+              {mod.split('\n').map((line, index) => (
+                <Fragment key={index}>
+                  {line}
+                  <br />
+                </Fragment>
+              ))}
             </span>
           ))}
         </div>

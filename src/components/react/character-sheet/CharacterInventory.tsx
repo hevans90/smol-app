@@ -95,6 +95,7 @@ export const CharacterInventory = ({
         return (
           item && (
             <ItemPopover
+              key={slot.id}
               slot={slot}
               item={item}
               onItemHovered={onItemHovered}

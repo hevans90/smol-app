@@ -31,15 +31,17 @@ export const ItemPopover: React.FC<PopoverItemProps> = React.memo(
 
           {item?.sockets?.length && (
             <div className="invisible absolute h-full w-full bg-red-600 bg-opacity-25 group-hover:visible">
-              {/* Assuming ItemSockets is a component that takes sockets as a prop */}
-              <ItemSockets sockets={item.sockets} />
+              <ItemSockets
+                inventoryId={item.inventoryId}
+                sockets={item.sockets}
+                socketedItems={item.socketedItems}
+              />
             </div>
           )}
         </div>
       </PopoverTrigger>
       {item && (
         <PopoverContent className="outline-none focus:ring-0">
-          {/* Assuming ItemDetail is a component that displays item details */}
           <ItemDetail item={item} />
         </PopoverContent>
       )}

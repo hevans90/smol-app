@@ -35,18 +35,18 @@ export interface GGGItem {
   frameType: number;
   x: number;
   y: number;
-  inventoryId: string;
+  inventoryId: GGGInventoryId;
   socketedItems?: GGGSocketedItem[]; // Reference socketed item structure
 }
 
-interface GGGSocketedItem extends GGGItem {
+export interface GGGSocketedItem extends GGGItem {
   support?: boolean;
   socket?: number;
   colour?: string;
   additionalProperties?: GGGItemProperty[];
 }
 
-interface GGGItemSocket {
+export interface GGGItemSocket {
   group: number;
   attr: string;
   sColour: string;
@@ -75,3 +75,34 @@ export type GGGItemRarity =
   | 'unique'
   | 'gem'
   | 'currency';
+
+export type GGGInventoryId =
+  | 'Amulet'
+  | 'Belt'
+  | 'BodyArmour'
+  | 'Boots'
+  | 'Flask'
+  | 'FishingRod'
+  | 'Gloves'
+  | 'Helm'
+  | 'Offhand'
+  | 'Ring'
+  | 'Ring2'
+  | 'Trinket'
+  | 'Weapon';
+
+export const maxGemSockets: Record<GGGInventoryId, number> = {
+  Amulet: 1, // Special bases or breach ammy
+  Belt: 2, // Stygian Vise supports up to 2 sockets
+  BodyArmour: 6,
+  Boots: 4,
+  Flask: 0,
+  FishingRod: 4, // very special
+  Gloves: 4,
+  Helm: 4,
+  Offhand: 3, // Shields/quivers have up to 3 sockets
+  Ring: 1, // Rarely socketable, e.g., special crafting
+  Ring2: 1, // Rarely socketable, e.g., special crafting
+  Trinket: 0,
+  Weapon: 6, // Two-handed weapons, bows, or certain unique weapons
+};

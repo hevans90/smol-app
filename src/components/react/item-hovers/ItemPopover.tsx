@@ -1,5 +1,5 @@
 import React from 'react';
-import type { GGGItem } from '../../../models/ggg-responses';
+import type { GGGItem, GGGSocketedItem } from '../../../models/ggg-responses';
 import type { InventorySlot } from '../character-sheet/CharacterInventory';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
 import { ItemDetail } from './ItemDetail';
@@ -30,11 +30,12 @@ export const ItemPopover: React.FC<PopoverItemProps> = React.memo(
           {item && <img src={item.icon} alt={id} />}
 
           {item?.sockets?.length && (
-            <div className="invisible absolute h-full w-full bg-red-600 bg-opacity-25 group-hover:visible">
+            <div className="invisible absolute w-full bg-red-600 bg-opacity-25 group-hover:visible">
               <ItemSockets
+                key={item.id}
                 inventoryId={item.inventoryId}
                 sockets={item.sockets}
-                socketedItems={item.socketedItems}
+                socketedItems={item.socketedItems as GGGSocketedItem[]}
               />
             </div>
           )}

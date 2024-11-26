@@ -179,7 +179,6 @@ export const ItemSockets = ({
             <img
               src={socketImage}
               alt={`${socket.sColour || 'default'} socket`}
-              className="h-full w-full"
             />
             {/* Optional: Show socketed item index or other details */}
             {socketedItems[socketIndex] && (

@@ -30,10 +30,9 @@ export const ItemPopover: React.FC<PopoverItemProps> = React.memo(
           {item && <img src={item.icon} alt={id} />}
 
           {item?.sockets?.length && (
-            <div className="invisible absolute w-full bg-red-600 bg-opacity-25 group-hover:visible">
+            <div className="invisible absolute w-full group-hover:visible">
               <ItemSockets
                 key={item.id}
-                inventoryId={item.inventoryId}
                 sockets={item.sockets}
                 socketedItems={item.socketedItems as GGGSocketedItem[]}
               />

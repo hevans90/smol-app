@@ -1,7 +1,5 @@
 import { twMerge } from 'tailwind-merge';
 import {
-  maxGemSockets,
-  type GGGInventoryId,
   type GGGItemSocket,
   type GGGSocketedItem,
 } from '../../../models/ggg-responses';
@@ -18,20 +16,21 @@ const socketImages: Record<string, string> = {
 };
 
 export const ItemSockets = ({
-  inventoryId,
   sockets,
   socketedItems,
 }: {
-  inventoryId: GGGInventoryId;
   sockets: GGGItemSocket[];
   socketedItems: GGGSocketedItem[];
 }) => {
-  const maxItemSockets = maxGemSockets[inventoryId];
+  console.log({ sockets });
 
   // Define the fixed socket order for all items
   const socketOrder = [0, 1, 3, 2, 4, 5];
 
-  // Create a grid layout based on the number of sockets
+  // Determine the actual number of sockets for the item based on passed prop
+  const actualSockets = sockets.length;
+
+  // Create a grid layout based on the number of actual sockets
   const getGridTemplate = (sockets: number): string => {
     switch (sockets) {
       case 1:
@@ -42,6 +41,8 @@ export const ItemSockets = ({
         return 'grid-cols-2 grid-rows-2'; // 3 sockets: first 2 on top, 1 below
       case 4:
         return 'grid-cols-2 grid-rows-2'; // 4 sockets
+      case 5:
+        return 'grid-cols-2 grid-rows-3'; // 5 sockets
       case 6:
         return 'grid-cols-2 grid-rows-3'; // 6 sockets
       default:
@@ -50,13 +51,13 @@ export const ItemSockets = ({
   };
 
   // Create an ordered list of socket indices, ensuring that we respect the desired order
-  const orderedSockets = socketOrder.filter((index) => index < maxItemSockets);
+  const orderedSockets = socketOrder.filter((index) => index < actualSockets);
 
   return (
     <div
       className={twMerge(
         'grid h-fit w-full gap-1 p-1',
-        getGridTemplate(maxItemSockets),
+        getGridTemplate(actualSockets), // Apply dynamic grid template
       )}
       style={{ minWidth: '50px' }}
     >
@@ -75,10 +76,14 @@ export const ItemSockets = ({
           <div
             key={socketIndex}
             className={`relative -m-1 flex items-center justify-center ${
-              // For the 3rd socket, move it to the second row (for 3-socket items only)
-              maxItemSockets === 3 && index === 2
-                ? 'col-start-2 row-start-2'
-                : ''
+              // Adjust placement for 3-socket, 5-socket, or 6-socket items
+              actualSockets === 3 && index === 2
+                ? 'col-start-2 row-start-2' // For the 3rd socket in 3-socket items
+                : actualSockets === 5 && index === 4
+                  ? 'col-start-2 row-start-3' // For the 5th socket in 5-socket items
+                  : actualSockets === 6 && index === 5
+                    ? 'col-start-2 row-start-3' // For the 6th socket in 6-socket items
+                    : ''
             }`}
           >
             <img
@@ -88,8 +93,8 @@ export const ItemSockets = ({
             />
             {/* Optional: Show socketed item index or other details */}
             {socketedItems[socketIndex] && (
-              <div className="absolute  flex items-center justify-center text-xs font-bold text-white">
-                {socketIndex}
+              <div className="absolute flex items-center justify-center text-xs font-bold text-white">
+                {/* {socketIndex} */}
               </div>
             )}
           </div>

@@ -69,8 +69,8 @@ export const ItemSockets = ({
     orderedSockets.forEach((socketIndex, index) => {
       const column = index % 2; // Assuming 2 columns
       const row = Math.floor(index / 2);
-      const top = row * gridCellSize; // 50px for each socket (can be adjusted)
-      const left = column * gridCellSize; // 50px for each socket (can be adjusted)
+      const top = row * gridCellSize;
+      const left = column * gridCellSize;
 
       positions[socketIndex] = { top, left };
     });
@@ -102,8 +102,12 @@ export const ItemSockets = ({
       top: vertical
         ? Math.min(position1.top, position2.top) + gridCellSizeOffset // Adjusted to center the link
         : position1.top + gridCellSizeOffset - linkSizeOffset, // Center vertically
-      width: horizontal ? `${Math.abs(position1.left - position2.left)}px` : 20,
-      height: vertical ? `${Math.abs(position1.top - position2.top)}px` : 20,
+      width: horizontal
+        ? `${Math.abs(position1.left - position2.left)}px`
+        : imageLinkWidth,
+      height: vertical
+        ? `${Math.abs(position1.top - position2.top)}px`
+        : imageLinkWidth,
       zIndex: 1,
     };
 

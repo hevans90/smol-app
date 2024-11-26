@@ -30,7 +30,7 @@ export const ItemSockets = ({
 }) => {
   console.log({ sockets });
 
-  const gridCellSize = 46;
+  const gridCellSize = 48;
   const imageLinkWidth = 20;
 
   // Define the fixed socket order for all items
@@ -179,6 +179,7 @@ export const ItemSockets = ({
             <img
               src={socketImage}
               alt={`${socket.sColour || 'default'} socket`}
+              className="h-full"
             />
             {/* Optional: Show socketed item index or other details */}
             {socketedItems[socketIndex] && (

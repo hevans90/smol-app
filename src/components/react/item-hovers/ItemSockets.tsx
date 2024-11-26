@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import {
   type GGGItemSocket,
@@ -15,6 +16,11 @@ const socketImages: Record<string, string> = {
   default: '/images/sockets/default.png',
 };
 
+const linkImages: Record<'horizontal' | 'vertical', string> = {
+  horizontal: '/item-preview/links/link-horizontal.png',
+  vertical: '/item-preview/links/link-vertical.png',
+};
+
 export const ItemSockets = ({
   sockets,
   socketedItems,
@@ -23,6 +29,9 @@ export const ItemSockets = ({
   socketedItems: GGGSocketedItem[];
 }) => {
   console.log({ sockets });
+
+  const gridCellSize = 46;
+  const imageLinkWidth = 20;
 
   // Define the fixed socket order for all items
   const socketOrder = [0, 1, 3, 2, 4, 5];
@@ -53,14 +62,95 @@ export const ItemSockets = ({
   // Create an ordered list of socket indices, ensuring that we respect the desired order
   const orderedSockets = socketOrder.filter((index) => index < actualSockets);
 
+  // Pre-calculate the socket positions for links
+  const socketPositions = useMemo(() => {
+    const positions: Record<number, { top: number; left: number }> = {};
+
+    orderedSockets.forEach((socketIndex, index) => {
+      const column = index % 2; // Assuming 2 columns
+      const row = Math.floor(index / 2);
+      const top = row * gridCellSize; // 50px for each socket (can be adjusted)
+      const left = column * gridCellSize; // 50px for each socket (can be adjusted)
+
+      positions[socketIndex] = { top, left };
+    });
+
+    return positions;
+  }, [orderedSockets]);
+
+  // Render a link between two sockets
+  const renderLink = (from: number, to: number) => {
+    const position1 = socketPositions[from];
+    const position2 = socketPositions[to];
+
+    if (!position1 || !position2) return null;
+
+    const horizontal = position1.top === position2.top;
+    const vertical = position1.left === position2.left;
+
+    if (!horizontal && !vertical) return null;
+
+    const gridCellSizeOffset = gridCellSize / 2;
+
+    const linkSizeOffset = imageLinkWidth / 2;
+
+    const linkStyle: React.CSSProperties = {
+      position: 'absolute',
+      left: horizontal
+        ? Math.min(position1.left, position2.left) + gridCellSizeOffset // Adjusted to center the link
+        : position1.left + gridCellSizeOffset - linkSizeOffset, // Center horizontally
+      top: vertical
+        ? Math.min(position1.top, position2.top) + gridCellSizeOffset // Adjusted to center the link
+        : position1.top + gridCellSizeOffset - linkSizeOffset, // Center vertically
+      width: horizontal ? `${Math.abs(position1.left - position2.left)}px` : 20,
+      height: vertical ? `${Math.abs(position1.top - position2.top)}px` : 20,
+      zIndex: 1,
+    };
+
+    const linkImage = horizontal ? linkImages.horizontal : linkImages.vertical;
+
+    return (
+      <div style={linkStyle} className="flex items-center justify-center">
+        <img src={linkImage} alt="link" />
+      </div>
+    );
+  };
+
+  // Generate all links based on socket groupings
+  const renderLinks = () => {
+    const links: React.ReactNode[] = [];
+    const groupedSockets: Record<number, number[]> = {};
+
+    // Group sockets by their group property
+    sockets.forEach((socket, index) => {
+      if (!groupedSockets[socket.group]) {
+        groupedSockets[socket.group] = [];
+      }
+      groupedSockets[socket.group].push(index);
+    });
+
+    // Render links within each group
+    Object.values(groupedSockets).forEach((group) => {
+      for (let i = 0; i < group.length - 1; i++) {
+        links.push(renderLink(group[i], group[i + 1]));
+      }
+    });
+
+    return links;
+  };
+
   return (
     <div
       className={twMerge(
-        'grid h-fit w-full gap-1 p-1',
-        getGridTemplate(actualSockets), // Apply dynamic grid template
+        'relative grid h-fit w-full',
+        getGridTemplate(actualSockets),
       )}
       style={{ minWidth: '50px' }}
     >
+      {/* Render links first */}
+      {renderLinks()}
+
+      {/* Render sockets */}
       {orderedSockets.map((socketIndex, index) => {
         const socket = sockets[socketIndex];
 
@@ -75,7 +165,7 @@ export const ItemSockets = ({
         return (
           <div
             key={socketIndex}
-            className={`relative -m-1 flex items-center justify-center ${
+            className={`relative flex items-center justify-center ${
               // Adjust placement for 3-socket, 5-socket, or 6-socket items
               actualSockets === 3 && index === 2
                 ? 'col-start-2 row-start-2' // For the 3rd socket in 3-socket items
@@ -89,7 +179,7 @@ export const ItemSockets = ({
             <img
               src={socketImage}
               alt={`${socket.sColour || 'default'} socket`}
-              className="h-full w-full"
+              className="h-full w-full p-[1px]"
             />
             {/* Optional: Show socketed item index or other details */}
             {socketedItems[socketIndex] && (

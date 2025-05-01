@@ -71,7 +71,7 @@ export function useDialog({
       setLabelId,
       setDescriptionId,
     }),
-    [open, setOpen, interactions, data, labelId, descriptionId]
+    [open, setOpen, interactions, data, labelId, descriptionId],
   );
 }
 
@@ -128,7 +128,7 @@ export const DialogTrigger = forwardRef<
         ...props,
         ...children.props,
         'data-state': context.open ? 'open' : 'closed',
-      })
+      }),
     );
   }
 
@@ -156,7 +156,7 @@ export const DialogContent = forwardRef<
   return (
     <FloatingPortal>
       <FloatingOverlay
-        className="grid place-items-center bg-gray-700 bg-opacity-90 z-20"
+        className="z-50 grid place-items-center bg-gray-700 bg-opacity-90"
         lockScroll
       >
         <FloatingFocusManager context={floatingContext}>
@@ -166,8 +166,8 @@ export const DialogContent = forwardRef<
             aria-describedby={context.descriptionId}
             {...context.getFloatingProps(props)}
             className="
-                flex flex-col
-                m-4 p-4 bg-gray-900 rounded border-primary-800 border-2
+                m-4 flex
+                flex-col rounded border-2 border-primary-800 bg-gray-900 p-4
                 "
           >
             {props.children}

@@ -27,7 +27,7 @@ export const LeagueLadder = () => {
 
   return (
     <div className="mt-44 flex h-full w-full flex-col overflow-hidden md:mt-32 lg:mt-24">
-      <div className="my-3 flex items-center md:my-6 md:mt-12 md:items-baseline">
+      <div className="my-3 flex items-center gap-6 md:my-6 md:mt-12 md:items-baseline">
         {league && league?.url ? (
           <>
             <h1 className="m-0 text-2xl xl:text-3xl 2xl:text-4xl">

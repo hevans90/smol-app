@@ -82,6 +82,11 @@ func MapLadderToCharacters(ladder poe.Ladder) []Character {
 }
 
 func InsertCharacters(db *sql.DB, characters []Character) (int32, error) {
+
+	if len(characters) == 0 {
+		return 0, nil // ✅ Gracefully handle empty character list
+	}
+
 	query := `
 		INSERT INTO public."character" (
 			rank, poe_account_name, name, class, level, experience, retired, dead, id, challenges, twitch

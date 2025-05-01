@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"embed"
 	"encoding/json"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/fatih/color"
 	"github.com/joho/godotenv"
@@ -19,30 +21,42 @@ import (
 //go:embed templates/*
 var resources embed.FS
 
-// Function to encode data as JSON
 func jsonMarshal(v interface{}) string {
-	bytes, err := json.MarshalIndent(v, "", "    ") // Indent with 4 spaces
+	bytes, err := json.MarshalIndent(v, "", "    ")
 	if err != nil {
-		return "{}" // Return an empty JSON object in case of an error
+		return "{}"
 	}
 	return string(bytes)
 }
 
-func main() {
+func saveCharacters(ctx context.Context, db *sql.DB, queries *smoldata.Queries, green, red *color.Color) {
+	tokenResponse := poe.GetToken()
+	leagueResponse := poe.GetLeague(tokenResponse, "Very Smol Sentinels Found (PL55054)")
 
+	leagueId, err := smoldata.InsertLeague(ctx, queries, leagueResponse.League)
+	if err != nil {
+		red.Printf("Could not save league: %v\n", err)
+	} else {
+		green.Printf("League %s saved successfully\n", leagueId)
+	}
+
+	leagueCharacters := smoldata.MapLadderToCharacters(leagueResponse.Ladder)
+	numberInserted, err := smoldata.InsertCharacters(db, leagueCharacters)
+	if err != nil {
+		red.Printf("Could not save characters: %v\n", err)
+	} else {
+		green.Printf("%v characters saved successfully\n", numberInserted)
+	}
+}
+
+func main() {
 	green := color.New(color.FgGreen)
 	red := color.New(color.FgRed)
 
-	// Create a template function map
-	funcMap := template.FuncMap{
-		"json": jsonMarshal, // Add the json function to the template
-	}
-
+	funcMap := template.FuncMap{"json": jsonMarshal}
 	t := template.Must(template.New("").Funcs(funcMap).ParseFS(resources, "templates/*"))
 
-	// try to load .env for local dev
 	godotenv.Load("../.env")
-
 	port := os.Getenv("GO_PORT")
 	if port == "" {
 		port = "8080"
@@ -57,42 +71,45 @@ func main() {
 	queries := smoldata.New(db)
 	ctx := context.Background()
 
-	tokenResponse := poe.GetToken()
+	// Run initial character save immediately
+	saveCharacters(ctx, db, queries, green, red)
 
-	var leagueResponse = poe.GetLeague(tokenResponse, "Smoldew Valley (PL49469)")
+	// Start periodic saving and countdown logging
+	go func() {
+		saveInterval := 5 * time.Minute
+		countdownInterval := 30 * time.Second
+		timeUntilNextSave := saveInterval
 
-	leagueId, leagueInsertError := smoldata.InsertLeague(ctx, queries, leagueResponse.League)
+		log.Printf("Next character save in %v...", timeUntilNextSave) // ✅ Initial log
 
-	if leagueInsertError != nil {
-		red.Printf("Could not save league: %v\n\n", leagueInsertError)
-	} else {
-		green.Print(leagueId + " saved successfully\n\n")
-	}
+		countdownTicker := time.NewTicker(countdownInterval)
+		saveTicker := time.NewTicker(saveInterval)
+		defer countdownTicker.Stop()
+		defer saveTicker.Stop()
 
-	leagueCharacters := smoldata.MapLadderToCharacters(leagueResponse.Ladder)
+		for {
+			select {
+			case <-countdownTicker.C:
+				timeUntilNextSave -= countdownInterval
+				if timeUntilNextSave > 0 {
+					log.Printf("Next character save in %v...", timeUntilNextSave)
+				}
+			case <-saveTicker.C:
+				saveCharacters(ctx, db, queries, green, red)
+				timeUntilNextSave = saveInterval
+				log.Printf("Next character save in %v...", timeUntilNextSave) // ✅ Reset log after saving
+			}
+		}
+	}()
 
-	numberInserted, characterInsertError := smoldata.InsertCharacters(db, leagueCharacters)
-
-	if characterInsertError != nil {
-		red.Printf("Could not save characters: %v\n\n", characterInsertError)
-	} else {
-		green.Printf("%v characters saved successfully\n\n", numberInserted)
-	}
-
-	// Set up the HTTP handler
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := map[string]interface{}{
 			"Region": os.Getenv("FLY_REGION"),
-			"League": leagueResponse,
 		}
-
 		t.ExecuteTemplate(w, "index.html.tmpl", data)
 	})
 
-	// Start the HTTP server and listen on the specified port
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		// Log any error that occurs when starting the server
 		panic(err)
 	}
-
 }

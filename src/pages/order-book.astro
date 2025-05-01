@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
 import { getSortedBaseItems } from '../_utils/utils';
 import logoSrc from '../assets/smol-logo.png';
 
-const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
 
 const sortedBaseItems = getSortedBaseItems();
 ---

@@ -6,7 +6,7 @@ import { ProfilePage } from '../components/ProfilePage';
 
 import logoSrc from '../assets/smol-logo.png';
 
-const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="Profile" authPrompt={true}>

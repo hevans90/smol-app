@@ -6,7 +6,7 @@ import { Image } from 'astro:assets';
 import logoSrc from '../assets/smol-logo.png';
 import { UserLeagueMechanicsPage } from '../components/UserLeagueMechanicsPage';
 
-const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="Mechanics" authPrompt={true}>

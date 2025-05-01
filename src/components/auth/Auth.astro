@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { authPrompt } = Astro.props;
-const hasuraUri = process.env.HASURA_GRAPHQL_URI as string;
+const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
 
 const { DISCORD_CLIENT_ID, DISCORD_REDIRECT } = import.meta.env;
 const discordOauthUrl = `

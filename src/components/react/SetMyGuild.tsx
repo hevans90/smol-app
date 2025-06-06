@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import invariant from 'tiny-invariant';
 import {
   SetMyGuildDocument,
   type SetMyGuildMutation,
@@ -22,20 +21,24 @@ export const SetMyGuild = ({ automatic }: { automatic: boolean }) => {
   >(SetMyGuildDocument);
 
   const handleSetGuild = () => {
-    invariant(profile?.guild);
-    invariant(profile.guild.name);
-    setMyGuild({
-      variables: {
-        userId: hasuraUser?.id as string,
-        guild: profile.guild.name,
-      },
-    })
-      .then(() => toast.success('Guild successfully saved!'))
-      .catch((e) => {
-        toast.error('Something went wrong while trying to save your guild :(');
-        toast.error(e);
-        console.error(e);
-      });
+    if (profile?.guild) {
+      setMyGuild({
+        variables: {
+          userId: hasuraUser?.id as string,
+          guild: profile.guild.name,
+        },
+      })
+        .then(() => toast.success('Guild successfully saved!'))
+        .catch((e) => {
+          toast.error(
+            'Something went wrong while trying to save your guild :(',
+          );
+          toast.error(e);
+          console.error(e);
+        });
+    } else {
+      console.log('No guild to save for profile', profile);
+    }
   };
 
   useEffect(() => {

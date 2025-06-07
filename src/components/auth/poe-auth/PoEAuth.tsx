@@ -104,15 +104,17 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
     return (
       <div className="flex items-center gap-3 rounded border-2 border-primary-800 bg-gray-950">
         <img src="/poe-logo-original.png" className="h-12" />
-        <a href="/profile">
-          <div className="hidden text-primary-500 md:block">{username}</div>
-        </a>
-        <button
-          onClick={logout}
-          className="mr-2 grow bg-transparent text-end hover:bg-transparent hover:text-primary-300"
-        >
-          Logout
-        </button>
+        <div className="flex grow justify-between">
+          <a href="/profile">
+            <div className="hidden text-primary-500 md:block">{username}</div>
+          </a>
+          <button
+            onClick={logout}
+            className="mr-2 bg-transparent hover:bg-transparent hover:text-primary-300"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     );
 

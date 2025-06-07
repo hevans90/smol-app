@@ -367,18 +367,18 @@ export const OrderBook = () => {
 
                     <td>
                       <div className="flex justify-center">
-                        {link_url ? (
+                        {icon_url ? (
+                          <img
+                            className="h-10 w-10 object-contain p-1 md:h-12 md:w-12"
+                            src={icon_url}
+                          />
+                        ) : link_url ? (
                           <a href={link_url} target="_blank">
                             <img
                               className="h-10 object-cover p-1 md:h-12"
                               src={getWikiImgSrcFromUrl(link_url)}
                             />
                           </a>
-                        ) : icon_url ? (
-                          <img
-                            className="h-10 w-10 object-contain p-1 md:h-12 md:w-12"
-                            src={icon_url}
-                          />
                         ) : (
                           <img
                             className="h-10 w-10 p-1 md:h-12 md:w-12"

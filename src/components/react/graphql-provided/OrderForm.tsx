@@ -35,7 +35,9 @@ export const OrderForm = ({
   data,
   onSubmit,
   allowPriority,
+  quickOrdersAvailable = true,
 }: {
+  quickOrdersAvailable?: boolean;
   orderTypes: OrderTypesQuery;
   data?: OrderFormInputs;
   onSubmit: SubmitHandler<OrderFormInputs>;
@@ -52,7 +54,7 @@ export const OrderForm = ({
     defaultValues: { priority: data?.priority ?? false },
   });
 
-  const [quickOrder, setQuickOrder] = useState(true);
+  const [quickOrder, setQuickOrder] = useState(quickOrdersAvailable);
 
   const [quickSearchResults, setquickSearchResults] =
     useState<UniqueSearchResult[]>();
@@ -179,7 +181,7 @@ export const OrderForm = ({
         />
       </div>
 
-      {quickOrder ? (
+      {quickOrdersAvailable && quickOrder ? (
         <>
           {!selectedQuickOrderResult && (
             <Popover

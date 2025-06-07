@@ -514,6 +514,7 @@ export const OrderBook = () => {
           <DialogHeading>Update Order</DialogHeading>
           {orderTypes && (
             <OrderForm
+              quickOrdersAvailable={false}
               allowPriority={
                 (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
               }

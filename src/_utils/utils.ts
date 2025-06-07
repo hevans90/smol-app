@@ -102,7 +102,7 @@ export const searchUniquesByNameOrBase = (
       icon: mapDdsToPoeImageUrl(item.visual_identity.dds_file),
     }));
 
-export const getUniqueItemWikiLink = async (itemName: string) => {
+export const getUniqueItemWikiInfo = async (itemName: string) => {
   const baseUrl = 'https://www.poewiki.net/w/api.php';
   const wikiBase = 'https://www.poewiki.net/wiki/';
 
@@ -110,7 +110,7 @@ export const getUniqueItemWikiLink = async (itemName: string) => {
     action: 'cargoquery',
     format: 'json',
     tables: 'items',
-    fields: 'name,inventory_icon',
+    fields: 'name,inventory_icon,base_item',
     where: `rarity="Unique" AND name="${itemName}"`,
     limit: '1',
     origin: '*',
@@ -123,10 +123,16 @@ export const getUniqueItemWikiLink = async (itemName: string) => {
     const data = await response.json();
 
     if (data.cargoquery && data.cargoquery.length > 0) {
-      const name = data.cargoquery[0].title.name as string;
+      const item = data.cargoquery[0].title;
+      const name = item.name as string;
+      const baseItem = item['base item'] as string;
       const pageName = name.replace(/ /g, '_');
       const encodedPageName = encodeURIComponent(pageName);
-      return wikiBase + encodedPageName;
+
+      return {
+        wikiLink: wikiBase + encodedPageName,
+        baseItem: baseItem,
+      };
     } else {
       return null;
     }

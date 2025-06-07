@@ -3,7 +3,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 
 import { IconTrash } from '@tabler/icons-react';
 import {
-  getUniqueItemWikiLink,
+  getUniqueItemWikiInfo,
   searchUniquesByNameOrBase,
   type UniqueSearchResult,
 } from '../../../_utils/utils';
@@ -136,17 +136,17 @@ export const OrderForm = ({
         return;
       }
 
-      const wikiLink = await getUniqueItemWikiLink(
+      const wikiResult = await getUniqueItemWikiInfo(
         selectedQuickOrderResult.name,
       );
 
       // create data object from selected quick order result
       const quickOrderData: OrderFormInputs = {
         description: selectedQuickOrderResult.name,
-        linkUrl: wikiLink,
+        linkUrl: wikiResult?.wikiLink,
         type: Item_Order_Type_Enum.Unique, // assuming quick order items are unique type
         priority: formData.priority ?? false,
-        itemBaseType: '', // fill if applicable or leave blank
+        itemBaseType: wikiResult?.baseItem ?? '',
         iconUrl: selectedQuickOrderResult.icon,
         itemCategory: '', // if you have category info, add it here
       };

@@ -310,9 +310,11 @@ export const OrderBook = () => {
               <th className="border-b border-primary-500"></th>
               <th className="border-b border-primary-500"></th>
               <th className="border-b border-primary-500"></th>
-              <th className="hidden w-44 border-b border-primary-500 lg:table-cell">
-                fulfilled by
-              </th>
+              {showFulfilled && (
+                <th className="hidden w-44 border-b border-primary-500 lg:table-cell">
+                  fulfilled by
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -485,34 +487,39 @@ export const OrderBook = () => {
                         </Button>
                       )}
                     </td>
-                    <td id="fulfilled-cell" className="hidden lg:table-cell">
-                      <div
-                        className={`my-2 flex items-center gap-2 ${
-                          i === 0 && 'mt-4'
-                        }`}
-                      >
-                        {fulfilled_by_user && (
-                          <>
-                            {fulfilled_by_user.discord_avatar ? (
-                              <img
-                                className="h-8 w-8 rounded-full"
-                                src={`https://cdn.discordapp.com/avatars/${fulfilled_by_user.discord_user_id}/${fulfilled_by_user.discord_avatar}.png`}
-                              />
-                            ) : (
-                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-discord-500">
-                                <img src="/discord-logo.svg" className="h-4" />
-                              </div>
-                            )}
+                    {showFulfilled && (
+                      <td id="fulfilled-cell" className="hidden lg:table-cell">
+                        <div
+                          className={`my-2 flex items-center gap-2 ${
+                            i === 0 && 'mt-4'
+                          }`}
+                        >
+                          {fulfilled_by_user && (
+                            <>
+                              {fulfilled_by_user.discord_avatar ? (
+                                <img
+                                  className="h-8 w-8 rounded-full"
+                                  src={`https://cdn.discordapp.com/avatars/${fulfilled_by_user.discord_user_id}/${fulfilled_by_user.discord_avatar}.png`}
+                                />
+                              ) : (
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-discord-500">
+                                  <img
+                                    src="/discord-logo.svg"
+                                    className="h-4"
+                                  />
+                                </div>
+                              )}
 
-                            {fulfilled_by_user.discord_name}
-                            {fulfilled_by_user.discord_user_id ===
-                              myDiscordId && (
-                              <div className="text-primary-500">(you)</div>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    </td>
+                              {fulfilled_by_user.discord_name}
+                              {fulfilled_by_user.discord_user_id ===
+                                myDiscordId && (
+                                <div className="text-primary-500">(you)</div>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 );
               },

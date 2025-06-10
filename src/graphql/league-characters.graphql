@@ -1,5 +1,5 @@
-subscription LeagueCharacters {
-  character(order_by: { rank: asc }) {
+subscription LeagueCharacters($leagueName: String) {
+  character(order_by: { rank: asc }, where: { league: { _eq: $leagueName } }) {
     twitch
     retired
     poe_account_name

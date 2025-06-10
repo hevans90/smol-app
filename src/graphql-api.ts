@@ -99,6 +99,7 @@ export type Character = {
   dead: Scalars['Boolean']['output'];
   experience: Scalars['bigint']['output'];
   id: Scalars['String']['output'];
+  league?: Maybe<Scalars['String']['output']>;
   level: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   poe_account_name: Scalars['String']['output'];
@@ -156,6 +157,7 @@ export type Character_Bool_Exp = {
   dead?: InputMaybe<Boolean_Comparison_Exp>;
   experience?: InputMaybe<Bigint_Comparison_Exp>;
   id?: InputMaybe<String_Comparison_Exp>;
+  league?: InputMaybe<String_Comparison_Exp>;
   level?: InputMaybe<Int_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   poe_account_name?: InputMaybe<String_Comparison_Exp>;
@@ -185,6 +187,7 @@ export type Character_Insert_Input = {
   dead?: InputMaybe<Scalars['Boolean']['input']>;
   experience?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   level?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   poe_account_name?: InputMaybe<Scalars['String']['input']>;
@@ -200,6 +203,7 @@ export type Character_Max_Fields = {
   class?: Maybe<Scalars['String']['output']>;
   experience?: Maybe<Scalars['bigint']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
   level?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   poe_account_name?: Maybe<Scalars['String']['output']>;
@@ -214,6 +218,7 @@ export type Character_Min_Fields = {
   class?: Maybe<Scalars['String']['output']>;
   experience?: Maybe<Scalars['bigint']['output']>;
   id?: Maybe<Scalars['String']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
   level?: Maybe<Scalars['Int']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   poe_account_name?: Maybe<Scalars['String']['output']>;
@@ -244,6 +249,7 @@ export type Character_Order_By = {
   dead?: InputMaybe<Order_By>;
   experience?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
   level?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   poe_account_name?: InputMaybe<Order_By>;
@@ -270,6 +276,8 @@ export enum Character_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  League = 'league',
+  /** column name */
   Level = 'level',
   /** column name */
   Name = 'name',
@@ -290,6 +298,7 @@ export type Character_Set_Input = {
   dead?: InputMaybe<Scalars['Boolean']['input']>;
   experience?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   level?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   poe_account_name?: InputMaybe<Scalars['String']['input']>;
@@ -340,6 +349,7 @@ export type Character_Stream_Cursor_Value_Input = {
   dead?: InputMaybe<Scalars['Boolean']['input']>;
   experience?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   level?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   poe_account_name?: InputMaybe<Scalars['String']['input']>;
@@ -369,6 +379,8 @@ export enum Character_Update_Column {
   Experience = 'experience',
   /** column name */
   Id = 'id',
+  /** column name */
+  League = 'league',
   /** column name */
   Level = 'level',
   /** column name */
@@ -3213,7 +3225,9 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
-export type LeagueCharactersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type LeagueCharactersSubscriptionVariables = Exact<{
+  leagueName?: InputMaybe<Scalars['String']['input']>;
+}>;
 
 
 export type LeagueCharactersSubscription = { __typename?: 'subscription_root', character: Array<{ __typename?: 'character', twitch?: string | null, retired: boolean, poe_account_name: string, rank: number, name: string, level: number, id: string, experience: any, dead: boolean, class: string, challenges: number }> };
@@ -3339,8 +3353,8 @@ export const UserFieldsFragmentDoc = gql`
 }
     `;
 export const LeagueCharactersDocument = gql`
-    subscription LeagueCharacters {
-  character(order_by: {rank: asc}) {
+    subscription LeagueCharacters($leagueName: String) {
+  character(order_by: {rank: asc}, where: {league: {_eq: $leagueName}}) {
     twitch
     retired
     poe_account_name

@@ -8,6 +8,7 @@ import {
   LeagueDocument,
   type Character,
   type LeagueCharactersSubscription,
+  type LeagueCharactersSubscriptionVariables,
   type LeagueQuery,
 } from '../../../graphql-api';
 import useCharacterItems from '../../../hooks/useCharacterItems';
@@ -19,10 +20,17 @@ export const LeagueLadder = () => {
   const { data: leagueInfo, loading: leagueInfoLoading } =
     useQuery<LeagueQuery>(LeagueDocument);
 
-  const { data: charactersResponse, loading: charactersLoading } =
-    useSubscription<LeagueCharactersSubscription>(LeagueCharactersDocument);
-
   const league = leagueInfo?.league?.[0];
+
+  const { data: charactersResponse, loading: charactersLoading } =
+    useSubscription<
+      LeagueCharactersSubscription,
+      LeagueCharactersSubscriptionVariables
+    >(LeagueCharactersDocument, {
+      variables: { leagueName: league?.id },
+      skip: !league,
+    });
+
   const leagueName = league?.id;
 
   return (

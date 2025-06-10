@@ -29,7 +29,7 @@ import { Spinner } from '../ui/Spinner';
 import { IconAlertCircle, IconSearch, IconTrash } from '@tabler/icons-react';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import ReactTimeAgo from 'react-time-ago';
 import invariant from 'tiny-invariant';
 import {
@@ -64,6 +64,8 @@ export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
     UserItemOrdersDocument,
   );
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { data: orderTypes } = useQuery<OrderTypesQuery>(OrderTypesDocument);
 
@@ -217,7 +219,18 @@ export const OrderBook = () => {
       }),
     });
 
-  if (loading || userLoading) return <Spinner />;
+  useEffect(() => {
+    if (!loading && !userLoading) {
+      inputRef?.current?.focus();
+    }
+  }, [loading, userLoading]);
+
+  if (loading || userLoading)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   return (
     <div
       id="order-book-container"
@@ -241,6 +254,7 @@ export const OrderBook = () => {
         <div className="flex grow items-center gap-2">
           <IconSearch />
           <input
+            ref={inputRef}
             placeholder="search by user or description"
             defaultValue={fuzzyQuery}
             onChange={(e) =>

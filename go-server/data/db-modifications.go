@@ -81,7 +81,7 @@ func MapLadderToCharacters(ladder poe.Ladder) []Character {
 	return characters
 }
 
-func InsertCharacters(db *sql.DB, characters []Character) (int32, error) {
+func InsertCharacters(db *sql.DB, characters []Character, leagueName string) (int32, error) {
 
 	if len(characters) == 0 {
 		return 0, nil // ✅ Gracefully handle empty character list
@@ -89,15 +89,14 @@ func InsertCharacters(db *sql.DB, characters []Character) (int32, error) {
 
 	query := `
 		INSERT INTO public."character" (
-			rank, poe_account_name, name, class, level, experience, retired, dead, id, challenges, twitch
-		) VALUES
-	`
+			rank, poe_account_name, name, class, level, experience, retired, dead, id, challenges, twitch, league
+		) VALUES ` // Changed 'league_name' to 'league' here
 
 	var valueStrings []string
 
 	for _, character := range characters {
 		valueStrings = append(valueStrings, fmt.Sprintf(
-			"(%d, '%s', '%s', '%s', %d, %d, %t, %t, '%s', %d, '%s')",
+			"(%d, '%s', '%s', '%s', %d, %d, %t, %t, '%s', %d, '%s', '%s')",
 			character.Rank,
 			character.PoeAccountName,
 			character.Name,
@@ -109,16 +108,15 @@ func InsertCharacters(db *sql.DB, characters []Character) (int32, error) {
 			character.ID,
 			character.Challenges,
 			character.Twitch.String,
+			leagueName, // This value goes into the 'league' column
 		))
 	}
 
-	// Join all the values into a single string, separating them by commas
 	query += strings.Join(valueStrings, ",")
 
-	// Add the "ON CONFLICT" part to handle the upsert
 	query += `
 		ON CONFLICT (id)
-		DO UPDATE SET 
+		DO UPDATE SET
 			rank = EXCLUDED.rank,
 			poe_account_name = EXCLUDED.poe_account_name,
 			name = EXCLUDED.name,
@@ -128,28 +126,24 @@ func InsertCharacters(db *sql.DB, characters []Character) (int32, error) {
 			retired = EXCLUDED.retired,
 			dead = EXCLUDED.dead,
 			challenges = EXCLUDED.challenges,
-			twitch = EXCLUDED.twitch
-		RETURNING id;
-	`
+			twitch = EXCLUDED.twitch,
+			league = EXCLUDED.league -- Changed 'league_name' to 'league' here
+		RETURNING id;`
 
-	// Execute the query and get the result
 	rows, err := db.Query(query)
 	if err != nil {
 		return 0, fmt.Errorf("error upserting characters: %v", err)
 	}
 	defer rows.Close()
 
-	// Count the number of rows returned (which is the number of upserted characters)
 	var insertedCount int32
 	for rows.Next() {
 		insertedCount++
 	}
 
-	// Check for any errors during iteration
 	if err := rows.Err(); err != nil {
 		return 0, fmt.Errorf("error iterating over result rows: %v", err)
 	}
 
-	// Return the number of inserted or updated characters
 	return insertedCount, nil
 }

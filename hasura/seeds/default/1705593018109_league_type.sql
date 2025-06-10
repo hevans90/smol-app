@@ -19,3 +19,5 @@ INSERT INTO public.league_type (value) VALUES ('ritual') ON CONFLICT DO NOTHING;
 INSERT INTO public.league_type (value) VALUES ('ultimatum') ON CONFLICT DO NOTHING;
 INSERT INTO public.league_type (value) VALUES ('altar_exarch') ON CONFLICT DO NOTHING;
 INSERT INTO public.league_type (value) VALUES ('altar_eater') ON CONFLICT DO NOTHING;
+INSERT INTO public.league_type (value) VALUES ('beyond') ON CONFLICT DO NOTHING;
+INSERT INTO public.league_type (value) VALUES ('settlers_of_kalguur') ON CONFLICT DO NOTHING;

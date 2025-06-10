@@ -1117,6 +1117,7 @@ export enum League_Type_Enum {
   Legion = 'legion',
   Ritual = 'ritual',
   Sanctum = 'sanctum',
+  SettlersOfKalguur = 'settlers_of_kalguur',
   Ultimatum = 'ultimatum'
 }
 

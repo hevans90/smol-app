@@ -8,6 +8,7 @@ import { Select } from '../ui/Select';
 export const leagueMap: { [key in League_Type_Enum]?: string } = {
   altar_eater: 'eater altars',
   altar_exarch: 'exarch altars',
+  settlers_of_kalguur: 'shipping (kalguur)',
 };
 
 export const UserLeagueMechanicFilters = ({

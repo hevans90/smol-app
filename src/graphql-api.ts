@@ -3358,7 +3358,7 @@ export const LeagueCharactersDocument = gql`
 export type LeagueCharactersSubscriptionResult = Apollo.SubscriptionResult<LeagueCharactersSubscription>;
 export const LeagueDocument = gql`
     query League {
-  league {
+  league(order_by: {start_at: desc}, limit: 1) {
     url
     start_at
     register_at

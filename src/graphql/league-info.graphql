@@ -1,5 +1,5 @@
 query League {
-  league {
+  league(order_by: { start_at: desc }, limit: 1) {
     url
     start_at
     register_at

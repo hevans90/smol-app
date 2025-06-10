@@ -291,7 +291,7 @@ export const OrderBook = () => {
         {orderTypes && <OrderBookFilters orderTypes={orderTypes} />}
       </div>
       <div className="h-full overflow-y-auto">
-        <table className="w-full table-auto border-separate border-spacing-0">
+        <table className="w-full table-fixed border-separate border-spacing-0">
           <thead className="sticky top-0 z-10 bg-gray-950">
             <tr>
               <th className="w-28 border-b border-primary-500">

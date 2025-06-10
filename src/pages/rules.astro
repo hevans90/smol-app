@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { Image } from 'astro:assets';
+
+import logoSrc from '../assets/smol-logo.png';
+
+const version = 'settlers_1.0.2';
+---
+
+<script define:vars={{ version }}>
+  // clear local storage on every update of the version number above
+  if (localStorage.getItem('version') !== version) {
+    localStorage.clear();
+    localStorage.setItem('version', version);
+  }
+</script>
+
+<Layout title="Smol Rules" authPrompt={false}>
+  <main class="flex flex-col items-start h-full relative">
+    <Image
+      src={logoSrc}
+      alt="logo"
+      class="w-16 md:w-28 absolute top-12 left-20 md:left-0"
+    />
+
+    <div class="flex flex-col mx-4 sm:mx-0 mt-40">
+      <h1 class="text-primary-500">Smol Rules</h1>
+      <ul class="list-disc space-y-2">
+        <li>
+          <strong class="text-primary-600">No Trade Economy.</strong> There is no
+          buying or selling of items, instead we share items and resources to help
+          each other out.
+        </li>
+        <li>
+          <strong class="text-primary-600">No Item-Hoarding.</strong> When you have
+          obtained an item from someone else and are no longer using it, list it
+          again on trade so it can get back into the cycle. Whatever you find yourself
+          is yours to keep or to share as you wish. Obtaining (potentially rare)
+          items from others just to migrate to trade with them will result in a ban.
+        </li>
+        <li>
+          <strong class="text-primary-600">Do Not Beg for Items.</strong> While sharing
+          is encouraged, it is by no means mandatory. Receiving a slew of demands
+          or begs for linked items is no fun even if done in jest, so please refrain
+          from doing so.
+        </li>
+        <li>
+          <strong class="text-primary-600">Interact With The Community.</strong>
+          Our goal is to foster a feeling of community among all participants. Please
+          make an effort to participate in the global chat ingame and/or the Discord
+          server.
+        </li>
+        <li>
+          <strong class="text-primary-600">Stay Recognisable.</strong> Your Discord
+          name must be at least partially included in all of your character names
+          in the league. This way other players can recognize you as the same person
+          on different characters. Additionally, you must stay in the discord server
+          in order to take part in the private league.
+        </li>
+        <li>
+          <strong class="text-primary-600">Sign up for the SMOL APP.</strong> The
+          usage of our custom made website is mandatory for participation. If you
+          are concerned about the security of your personal data, you can inquire
+          with Ray, the creator of the app.
+        </li>
+      </ul>
+
+      <section class="mt-12">
+        <h2 class="text-primary-500">Links and further Information</h2>
+
+        <ul class="space-y-2">
+          <li>
+            PoE Global Channel: <span class="text-primary-500">9654</span>
+          </li>
+          <li>
+            <a
+              href="https://docs.google.com/document/d/125hahFCqCJGdwAtQ8Di7MXvOIP2gvbHh5SNZTDw4FVY/edit?usp=sharing"
+              target="_blank"
+            >
+              Extended Rules and FAQ</a
+            >
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</Layout>

@@ -31,7 +31,7 @@ func jsonMarshal(v interface{}) string {
 
 func saveCharacters(ctx context.Context, db *sql.DB, queries *smoldata.Queries, green, red *color.Color) {
 	tokenResponse := poe.GetToken()
-	leagueName := "Very Smol Sentinels Found (PL55054)"
+	leagueName := "Smol Mercs Found (PL70896)"
 	leagueResponse := poe.GetLeague(tokenResponse, leagueName)
 
 	leagueId, err := smoldata.InsertLeague(ctx, queries, leagueResponse.League)

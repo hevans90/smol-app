@@ -95,7 +95,7 @@ function Toggle({
           {label && (
             <Switch.Label
               className={twMerge(
-                'mr-2 text-md leading-4 text-grey-700 lg:block',
+                'text-grey-700 mr-2 text-sm leading-4 lg:block',
                 autoHide && 'hidden',
               )}
             >

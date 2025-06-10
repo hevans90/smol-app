@@ -21,13 +21,10 @@ export const OrderBookFilters = ({
   };
 
   return (
-    <div className="hidden grow gap-6 rounded border-[1px] border-primary-900 bg-gray-900 p-2 sm:flex">
+    <div className="hidden grow gap-6 rounded border-[1px] border-primary-900 bg-gray-900 p-1 sm:flex">
       {orderTypes.item_order_type.map(({ value }, i) => (
         <div key={i} className="flex gap-2">
-          <img
-            className="h-10 w-10 p-1 md:h-12 md:w-12"
-            src={`/order-types/${value}.webp`}
-          />
+          <img className="h-10 w-10 p-1" src={`/order-types/${value}.webp`} />
           <Toggle
             value={typeFilters?.[value as Item_Order_Type_Enum]}
             onChange={() =>

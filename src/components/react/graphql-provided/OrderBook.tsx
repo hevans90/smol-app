@@ -221,7 +221,7 @@ export const OrderBook = () => {
   return (
     <div
       id="order-book-container"
-      className="relative mt-32 flex h-[calc(100vh-10rem)] w-full flex-col gap-2 px-4"
+      className="relative mt-32 flex h-[calc(100vh-8rem)] w-full flex-col gap-2 px-4"
     >
       <div className="absolute -top-6 flex gap-2">
         <span className="text-primary-600">{filteredOrders?.length}</span>
@@ -276,7 +276,7 @@ export const OrderBook = () => {
         </Button>
         {orderTypes && <OrderBookFilters orderTypes={orderTypes} />}
       </div>
-      <div className="grow overflow-y-auto">
+      <div className="h-full overflow-y-auto">
         <table className="w-full table-auto border-separate border-spacing-0">
           <thead className="sticky top-0 z-10 bg-gray-950">
             <tr>

@@ -163,7 +163,7 @@ export const UserLeagueMechanics = () => {
                 >
                   <a
                     className="my-1 flex items-center"
-                    href={`https://www.pathofexile.com/account/view-profile/${user.poe_name}`}
+                    href={`https://www.pathofexile.com/account/view-profile/${user.poe_name?.replace('#', '-')}`}
                     target="_blank"
                   >
                     {user?.poe_name}

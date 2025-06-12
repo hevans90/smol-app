@@ -142,13 +142,13 @@ export const OrderForm = ({
 
       // create data object from selected quick order result
       const quickOrderData: OrderFormInputs = {
-        description: selectedQuickOrderResult.name,
+        description: formData.description,
         linkUrl: wikiResult?.wikiLink,
-        type: Item_Order_Type_Enum.Unique, // assuming quick order items are unique type
+        type: Item_Order_Type_Enum.Unique, // only unique for now
         priority: formData.priority ?? false,
         itemBaseType: wikiResult?.baseItem ?? '',
         iconUrl: selectedQuickOrderResult.icon,
-        itemCategory: '', // if you have category info, add it here
+        itemCategory: '',
       };
 
       onSubmit(quickOrderData);
@@ -172,6 +172,7 @@ export const OrderForm = ({
         <Toggle
           value={quickOrder}
           onChange={() => {
+            setValue('description', null);
             if (!quickOrder) {
               quickSearchInputRef?.current?.focus();
             }
@@ -211,6 +212,7 @@ export const OrderForm = ({
                     tabIndex={0}
                     onClick={() => {
                       setSelectedQuickOrderResult(result);
+                      setValue('description', result.name);
                       setquickSearchResults([]);
                     }}
                     key={result.id}
@@ -228,26 +230,41 @@ export const OrderForm = ({
           )}
 
           {selectedQuickOrderResult && (
-            <div className="flex items-center justify-between gap-2 rounded border-[1px] border-primary-800 py-2">
-              <div className="flex items-center gap-2">
-                <img
-                  className="mx-2 h-12 w-12 object-contain"
-                  src={selectedQuickOrderResult.icon}
-                />
-                <span className="text-xl text-primary-400">
-                  {selectedQuickOrderResult.name}
-                </span>
-              </div>
+            <>
+              <div className="flex items-center justify-between gap-2 rounded border-[1px] border-primary-800 py-2">
+                <div className="flex items-center gap-2">
+                  <img
+                    className="mx-2 h-12 w-12 object-contain"
+                    src={selectedQuickOrderResult.icon}
+                  />
+                  <span className="text-xl text-primary-400">
+                    {selectedQuickOrderResult.name}
+                  </span>
+                </div>
 
-              <button
-                className="mx-6 rounded-full bg-primary-900 p-1 text-primary-500 opacity-80 hover:text-primary-300 hover:opacity-75"
-                onClick={() => {
-                  setSelectedQuickOrderResult(null);
-                }}
-              >
-                <IconTrash size={30} />
-              </button>
-            </div>
+                <button
+                  className="mx-6 rounded-full bg-primary-900 p-1 text-primary-500 opacity-80 hover:text-primary-300 hover:opacity-75"
+                  onClick={() => {
+                    setSelectedQuickOrderResult(null);
+                  }}
+                >
+                  <IconTrash size={30} />
+                </button>
+              </div>
+              <div className="mb-2 flex flex-col">
+                <label className="mb-1">Description</label>
+                <input
+                  className="w-64 max-w-lg sm:w-[50vw]"
+                  defaultValue={data?.description ?? ''}
+                  {...register('description', { required: true })}
+                />
+                {errors.description && (
+                  <span className="mt-1 text-red-400">
+                    Your order requires a description
+                  </span>
+                )}
+              </div>
+            </>
           )}
         </>
       ) : (

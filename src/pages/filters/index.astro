@@ -1,33 +1,54 @@
 ---
-import { getSortedBaseItems } from '../../_utils/utils';
-import logoSrc from '../../assets/smol-logo.png';
-import { FilterLab } from '../../components/FilterLab';
 import Layout from '../../layouts/Layout.astro';
 
 import { Image } from 'astro:assets';
 
-const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
-
-const sortedBaseItems = getSortedBaseItems();
+import filterImage1Src from '../../assets/filter_1.png';
+import filterImage2Src from '../../assets/filter_2.png';
+import logoSrc from '../../assets/smol-logo.png';
 ---
 
 <Layout title="Filters" authPrompt={true}>
   <main
-    class="flex flex-col items-start text-md xl:text-lg 2xl:text-2xl h-full relative"
+    class="flex flex-col pt-8 text-md xl:text-lg 2xl:text-2xl gap-4 relative h-full"
   >
-    <a
-      class="absolute top-[8.5rem] left-4 md:top-14 md:left-32 text-lg"
-      href="/filters/old">Old Filterblade Filter</a
-    >
     <Image
       src={logoSrc}
       alt="logo"
       class="w-16 md:w-28 absolute top-6 md:top-12 left-20 md:left-0"
     />
-    <FilterLab
-      hasuraUri={hasuraUri}
-      sortedBaseTypes={sortedBaseItems}
-      client:only="react"
-    />
+    <div class="flex flex-col gap-4 mx-4 sm:mx-0 mt-32">
+      <span>
+        Daetherion has been kind enough to create a base filter for us all.
+      </span>
+
+      <a
+        href="https://www.pathofexile.com/account/view-profile/Maekker/item-filters"
+        target="_blank"
+        >You can find it here.
+      </a>
+
+      <p>This filter auto highlights unique base items from our order book!</p>
+
+      <p>
+        If you would like to run your own filter and still have the Smol App
+        Order highlighting, you can still do that through Filterblade, however
+        you will need to re-sync your filter whenever you want to be up to date
+        with orders. To do this, you can apply the Smol Requests Module to your
+        filter, which is publicly available on filterblade here:
+      </p>
+    </div>
+    <div class="flex gap-4 flex-wrap justify-between">
+      <Image
+        src={filterImage1Src}
+        alt="logo"
+        class="max-w-full sm:max-w-[45%]"
+      />
+      <Image
+        src={filterImage2Src}
+        alt="logo"
+        class="max-w-full sm:max-w-[45%]"
+      />
+    </div>
   </main>
 </Layout>

@@ -40,6 +40,7 @@ select_permissions:
         - poe_name
         - poe_user_id
       filter: {}
+      allow_aggregations: true
     comment: ""
 update_permissions:
   - role: dev

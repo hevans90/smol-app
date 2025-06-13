@@ -3248,6 +3248,11 @@ export type OrderTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type OrderTypesQuery = { __typename?: 'query_root', item_order_type: Array<{ __typename?: 'item_order_type', value: string }> };
 
+export type RegisteredUsersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RegisteredUsersSubscription = { __typename?: 'subscription_root', user_aggregate: { __typename?: 'user_aggregate', aggregate?: { __typename?: 'user_aggregate_fields', count: number } | null } };
+
 export type UserItemOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3403,6 +3408,16 @@ export const OrderTypesDocument = gql`
 }
     `;
 export type OrderTypesQueryResult = Apollo.QueryResult<OrderTypesQuery, OrderTypesQueryVariables>;
+export const RegisteredUsersDocument = gql`
+    subscription RegisteredUsers {
+  user_aggregate {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export type RegisteredUsersSubscriptionResult = Apollo.SubscriptionResult<RegisteredUsersSubscription>;
 export const UserItemOrdersDocument = gql`
     subscription UserItemOrders {
   user_item_order(order_by: {updated_at: desc}) {

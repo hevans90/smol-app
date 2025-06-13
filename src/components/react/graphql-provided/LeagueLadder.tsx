@@ -13,6 +13,7 @@ import {
 } from '../../../graphql-api';
 import useCharacterItems from '../../../hooks/useCharacterItems';
 import { CharacterSheet } from '../character-sheet/CharacterSheet';
+import { RegisteredUserCount } from '../RegisteredUserCount';
 import { ModalDrawer } from '../ui/ModalDrawer';
 import { Spinner } from '../ui/Spinner';
 
@@ -35,7 +36,8 @@ export const LeagueLadder = () => {
 
   return (
     <div className="mt-44 flex h-full w-full flex-col overflow-hidden md:mt-32 lg:mt-24">
-      <div className="my-3 flex items-center gap-6 md:my-6 md:mt-12 md:items-baseline">
+      <div className="relative my-3 flex items-center gap-6 md:my-6 md:mt-12 md:items-baseline">
+        <RegisteredUserCount className="absolute -top-6" />
         {league && league?.url ? (
           <>
             <h1 className="m-0 text-2xl xl:text-3xl 2xl:text-4xl">

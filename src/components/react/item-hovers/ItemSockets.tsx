@@ -1,10 +1,12 @@
 import type { CSSProperties } from 'react';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import {
   type GGGItemSocket,
   type GGGSocketedItem,
 } from '../../../models/ggg-responses';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
+import { ItemDetail } from './ItemDetail';
 
 // Images for each socket color
 const socketImages: Record<string, string> = {
@@ -56,13 +58,72 @@ const GemIcon = ({ socketedItem }: { socketedItem: GGGSocketedItem }) => {
   if (spriteStyle) {
     return (
       <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="h-full w-full"
         style={{ ...spriteStyle, zIndex: 2 }}
       />
     );
   }
 
   return null;
+};
+
+// Component to render gem icon with nested popover
+const SocketedGemPopover = ({
+  socketedItem,
+}: {
+  socketedItem: GGGSocketedItem;
+}) => {
+  const [placement, setPlacement] = useState<'left' | 'right'>('right');
+
+  // Detect parent popover position to place nested popover on opposite side
+  useEffect(() => {
+    // Try to find the parent popover content element (has z-index 100)
+    const checkParentPosition = () => {
+      const parentPopovers = Array.from(
+        document.querySelectorAll('div[style*="z-index: 100"]'),
+      ) as HTMLElement[];
+
+      if (parentPopovers.length > 0) {
+        // Get the most recently added parent popover (should be the one containing us)
+        // Filter to find popovers that actually contain item details (have ItemDetail content)
+        const itemPopovers = parentPopovers.filter((popover) => {
+          const hasItemDetail = popover.querySelector('[class*="font-fontin"]');
+          return hasItemDetail !== null;
+        });
+
+        if (itemPopovers.length > 0) {
+          const parentPopover = itemPopovers[itemPopovers.length - 1];
+          const parentRect = parentPopover.getBoundingClientRect();
+          const viewportWidth = window.innerWidth;
+
+          // If parent is on the left half of viewport, place nested on right, and vice versa
+          setPlacement(parentRect.left < viewportWidth / 2 ? 'right' : 'left');
+        }
+      }
+    };
+
+    // Check immediately and also on a small delay to ensure parent is rendered
+    checkParentPosition();
+    const timeoutId = setTimeout(checkParentPosition, 10);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return (
+    <Popover placement={placement}>
+      <PopoverTrigger asChild>
+        <div className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer">
+          <GemIcon socketedItem={socketedItem} />
+        </div>
+      </PopoverTrigger>
+      <PopoverContent
+        className="outline-none focus:ring-0"
+        style={{ zIndex: 200 }}
+      >
+        <ItemDetail item={socketedItem} />
+      </PopoverContent>
+    </Popover>
+  );
 };
 
 export const ItemSockets = ({
@@ -249,9 +310,9 @@ export const ItemSockets = ({
               alt={`${socket.sColour || 'default'} socket`}
               className="h-full"
             />
-            {/* Render gem icon if socketed item exists */}
+            {/* Render gem icon with popover if socketed item exists */}
             {socketToItemMap[socketIndex] && (
-              <GemIcon socketedItem={socketToItemMap[socketIndex]} />
+              <SocketedGemPopover socketedItem={socketToItemMap[socketIndex]} />
             )}
           </div>
         );

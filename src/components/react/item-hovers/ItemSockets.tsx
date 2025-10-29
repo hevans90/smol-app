@@ -23,20 +23,11 @@ const linkImages: Record<'horizontal' | 'vertical', string> = {
 };
 
 // Sprite coordinates for gem icons from socket-map.png
-// Format: { x: number, y: number } representing top-left corner of sprite
-// Sprite size is typically 48x48 pixels for gems
 const gemSpriteMap: Record<string, { x: number; y: number }> = {
-  // Strength (Red) gems - 'S' or 'R'
-  S: { x: 0, y: 0 }, // TODO: Update with actual sprite coordinates
-  R: { x: 0, y: 0 }, // Alias for Strength
-  // Dexterity (Green) gems - 'D' or 'G'
-  D: { x: 48, y: 0 }, // TODO: Update with actual sprite coordinates
-  G: { x: 48, y: 0 }, // Alias for Dexterity
-  // Intelligence (Blue) gems - 'I' or 'B'
-  I: { x: 96, y: 0 }, // TODO: Update with actual sprite coordinates
-  B: { x: 96, y: 0 }, // Alias for Intelligence
-  // White gems - 'W'
-  W: { x: 144, y: 0 }, // TODO: Update with actual sprite coordinates
+  S: { x: 72, y: 2 },
+  D: { x: 36, y: 36 },
+  I: { x: 2, y: 36 },
+  W: { x: 72, y: 36 },
 };
 
 // Helper to get sprite background style for gem
@@ -51,9 +42,9 @@ const getGemSpriteStyle = (
   return {
     backgroundImage: "url('/item-preview/sockets/socket-map.png')",
     backgroundPosition: `-${spritePos.x}px -${spritePos.y}px`,
-    backgroundSize: 'auto', // Adjust based on spritesheet total size
-    width: '48px',
-    height: '48px',
+    backgroundSize: 'auto',
+    width: '32px',
+    height: '32px',
   };
 };
 
@@ -81,8 +72,6 @@ export const ItemSockets = ({
   sockets: GGGItemSocket[];
   socketedItems: GGGSocketedItem[];
 }) => {
-  console.log({ sockets });
-
   const gridCellSize = 48;
   const imageLinkWidth = 20;
 

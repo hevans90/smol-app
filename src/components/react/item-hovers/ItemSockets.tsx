@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -19,6 +20,58 @@ const socketImages: Record<string, string> = {
 const linkImages: Record<'horizontal' | 'vertical', string> = {
   horizontal: '/item-preview/links/link-horizontal.png',
   vertical: '/item-preview/links/link-vertical.png',
+};
+
+// Sprite coordinates for gem icons from socket-map.png
+// Format: { x: number, y: number } representing top-left corner of sprite
+// Sprite size is typically 48x48 pixels for gems
+const gemSpriteMap: Record<string, { x: number; y: number }> = {
+  // Strength (Red) gems - 'S' or 'R'
+  S: { x: 0, y: 0 }, // TODO: Update with actual sprite coordinates
+  R: { x: 0, y: 0 }, // Alias for Strength
+  // Dexterity (Green) gems - 'D' or 'G'
+  D: { x: 48, y: 0 }, // TODO: Update with actual sprite coordinates
+  G: { x: 48, y: 0 }, // Alias for Dexterity
+  // Intelligence (Blue) gems - 'I' or 'B'
+  I: { x: 96, y: 0 }, // TODO: Update with actual sprite coordinates
+  B: { x: 96, y: 0 }, // Alias for Intelligence
+  // White gems - 'W'
+  W: { x: 144, y: 0 }, // TODO: Update with actual sprite coordinates
+};
+
+// Helper to get sprite background style for gem
+const getGemSpriteStyle = (
+  colour: string | undefined,
+): CSSProperties | undefined => {
+  if (!colour) return undefined;
+
+  const spritePos = gemSpriteMap[colour];
+  if (!spritePos) return undefined;
+
+  return {
+    backgroundImage: "url('/item-preview/sockets/socket-map.png')",
+    backgroundPosition: `-${spritePos.x}px -${spritePos.y}px`,
+    backgroundSize: 'auto', // Adjust based on spritesheet total size
+    width: '48px',
+    height: '48px',
+  };
+};
+
+// Component to render gem icon (sprite or API icon)
+const GemIcon = ({ socketedItem }: { socketedItem: GGGSocketedItem }) => {
+  const spriteStyle = getGemSpriteStyle(socketedItem.colour);
+
+  // Use sprite from socket-map.png if available
+  if (spriteStyle) {
+    return (
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{ ...spriteStyle, zIndex: 2 }}
+      />
+    );
+  }
+
+  return null;
 };
 
 export const ItemSockets = ({
@@ -61,6 +114,28 @@ export const ItemSockets = ({
 
   // Create an ordered list of socket indices, ensuring that we respect the desired order
   const orderedSockets = socketOrder.filter((index) => index < actualSockets);
+
+  // Create a mapping from socket index to socketed item
+  const socketToItemMap = useMemo(() => {
+    const map: Record<number, GGGSocketedItem> = {};
+
+    if (!socketedItems || socketedItems.length === 0) return map;
+
+    socketedItems.forEach((item, index) => {
+      // Primary method: Use socket property if available
+      if (item.socket !== undefined && item.socket !== null) {
+        map[item.socket] = item;
+      } else {
+        // Fallback: Assume array index matches socket index (common PoE API pattern)
+        // Only map if index is within valid socket range
+        if (index < sockets.length) {
+          map[index] = item;
+        }
+      }
+    });
+
+    return map;
+  }, [socketedItems, sockets]);
 
   // Pre-calculate the socket positions for links
   const socketPositions = useMemo(() => {
@@ -185,11 +260,9 @@ export const ItemSockets = ({
               alt={`${socket.sColour || 'default'} socket`}
               className="h-full"
             />
-            {/* Optional: Show socketed item index or other details */}
-            {socketedItems[socketIndex] && (
-              <div className="absolute flex items-center justify-center text-xs font-bold text-white">
-                {/* {socketIndex} */}
-              </div>
+            {/* Render gem icon if socketed item exists */}
+            {socketToItemMap[socketIndex] && (
+              <GemIcon socketedItem={socketToItemMap[socketIndex]} />
             )}
           </div>
         );

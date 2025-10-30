@@ -40,6 +40,11 @@ export const CharacterInventory = ({
         size: { width: 'w-24', height: 'h-[14.5rem]' },
       },
       {
+        id: 'trinket',
+        className: 'left-8 top-64',
+        size: { width: 'w-12', height: 'h-12' },
+      },
+      {
         id: 'offhand',
         className: 'right-8 top-0',
         size: { width: 'w-24', height: 'h-[14.5rem]' },

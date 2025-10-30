@@ -24,16 +24,35 @@ const handler: Handler = async (event) => {
         body: params.toString(),
       },
     );
+    const passiveTreeResponse = await fetch(
+      'https://www.pathofexile.com/character-window/get-passive-skills',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': 'SmolApp/1.0 (NetlifyFunction)', // Add a User-Agent header
+        },
+        body: params.toString(),
+      },
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+    if (!passiveTreeResponse.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
     const data = await response.json();
+    const passiveTreeData = await passiveTreeResponse.json();
 
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        items: data.items,
+        character: data.character,
+        passiveTree: passiveTreeData,
+      }),
     };
   } catch (error: any) {
     return {

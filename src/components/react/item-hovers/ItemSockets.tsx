@@ -26,6 +26,7 @@ const linkImages: Record<'horizontal' | 'vertical', string> = {
 
 // Sprite coordinates for gem icons from socket-map.png
 const gemSpriteMap: Record<string, { x: number; y: number }> = {
+  EYE: { x: 2, y: 2 },
   S: { x: 72, y: 2 },
   D: { x: 36, y: 36 },
   I: { x: 2, y: 36 },
@@ -52,9 +53,12 @@ const getGemSpriteStyle = (
 
 // Component to render gem icon (sprite or API icon)
 const GemIcon = ({ socketedItem }: { socketedItem: GGGSocketedItem }) => {
-  const spriteStyle = getGemSpriteStyle(socketedItem.colour);
+  const colour = socketedItem.baseType.toLowerCase().includes('eye jewel')
+    ? 'EYE'
+    : socketedItem.colour;
 
-  // Use sprite from socket-map.png if available
+  const spriteStyle = getGemSpriteStyle(colour);
+
   if (spriteStyle) {
     return (
       <div
@@ -82,7 +86,7 @@ const SocketedGemPopover = ({
         onMouseEnter={(e) => e.stopPropagation()}
         onMouseLeave={(e) => e.stopPropagation()}
       >
-        <div className="absolute left-1/2 top-1/2 z-10 h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer">
+        <div className="absolute left-1/2 top-1/2 z-10 h-10 w-10 -translate-x-1/2 -translate-y-1/2">
           <GemIcon socketedItem={socketedItem} />
         </div>
       </PopoverTrigger>
@@ -209,7 +213,11 @@ export const ItemSockets = ({
     const linkImage = horizontal ? linkImages.horizontal : linkImages.vertical;
 
     return (
-      <div style={linkStyle} className="flex items-center justify-center">
+      <div
+        key={`${from}_${to}`}
+        style={linkStyle}
+        className="flex items-center justify-center"
+      >
         <img src={linkImage} alt="link" />
       </div>
     );

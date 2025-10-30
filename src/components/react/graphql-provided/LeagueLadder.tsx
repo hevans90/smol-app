@@ -75,10 +75,13 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
   const {
     items,
     character,
+    passiveTree,
     loading: characterDetailsLoading,
     error,
     fetchItems,
   } = useCharacterItems();
+
+  console.log({ passiveTree, character });
 
   useEffect(() => {
     if (selectedCharacter) {
@@ -336,11 +339,13 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
         {!characterDetailsLoading &&
           selectedCharacter &&
           character &&
+          passiveTree &&
           items?.length && (
             <CharacterSheet
               accountName={selectedCharacter.poe_account_name}
               items={items}
               character={character}
+              passiveTreeItems={passiveTree?.items}
             />
           )}
       </ModalDrawer>

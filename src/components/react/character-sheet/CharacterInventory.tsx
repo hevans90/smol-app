@@ -12,10 +12,12 @@ export type InventorySlot = {
 
 export const CharacterInventory = ({
   items,
+  passiveTreeItems,
   className,
   onItemHovered,
 }: {
   items: GGGItem[];
+  passiveTreeItems: GGGItem[];
   className?: string;
   onItemHovered: (itemId: string) => void;
 }) => {
@@ -104,6 +106,7 @@ export const CharacterInventory = ({
         );
       })}
 
+      {/* potions */}
       <div className="absolute left-1/2 top-[25.5rem] flex -translate-x-1/2 -translate-y-1/2 transform items-center gap-2 ">
         {potions.map((potion, i) => (
           <Popover key={potion.id} openOnHover={true}>
@@ -125,7 +128,39 @@ export const CharacterInventory = ({
         ))}
       </div>
 
-      {/* potions */}
+      {/* jewels */}
+      <div className="absolute -bottom-2 -left-64 flex w-1/2 flex-wrap gap-2">
+        {passiveTreeItems
+          .sort((a, b) => {
+            if (a.baseType < b.baseType) return -1;
+            if (a.baseType > b.baseType) return 1;
+            return 0;
+          })
+          .map((passiveTreeItem, i) => (
+            <Popover
+              key={passiveTreeItem.id}
+              openOnHover={true}
+              placement="top"
+            >
+              <PopoverTrigger asChild>
+                <div
+                  onMouseEnter={() =>
+                    onItemHovered(passiveTreeItem?.id as string)
+                  }
+                  key={i}
+                  className="flex h-14 w-14 items-center justify-center rounded-md bg-gray-950"
+                >
+                  <img src={passiveTreeItem?.icon} />
+                </div>
+              </PopoverTrigger>
+              {passiveTreeItem && (
+                <PopoverContent className="outline-none focus:ring-0">
+                  <ItemDetail item={passiveTreeItem} />
+                </PopoverContent>
+              )}
+            </Popover>
+          ))}
+      </div>
     </div>
   );
 };

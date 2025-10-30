@@ -7,6 +7,25 @@ export type GGGCharacterResponse = {
     league: string;
     level: number;
   };
+  passiveTree: GGGPassiveTree;
+};
+
+export type GGGSkillOverrides = Record<string, GGGSkillOverride>;
+
+export interface GGGSkillOverride {
+  name: string;
+  icon: string;
+  activeEffectImage?: string;
+  inactiveIcon?: string;
+  activeIcon?: string;
+  isMastery?: boolean;
+  isTattoo?: boolean;
+  stats: string[];
+}
+
+export type GGGPassiveTree = {
+  items: GGGItem[];
+  skillOverrides: GGGSkillOverrides;
 };
 
 export interface GGGItem {

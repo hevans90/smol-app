@@ -10,10 +10,12 @@ import { CharacterSummary } from './CharacterSummary';
 export const CharacterSheet = ({
   accountName,
   character,
+  passiveTreeItems,
   items,
 }: {
   accountName: string;
   character: GGGCharacterResponse['character'];
+  passiveTreeItems: GGGItem[];
   items: GGGItem[];
 }) => {
   const [selectedItem, setSelectedItem] = useState<GGGItem | null>();
@@ -32,7 +34,11 @@ export const CharacterSheet = ({
   return (
     <div className="flex h-full grow gap-4">
       <CharacterSummary accountName={accountName} character={character} />
-      <CharacterInventory onItemHovered={onItemHovered} items={items} />
+      <CharacterInventory
+        onItemHovered={onItemHovered}
+        items={items}
+        passiveTreeItems={passiveTreeItems}
+      />
 
       {selectedItem && <SocketTreeVisualizer item={selectedItem} />}
     </div>

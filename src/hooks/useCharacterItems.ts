@@ -1,5 +1,9 @@
 import { useCallback, useState } from 'react';
-import type { GGGCharacterResponse, GGGItem } from '../models/ggg-responses';
+import type {
+  GGGCharacterResponse,
+  GGGItem,
+  GGGPassiveTree,
+} from '../models/ggg-responses';
 
 const cache: {
   [key: string]: { data: GGGCharacterResponse; timestamp: number };
@@ -8,6 +12,7 @@ const cache: {
 const useCharacterItems = (): {
   character: GGGCharacterResponse['character'] | null;
   items: GGGItem[] | null;
+  passiveTree: GGGPassiveTree | null;
   loading: boolean;
   error: string | null;
   fetchItems: (
@@ -20,6 +25,7 @@ const useCharacterItems = (): {
     GGGCharacterResponse['character'] | null
   >(null);
   const [items, setItems] = useState<GGGItem[] | null>(null);
+  const [passiveTree, setPassiveTree] = useState<GGGPassiveTree | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,8 +45,10 @@ const useCharacterItems = (): {
       ) {
         // Data is in cache and still valid, use it
         const cachedData = cache[cacheKey].data;
+
         setItems(cachedData.items);
         setCharacter(cachedData.character);
+        setPassiveTree(cachedData.passiveTree);
         return;
       }
 
@@ -75,8 +83,11 @@ const useCharacterItems = (): {
           timestamp: currentTime,
         };
 
+        console.log('response', url, data);
+
         setItems(data?.items);
         setCharacter(data?.character);
+        setPassiveTree(data?.passiveTree);
       } catch (err: any) {
         setError(err.message || 'Failed to fetch character items.');
       } finally {
@@ -86,7 +97,7 @@ const useCharacterItems = (): {
     [],
   );
 
-  return { character, items, loading, error, fetchItems };
+  return { character, items, passiveTree, loading, error, fetchItems };
 };
 
 export default useCharacterItems;

@@ -28,18 +28,25 @@ const linkImages: Record<'horizontal' | 'vertical', string> = {
 const gemSpriteMap: Record<string, { x: number; y: number }> = {
   EYE: { x: 2, y: 2 },
   S: { x: 72, y: 2 },
+  SS: { x: 2, y: 142 },
   D: { x: 36, y: 36 },
+  DS: { x: 142, y: 106 },
   I: { x: 2, y: 36 },
+  IS: { x: 142, y: 72 },
   W: { x: 72, y: 36 },
+  WS: { x: 36, y: 142 },
 };
 
 // Helper to get sprite background style for gem
 const getGemSpriteStyle = (
   colour: string | undefined,
+  support: boolean,
 ): CSSProperties | undefined => {
   if (!colour) return undefined;
 
-  const spritePos = gemSpriteMap[colour];
+  let actualColour = support ? `${colour}S` : colour;
+
+  const spritePos = gemSpriteMap[actualColour];
   if (!spritePos) return undefined;
 
   return {
@@ -57,7 +64,7 @@ const GemIcon = ({ socketedItem }: { socketedItem: GGGSocketedItem }) => {
     ? 'EYE'
     : socketedItem.colour;
 
-  const spriteStyle = getGemSpriteStyle(colour);
+  const spriteStyle = getGemSpriteStyle(colour, !!socketedItem.support);
 
   if (spriteStyle) {
     return (

@@ -29,7 +29,7 @@ export const ItemPopover: React.FC<PopoverItemProps> = React.memo(
             onMouseEnter={(e) => {
               onItemHovered(item?.id || '');
             }}
-            className={`${className} group absolute flex items-center justify-center rounded-md bg-gray-950 outline-primary-600 hover:outline hover:outline-1 ${width} ${height}`}
+            className={`${className} group absolute flex items-center justify-center rounded-md bg-gray-950 ${width} ${height}`}
           >
             {item && <img src={item.icon} alt={id} />}
 

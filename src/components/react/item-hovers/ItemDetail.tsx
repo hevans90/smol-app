@@ -6,10 +6,14 @@ import {
   ItemSeparator,
   StyledDefaultItemProperty,
 } from '../../../_utils/item-preview-utils';
-import type { GGGItem } from '../../../models/ggg-responses';
+import type {
+  GGGItem,
+  GGGItemRarity,
+  GGGSocketedItem,
+} from '../../../models/ggg-responses';
 
-export const ItemDetail = ({ item }: { item: GGGItem }) => {
-  const rarity = item.rarity.toLowerCase() as any;
+export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
+  const rarity = (item?.rarity?.toLowerCase() as GGGItemRarity) ?? 'gem';
 
   const doubleHeader = rarity === 'unique' || rarity === 'rare';
 
@@ -20,7 +24,7 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
   const headerFontColor = itemHeaderFontColor(rarity);
 
   return (
-    <div className="font-fontinSmallcaps flex flex-col items-center bg-black pb-2 text-center">
+    <div className="flex flex-col items-center bg-black pb-2 text-center font-fontinSmallcaps">
       <div
         className={twMerge(
           'flex w-full flex-col items-center px-[1.875rem] text-[19px] text-primary-500 md:text-xl',
@@ -47,7 +51,7 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
       )}
 
       {item.enchantMods?.length && (
-        <div className="text-poeItem-enchant flex flex-col items-center text-[15px] leading-[18px]">
+        <div className="flex flex-col items-center text-[15px] leading-[18px] text-poeItem-enchant">
           {item.enchantMods.map((enchant) => (
             <span key={enchant} className="mx-2">
               {enchant}
@@ -57,7 +61,7 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
         </div>
       )}
       {item.implicitMods?.length && (
-        <div className="text-poeItem-magic flex flex-col items-center text-[15px] leading-[18px]">
+        <div className="flex flex-col items-center text-[15px] leading-[18px] text-poeItem-magic">
           {item.implicitMods.map((implicit, i) => (
             <span key={i} className="mx-2">
               {implicit}
@@ -76,7 +80,7 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
         </div>
       )}
       {item.explicitMods?.length && (
-        <div className="text-poeItem-magic flex flex-col text-[15px] leading-[18px]">
+        <div className="flex flex-col text-[15px] leading-[18px] text-poeItem-magic">
           {item.explicitMods.map((mod) => (
             <span key={mod} className="mx-2">
               {' '}
@@ -91,7 +95,7 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
         </div>
       )}
       {item.craftedMods?.length && (
-        <div className="text-poeItem-enchant flex flex-col text-[15px] leading-[18px]">
+        <div className="flex flex-col text-[15px] leading-[18px] text-poeItem-enchant">
           {item.craftedMods.map((mod) => (
             <span key={mod} className="mx-2">
               {mod}
@@ -100,7 +104,7 @@ export const ItemDetail = ({ item }: { item: GGGItem }) => {
         </div>
       )}
       {item.corrupted && (
-        <div className="text-poeItem-corrupted flex flex-col text-[15px] leading-[18px]">
+        <div className="flex flex-col text-[15px] leading-[18px] text-poeItem-corrupted">
           <ItemSeparator rarity={rarity} className="my-0.5" />
           <span className="mx-2">Corrupted</span>
           <ItemSeparator rarity={rarity} className="my-0.5" />

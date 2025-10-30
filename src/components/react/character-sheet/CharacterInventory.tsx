@@ -106,7 +106,7 @@ export const CharacterInventory = ({
 
       <div className="absolute left-1/2 top-[25.5rem] flex -translate-x-1/2 -translate-y-1/2 transform items-center gap-2 ">
         {potions.map((potion, i) => (
-          <Popover key={potion.id}>
+          <Popover key={potion.id} openOnHover={true}>
             <PopoverTrigger asChild>
               <div
                 onMouseEnter={() => onItemHovered(potion?.id as string)}

@@ -20,7 +20,7 @@ export interface GGGItem {
   name: string;
   typeLine: string;
   baseType: string;
-  rarity: string;
+  rarity?: GGGItemRarity;
   ilvl: number;
   identified: boolean;
   corrupted?: boolean;

@@ -4,10 +4,14 @@ import {
   FloatingFocusManager,
   FloatingPortal,
   offset,
+  safePolygon,
   shift,
   useClick,
   useDismiss,
   useFloating,
+  useFloatingNodeId,
+  useFloatingParentNodeId,
+  useFloatingTree,
   useHover,
   useId,
   useInteractions,
@@ -16,21 +20,28 @@ import {
   type Placement,
 } from '@floating-ui/react';
 import * as React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface PopoverOptions {
   initialOpen?: boolean;
   placement?: Placement;
-  modal?: boolean;
+  floatOffset?: number;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  openOnHover?: boolean;
+  persistOnHoverContent?: boolean;
 }
 
-export function usePopover({
+const FloatingNodeContext = React.createContext<string | null>(null);
+
+function usePopover({
   initialOpen = false,
   placement = 'left',
-  modal,
+  floatOffset = 5,
   open: controlledOpen,
   onOpenChange: setControlledOpen,
+  openOnHover = false,
+  persistOnHoverContent = false,
 }: PopoverOptions = {}) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(initialOpen);
   const [labelId, setLabelId] = React.useState<string | undefined>();
@@ -41,13 +52,20 @@ export function usePopover({
   const open = controlledOpen ?? uncontrolledOpen;
   const setOpen = setControlledOpen ?? setUncontrolledOpen;
 
+  const tree = useFloatingTree();
+  const floatingParentIdFromTree = useFloatingParentNodeId();
+  const inheritedParentId = React.useContext(FloatingNodeContext);
+  const parentId = inheritedParentId ?? floatingParentIdFromTree;
+  const nodeId = useFloatingNodeId(parentId ?? undefined);
+
   const data = useFloating({
+    nodeId,
     placement,
     open,
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(5),
+      offset(floatOffset),
       flip({
         crossAxis: placement.includes('-'),
         fallbackAxisSideDirection: 'end',
@@ -59,26 +77,74 @@ export function usePopover({
 
   const context = data.context;
 
-  const click = useClick(context);
-  const hover = useHover(context);
-  const dismiss = useDismiss(context);
-  const role = useRole(context);
+  // 🔥 Hover logic aware of nested popovers
+  const hover = useHover(context, {
+    enabled: openOnHover,
+    // @ts-expect-error
+    handleClose: persistOnHoverContent
+      ? (ctx) => {
+          const event = (ctx as { event?: MouseEvent }).event;
+          if (!tree || !nodeId)
+            // @ts-expect-error
+            return safePolygon({ blockPointerEvents: true })(event);
 
+          const nodes = tree.nodesRef.current;
+          const isChildOpen = nodes.some((n) => {
+            if (!n || !n.id) return false;
+            if (n.id === nodeId) return false;
+
+            let currentParent = n.parentId;
+            while (currentParent) {
+              if (currentParent === nodeId && n.context?.open) {
+                return true;
+              }
+              const parentNode = nodes.find((x) => x.id === currentParent);
+              currentParent = parentNode?.parentId ?? null;
+            }
+            return false;
+          });
+
+          if (isChildOpen) {
+            // Don’t close if a nested popover is open
+            return false;
+          }
+
+          // @ts-expect-error
+          return safePolygon({ blockPointerEvents: true })(event);
+        }
+      : null,
+  });
+
+  const click = useClick(context, { enabled: !openOnHover });
+  const dismiss = useDismiss(context, { bubbles: true });
+  const role = useRole(context);
   const interactions = useInteractions([click, hover, dismiss, role]);
 
   return React.useMemo(
     () => ({
+      nodeId,
+      parentId,
       open,
       setOpen,
+      tree,
       ...interactions,
       ...data,
-      modal,
       labelId,
       descriptionId,
       setLabelId,
       setDescriptionId,
     }),
-    [open, setOpen, interactions, data, modal, labelId, descriptionId],
+    [
+      nodeId,
+      parentId,
+      open,
+      setOpen,
+      tree,
+      interactions,
+      data,
+      labelId,
+      descriptionId,
+    ],
   );
 }
 
@@ -93,26 +159,18 @@ type ContextType =
 
 const PopoverContext = React.createContext<ContextType>(null);
 
-export const usePopoverContext = () => {
+const usePopoverContext = () => {
   const context = React.useContext(PopoverContext);
-
-  if (context == null) {
+  if (context == null)
     throw new Error('Popover components must be wrapped in <Popover />');
-  }
-
   return context;
 };
 
 export function Popover({
   children,
-  modal = false,
   ...restOptions
-}: {
-  children: React.ReactNode;
-} & PopoverOptions) {
-  // This can accept any props as options, e.g. `placement`,
-  // or other positioning options.
-  const popover = usePopover({ modal, ...restOptions });
+}: { children: React.ReactNode } & PopoverOptions) {
+  const popover = usePopover({ ...restOptions });
   return (
     <PopoverContext.Provider value={popover}>
       {children}
@@ -130,32 +188,30 @@ export const PopoverTrigger = React.forwardRef<
   React.HTMLProps<HTMLElement> & PopoverTriggerProps
 >(function PopoverTrigger({ children, asChild = false, ...props }, propRef) {
   const context = usePopoverContext();
+
   const childrenRef = (children as any).ref;
   const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
 
-  // `asChild` allows the user to pass any element as the anchor
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(
-      children,
-      context.getReferenceProps({
-        ref,
-        ...props,
-        ...children.props,
-        'data-state': context.open ? 'open' : 'closed',
-      }),
+  const triggerProps = context.getReferenceProps({
+    ref,
+    ...props,
+    ...(children as any)?.props,
+    'data-state': context.open ? 'open' : 'closed',
+  });
+
+  const trigger =
+    asChild && React.isValidElement(children) ? (
+      React.cloneElement(children, triggerProps)
+    ) : (
+      <button type="button" {...triggerProps}>
+        {children}
+      </button>
     );
-  }
 
   return (
-    <button
-      ref={ref}
-      type="button"
-      // The user can style the trigger based on the state
-      data-state={context.open ? 'open' : 'closed'}
-      {...context.getReferenceProps(props)}
-    >
-      {children}
-    </button>
+    <FloatingNodeContext.Provider value={context.nodeId}>
+      {trigger}
+    </FloatingNodeContext.Provider>
   );
 });
 
@@ -174,16 +230,22 @@ export const PopoverContent = React.forwardRef<
     <FloatingPortal>
       <FloatingFocusManager
         context={floatingContext}
-        modal={context.modal}
+        modal={false}
         initialFocus={initialFocusRef}
         returnFocus={true}
       >
         <div
           ref={ref}
-          style={{ ...context.floatingStyles, ...style, zIndex: 100 }}
+          style={{
+            ...context.floatingStyles,
+            ...style,
+            zIndex: 100,
+            pointerEvents: 'auto',
+          }}
           aria-labelledby={context.labelId}
           aria-describedby={context.descriptionId}
           {...context.getFloatingProps(props)}
+          className={twMerge(props.className)}
         >
           {props.children}
         </div>
@@ -199,8 +261,6 @@ export const PopoverHeading = React.forwardRef<
   const { setLabelId } = usePopoverContext();
   const id = useId();
 
-  // Only sets `aria-labelledby` on the Popover root element
-  // if this component is mounted inside it.
   React.useLayoutEffect(() => {
     setLabelId(id);
     return () => setLabelId(undefined);
@@ -220,8 +280,6 @@ export const PopoverDescription = React.forwardRef<
   const { setDescriptionId } = usePopoverContext();
   const id = useId();
 
-  // Only sets `aria-describedby` on the Popover root element
-  // if this component is mounted inside it.
   React.useLayoutEffect(() => {
     setDescriptionId(id);
     return () => setDescriptionId(undefined);

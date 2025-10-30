@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import {
   type GGGItemSocket,
@@ -58,7 +58,7 @@ const GemIcon = ({ socketedItem }: { socketedItem: GGGSocketedItem }) => {
   if (spriteStyle) {
     return (
       <div
-        className="h-full w-full"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{ ...spriteStyle, zIndex: 2 }}
       />
     );
@@ -75,44 +75,14 @@ const SocketedGemPopover = ({
 }) => {
   const [placement, setPlacement] = useState<'left' | 'right'>('right');
 
-  // Detect parent popover position to place nested popover on opposite side
-  useEffect(() => {
-    // Try to find the parent popover content element (has z-index 100)
-    const checkParentPosition = () => {
-      const parentPopovers = Array.from(
-        document.querySelectorAll('div[style*="z-index: 100"]'),
-      ) as HTMLElement[];
-
-      if (parentPopovers.length > 0) {
-        // Get the most recently added parent popover (should be the one containing us)
-        // Filter to find popovers that actually contain item details (have ItemDetail content)
-        const itemPopovers = parentPopovers.filter((popover) => {
-          const hasItemDetail = popover.querySelector('[class*="font-fontin"]');
-          return hasItemDetail !== null;
-        });
-
-        if (itemPopovers.length > 0) {
-          const parentPopover = itemPopovers[itemPopovers.length - 1];
-          const parentRect = parentPopover.getBoundingClientRect();
-          const viewportWidth = window.innerWidth;
-
-          // If parent is on the left half of viewport, place nested on right, and vice versa
-          setPlacement(parentRect.left < viewportWidth / 2 ? 'right' : 'left');
-        }
-      }
-    };
-
-    // Check immediately and also on a small delay to ensure parent is rendered
-    checkParentPosition();
-    const timeoutId = setTimeout(checkParentPosition, 10);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
   return (
-    <Popover placement={placement}>
-      <PopoverTrigger asChild>
-        <div className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer">
+    <Popover placement={placement} openOnHover={true}>
+      <PopoverTrigger
+        asChild
+        onMouseEnter={(e) => e.stopPropagation()}
+        onMouseLeave={(e) => e.stopPropagation()}
+      >
+        <div className="absolute left-1/2 top-1/2 z-10 h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer">
           <GemIcon socketedItem={socketedItem} />
         </div>
       </PopoverTrigger>

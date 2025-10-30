@@ -1,3 +1,4 @@
+import { FloatingTree } from '@floating-ui/react';
 import React from 'react';
 import type { GGGItem, GGGSocketedItem } from '../../../models/ggg-responses';
 import type { InventorySlot } from '../character-sheet/CharacterInventory';
@@ -21,30 +22,34 @@ export const ItemPopover: React.FC<PopoverItemProps> = React.memo(
     item,
     onItemHovered,
   }) => (
-    <Popover>
-      <PopoverTrigger asChild>
-        <div
-          onMouseEnter={() => onItemHovered(item?.id || '')}
-          className={`${className} group absolute flex items-center justify-center rounded-md bg-gray-950 outline-primary-600 hover:outline hover:outline-1 ${width} ${height}`}
-        >
-          {item && <img src={item.icon} alt={id} />}
+    <FloatingTree>
+      <Popover openOnHover={true}>
+        <PopoverTrigger asChild>
+          <div
+            onMouseEnter={(e) => {
+              onItemHovered(item?.id || '');
+            }}
+            className={`${className} group absolute flex items-center justify-center rounded-md bg-gray-950 outline-primary-600 hover:outline hover:outline-1 ${width} ${height}`}
+          >
+            {item && <img src={item.icon} alt={id} />}
 
-          {item?.sockets?.length && (
-            <div className="invisible absolute w-full group-hover:visible">
-              <ItemSockets
-                key={item.id}
-                sockets={item.sockets}
-                socketedItems={item.socketedItems as GGGSocketedItem[]}
-              />
-            </div>
-          )}
-        </div>
-      </PopoverTrigger>
-      {item && (
-        <PopoverContent className="outline-none focus:ring-0">
-          <ItemDetail item={item} />
-        </PopoverContent>
-      )}
-    </Popover>
+            {item?.sockets?.length && (
+              <div className="invisible absolute w-full group-hover:visible">
+                <ItemSockets
+                  key={item.id}
+                  sockets={item.sockets}
+                  socketedItems={item.socketedItems as GGGSocketedItem[]}
+                />
+              </div>
+            )}
+          </div>
+        </PopoverTrigger>
+        {item && (
+          <PopoverContent className="outline-none focus:ring-0">
+            <ItemDetail item={item} />
+          </PopoverContent>
+        )}
+      </Popover>
+    </FloatingTree>
   ),
 );

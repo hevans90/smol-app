@@ -5,9 +5,11 @@ import {
   type ArmorDefenceType,
   type BaseItemResponse,
   type BaseType,
+  type RawBaseItemResponse,
   type SortedBaseTypes,
   ARMOR_DEFENCE_TYPES,
   BASE_TYPE_CATEGORIES,
+  FLASK_CLASS_NAMES,
   exclusions,
 } from '../models/base-types';
 import type { DDSItem } from '../models/dds-items';
@@ -25,8 +27,21 @@ const uniqueItems: DDSItem[] = Object.entries(uniquesResponse)
   }, []);
 
 export const getSortedBaseItems = () => {
-  const basesData = (basesResponse as { data: BaseItemResponse[] }).data.filter(
-    (item) => BASE_TYPE_CATEGORIES.includes(item.ItemClassesName),
+  const rawBases = (basesResponse as { data: RawBaseItemResponse[] }).data;
+
+  const normalizedBases = rawBases.map((item) => ({
+    ...item,
+    ItemClassesName: (FLASK_CLASS_NAMES as readonly string[]).includes(
+      item.ItemClassesName,
+    )
+      ? 'Flasks'
+      : item.ItemClassesName,
+  }));
+
+  const basesData = (
+    normalizedBases.filter((item) =>
+      BASE_TYPE_CATEGORIES.includes(item.ItemClassesName as any),
+    ) as unknown as BaseItemResponse[]
   );
 
   const baseItemsWithoutExclusions = filterExclusions(basesData, exclusions);

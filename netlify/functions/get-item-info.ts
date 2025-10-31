@@ -1,17 +1,26 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import invariant from 'tiny-invariant';
 import {
-  BASE_TYPE_CATEGORIES,
-  type BaseTypeCategory,
+    BASE_TYPE_CATEGORIES,
+    type BaseTypeCategory,
 } from '../../src/models/base-types';
 
 const findCategoryContaining = (
   baseType: string,
 ): BaseTypeCategory | undefined => {
   const lowerBaseType = baseType.toLowerCase();
-  const category = BASE_TYPE_CATEGORIES.find((category) =>
-    category.toLowerCase().includes(lowerBaseType),
-  );
+  // Normalize flask classes to unified 'Flasks' category
+  if (lowerBaseType.includes('flask')) {
+    return 'Flasks' as BaseTypeCategory;
+  }
+
+  const category = BASE_TYPE_CATEGORIES.find((category) => {
+    const lowerCategory = category.toLowerCase();
+    return (
+      lowerCategory.includes(lowerBaseType) ||
+      lowerBaseType.includes(lowerCategory)
+    );
+  });
 
   return category;
 };

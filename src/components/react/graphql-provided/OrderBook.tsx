@@ -178,6 +178,28 @@ export const OrderBook = () => {
     OrderFormInputs & { orderId: string }
   >();
 
+  // Global hotkey: Cmd+O / Ctrl+O to open Create Order
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const comboPressed = (e.metaKey || e.ctrlKey) && (e.key === 'o' || e.key === 'O');
+
+      // Avoid triggering while typing in inputs/textareas/contenteditable
+      const target = e.target as HTMLElement | null;
+      const isTypingTarget = !!target && (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        (target as HTMLElement).isContentEditable
+      );
+
+      if (comboPressed && !isTypingTarget) {
+        e.preventDefault();
+        setCreateModalOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
   const handleOrderFulfillment = async () => {
     invariant(fulfillModalState);
     setFulfillmentInProgress(true);

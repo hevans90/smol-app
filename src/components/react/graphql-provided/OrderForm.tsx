@@ -3,14 +3,14 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 
 import { IconTrash } from '@tabler/icons-react';
 import {
-  getUniqueItemWikiInfo,
-  searchUniquesByNameOrBase,
-  type UniqueSearchResult,
+    getUniqueItemWikiInfo,
+    searchUniquesByNameOrBase,
+    type UniqueSearchResult,
 } from '../../../_utils/utils';
 import {
-  Item_Order_Type_Enum,
-  type OrderTypesQuery,
-  type UpdateUserItemOrderMutationVariables,
+    Item_Order_Type_Enum,
+    type OrderTypesQuery,
+    type UpdateUserItemOrderMutationVariables,
 } from '../../../graphql-api';
 import type { BaseTypeCategory } from '../../../models/base-types';
 import { Button } from '../ui/Button';
@@ -72,6 +72,26 @@ export const OrderForm = ({
     () => watch('linkUrl') ?? data?.linkUrl,
     [watch('linkUrl')],
   );
+
+  // Persist quick/non-quick selection in localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('smol.quickOrder');
+      if (saved !== null) {
+        const savedValue = saved === 'true';
+        setQuickOrder(quickOrdersAvailable ? savedValue : false);
+      } else {
+        setQuickOrder(!!quickOrdersAvailable);
+      }
+    } catch {}
+    // re-evaluate when availability changes (e.g., different modal types)
+  }, [quickOrdersAvailable]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('smol.quickOrder', String(quickOrder));
+    } catch {}
+  }, [quickOrder]);
 
   const validateWikiLink = (linkUrl?: string | null) =>
     !linkUrl || linkUrl?.startsWith('https://www.poewiki.net/');

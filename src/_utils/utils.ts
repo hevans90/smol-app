@@ -5,9 +5,11 @@ import {
   type ArmorDefenceType,
   type BaseItemResponse,
   type BaseType,
+  type RawBaseItemResponse,
   type SortedBaseTypes,
   ARMOR_DEFENCE_TYPES,
   BASE_TYPE_CATEGORIES,
+  FLASK_CLASS_NAMES,
   exclusions,
 } from '../models/base-types';
 import type { DDSItem } from '../models/dds-items';
@@ -25,8 +27,42 @@ const uniqueItems: DDSItem[] = Object.entries(uniquesResponse)
   }, []);
 
 export const getSortedBaseItems = () => {
-  const basesData = (basesResponse as { data: BaseItemResponse[] }).data.filter(
-    (item) => BASE_TYPE_CATEGORIES.includes(item.ItemClassesName),
+  const rawBases = (basesResponse as { data: RawBaseItemResponse[] }).data;
+
+  // Select only the top 2 Life and top 2 Mana flasks by ItemLevel.
+  const lifeFlasks = rawBases
+    .filter((i) => i.ItemClassesName === 'Life Flasks')
+    .sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel))
+    .slice(0, 2)
+    .map((i) => ({ ...i, ItemClassesName: 'Flasks' as const }));
+
+  const manaFlasks = rawBases
+    .filter((i) => i.ItemClassesName === 'Mana Flasks')
+    .sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel))
+    .slice(0, 2)
+    .map((i) => ({ ...i, ItemClassesName: 'Flasks' as const }));
+
+  // Include ALL Utility flasks
+  const utilityFlasks = rawBases
+    .filter((i) => i.ItemClassesName === 'Utility Flasks')
+    .map((i) => ({ ...i, ItemClassesName: 'Flasks' as const }));
+
+  const selectedFlasks = [...lifeFlasks, ...manaFlasks, ...utilityFlasks];
+
+  // Exclude all other flask classes (Hybrid/Utility and the rest of Life/Mana beyond top 2)
+  const nonFlaskItems = rawBases.filter(
+    (i) => !(FLASK_CLASS_NAMES as readonly string[]).includes(i.ItemClassesName),
+  );
+
+  const normalizedBases: Array<RawBaseItemResponse & { ItemClassesName: string }> = [
+    ...nonFlaskItems,
+    ...selectedFlasks,
+  ];
+
+  const basesData = (
+    normalizedBases.filter((item) =>
+      BASE_TYPE_CATEGORIES.includes(item.ItemClassesName as any),
+    ) as unknown as BaseItemResponse[]
   );
 
   const baseItemsWithoutExclusions = filterExclusions(basesData, exclusions);

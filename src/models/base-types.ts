@@ -23,6 +23,7 @@ export const BASE_TYPE_CATEGORIES = [
   'Two Hand Maces',
   'Two Hand Swords',
   'Wands',
+  'Flasks',
 ] as const;
 
 export const ARMOR_DEFENCE_TYPES = [
@@ -37,6 +38,21 @@ export const ARMOR_DEFENCE_TYPES = [
 
 export type BaseTypeCategory = (typeof BASE_TYPE_CATEGORIES)[number];
 export type ArmorDefenceType = (typeof ARMOR_DEFENCE_TYPES)[number];
+
+export const FLASK_CLASS_NAMES = [
+  'Life Flasks',
+  'Mana Flasks',
+  'Hybrid Flasks',
+  'Utility Flasks',
+] as const;
+
+export type RawBaseItemResponse = {
+  Name: string;
+  IconPath: string;
+  ItemClassesID: string;
+  ItemClassesName: string; // raw class names from DDS, e.g. "Life Flasks"
+  ItemLevel: string;
+};
 
 export type BaseItemResponse = {
   Name: string;

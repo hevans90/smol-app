@@ -178,6 +178,51 @@ export const OrderBook = () => {
     OrderFormInputs & { orderId: string }
   >();
 
+  // Global hotkey: Cmd+O / Ctrl+O to open Create Order
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const comboPressed = (e.metaKey || e.ctrlKey) && (e.key === 'o' || e.key === 'O');
+
+      // Avoid triggering while typing in inputs/textareas/contenteditable
+      const target = e.target as HTMLElement | null;
+      const isTypingTarget = !!target && (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        (target as HTMLElement).isContentEditable
+      );
+
+      if (comboPressed && !isTypingTarget) {
+        e.preventDefault();
+        setCreateModalOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
+
+  // Open Create Order modal if URL contains createOrder=true
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('createOrder') === 'true') {
+        setCreateModalOpen(true);
+      }
+    } catch {}
+  }, []);
+
+  // Keep URL in sync with modal state so refresh preserves it
+  useEffect(() => {
+    try {
+      const url = new URL(window.location.href);
+      if (createModalOpen) {
+        url.searchParams.set('createOrder', 'true');
+      } else {
+        url.searchParams.delete('createOrder');
+      }
+      window.history.replaceState({}, '', url.toString());
+    } catch {}
+  }, [createModalOpen]);
+
   const handleOrderFulfillment = async () => {
     invariant(fulfillModalState);
     setFulfillmentInProgress(true);

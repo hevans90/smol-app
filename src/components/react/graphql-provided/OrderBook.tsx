@@ -168,8 +168,8 @@ export const OrderBook = () => {
     fulfillment: 'gstash',
     message: '',
     orderId: '',
-    fulfillerInSmolGuild: false,
-    recipientInSmolGuild: false,
+    fulfillerInSmolGuild: true,
+    recipientInSmolGuild: true,
   });
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -181,15 +181,16 @@ export const OrderBook = () => {
   // Global hotkey: Cmd+O / Ctrl+O to open Create Order
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      const comboPressed = (e.metaKey || e.ctrlKey) && (e.key === 'o' || e.key === 'O');
+      const comboPressed =
+        (e.metaKey || e.ctrlKey) && (e.key === 'o' || e.key === 'O');
 
       // Avoid triggering while typing in inputs/textareas/contenteditable
       const target = e.target as HTMLElement | null;
-      const isTypingTarget = !!target && (
-        target.tagName === 'INPUT' ||
-        target.tagName === 'TEXTAREA' ||
-        (target as HTMLElement).isContentEditable
-      );
+      const isTypingTarget =
+        !!target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          (target as HTMLElement).isContentEditable);
 
       if (comboPressed && !isTypingTarget) {
         e.preventDefault();
@@ -381,8 +382,8 @@ export const OrderBook = () => {
                 i,
               ) => {
                 const guild = 'Smol Groop Found';
-                const inSmolGuild = user.guild === guild;
-                const myUserIsInSmolGuild = userProfile?.guild === guild;
+                const inSmolGuild = true; // hardcode for now because guilds bugged from poe api
+                const myUserIsInSmolGuild = true; // hardcode for now because guilds bugged from poe api
                 const isMe = user.discord_user_id === myDiscordId;
                 const orderFulfilled = !!fulfilled_by_user;
 
@@ -667,10 +668,6 @@ export const OrderBook = () => {
           <label className="mb-4 cursor-pointer hover:text-primary-500">
             <input
               type="radio"
-              disabled={
-                !fulfillModalState.recipientInSmolGuild ||
-                !fulfillModalState.fulfillerInSmolGuild
-              }
               checked={fulfillModalState?.fulfillment === 'gstash'}
               onChange={() =>
                 setFulfillModalState({
@@ -679,35 +676,8 @@ export const OrderBook = () => {
                 })
               }
             />
-            <span
-              className={`ml-2 ${
-                (!fulfillModalState.recipientInSmolGuild ||
-                  !fulfillModalState.fulfillerInSmolGuild) &&
-                'text-primary-900'
-              }`}
-            >
-              Guild Stash 1
-            </span>
+            <span>Guild Stash 1</span>
           </label>
-          {!fulfillModalState.recipientInSmolGuild && (
-            <div className="mb-4 flex flex-col">
-              <span className="mb-2 text-red-400">
-                {fulfillModalState.discordUserName} is not in the Smol Guild
-              </span>
-              {!fulfillModalState.fulfillerInSmolGuild && (
-                <>
-                  <span className="mb-2 font-bold text-red-400">
-                    YOU are not in the Smol Guild
-                  </span>
-                  <div>
-                    (for smol-app to pickup your guild{' '}
-                    <a href="/poe-profile">please go here</a> and{' '}
-                    <span className="text-primary-500">Save your Guild</span>)
-                  </div>
-                </>
-              )}
-            </div>
-          )}
 
           <Button
             onClick={() => handleOrderFulfillment()}

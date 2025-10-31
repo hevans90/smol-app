@@ -200,6 +200,29 @@ export const OrderBook = () => {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
+  // Open Create Order modal if URL contains createOrder=true
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('createOrder') === 'true') {
+        setCreateModalOpen(true);
+      }
+    } catch {}
+  }, []);
+
+  // Keep URL in sync with modal state so refresh preserves it
+  useEffect(() => {
+    try {
+      const url = new URL(window.location.href);
+      if (createModalOpen) {
+        url.searchParams.set('createOrder', 'true');
+      } else {
+        url.searchParams.delete('createOrder');
+      }
+      window.history.replaceState({}, '', url.toString());
+    } catch {}
+  }, [createModalOpen]);
+
   const handleOrderFulfillment = async () => {
     invariant(fulfillModalState);
     setFulfillmentInProgress(true);

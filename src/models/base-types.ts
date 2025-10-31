@@ -7,6 +7,7 @@ export const BASE_TYPE_CATEGORIES = [
   'Bows',
   'Claws',
   'Daggers',
+  'Flasks',
   'Gloves',
   'Helmets',
   'Jewels',
@@ -23,7 +24,6 @@ export const BASE_TYPE_CATEGORIES = [
   'Two Hand Maces',
   'Two Hand Swords',
   'Wands',
-  'Flasks',
 ] as const;
 
 export const ARMOR_DEFENCE_TYPES = [

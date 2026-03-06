@@ -1,16 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
 
 import { IconTrash } from '@tabler/icons-react';
 import {
-    getUniqueItemWikiInfo,
-    searchUniquesByNameOrBase,
-    type UniqueSearchResult,
+  decodeAndParsePob,
+  extractUniqueItemNamesFromPob,
+} from '../../../_utils/pob-decode';
+import {
+  getUniqueItemWikiInfo,
+  searchUniquesByNameOrBase,
+  type UniqueSearchResult,
 } from '../../../_utils/utils';
 import {
-    Item_Order_Type_Enum,
-    type OrderTypesQuery,
-    type UpdateUserItemOrderMutationVariables,
+  Item_Order_Type_Enum,
+  type OrderTypesQuery,
+  type UpdateUserItemOrderMutationVariables,
 } from '../../../graphql-api';
 import type { BaseTypeCategory } from '../../../models/base-types';
 import { Button } from '../ui/Button';
@@ -30,29 +34,65 @@ export type OrderFormInputs = Pick<
   | 'itemCategory'
 >;
 
+export type PreviewRow = {
+  name: string;
+  icon: string;
+  id: string;
+  description: string;
+  priority: boolean;
+};
+
+type FormValues = OrderFormInputs & { previews: PreviewRow[] };
+
+function uniqueSearchResultToPreviewRow(r: UniqueSearchResult): PreviewRow {
+  return {
+    name: r.name,
+    icon: r.icon,
+    id: r.id,
+    description: r.name,
+    priority: false,
+  };
+}
+
 export const OrderForm = ({
   orderTypes,
   data,
   onSubmit,
+  onBulkSubmit,
   allowPriority,
   quickOrdersAvailable = true,
+  priorityOrderLimit = 2,
+  existingPriorityCount = 0,
+  isSubmitting = false,
 }: {
   quickOrdersAvailable?: boolean;
   orderTypes: OrderTypesQuery;
   data?: OrderFormInputs;
   onSubmit: SubmitHandler<OrderFormInputs>;
+  onBulkSubmit?: (items: OrderFormInputs[]) => void | Promise<void>;
   allowPriority?: boolean;
+  priorityOrderLimit?: number;
+  existingPriorityCount?: number;
+  isSubmitting?: boolean;
 }) => {
   const {
     watch,
     register,
+    control,
     handleSubmit,
     getValues,
     setValue,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm<OrderFormInputs>({
-    defaultValues: { priority: data?.priority ?? false },
+  } = useForm<FormValues>({
+    defaultValues: {
+      priority: data?.priority ?? false,
+      previews: [],
+    },
   });
+
+  const { fields, append, remove } = useFieldArray({ control, name: 'previews' });
 
   const [quickOrder, setQuickOrder] = useState(quickOrdersAvailable);
 
@@ -61,17 +101,26 @@ export const OrderForm = ({
 
   const quickSearchInputRef = useRef<HTMLInputElement>(null);
 
-  const [selectedQuickOrderResult, setSelectedQuickOrderResult] =
-    useState<UniqueSearchResult | null>(null);
-
   const [validatingItem, setValidatingItem] = useState(false);
   const [itemIsValid, setItemIsValid] = useState(false);
+  const [pobImporting, setPobImporting] = useState(false);
+  const [pobError, setPobError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
   const linkUrl = useMemo(
     () => watch('linkUrl') ?? data?.linkUrl,
     [watch('linkUrl')],
   );
+  const previews = watch('previews') ?? [];
+
+  const remainingPrioritySlots = Math.max(
+    0,
+    priorityOrderLimit - existingPriorityCount,
+  );
+  const priorityCheckedInForm = previews.filter((p) => p.priority).length;
+  const priorityLimitReached =
+    remainingPrioritySlots <= 0 || priorityCheckedInForm >= remainingPrioritySlots;
 
   // Persist quick/non-quick selection in localStorage
   useEffect(() => {
@@ -84,7 +133,6 @@ export const OrderForm = ({
         setQuickOrder(!!quickOrdersAvailable);
       }
     } catch {}
-    // re-evaluate when availability changes (e.g., different modal types)
   }, [quickOrdersAvailable]);
 
   useEffect(() => {
@@ -149,41 +197,87 @@ export const OrderForm = ({
     }
   }, [linkUrl]);
 
-  const handleFormSubmit = async (formData: OrderFormInputs) => {
-    if (quickOrder) {
-      if (!selectedQuickOrderResult) {
-        // no item selected in quick order, do nothing or show error
+  const addPreviewRow = (row: PreviewRow) => {
+    const existing = getValues('previews');
+    if (existing.some((p) => p.name === row.name)) return;
+    append(row);
+  };
+
+  const handlePoBImport = async (encoded: string) => {
+    if (!encoded.trim()) return;
+    setPobError(null);
+    setPobImporting(true);
+    try {
+      const parsed = await decodeAndParsePob(encoded.trim());
+      const names = extractUniqueItemNamesFromPob(parsed);
+      for (const name of names) {
+        const results = searchUniquesByNameOrBase(name, 1);
+        const match = results[0];
+        if (match) addPreviewRow(uniqueSearchResultToPreviewRow(match));
+      }
+    } catch (e) {
+      console.error(e);
+      setPobError('Failed to decode or parse Path of Building data.');
+    } finally {
+      setPobImporting(false);
+    }
+  };
+
+  const handleFormSubmit = async (formData: FormValues) => {
+    if (quickOrder && onBulkSubmit) {
+      const list = formData.previews ?? [];
+      if (list.length === 0) {
+        setError('root', { message: 'Add at least one item to the list.' });
         return;
       }
-
-      const wikiResult = await getUniqueItemWikiInfo(
-        selectedQuickOrderResult.name,
-      );
-
-      // create data object from selected quick order result
-      const quickOrderData: OrderFormInputs = {
-        description: formData.description,
-        linkUrl: wikiResult?.wikiLink,
-        type: Item_Order_Type_Enum.Unique, // only unique for now
-        priority: formData.priority ?? false,
-        itemBaseType: wikiResult?.baseItem ?? '',
-        iconUrl: selectedQuickOrderResult.icon,
-        itemCategory: '',
-      };
-
-      onSubmit(quickOrderData);
-    } else {
-      // use react-hook-form's default onSubmit handler
-      onSubmit(formData);
+      if (priorityCheckedInForm > remainingPrioritySlots) {
+        setError('root', {
+          message: `You can mark at most ${remainingPrioritySlots} order(s) as priority.`,
+        });
+        return;
+      }
+      clearErrors('root');
+      setSubmitting(true);
+      try {
+        const resolved: OrderFormInputs[] = [];
+        for (const row of list) {
+          const wikiResult = await getUniqueItemWikiInfo(row.name);
+          resolved.push({
+            description: row.description || row.name,
+            linkUrl: wikiResult?.wikiLink ?? '',
+            type: Item_Order_Type_Enum.Unique,
+            priority: row.priority,
+            itemBaseType: wikiResult?.baseItem ?? '',
+            iconUrl: row.icon,
+            itemCategory: '',
+          });
+        }
+        await onBulkSubmit(resolved);
+      } finally {
+        setSubmitting(false);
+      }
+      return;
     }
+
+    if (quickOrder && !onBulkSubmit) {
+      return;
+    }
+
+    onSubmit(formData);
   };
 
   const createOrderPrioDisable = !data && !allowPriority;
   const updateOrderPrioDisable =
     data && !allowPriority && !getValues('priority');
 
+  const isCreateWithBulk = !data && quickOrder && !!onBulkSubmit;
+  const submitDisabled =
+    (isSubmitting || submitting) ||
+    validatingItem ||
+    (!validatingItem && !itemIsValid && !quickOrder) ||
+    (isCreateWithBulk && previews.length === 0);
+
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form
       className="min-w-72 relative flex flex-col gap-2"
       onSubmit={handleSubmit(handleFormSubmit)}
@@ -204,83 +298,144 @@ export const OrderForm = ({
 
       {quickOrdersAvailable && quickOrder ? (
         <>
-          {!selectedQuickOrderResult && (
-            <Popover
-              placement="bottom-start"
-              open={!!quickSearchResults?.length && !selectedQuickOrderResult}
+          <Popover placement="bottom-start" open={!!quickSearchResults?.length}>
+            <PopoverTrigger asChild>
+              <input
+                placeholder="Search for unique items and add to list"
+                ref={quickSearchInputRef}
+                autoFocus
+                className="my-2 w-64 max-w-lg sm:w-[50vw]"
+                onChange={(e) =>
+                  setquickSearchResults(
+                    searchUniquesByNameOrBase(e.target.value),
+                  )
+                }
+              />
+            </PopoverTrigger>
+
+            <PopoverContent
+              className="rounded-sm border-[1px] border-primary-800 bg-gray-900 outline-none focus:ring-0"
+              initialFocusRef={quickSearchInputRef}
             >
-              <PopoverTrigger asChild>
-                <input
-                  placeholder="search for unique items"
-                  ref={quickSearchInputRef}
-                  autoFocus
-                  className="my-2 w-64 max-w-lg sm:w-[50vw]"
-                  onChange={(e) =>
-                    setquickSearchResults(
-                      searchUniquesByNameOrBase(e.target.value),
-                    )
-                  }
-                />
-              </PopoverTrigger>
-
-              <PopoverContent
-                className="rounded-sm border-[1px] border-primary-800 bg-gray-900 outline-none focus:ring-0"
-                initialFocusRef={quickSearchInputRef}
-              >
-                {quickSearchResults?.map((result) => (
-                  <div
-                    tabIndex={0}
-                    onClick={() => {
-                      setSelectedQuickOrderResult(result);
-                      setValue('description', result.name);
-                      setquickSearchResults([]);
-                    }}
-                    key={result.id}
-                    className="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-800 focus:bg-gray-700"
-                  >
-                    <img
-                      className="h-10 w-10 object-contain"
-                      src={result.icon}
-                    />
-                    <span>{result.name}</span>
-                  </div>
-                ))}
-              </PopoverContent>
-            </Popover>
-          )}
-
-          {selectedQuickOrderResult && (
-            <>
-              <div className="flex items-center justify-between gap-2 rounded border-[1px] border-primary-800 py-2">
-                <div className="flex items-center gap-2">
-                  <img
-                    className="mx-2 h-12 w-12 object-contain"
-                    src={selectedQuickOrderResult.icon}
-                  />
-                  <span className="text-xl text-primary-400">
-                    {selectedQuickOrderResult.name}
-                  </span>
-                </div>
-
-                <button
-                  className="mx-6 rounded-full bg-primary-900 p-1 text-primary-500 opacity-80 hover:text-primary-300 hover:opacity-75"
+              {quickSearchResults?.map((result) => (
+                <div
+                  tabIndex={0}
+                  role="button"
                   onClick={() => {
-                    setSelectedQuickOrderResult(null);
+                    addPreviewRow(uniqueSearchResultToPreviewRow(result));
+                    setquickSearchResults([]);
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      addPreviewRow(uniqueSearchResultToPreviewRow(result));
+                      setquickSearchResults([]);
+                    }
+                  }}
+                  key={result.id}
+                  className="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-800 focus:bg-gray-700"
                 >
-                  <IconTrash size={30} />
-                </button>
-              </div>
-              <div className="mb-2 flex flex-col">
-                <label className="mb-1">Description</label>
-                <input
-                  className="w-64 max-w-lg sm:w-[50vw]"
-                  defaultValue={data?.description ?? ''}
-                  {...register('description', { required: true })}
+                  <img
+                    className="h-10 w-10 object-contain"
+                    src={result.icon}
+                    alt=""
+                  />
+                  <span>{result.name}</span>
+                </div>
+              ))}
+            </PopoverContent>
+          </Popover>
+
+          {isCreateWithBulk && (
+            <>
+              <div className="mb-2 flex flex-col gap-1">
+                <label className="mb-1 text-primary-500">
+                  Path of Building code (encoded)
+                </label>
+                <textarea
+                  id="pob-encoded-input"
+                  placeholder="Paste encoded PoB export here, then click Import"
+                  className="min-h-[80px] w-full resize-y border border-primary-800 bg-gray-900 p-2 text-sm"
+                  disabled={pobImporting}
                 />
-                {errors.description && (
-                  <span className="mt-1 text-red-400">
-                    Your order requires a description
+                <Button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById(
+                      'pob-encoded-input',
+                    ) as HTMLTextAreaElement | null;
+                    if (el?.value) handlePoBImport(el.value);
+                  }}
+                  disabled={pobImporting}
+                >
+                  {pobImporting ? (
+                    <>
+                      <Spinner />
+                      Importing…
+                    </>
+                  ) : (
+                    'Import from Path of Building'
+                  )}
+                </Button>
+                {pobError && (
+                  <span className="text-sm text-red-400">{pobError}</span>
+                )}
+              </div>
+
+              <div className="mb-2">
+                <p className="mb-1 text-primary-500">
+                  Order previews ({previews.length}) — add via search or PoB
+                  import
+                </p>
+                {remainingPrioritySlots > 0 && (
+                  <p className="mb-1 text-sm text-primary-700">
+                    You can mark up to {remainingPrioritySlots} order(s) as
+                    priority.
+                  </p>
+                )}
+                <ul className="flex max-h-64 flex-col gap-2 overflow-y-auto rounded border border-primary-800 p-2">
+                  {fields.map((field, index) => (
+                    <li
+                      key={field.id}
+                      className="flex items-center gap-2 rounded border border-primary-800/50 bg-gray-900/50 p-2"
+                    >
+                      <img
+                        className="h-10 w-10 shrink-0 object-contain"
+                        src={previews[index]?.icon}
+                        alt=""
+                      />
+                      <div className="min-w-0 flex-1">
+                        <span className="block truncate text-primary-400">
+                          {previews[index]?.name}
+                        </span>
+                        <input
+                          className="mt-1 w-full border border-primary-800 bg-gray-800 text-sm"
+                          placeholder="Description (optional)"
+                          {...register(`previews.${index}.description`)}
+                        />
+                      </div>
+                      <label className="flex shrink-0 items-center gap-1 text-sm text-primary-500">
+                        <input
+                          type="checkbox"
+                          disabled={priorityLimitReached && !previews[index]?.priority}
+                          {...register(`previews.${index}.priority`)}
+                        />
+                        Priority
+                      </label>
+                      <button
+                        type="button"
+                        className="rounded-full bg-primary-900 p-1 text-primary-500 opacity-80 hover:text-primary-300 hover:opacity-75"
+                        onClick={() => remove(index)}
+                        aria-label="Remove"
+                      >
+                        <IconTrash size={20} />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+                {errors.root?.message && (
+                  <span className="mt-1 text-sm text-red-400">
+                    {errors.root.message}
                   </span>
                 )}
               </div>
@@ -321,9 +476,10 @@ export const OrderForm = ({
                 <img
                   className="h-10 w-10 p-1 md:h-12 md:w-12"
                   src={`/order-types/${type}.webp`}
+                  alt=""
                 />
               ) : (
-                <div className="h-10 w-10 p-1 md:h-12 md:w-12"></div>
+                <div className="h-10 w-10 p-1 md:h-12 md:w-12" />
               )}
             </div>
             {errors.type && (
@@ -371,41 +527,46 @@ export const OrderForm = ({
         </>
       )}
 
-      <div className="mb-2 flex flex-col">
-        <div className="flex items-center gap-4 text-primary-500">
-          <p>Is this a priority order?</p>
-          <input
-            disabled={createOrderPrioDisable || updateOrderPrioDisable}
-            type="checkbox"
-            {...register('priority')}
-          />
-          {!allowPriority && (
-            <p className="text-red-400">Priority order limit reached.</p>
-          )}
-        </div>
+      {!isCreateWithBulk && (
+        <div className="mb-2 flex flex-col">
+          <div className="flex items-center gap-4 text-primary-500">
+            <p>Is this a priority order?</p>
+            <input
+              disabled={createOrderPrioDisable || updateOrderPrioDisable}
+              type="checkbox"
+              {...register('priority')}
+            />
+            {!allowPriority && (
+              <p className="text-red-400">Priority order limit reached.</p>
+            )}
+          </div>
 
-        <p className="text-primary-800">
-          (non-priority orders will go inactive after 2 weeks of not being
-          fulfilled)
-        </p>
-      </div>
+          <p className="text-primary-800">
+            (non-priority orders will go inactive after 2 weeks of not being
+            fulfilled)
+          </p>
+        </div>
+      )}
 
       <Button
         className="flex h-12 w-full items-center justify-center gap-4 p-2 text-primary-500"
         type="submit"
-        disabled={
-          validatingItem ||
-          (!validatingItem && !itemIsValid) ||
-          (quickOrder && !selectedQuickOrderResult)
-        }
+        disabled={submitDisabled}
       >
-        {validatingItem ? (
+        {isSubmitting || submitting ? (
+          <>
+            <Spinner />
+            Submitting…
+          </>
+        ) : validatingItem ? (
           <>
             Validating...
             <Spinner />
           </>
-        ) : itemIsValid ? (
-          'Submit'
+        ) : itemIsValid || quickOrder ? (
+          isCreateWithBulk && previews.length > 0
+            ? `Submit ${previews.length} order(s)`
+            : 'Submit'
         ) : (
           <span className="text-red-500">Invalid Wiki link</span>
         )}

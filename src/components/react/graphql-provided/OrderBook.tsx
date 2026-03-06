@@ -9,6 +9,7 @@ import {
   DeleteUserItemOrderDocument,
   FulfillUserItemOrderDocument,
   InsertUserItemOrderDocument,
+  InsertUserItemOrdersDocument,
   Item_Order_Type_Enum,
   OrderTypesDocument,
   UpdateUserItemOrderDocument,
@@ -19,6 +20,8 @@ import {
   type FulfillUserItemOrderMutationVariables,
   type InsertUserItemOrderMutation,
   type InsertUserItemOrderMutationVariables,
+  type InsertUserItemOrdersMutation,
+  type InsertUserItemOrdersMutationVariables,
   type OrderTypesQuery,
   type UpdateUserItemOrderMutation,
   type UpdateUserItemOrderMutationVariables,
@@ -132,10 +135,16 @@ export const OrderBook = () => {
 
   const { data: userProfile, loading: userLoading } = useMyHasuraUser();
 
-  const [createItemOrder] = useMutation<
+  const [createItemOrder, { loading: createItemOrderLoading }] = useMutation<
     InsertUserItemOrderMutation,
     InsertUserItemOrderMutationVariables
   >(InsertUserItemOrderDocument);
+
+  const [createItemOrdersBulk, { loading: createItemOrdersBulkLoading }] =
+    useMutation<
+      InsertUserItemOrdersMutation,
+      InsertUserItemOrdersMutationVariables
+    >(InsertUserItemOrdersDocument);
 
   const [updateItemOrder] = useMutation<
     UpdateUserItemOrderMutation,
@@ -614,7 +623,31 @@ export const OrderBook = () => {
               allowPriority={
                 (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
               }
+              existingPriorityCount={myUnfilfilledPriorityOrders?.length ?? 0}
+              isSubmitting={
+                createItemOrderLoading || createItemOrdersBulkLoading
+              }
+              priorityOrderLimit={priorityOrderLimit}
               orderTypes={orderTypes}
+              onBulkSubmit={async (items) => {
+                const userId = userProfile?.id as string;
+                await createItemOrdersBulk({
+                  variables: {
+                    objects: items.map((item) => ({
+                      description: item.description ?? item.linkUrl ?? '',
+                      link_url: item.linkUrl ?? '',
+                      type: item.type ?? Item_Order_Type_Enum.Unique,
+                      user_id: userId,
+                      priority: item.priority ?? false,
+                      item_base_type: item.itemBaseType,
+                      item_category: item.itemCategory,
+                      icon_url: item.iconUrl,
+                    })),
+                  },
+                });
+                setCreateModalOpen(false);
+                exportBaseDataToSpreadsheet();
+              }}
               onSubmit={(data) => {
                 createItemOrder({
                   variables: {

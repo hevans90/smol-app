@@ -3272,6 +3272,13 @@ export type InsertUserItemOrderMutationVariables = Exact<{
 
 export type InsertUserItemOrderMutation = { __typename?: 'mutation_root', insert_user_item_order_one?: { __typename?: 'user_item_order', type: Item_Order_Type_Enum, link_url?: string | null, description?: string | null, user_id: string, id: string, priority: boolean, item_base_type?: string | null, icon_url?: string | null, item_category?: string | null } | null };
 
+export type InsertUserItemOrdersMutationVariables = Exact<{
+  objects: Array<User_Item_Order_Insert_Input> | User_Item_Order_Insert_Input;
+}>;
+
+
+export type InsertUserItemOrdersMutation = { __typename?: 'mutation_root', insert_user_item_order?: { __typename?: 'user_item_order_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'user_item_order', id: string, type: Item_Order_Type_Enum, link_url?: string | null, description?: string | null, user_id: string, priority: boolean, item_base_type?: string | null, icon_url?: string | null, item_category?: string | null }> } | null };
+
 export type UpdateUserItemOrderMutationVariables = Exact<{
   orderId: Scalars['uuid']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
@@ -3468,6 +3475,27 @@ export const InsertUserItemOrderDocument = gql`
 export type InsertUserItemOrderMutationFn = Apollo.MutationFunction<InsertUserItemOrderMutation, InsertUserItemOrderMutationVariables>;
 export type InsertUserItemOrderMutationResult = Apollo.MutationResult<InsertUserItemOrderMutation>;
 export type InsertUserItemOrderMutationOptions = Apollo.BaseMutationOptions<InsertUserItemOrderMutation, InsertUserItemOrderMutationVariables>;
+export const InsertUserItemOrdersDocument = gql`
+    mutation InsertUserItemOrders($objects: [user_item_order_insert_input!]!) {
+  insert_user_item_order(objects: $objects) {
+    affected_rows
+    returning {
+      id
+      type
+      link_url
+      description
+      user_id
+      priority
+      item_base_type
+      icon_url
+      item_category
+    }
+  }
+}
+    `;
+export type InsertUserItemOrdersMutationFn = Apollo.MutationFunction<InsertUserItemOrdersMutation, InsertUserItemOrdersMutationVariables>;
+export type InsertUserItemOrdersMutationResult = Apollo.MutationResult<InsertUserItemOrdersMutation>;
+export type InsertUserItemOrdersMutationOptions = Apollo.BaseMutationOptions<InsertUserItemOrdersMutation, InsertUserItemOrdersMutationVariables>;
 export const UpdateUserItemOrderDocument = gql`
     mutation UpdateUserItemOrder($orderId: uuid!, $description: String, $type: item_order_type_enum, $linkUrl: String, $priority: Boolean!, $itemBaseType: String, $itemCategory: String, $iconUrl: String) {
   update_user_item_order_by_pk(

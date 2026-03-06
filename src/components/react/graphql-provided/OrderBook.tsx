@@ -616,7 +616,7 @@ export const OrderBook = () => {
       </Dialog>
 
       <Dialog open={createModalOpen} onOpenChange={setCreateModalOpen}>
-        <DialogContent>
+        <DialogContent className="w-[48rem] max-w-[95vw]">
           <DialogHeading>Create Order</DialogHeading>
           {orderTypes && (
             <OrderForm

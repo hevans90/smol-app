@@ -9,6 +9,7 @@ import {
   useMergeRefs,
   useRole,
 } from '@floating-ui/react';
+import { twMerge } from 'tailwind-merge';
 import {
   cloneElement,
   createContext,
@@ -165,10 +166,10 @@ export const DialogContent = forwardRef<
             aria-labelledby={context.labelId}
             aria-describedby={context.descriptionId}
             {...context.getFloatingProps(props)}
-            className="
-                m-4 flex
-                flex-col rounded border-2 border-primary-800 bg-gray-900 p-4
-                "
+            className={twMerge(
+              'm-4 flex flex-col rounded border-2 border-primary-800 bg-gray-900 p-4',
+              props.className,
+            )}
           >
             {props.children}
           </div>

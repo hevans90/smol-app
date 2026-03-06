@@ -23,7 +23,8 @@
   }
 
   input,
-  select {
+  select,
+  textarea {
     @apply rounded-sm bg-gray-600 p-2 text-lg text-primary-500 outline-none outline-[1px] outline-offset-0 duration-200 ease-in-out focus-visible:border-primary-800 focus-visible:outline-primary-500;
   }
 

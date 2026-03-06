@@ -105,6 +105,9 @@ export const OrderForm = ({
   const [itemIsValid, setItemIsValid] = useState(false);
   const [pobImporting, setPobImporting] = useState(false);
   const [pobError, setPobError] = useState<string | null>(null);
+  const [pobImportResult, setPobImportResult] = useState<
+    { name: string; icon: string }[] | null
+  >(null);
   const [submitting, setSubmitting] = useState(false);
 
   const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
@@ -206,15 +209,21 @@ export const OrderForm = ({
   const handlePoBImport = async (encoded: string) => {
     if (!encoded.trim()) return;
     setPobError(null);
+    setPobImportResult(null);
     setPobImporting(true);
     try {
       const parsed = await decodeAndParsePob(encoded.trim());
       const names = extractUniqueItemNamesFromPob(parsed);
+      const added: { name: string; icon: string }[] = [];
       for (const name of names) {
         const results = searchUniquesByNameOrBase(name, 1);
         const match = results[0];
-        if (match) addPreviewRow(uniqueSearchResultToPreviewRow(match));
+        if (match) {
+          addPreviewRow(uniqueSearchResultToPreviewRow(match));
+          added.push({ name: match.name, icon: match.icon });
+        }
       }
+      setPobImportResult(added);
     } catch (e) {
       console.error(e);
       setPobError('Failed to decode or parse Path of Building data.');
@@ -279,7 +288,7 @@ export const OrderForm = ({
 
   return (
     <form
-      className="min-w-72 relative flex flex-col gap-2"
+      className={`relative flex flex-col gap-2 ${quickOrder && isCreateWithBulk ? 'w-full min-w-0 max-w-[48rem]' : 'min-w-72'}`}
       onSubmit={handleSubmit(handleFormSubmit)}
     >
       <div className="absolute -top-9 right-0">
@@ -297,151 +306,225 @@ export const OrderForm = ({
       </div>
 
       {quickOrdersAvailable && quickOrder ? (
-        <>
-          <Popover placement="bottom-start" open={!!quickSearchResults?.length}>
-            <PopoverTrigger asChild>
-              <input
-                placeholder="Search for unique items and add to list"
-                ref={quickSearchInputRef}
-                autoFocus
-                className="my-2 w-64 max-w-lg sm:w-[50vw]"
-                onChange={(e) =>
-                  setquickSearchResults(
-                    searchUniquesByNameOrBase(e.target.value),
-                  )
-                }
-              />
-            </PopoverTrigger>
-
-            <PopoverContent
-              className="rounded-sm border-[1px] border-primary-800 bg-gray-900 outline-none focus:ring-0"
-              initialFocusRef={quickSearchInputRef}
+        <div
+          className={
+            isCreateWithBulk
+              ? 'grid min-h-[70vh] grid-cols-1 gap-4 md:grid-cols-2'
+              : ''
+          }
+        >
+          {/* Column 1: inputs + submit at bottom */}
+          <div className="flex flex-col gap-3">
+            <Popover
+              placement="bottom-start"
+              open={!!quickSearchResults?.length}
             >
-              {quickSearchResults?.map((result) => (
-                <div
-                  tabIndex={0}
-                  role="button"
-                  onClick={() => {
-                    addPreviewRow(uniqueSearchResultToPreviewRow(result));
-                    setquickSearchResults([]);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
+              <PopoverTrigger asChild>
+                <input
+                  placeholder="Search for unique items and add to list"
+                  ref={quickSearchInputRef}
+                  autoFocus
+                  className="w-full border border-primary-800 bg-gray-900 px-3 py-2"
+                  onChange={(e) =>
+                    setquickSearchResults(
+                      searchUniquesByNameOrBase(e.target.value),
+                    )
+                  }
+                />
+              </PopoverTrigger>
+
+              <PopoverContent
+                className="rounded-sm border-[1px] border-primary-800 bg-gray-900 outline-none focus:ring-0"
+                initialFocusRef={quickSearchInputRef}
+              >
+                {quickSearchResults?.map((result) => (
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => {
                       addPreviewRow(uniqueSearchResultToPreviewRow(result));
                       setquickSearchResults([]);
-                    }
-                  }}
-                  key={result.id}
-                  className="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-800 focus:bg-gray-700"
-                >
-                  <img
-                    className="h-10 w-10 object-contain"
-                    src={result.icon}
-                    alt=""
+                      if (quickSearchInputRef.current)
+                        quickSearchInputRef.current.value = '';
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        addPreviewRow(uniqueSearchResultToPreviewRow(result));
+                        setquickSearchResults([]);
+                        if (quickSearchInputRef.current)
+                          quickSearchInputRef.current.value = '';
+                      }
+                    }}
+                    key={result.id}
+                    className="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-800 focus:bg-gray-700"
+                  >
+                    <img
+                      className="h-10 w-10 object-contain"
+                      src={result.icon}
+                      alt=""
+                    />
+                    <span>{result.name}</span>
+                  </div>
+                ))}
+              </PopoverContent>
+            </Popover>
+
+            {isCreateWithBulk && (
+              <>
+                <div className="flex flex-col gap-1">
+                  <label className="text-primary-500">
+                    Path of Building code (encoded)
+                  </label>
+                  <textarea
+                    id="pob-encoded-input"
+                    placeholder="Paste encoded PoB export here, then click Import"
+                    className="min-h-[80px] w-full resize-y border border-primary-800 bg-gray-900 p-2 text-sm"
+                    disabled={pobImporting}
                   />
-                  <span>{result.name}</span>
-                </div>
-              ))}
-            </PopoverContent>
-          </Popover>
-
-          {isCreateWithBulk && (
-            <>
-              <div className="mb-2 flex flex-col gap-1">
-                <label className="mb-1 text-primary-500">
-                  Path of Building code (encoded)
-                </label>
-                <textarea
-                  id="pob-encoded-input"
-                  placeholder="Paste encoded PoB export here, then click Import"
-                  className="min-h-[80px] w-full resize-y border border-primary-800 bg-gray-900 p-2 text-sm"
-                  disabled={pobImporting}
-                />
-                <Button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById(
-                      'pob-encoded-input',
-                    ) as HTMLTextAreaElement | null;
-                    if (el?.value) handlePoBImport(el.value);
-                  }}
-                  disabled={pobImporting}
-                >
-                  {pobImporting ? (
-                    <>
-                      <Spinner />
-                      Importing…
-                    </>
-                  ) : (
-                    'Import from Path of Building'
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById(
+                        'pob-encoded-input',
+                      ) as HTMLTextAreaElement | null;
+                      if (el?.value) handlePoBImport(el.value);
+                    }}
+                    disabled={pobImporting}
+                  >
+                    {pobImporting ? (
+                      <>
+                        <Spinner />
+                        Importing…
+                      </>
+                    ) : (
+                      'Import from Path of Building'
+                    )}
+                  </Button>
+                  {pobError && (
+                    <span className="text-sm text-red-400">{pobError}</span>
                   )}
-                </Button>
-                {pobError && (
-                  <span className="text-sm text-red-400">{pobError}</span>
-                )}
-              </div>
+                  {pobImportResult && pobImportResult.length > 0 && (
+                    <div className="rounded border border-primary-800 bg-gray-900/50 p-2">
+                      <p className="mb-2 text-sm text-primary-500">
+                        {pobImportResult.length} unique
+                        {pobImportResult.length === 1 ? '' : 's'} added to
+                        preview
+                      </p>
+                      <ul className="flex max-h-32 flex-col gap-1 overflow-y-auto">
+                        {pobImportResult.map((item, i) => (
+                          <li
+                            key={`${item.name}-${i}`}
+                            className="flex items-center gap-2 text-sm"
+                          >
+                            <img
+                              className="h-6 w-6 shrink-0 object-contain"
+                              src={item.icon}
+                              alt=""
+                            />
+                            <span className="truncate text-primary-300">
+                              {item.name}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
 
-              <div className="mb-2">
-                <p className="mb-1 text-primary-500">
-                  Order previews ({previews.length}) — add via search or PoB
-                  import
+                <div className="mt-auto flex flex-col gap-2">
+                  {errors.root?.message && (
+                    <span className="text-sm text-red-400">
+                      {errors.root.message}
+                    </span>
+                  )}
+                  <Button
+                    className="flex h-12 w-full items-center justify-center gap-4 p-2 text-primary-500"
+                    type="submit"
+                    disabled={submitDisabled}
+                  >
+                    {isSubmitting || submitting ? (
+                      <>
+                        <Spinner />
+                        Submitting…
+                      </>
+                    ) : validatingItem ? (
+                      <>
+                        Validating...
+                        <Spinner />
+                      </>
+                    ) : itemIsValid || quickOrder ? (
+                      previews.length > 0
+                        ? `Submit ${previews.length} order(s)`
+                        : 'Submit'
+                    ) : (
+                      <span className="text-red-500">Invalid Wiki link</span>
+                    )}
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Column 2: item preview list (bulk only) */}
+          {isCreateWithBulk && (
+            <div className="flex min-h-[70vh] flex-col overflow-hidden rounded border border-primary-800">
+              <div className="border-b border-primary-800 bg-gray-900/50 px-3 py-2">
+                <p className="text-primary-500">
+                  Order previews ({previews.length})
                 </p>
                 {remainingPrioritySlots > 0 && (
-                  <p className="mb-1 text-sm text-primary-700">
+                  <p className="text-sm text-primary-700">
                     You can mark up to {remainingPrioritySlots} order(s) as
                     priority.
                   </p>
                 )}
-                <ul className="flex max-h-64 flex-col gap-2 overflow-y-auto rounded border border-primary-800 p-2">
-                  {fields.map((field, index) => (
-                    <li
-                      key={field.id}
-                      className="flex items-center gap-2 rounded border border-primary-800/50 bg-gray-900/50 p-2"
-                    >
-                      <img
-                        className="h-10 w-10 shrink-0 object-contain"
-                        src={previews[index]?.icon}
-                        alt=""
-                      />
-                      <div className="min-w-0 flex-1">
-                        <span className="block truncate text-primary-400">
-                          {previews[index]?.name}
-                        </span>
-                        <input
-                          className="mt-1 w-full border border-primary-800 bg-gray-800 text-sm"
-                          placeholder="Description (optional)"
-                          {...register(`previews.${index}.description`)}
-                        />
-                      </div>
-                      <label className="flex shrink-0 items-center gap-1 text-sm text-primary-500">
-                        <input
-                          type="checkbox"
-                          disabled={priorityLimitReached && !previews[index]?.priority}
-                          {...register(`previews.${index}.priority`)}
-                        />
-                        Priority
-                      </label>
-                      <button
-                        type="button"
-                        className="rounded-full bg-primary-900 p-1 text-primary-500 opacity-80 hover:text-primary-300 hover:opacity-75"
-                        onClick={() => remove(index)}
-                        aria-label="Remove"
-                      >
-                        <IconTrash size={20} />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                {errors.root?.message && (
-                  <span className="mt-1 text-sm text-red-400">
-                    {errors.root.message}
-                  </span>
-                )}
               </div>
-            </>
+              <ul className="flex max-h-[70vh] min-h-0 flex-1 flex-col gap-2 overflow-y-auto p-2">
+                {fields.map((field, index) => (
+                  <li
+                    key={field.id}
+                    className="flex items-center gap-2 rounded border border-primary-800/50 bg-gray-900/50 p-2"
+                  >
+                    <img
+                      className="h-10 w-10 shrink-0 object-contain"
+                      src={previews[index]?.icon}
+                      alt=""
+                    />
+                    <div className="min-w-0 flex-1">
+                      <span className="block truncate text-primary-400">
+                        {previews[index]?.name}
+                      </span>
+                      <input
+                        className="mt-1 w-full border border-primary-800 bg-gray-800 text-sm"
+                        placeholder="Description (optional)"
+                        {...register(`previews.${index}.description`)}
+                      />
+                    </div>
+                    <label className="flex shrink-0 items-center gap-1 text-sm text-primary-500">
+                      <input
+                        type="checkbox"
+                        disabled={
+                          priorityLimitReached && !previews[index]?.priority
+                        }
+                        {...register(`previews.${index}.priority`)}
+                      />
+                      Priority
+                    </label>
+                    <button
+                      type="button"
+                      className="rounded-full bg-primary-900 p-1 text-primary-500 opacity-80 hover:text-primary-300 hover:opacity-75"
+                      onClick={() => remove(index)}
+                      aria-label="Remove"
+                    >
+                      <IconTrash size={20} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
-        </>
+        </div>
       ) : (
         <>
           <div className="mb-2 flex flex-col">
@@ -548,29 +631,29 @@ export const OrderForm = ({
         </div>
       )}
 
-      <Button
-        className="flex h-12 w-full items-center justify-center gap-4 p-2 text-primary-500"
-        type="submit"
-        disabled={submitDisabled}
-      >
-        {isSubmitting || submitting ? (
-          <>
-            <Spinner />
-            Submitting…
-          </>
-        ) : validatingItem ? (
-          <>
-            Validating...
-            <Spinner />
-          </>
-        ) : itemIsValid || quickOrder ? (
-          isCreateWithBulk && previews.length > 0
-            ? `Submit ${previews.length} order(s)`
-            : 'Submit'
-        ) : (
-          <span className="text-red-500">Invalid Wiki link</span>
-        )}
-      </Button>
+      {!(quickOrder && isCreateWithBulk) && (
+        <Button
+          className="flex h-12 w-full items-center justify-center gap-4 p-2 text-primary-500"
+          type="submit"
+          disabled={submitDisabled}
+        >
+          {isSubmitting || submitting ? (
+            <>
+              <Spinner />
+              Submitting…
+            </>
+          ) : validatingItem ? (
+            <>
+              Validating...
+              <Spinner />
+            </>
+          ) : itemIsValid || quickOrder ? (
+            'Submit'
+          ) : (
+            <span className="text-red-500">Invalid Wiki link</span>
+          )}
+        </Button>
+      )}
     </form>
   );
 };

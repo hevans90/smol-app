@@ -20,6 +20,8 @@ export const SetMyGuild = ({ automatic }: { automatic: boolean }) => {
     SetMyGuildMutationVariables
   >(SetMyGuildDocument);
 
+  // new comment
+
   const handleSetGuild = () => {
     if (profile?.guild) {
       setMyGuild({

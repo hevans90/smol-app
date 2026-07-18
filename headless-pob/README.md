@@ -3,12 +3,20 @@
 Headless [Path of Building](https://github.com/PathOfBuildingCommunity/PathOfBuilding)
 that computes character stats (DPS, EHP, life, ES, resists, ...) from the two
 public GGG character-window API payloads and prints them as one JSON object on
-stdout. This feeds the periodic stat-leaderboard job in `go-server`.
+stdout.
+
+This standalone image is for manual testing and local dev (point the go-server
+at it with `POB_COMMAND="docker run -i --rm headless-pob"`). In production the
+go-server image bakes in luajit + the PoB clone and runs the script directly —
+the script itself lives at `go-server/pob/extract-stats.lua` and is embedded in
+the Go binary.
 
 ## Build
 
+From the **repo root** (the script lives in go-server/pob):
+
 ```sh
-docker build -t headless-pob .
+docker build -f headless-pob/Dockerfile -t headless-pob .
 ```
 
 The PoB clone is pinned via `POB_VERSION` in the Dockerfile. PoB must match the

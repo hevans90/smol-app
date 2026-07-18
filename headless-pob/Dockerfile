@@ -19,7 +19,10 @@ RUN apk add --no-cache --virtual .build build-base luajit-dev \
 
 ENV LUA_PATH="/app/runtime/lua/?.lua;/app/runtime/lua/?/init.lua;;"
 
-COPY extract-stats.lua /app/src/extract-stats.lua
+# Canonical script lives in the go-server pob module (it's embedded in the Go
+# binary for production); build this image from the repo root:
+#   docker build -f headless-pob/Dockerfile -t headless-pob .
+COPY go-server/pob/extract-stats.lua /app/src/extract-stats.lua
 
 WORKDIR /app/src
 

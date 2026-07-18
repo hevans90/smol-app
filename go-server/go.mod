@@ -6,7 +6,10 @@ replace smoldata => ./data
 
 replace poe => ./poe
 
+replace pob => ./pob
+
 require (
+	pob v0.0.0-00010101000000-000000000000
 	poe v0.0.0-00010101000000-000000000000
 	smoldata v0.0.0-00010101000000-000000000000
 )

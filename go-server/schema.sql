@@ -203,6 +203,40 @@ CREATE TABLE public."character" (
 
 
 --
+-- Name: character_stats; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.character_stats (
+    character_id text NOT NULL,
+    main_skill text,
+    combined_dps double precision DEFAULT 0 NOT NULL,
+    total_dps double precision DEFAULT 0 NOT NULL,
+    full_dps double precision DEFAULT 0 NOT NULL,
+    total_dot_dps double precision DEFAULT 0 NOT NULL,
+    life double precision DEFAULT 0 NOT NULL,
+    life_unreserved double precision DEFAULT 0 NOT NULL,
+    energy_shield double precision DEFAULT 0 NOT NULL,
+    mana double precision DEFAULT 0 NOT NULL,
+    ward double precision DEFAULT 0 NOT NULL,
+    total_ehp double precision DEFAULT 0 NOT NULL,
+    armour double precision DEFAULT 0 NOT NULL,
+    evasion double precision DEFAULT 0 NOT NULL,
+    block_chance double precision DEFAULT 0 NOT NULL,
+    spell_block_chance double precision DEFAULT 0 NOT NULL,
+    spell_suppression_chance double precision DEFAULT 0 NOT NULL,
+    fire_resist double precision DEFAULT 0 NOT NULL,
+    cold_resist double precision DEFAULT 0 NOT NULL,
+    lightning_resist double precision DEFAULT 0 NOT NULL,
+    chaos_resist double precision DEFAULT 0 NOT NULL,
+    crit_chance double precision DEFAULT 0 NOT NULL,
+    crit_multiplier double precision DEFAULT 0 NOT NULL,
+    attack_speed double precision DEFAULT 0 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: item_order_type; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -383,6 +417,22 @@ ALTER TABLE ONLY hdb_catalog.hdb_version
 
 ALTER TABLE ONLY public."character"
     ADD CONSTRAINT character_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: character_stats character_stats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.character_stats
+    ADD CONSTRAINT character_stats_pkey PRIMARY KEY (character_id);
+
+
+--
+-- Name: character_stats character_stats_character_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.character_stats
+    ADD CONSTRAINT character_stats_character_id_fkey FOREIGN KEY (character_id) REFERENCES public."character"(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 
 
 --

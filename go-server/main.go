@@ -66,10 +66,10 @@ func saveCharacters(ctx context.Context, db *sql.DB, queries *smoldata.Queries, 
 	}
 }
 
-// computeCharacterStats walks the current ladder and runs every public
-// character through headless PoB. Results are returned for persistence
-// (character_stats table, step 3); for now callers just log the summary.
-func computeCharacterStats(ctx context.Context, runner *pob.Runner, green, red *color.Color) []pob.Stats {
+// computeCharacterStats walks the current ladder, runs every public character
+// through headless PoB, and upserts the results into character_stats
+// (Hasura exposes that table to the frontend). Returns how many were saved.
+func computeCharacterStats(ctx context.Context, queries *smoldata.Queries, runner *pob.Runner, green, red *color.Color) int {
 	tokenResponse := poe.GetToken()
 	leagueResponse := poe.GetLeague(tokenResponse, leagueName)
 
@@ -92,7 +92,7 @@ func computeCharacterStats(ctx context.Context, runner *pob.Runner, green, red *
 		return payload, true
 	}
 
-	var results []pob.Stats
+	saved := 0
 	for _, entry := range leagueResponse.Ladder.Entries {
 		if !entry.Public {
 			continue
@@ -115,11 +115,15 @@ func computeCharacterStats(ctx context.Context, runner *pob.Runner, green, red *
 			continue
 		}
 
+		if err := smoldata.InsertCharacterStats(ctx, queries, entry.Character.ID, stats); err != nil {
+			red.Printf("Could not save stats for %s: %v\n", entry.Character.Name, err)
+			continue
+		}
 		green.Printf("Stats for %s (%s): DPS=%.0f EHP=%.0f Life=%.0f ES=%.0f\n",
 			stats.Character.Name, stats.MainSkill, stats.CombinedDPS, stats.TotalEHP, stats.Life, stats.EnergyShield)
-		results = append(results, *stats)
+		saved++
 	}
-	return results
+	return saved
 }
 
 func main() {
@@ -182,9 +186,8 @@ func main() {
 			time.Sleep(statsInitialDelay)
 			for {
 				started := time.Now()
-				stats := computeCharacterStats(ctx, statsRunner, green, red)
-				green.Printf("Computed PoB stats for %d characters in %v\n", len(stats), time.Since(started).Round(time.Second))
-				// TODO(step 3): persist to the character_stats table via sqlc
+				saved := computeCharacterStats(ctx, queries, statsRunner, green, red)
+				green.Printf("Saved PoB stats for %d characters in %v\n", saved, time.Since(started).Round(time.Second))
 				time.Sleep(statsInterval)
 			}
 		}()

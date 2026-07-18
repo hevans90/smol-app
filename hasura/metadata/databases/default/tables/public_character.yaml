@@ -1,6 +1,14 @@
 table:
   name: character
   schema: public
+object_relationships:
+  - name: stats
+    using:
+      foreign_key_constraint_on:
+        column: character_id
+        table:
+          name: character_stats
+          schema: public
 select_permissions:
   - role: dev
     permission:

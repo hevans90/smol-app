@@ -10,18 +10,34 @@ RUN go build -v -o /run-app .
 
 FROM debian:bookworm
 
-# luajit + a pinned Path of Building clone power the character stats sweep
-# (the extract-stats.lua driver script is embedded in the Go binary).
+# LuaJIT (built from source: bookworm packages 2.1.0-beta3, which segfaults
+# in PoB's calc and Timeless Jewel code) + a pinned Path of Building clone
+# power the character stats sweep (the extract-stats.lua driver script is
+# embedded in the Go binary).
 # Keep POB_VERSION in sync with headless-pob/Dockerfile; bump each league.
 ARG POB_VERSION=v2.65.0
+COPY pob/_tools/inflate-lut.c /tmp/inflate-lut.c
 RUN apt-get update \
- && apt-get install -y --no-install-recommends ca-certificates luajit libluajit-5.1-dev gcc libc6-dev git \
+ && apt-get install -y --no-install-recommends ca-certificates zlib1g gcc libc6-dev make git zlib1g-dev \
+ && git clone --depth 1 --branch v2.1 https://github.com/LuaJIT/LuaJIT.git /tmp/luajit \
+ && make -C /tmp/luajit -j"$(nproc)" \
+ && make -C /tmp/luajit install PREFIX=/usr/local \
+ && ldconfig \
  && git clone --depth 1 --branch ${POB_VERSION} https://github.com/PathOfBuildingCommunity/PathOfBuilding.git /app/pob \
  && git clone --depth 1 https://github.com/starwing/luautf8.git /tmp/luautf8 \
+ && git clone --depth 1 --branch v1.2 https://github.com/brimworks/lua-zlib.git /tmp/luazlib \
  && mkdir -p /usr/local/lib/lua/5.1 \
- && gcc -O2 -fPIC -I/usr/include/luajit-2.1 -shared /tmp/luautf8/lutf8lib.c -o /usr/local/lib/lua/5.1/lua-utf8.so \
- && rm -rf /tmp/luautf8 \
- && apt-get purge -y gcc libc6-dev libluajit-5.1-dev git \
+ && gcc -O2 -fPIC -I/usr/local/include/luajit-2.1 -shared /tmp/luautf8/lutf8lib.c -o /usr/local/lib/lua/5.1/lua-utf8.so \
+ && gcc -O2 -fPIC -I/usr/local/include/luajit-2.1 -shared /tmp/luazlib/lua_zlib.c -lz -o /usr/local/lib/lua/5.1/zlib.so \
+ # pre-extract the Timeless Jewel LUTs so the first character with each
+ # jewel doesn't pay the inflate cost
+ && gcc -O2 -o /tmp/inflate-lut /tmp/inflate-lut.c -lz \
+ && cd /app/pob/src/Data/TimelessJewelData \
+ && for z in *.zip; do /tmp/inflate-lut < "$z" > "${z%.zip}.bin"; done \
+ && cat GloriousVanity.zip.part* | /tmp/inflate-lut > GloriousVanity.bin \
+ && rm -f *.zip *.zip.part* /tmp/inflate-lut /tmp/inflate-lut.c \
+ && rm -rf /tmp/luautf8 /tmp/luazlib /tmp/luajit \
+ && apt-get purge -y gcc libc6-dev make git zlib1g-dev \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/*
 

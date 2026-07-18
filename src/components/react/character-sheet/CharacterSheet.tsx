@@ -5,6 +5,7 @@ import type {
 } from '../../../models/ggg-responses';
 import { SocketTreeVisualizer } from './CharacterGemLinks';
 import { CharacterInventory } from './CharacterInventory';
+import { CharacterStatSheet } from './CharacterStatSheet';
 import { CharacterSummary } from './CharacterSummary';
 
 export const CharacterSheet = ({
@@ -12,11 +13,14 @@ export const CharacterSheet = ({
   character,
   passiveTreeItems,
   items,
+  characterId,
 }: {
   accountName: string;
   character: GGGCharacterResponse['character'];
   passiveTreeItems: GGGItem[];
   items: GGGItem[];
+  // Ladder character id; enables the PoB stat sheet when provided
+  characterId?: string;
 }) => {
   const [selectedItem, setSelectedItem] = useState<GGGItem | null>();
 
@@ -41,6 +45,13 @@ export const CharacterSheet = ({
       />
 
       {selectedItem && <SocketTreeVisualizer item={selectedItem} />}
+
+      {characterId && (
+        <CharacterStatSheet
+          characterId={characterId}
+          className="ml-auto h-full shrink-0 overflow-y-auto pr-2"
+        />
+      )}
     </div>
   );
 };

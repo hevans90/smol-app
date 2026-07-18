@@ -1,0 +1,29 @@
+query CharacterStatsSheet($characterId: String!) {
+  character_stats_by_pk(character_id: $characterId) {
+    character_id
+    main_skill
+    combined_dps
+    total_dps
+    full_dps
+    total_dot_dps
+    life
+    life_unreserved
+    energy_shield
+    ward
+    mana
+    total_ehp
+    armour
+    evasion
+    block_chance
+    spell_block_chance
+    spell_suppression_chance
+    fire_resist
+    cold_resist
+    lightning_resist
+    chaos_resist
+    crit_chance
+    crit_multiplier
+    attack_speed
+    updated_at
+  }
+}

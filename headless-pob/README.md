@@ -49,6 +49,16 @@ DPS, like poe.ninja. Errors print `{"error":"..."}` and exit 1. PoB's own log
 output goes to stderr; stdout is always exactly one JSON document.
 `POB_VERBOSE=1` adds per-stage progress to stderr.
 
+## Timeless Jewels
+
+Characters with Timeless Jewels need three HeadlessWrapper stubs replaced
+(`Inflate`, `NewFileSearch`, `GetScriptPath`) — extract-stats.lua installs real
+implementations after boot. The jewel lookup tables are also pre-extracted to
+`.bin` at image build time (`go-server/pob/_tools/inflate-lut.c`). PoB needs a
+modern LuaJIT for these: 2.1.0-beta3 (old akorn images, Debian bookworm's
+package) segfaults in the LUT processing, which is why the go-server image
+builds LuaJIT from source.
+
 ## After bumping POB_VERSION
 
 PoB's calc output keys drift between versions. Dump everything and check that

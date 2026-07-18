@@ -77,6 +77,71 @@ function GetVirtualScreenSize()
 	return 1920, 1080
 end
 
+-- HeadlessWrapper stubs Inflate as a no-op, NewFileSearch as nil and
+-- GetScriptPath as "" — together those break the lazy-loaded Timeless Jewel
+-- LUTs (Data/TimelessJewelData/*.zip are raw zlib streams, Glorious Vanity is
+-- split across .zip.part*, and "" turns the data paths absolute). Characters
+-- with a Timeless Jewel error out without real implementations. Jewel data
+-- loads lazily during calcs, so installing these AFTER HeadlessWrapper.lua
+-- (which would otherwise overwrite them) is safe; see installJewelSupport()
+-- called below the dofile.
+local zlibOk, zlib = pcall(require, "zlib")
+
+local function installJewelSupport()
+	function GetScriptPath()
+		return "."
+	end
+
+	function Inflate(compressed)
+		if not zlibOk then
+			error("lua-zlib is not installed; cannot inflate Timeless Jewel data")
+		end
+		return (zlib.inflate()(compressed))
+	end
+
+	function NewFileSearch(spec)
+		local paths = {}
+		if spec:find("*", 1, true) then
+			-- only pattern PoB uses: Name.zip.part* with sequential part numbers
+			local prefix = spec:gsub("%*.*$", "")
+			local part = 0
+			while true do
+				local f = io.open(prefix .. part, "rb")
+				if not f then
+					break
+				end
+				f:close()
+				paths[#paths + 1] = prefix .. part
+				part = part + 1
+			end
+		else
+			local f = io.open(spec, "rb")
+			if f then
+				f:close()
+				paths[1] = spec
+			end
+		end
+		if #paths == 0 then
+			return nil
+		end
+		local index = 1
+		return {
+			GetFileName = function()
+				return paths[index]:match("[^/\\]+$")
+			end,
+			-- plain io can't stat files; report cached .bin extracts as newer
+			-- than their .zip sources so PoB prefers them once written
+			GetFileModifiedTime = function()
+				return paths[index]:find("%.bin$") and 2 or 1
+			end,
+			NextFile = function()
+				index = index + 1
+				return index <= #paths
+			end,
+		}
+	end
+end
+
 -- PoB logs to stdout via print/ConPrintf; send that to stderr so stdout
 -- carries nothing but our JSON result.
 print = function(...)
@@ -92,6 +157,7 @@ dofile("HeadlessWrapper.lua")
 if not build then
 	fail("PoB failed to initialise (no build object)")
 end
+installJewelSupport()
 
 progress("loading character")
 -- Same steps as HeadlessWrapper's loadBuildFromJSON, except lastLeague is set

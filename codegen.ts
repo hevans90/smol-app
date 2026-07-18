@@ -26,6 +26,7 @@ const config: CodegenConfig = {
         withHOC: false,
         withComponent: false,
         scalars: {
+          float8: 'number',
           _numeric: 'number[]',
           _text: 'string[]',
           _uuid: 'string[]',

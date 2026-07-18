@@ -25,6 +25,7 @@ type Character struct {
 	ID             string
 	Challenges     int32
 	Twitch         sql.NullString
+	League         sql.NullString
 }
 
 type CharacterStat struct {

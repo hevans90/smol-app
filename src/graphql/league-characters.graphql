@@ -11,5 +11,13 @@ subscription LeagueCharacters($leagueName: String) {
     dead
     class
     challenges
+    stats {
+      main_skill
+      combined_dps
+      life
+      energy_shield
+      total_ehp
+      updated_at
+    }
   }
 }

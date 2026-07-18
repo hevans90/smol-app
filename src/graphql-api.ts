@@ -15,6 +15,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   bigint: { input: any; output: any; }
+  float8: { input: number; output: number; }
   timestamptz: { input: string; output: string; }
   uuid: { input: string; output: string; }
 };
@@ -105,6 +106,8 @@ export type Character = {
   poe_account_name: Scalars['String']['output'];
   rank: Scalars['Int']['output'];
   retired: Scalars['Boolean']['output'];
+  /** An object relationship */
+  stats?: Maybe<Character_Stats>;
   twitch?: Maybe<Scalars['String']['output']>;
 };
 
@@ -163,6 +166,7 @@ export type Character_Bool_Exp = {
   poe_account_name?: InputMaybe<String_Comparison_Exp>;
   rank?: InputMaybe<Int_Comparison_Exp>;
   retired?: InputMaybe<Boolean_Comparison_Exp>;
+  stats?: InputMaybe<Character_Stats_Bool_Exp>;
   twitch?: InputMaybe<String_Comparison_Exp>;
 };
 
@@ -193,6 +197,7 @@ export type Character_Insert_Input = {
   poe_account_name?: InputMaybe<Scalars['String']['input']>;
   rank?: InputMaybe<Scalars['Int']['input']>;
   retired?: InputMaybe<Scalars['Boolean']['input']>;
+  stats?: InputMaybe<Character_Stats_Obj_Rel_Insert_Input>;
   twitch?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -235,6 +240,13 @@ export type Character_Mutation_Response = {
   returning: Array<Character>;
 };
 
+/** input type for inserting object relation for remote table "character" */
+export type Character_Obj_Rel_Insert_Input = {
+  data: Character_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Character_On_Conflict>;
+};
+
 /** on_conflict condition type for table "character" */
 export type Character_On_Conflict = {
   constraint: Character_Constraint;
@@ -255,6 +267,7 @@ export type Character_Order_By = {
   poe_account_name?: InputMaybe<Order_By>;
   rank?: InputMaybe<Order_By>;
   retired?: InputMaybe<Order_By>;
+  stats?: InputMaybe<Character_Stats_Order_By>;
   twitch?: InputMaybe<Order_By>;
 };
 
@@ -305,6 +318,692 @@ export type Character_Set_Input = {
   rank?: InputMaybe<Scalars['Int']['input']>;
   retired?: InputMaybe<Scalars['Boolean']['input']>;
   twitch?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** columns and relationships of "character_stats" */
+export type Character_Stats = {
+  __typename?: 'character_stats';
+  armour: Scalars['float8']['output'];
+  attack_speed: Scalars['float8']['output'];
+  block_chance: Scalars['float8']['output'];
+  chaos_resist: Scalars['float8']['output'];
+  /** An object relationship */
+  character: Character;
+  character_id: Scalars['String']['output'];
+  cold_resist: Scalars['float8']['output'];
+  combined_dps: Scalars['float8']['output'];
+  created_at: Scalars['timestamptz']['output'];
+  crit_chance: Scalars['float8']['output'];
+  crit_multiplier: Scalars['float8']['output'];
+  energy_shield: Scalars['float8']['output'];
+  evasion: Scalars['float8']['output'];
+  fire_resist: Scalars['float8']['output'];
+  full_dps: Scalars['float8']['output'];
+  life: Scalars['float8']['output'];
+  life_unreserved: Scalars['float8']['output'];
+  lightning_resist: Scalars['float8']['output'];
+  main_skill?: Maybe<Scalars['String']['output']>;
+  mana: Scalars['float8']['output'];
+  spell_block_chance: Scalars['float8']['output'];
+  spell_suppression_chance: Scalars['float8']['output'];
+  total_dot_dps: Scalars['float8']['output'];
+  total_dps: Scalars['float8']['output'];
+  total_ehp: Scalars['float8']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  ward: Scalars['float8']['output'];
+};
+
+/** aggregated selection of "character_stats" */
+export type Character_Stats_Aggregate = {
+  __typename?: 'character_stats_aggregate';
+  aggregate?: Maybe<Character_Stats_Aggregate_Fields>;
+  nodes: Array<Character_Stats>;
+};
+
+/** aggregate fields of "character_stats" */
+export type Character_Stats_Aggregate_Fields = {
+  __typename?: 'character_stats_aggregate_fields';
+  avg?: Maybe<Character_Stats_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Character_Stats_Max_Fields>;
+  min?: Maybe<Character_Stats_Min_Fields>;
+  stddev?: Maybe<Character_Stats_Stddev_Fields>;
+  stddev_pop?: Maybe<Character_Stats_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Character_Stats_Stddev_Samp_Fields>;
+  sum?: Maybe<Character_Stats_Sum_Fields>;
+  var_pop?: Maybe<Character_Stats_Var_Pop_Fields>;
+  var_samp?: Maybe<Character_Stats_Var_Samp_Fields>;
+  variance?: Maybe<Character_Stats_Variance_Fields>;
+};
+
+
+/** aggregate fields of "character_stats" */
+export type Character_Stats_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Character_Stats_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Character_Stats_Avg_Fields = {
+  __typename?: 'character_stats_avg_fields';
+  armour?: Maybe<Scalars['Float']['output']>;
+  attack_speed?: Maybe<Scalars['Float']['output']>;
+  block_chance?: Maybe<Scalars['Float']['output']>;
+  chaos_resist?: Maybe<Scalars['Float']['output']>;
+  cold_resist?: Maybe<Scalars['Float']['output']>;
+  combined_dps?: Maybe<Scalars['Float']['output']>;
+  crit_chance?: Maybe<Scalars['Float']['output']>;
+  crit_multiplier?: Maybe<Scalars['Float']['output']>;
+  energy_shield?: Maybe<Scalars['Float']['output']>;
+  evasion?: Maybe<Scalars['Float']['output']>;
+  fire_resist?: Maybe<Scalars['Float']['output']>;
+  full_dps?: Maybe<Scalars['Float']['output']>;
+  life?: Maybe<Scalars['Float']['output']>;
+  life_unreserved?: Maybe<Scalars['Float']['output']>;
+  lightning_resist?: Maybe<Scalars['Float']['output']>;
+  mana?: Maybe<Scalars['Float']['output']>;
+  spell_block_chance?: Maybe<Scalars['Float']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['Float']['output']>;
+  total_dot_dps?: Maybe<Scalars['Float']['output']>;
+  total_dps?: Maybe<Scalars['Float']['output']>;
+  total_ehp?: Maybe<Scalars['Float']['output']>;
+  ward?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "character_stats". All fields are combined with a logical 'AND'. */
+export type Character_Stats_Bool_Exp = {
+  _and?: InputMaybe<Array<Character_Stats_Bool_Exp>>;
+  _not?: InputMaybe<Character_Stats_Bool_Exp>;
+  _or?: InputMaybe<Array<Character_Stats_Bool_Exp>>;
+  armour?: InputMaybe<Float8_Comparison_Exp>;
+  attack_speed?: InputMaybe<Float8_Comparison_Exp>;
+  block_chance?: InputMaybe<Float8_Comparison_Exp>;
+  chaos_resist?: InputMaybe<Float8_Comparison_Exp>;
+  character?: InputMaybe<Character_Bool_Exp>;
+  character_id?: InputMaybe<String_Comparison_Exp>;
+  cold_resist?: InputMaybe<Float8_Comparison_Exp>;
+  combined_dps?: InputMaybe<Float8_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  crit_chance?: InputMaybe<Float8_Comparison_Exp>;
+  crit_multiplier?: InputMaybe<Float8_Comparison_Exp>;
+  energy_shield?: InputMaybe<Float8_Comparison_Exp>;
+  evasion?: InputMaybe<Float8_Comparison_Exp>;
+  fire_resist?: InputMaybe<Float8_Comparison_Exp>;
+  full_dps?: InputMaybe<Float8_Comparison_Exp>;
+  life?: InputMaybe<Float8_Comparison_Exp>;
+  life_unreserved?: InputMaybe<Float8_Comparison_Exp>;
+  lightning_resist?: InputMaybe<Float8_Comparison_Exp>;
+  main_skill?: InputMaybe<String_Comparison_Exp>;
+  mana?: InputMaybe<Float8_Comparison_Exp>;
+  spell_block_chance?: InputMaybe<Float8_Comparison_Exp>;
+  spell_suppression_chance?: InputMaybe<Float8_Comparison_Exp>;
+  total_dot_dps?: InputMaybe<Float8_Comparison_Exp>;
+  total_dps?: InputMaybe<Float8_Comparison_Exp>;
+  total_ehp?: InputMaybe<Float8_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  ward?: InputMaybe<Float8_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "character_stats" */
+export enum Character_Stats_Constraint {
+  /** unique or primary key constraint on columns "character_id" */
+  CharacterStatsPkey = 'character_stats_pkey'
+}
+
+/** input type for incrementing numeric columns in table "character_stats" */
+export type Character_Stats_Inc_Input = {
+  armour?: InputMaybe<Scalars['float8']['input']>;
+  attack_speed?: InputMaybe<Scalars['float8']['input']>;
+  block_chance?: InputMaybe<Scalars['float8']['input']>;
+  chaos_resist?: InputMaybe<Scalars['float8']['input']>;
+  cold_resist?: InputMaybe<Scalars['float8']['input']>;
+  combined_dps?: InputMaybe<Scalars['float8']['input']>;
+  crit_chance?: InputMaybe<Scalars['float8']['input']>;
+  crit_multiplier?: InputMaybe<Scalars['float8']['input']>;
+  energy_shield?: InputMaybe<Scalars['float8']['input']>;
+  evasion?: InputMaybe<Scalars['float8']['input']>;
+  fire_resist?: InputMaybe<Scalars['float8']['input']>;
+  full_dps?: InputMaybe<Scalars['float8']['input']>;
+  life?: InputMaybe<Scalars['float8']['input']>;
+  life_unreserved?: InputMaybe<Scalars['float8']['input']>;
+  lightning_resist?: InputMaybe<Scalars['float8']['input']>;
+  mana?: InputMaybe<Scalars['float8']['input']>;
+  spell_block_chance?: InputMaybe<Scalars['float8']['input']>;
+  spell_suppression_chance?: InputMaybe<Scalars['float8']['input']>;
+  total_dot_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_ehp?: InputMaybe<Scalars['float8']['input']>;
+  ward?: InputMaybe<Scalars['float8']['input']>;
+};
+
+/** input type for inserting data into table "character_stats" */
+export type Character_Stats_Insert_Input = {
+  armour?: InputMaybe<Scalars['float8']['input']>;
+  attack_speed?: InputMaybe<Scalars['float8']['input']>;
+  block_chance?: InputMaybe<Scalars['float8']['input']>;
+  chaos_resist?: InputMaybe<Scalars['float8']['input']>;
+  character?: InputMaybe<Character_Obj_Rel_Insert_Input>;
+  character_id?: InputMaybe<Scalars['String']['input']>;
+  cold_resist?: InputMaybe<Scalars['float8']['input']>;
+  combined_dps?: InputMaybe<Scalars['float8']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  crit_chance?: InputMaybe<Scalars['float8']['input']>;
+  crit_multiplier?: InputMaybe<Scalars['float8']['input']>;
+  energy_shield?: InputMaybe<Scalars['float8']['input']>;
+  evasion?: InputMaybe<Scalars['float8']['input']>;
+  fire_resist?: InputMaybe<Scalars['float8']['input']>;
+  full_dps?: InputMaybe<Scalars['float8']['input']>;
+  life?: InputMaybe<Scalars['float8']['input']>;
+  life_unreserved?: InputMaybe<Scalars['float8']['input']>;
+  lightning_resist?: InputMaybe<Scalars['float8']['input']>;
+  main_skill?: InputMaybe<Scalars['String']['input']>;
+  mana?: InputMaybe<Scalars['float8']['input']>;
+  spell_block_chance?: InputMaybe<Scalars['float8']['input']>;
+  spell_suppression_chance?: InputMaybe<Scalars['float8']['input']>;
+  total_dot_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_ehp?: InputMaybe<Scalars['float8']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  ward?: InputMaybe<Scalars['float8']['input']>;
+};
+
+/** aggregate max on columns */
+export type Character_Stats_Max_Fields = {
+  __typename?: 'character_stats_max_fields';
+  armour?: Maybe<Scalars['float8']['output']>;
+  attack_speed?: Maybe<Scalars['float8']['output']>;
+  block_chance?: Maybe<Scalars['float8']['output']>;
+  chaos_resist?: Maybe<Scalars['float8']['output']>;
+  character_id?: Maybe<Scalars['String']['output']>;
+  cold_resist?: Maybe<Scalars['float8']['output']>;
+  combined_dps?: Maybe<Scalars['float8']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  crit_chance?: Maybe<Scalars['float8']['output']>;
+  crit_multiplier?: Maybe<Scalars['float8']['output']>;
+  energy_shield?: Maybe<Scalars['float8']['output']>;
+  evasion?: Maybe<Scalars['float8']['output']>;
+  fire_resist?: Maybe<Scalars['float8']['output']>;
+  full_dps?: Maybe<Scalars['float8']['output']>;
+  life?: Maybe<Scalars['float8']['output']>;
+  life_unreserved?: Maybe<Scalars['float8']['output']>;
+  lightning_resist?: Maybe<Scalars['float8']['output']>;
+  main_skill?: Maybe<Scalars['String']['output']>;
+  mana?: Maybe<Scalars['float8']['output']>;
+  spell_block_chance?: Maybe<Scalars['float8']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['float8']['output']>;
+  total_dot_dps?: Maybe<Scalars['float8']['output']>;
+  total_dps?: Maybe<Scalars['float8']['output']>;
+  total_ehp?: Maybe<Scalars['float8']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  ward?: Maybe<Scalars['float8']['output']>;
+};
+
+/** aggregate min on columns */
+export type Character_Stats_Min_Fields = {
+  __typename?: 'character_stats_min_fields';
+  armour?: Maybe<Scalars['float8']['output']>;
+  attack_speed?: Maybe<Scalars['float8']['output']>;
+  block_chance?: Maybe<Scalars['float8']['output']>;
+  chaos_resist?: Maybe<Scalars['float8']['output']>;
+  character_id?: Maybe<Scalars['String']['output']>;
+  cold_resist?: Maybe<Scalars['float8']['output']>;
+  combined_dps?: Maybe<Scalars['float8']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  crit_chance?: Maybe<Scalars['float8']['output']>;
+  crit_multiplier?: Maybe<Scalars['float8']['output']>;
+  energy_shield?: Maybe<Scalars['float8']['output']>;
+  evasion?: Maybe<Scalars['float8']['output']>;
+  fire_resist?: Maybe<Scalars['float8']['output']>;
+  full_dps?: Maybe<Scalars['float8']['output']>;
+  life?: Maybe<Scalars['float8']['output']>;
+  life_unreserved?: Maybe<Scalars['float8']['output']>;
+  lightning_resist?: Maybe<Scalars['float8']['output']>;
+  main_skill?: Maybe<Scalars['String']['output']>;
+  mana?: Maybe<Scalars['float8']['output']>;
+  spell_block_chance?: Maybe<Scalars['float8']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['float8']['output']>;
+  total_dot_dps?: Maybe<Scalars['float8']['output']>;
+  total_dps?: Maybe<Scalars['float8']['output']>;
+  total_ehp?: Maybe<Scalars['float8']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  ward?: Maybe<Scalars['float8']['output']>;
+};
+
+/** response of any mutation on the table "character_stats" */
+export type Character_Stats_Mutation_Response = {
+  __typename?: 'character_stats_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Character_Stats>;
+};
+
+/** input type for inserting object relation for remote table "character_stats" */
+export type Character_Stats_Obj_Rel_Insert_Input = {
+  data: Character_Stats_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Character_Stats_On_Conflict>;
+};
+
+/** on_conflict condition type for table "character_stats" */
+export type Character_Stats_On_Conflict = {
+  constraint: Character_Stats_Constraint;
+  update_columns?: Array<Character_Stats_Update_Column>;
+  where?: InputMaybe<Character_Stats_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "character_stats". */
+export type Character_Stats_Order_By = {
+  armour?: InputMaybe<Order_By>;
+  attack_speed?: InputMaybe<Order_By>;
+  block_chance?: InputMaybe<Order_By>;
+  chaos_resist?: InputMaybe<Order_By>;
+  character?: InputMaybe<Character_Order_By>;
+  character_id?: InputMaybe<Order_By>;
+  cold_resist?: InputMaybe<Order_By>;
+  combined_dps?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  crit_chance?: InputMaybe<Order_By>;
+  crit_multiplier?: InputMaybe<Order_By>;
+  energy_shield?: InputMaybe<Order_By>;
+  evasion?: InputMaybe<Order_By>;
+  fire_resist?: InputMaybe<Order_By>;
+  full_dps?: InputMaybe<Order_By>;
+  life?: InputMaybe<Order_By>;
+  life_unreserved?: InputMaybe<Order_By>;
+  lightning_resist?: InputMaybe<Order_By>;
+  main_skill?: InputMaybe<Order_By>;
+  mana?: InputMaybe<Order_By>;
+  spell_block_chance?: InputMaybe<Order_By>;
+  spell_suppression_chance?: InputMaybe<Order_By>;
+  total_dot_dps?: InputMaybe<Order_By>;
+  total_dps?: InputMaybe<Order_By>;
+  total_ehp?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  ward?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: character_stats */
+export type Character_Stats_Pk_Columns_Input = {
+  character_id: Scalars['String']['input'];
+};
+
+/** select columns of table "character_stats" */
+export enum Character_Stats_Select_Column {
+  /** column name */
+  Armour = 'armour',
+  /** column name */
+  AttackSpeed = 'attack_speed',
+  /** column name */
+  BlockChance = 'block_chance',
+  /** column name */
+  ChaosResist = 'chaos_resist',
+  /** column name */
+  CharacterId = 'character_id',
+  /** column name */
+  ColdResist = 'cold_resist',
+  /** column name */
+  CombinedDps = 'combined_dps',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  CritChance = 'crit_chance',
+  /** column name */
+  CritMultiplier = 'crit_multiplier',
+  /** column name */
+  EnergyShield = 'energy_shield',
+  /** column name */
+  Evasion = 'evasion',
+  /** column name */
+  FireResist = 'fire_resist',
+  /** column name */
+  FullDps = 'full_dps',
+  /** column name */
+  Life = 'life',
+  /** column name */
+  LifeUnreserved = 'life_unreserved',
+  /** column name */
+  LightningResist = 'lightning_resist',
+  /** column name */
+  MainSkill = 'main_skill',
+  /** column name */
+  Mana = 'mana',
+  /** column name */
+  SpellBlockChance = 'spell_block_chance',
+  /** column name */
+  SpellSuppressionChance = 'spell_suppression_chance',
+  /** column name */
+  TotalDotDps = 'total_dot_dps',
+  /** column name */
+  TotalDps = 'total_dps',
+  /** column name */
+  TotalEhp = 'total_ehp',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  Ward = 'ward'
+}
+
+/** input type for updating data in table "character_stats" */
+export type Character_Stats_Set_Input = {
+  armour?: InputMaybe<Scalars['float8']['input']>;
+  attack_speed?: InputMaybe<Scalars['float8']['input']>;
+  block_chance?: InputMaybe<Scalars['float8']['input']>;
+  chaos_resist?: InputMaybe<Scalars['float8']['input']>;
+  character_id?: InputMaybe<Scalars['String']['input']>;
+  cold_resist?: InputMaybe<Scalars['float8']['input']>;
+  combined_dps?: InputMaybe<Scalars['float8']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  crit_chance?: InputMaybe<Scalars['float8']['input']>;
+  crit_multiplier?: InputMaybe<Scalars['float8']['input']>;
+  energy_shield?: InputMaybe<Scalars['float8']['input']>;
+  evasion?: InputMaybe<Scalars['float8']['input']>;
+  fire_resist?: InputMaybe<Scalars['float8']['input']>;
+  full_dps?: InputMaybe<Scalars['float8']['input']>;
+  life?: InputMaybe<Scalars['float8']['input']>;
+  life_unreserved?: InputMaybe<Scalars['float8']['input']>;
+  lightning_resist?: InputMaybe<Scalars['float8']['input']>;
+  main_skill?: InputMaybe<Scalars['String']['input']>;
+  mana?: InputMaybe<Scalars['float8']['input']>;
+  spell_block_chance?: InputMaybe<Scalars['float8']['input']>;
+  spell_suppression_chance?: InputMaybe<Scalars['float8']['input']>;
+  total_dot_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_ehp?: InputMaybe<Scalars['float8']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  ward?: InputMaybe<Scalars['float8']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Character_Stats_Stddev_Fields = {
+  __typename?: 'character_stats_stddev_fields';
+  armour?: Maybe<Scalars['Float']['output']>;
+  attack_speed?: Maybe<Scalars['Float']['output']>;
+  block_chance?: Maybe<Scalars['Float']['output']>;
+  chaos_resist?: Maybe<Scalars['Float']['output']>;
+  cold_resist?: Maybe<Scalars['Float']['output']>;
+  combined_dps?: Maybe<Scalars['Float']['output']>;
+  crit_chance?: Maybe<Scalars['Float']['output']>;
+  crit_multiplier?: Maybe<Scalars['Float']['output']>;
+  energy_shield?: Maybe<Scalars['Float']['output']>;
+  evasion?: Maybe<Scalars['Float']['output']>;
+  fire_resist?: Maybe<Scalars['Float']['output']>;
+  full_dps?: Maybe<Scalars['Float']['output']>;
+  life?: Maybe<Scalars['Float']['output']>;
+  life_unreserved?: Maybe<Scalars['Float']['output']>;
+  lightning_resist?: Maybe<Scalars['Float']['output']>;
+  mana?: Maybe<Scalars['Float']['output']>;
+  spell_block_chance?: Maybe<Scalars['Float']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['Float']['output']>;
+  total_dot_dps?: Maybe<Scalars['Float']['output']>;
+  total_dps?: Maybe<Scalars['Float']['output']>;
+  total_ehp?: Maybe<Scalars['Float']['output']>;
+  ward?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Character_Stats_Stddev_Pop_Fields = {
+  __typename?: 'character_stats_stddev_pop_fields';
+  armour?: Maybe<Scalars['Float']['output']>;
+  attack_speed?: Maybe<Scalars['Float']['output']>;
+  block_chance?: Maybe<Scalars['Float']['output']>;
+  chaos_resist?: Maybe<Scalars['Float']['output']>;
+  cold_resist?: Maybe<Scalars['Float']['output']>;
+  combined_dps?: Maybe<Scalars['Float']['output']>;
+  crit_chance?: Maybe<Scalars['Float']['output']>;
+  crit_multiplier?: Maybe<Scalars['Float']['output']>;
+  energy_shield?: Maybe<Scalars['Float']['output']>;
+  evasion?: Maybe<Scalars['Float']['output']>;
+  fire_resist?: Maybe<Scalars['Float']['output']>;
+  full_dps?: Maybe<Scalars['Float']['output']>;
+  life?: Maybe<Scalars['Float']['output']>;
+  life_unreserved?: Maybe<Scalars['Float']['output']>;
+  lightning_resist?: Maybe<Scalars['Float']['output']>;
+  mana?: Maybe<Scalars['Float']['output']>;
+  spell_block_chance?: Maybe<Scalars['Float']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['Float']['output']>;
+  total_dot_dps?: Maybe<Scalars['Float']['output']>;
+  total_dps?: Maybe<Scalars['Float']['output']>;
+  total_ehp?: Maybe<Scalars['Float']['output']>;
+  ward?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Character_Stats_Stddev_Samp_Fields = {
+  __typename?: 'character_stats_stddev_samp_fields';
+  armour?: Maybe<Scalars['Float']['output']>;
+  attack_speed?: Maybe<Scalars['Float']['output']>;
+  block_chance?: Maybe<Scalars['Float']['output']>;
+  chaos_resist?: Maybe<Scalars['Float']['output']>;
+  cold_resist?: Maybe<Scalars['Float']['output']>;
+  combined_dps?: Maybe<Scalars['Float']['output']>;
+  crit_chance?: Maybe<Scalars['Float']['output']>;
+  crit_multiplier?: Maybe<Scalars['Float']['output']>;
+  energy_shield?: Maybe<Scalars['Float']['output']>;
+  evasion?: Maybe<Scalars['Float']['output']>;
+  fire_resist?: Maybe<Scalars['Float']['output']>;
+  full_dps?: Maybe<Scalars['Float']['output']>;
+  life?: Maybe<Scalars['Float']['output']>;
+  life_unreserved?: Maybe<Scalars['Float']['output']>;
+  lightning_resist?: Maybe<Scalars['Float']['output']>;
+  mana?: Maybe<Scalars['Float']['output']>;
+  spell_block_chance?: Maybe<Scalars['Float']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['Float']['output']>;
+  total_dot_dps?: Maybe<Scalars['Float']['output']>;
+  total_dps?: Maybe<Scalars['Float']['output']>;
+  total_ehp?: Maybe<Scalars['Float']['output']>;
+  ward?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "character_stats" */
+export type Character_Stats_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Character_Stats_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Character_Stats_Stream_Cursor_Value_Input = {
+  armour?: InputMaybe<Scalars['float8']['input']>;
+  attack_speed?: InputMaybe<Scalars['float8']['input']>;
+  block_chance?: InputMaybe<Scalars['float8']['input']>;
+  chaos_resist?: InputMaybe<Scalars['float8']['input']>;
+  character_id?: InputMaybe<Scalars['String']['input']>;
+  cold_resist?: InputMaybe<Scalars['float8']['input']>;
+  combined_dps?: InputMaybe<Scalars['float8']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  crit_chance?: InputMaybe<Scalars['float8']['input']>;
+  crit_multiplier?: InputMaybe<Scalars['float8']['input']>;
+  energy_shield?: InputMaybe<Scalars['float8']['input']>;
+  evasion?: InputMaybe<Scalars['float8']['input']>;
+  fire_resist?: InputMaybe<Scalars['float8']['input']>;
+  full_dps?: InputMaybe<Scalars['float8']['input']>;
+  life?: InputMaybe<Scalars['float8']['input']>;
+  life_unreserved?: InputMaybe<Scalars['float8']['input']>;
+  lightning_resist?: InputMaybe<Scalars['float8']['input']>;
+  main_skill?: InputMaybe<Scalars['String']['input']>;
+  mana?: InputMaybe<Scalars['float8']['input']>;
+  spell_block_chance?: InputMaybe<Scalars['float8']['input']>;
+  spell_suppression_chance?: InputMaybe<Scalars['float8']['input']>;
+  total_dot_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_dps?: InputMaybe<Scalars['float8']['input']>;
+  total_ehp?: InputMaybe<Scalars['float8']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  ward?: InputMaybe<Scalars['float8']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Character_Stats_Sum_Fields = {
+  __typename?: 'character_stats_sum_fields';
+  armour?: Maybe<Scalars['float8']['output']>;
+  attack_speed?: Maybe<Scalars['float8']['output']>;
+  block_chance?: Maybe<Scalars['float8']['output']>;
+  chaos_resist?: Maybe<Scalars['float8']['output']>;
+  cold_resist?: Maybe<Scalars['float8']['output']>;
+  combined_dps?: Maybe<Scalars['float8']['output']>;
+  crit_chance?: Maybe<Scalars['float8']['output']>;
+  crit_multiplier?: Maybe<Scalars['float8']['output']>;
+  energy_shield?: Maybe<Scalars['float8']['output']>;
+  evasion?: Maybe<Scalars['float8']['output']>;
+  fire_resist?: Maybe<Scalars['float8']['output']>;
+  full_dps?: Maybe<Scalars['float8']['output']>;
+  life?: Maybe<Scalars['float8']['output']>;
+  life_unreserved?: Maybe<Scalars['float8']['output']>;
+  lightning_resist?: Maybe<Scalars['float8']['output']>;
+  mana?: Maybe<Scalars['float8']['output']>;
+  spell_block_chance?: Maybe<Scalars['float8']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['float8']['output']>;
+  total_dot_dps?: Maybe<Scalars['float8']['output']>;
+  total_dps?: Maybe<Scalars['float8']['output']>;
+  total_ehp?: Maybe<Scalars['float8']['output']>;
+  ward?: Maybe<Scalars['float8']['output']>;
+};
+
+/** update columns of table "character_stats" */
+export enum Character_Stats_Update_Column {
+  /** column name */
+  Armour = 'armour',
+  /** column name */
+  AttackSpeed = 'attack_speed',
+  /** column name */
+  BlockChance = 'block_chance',
+  /** column name */
+  ChaosResist = 'chaos_resist',
+  /** column name */
+  CharacterId = 'character_id',
+  /** column name */
+  ColdResist = 'cold_resist',
+  /** column name */
+  CombinedDps = 'combined_dps',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  CritChance = 'crit_chance',
+  /** column name */
+  CritMultiplier = 'crit_multiplier',
+  /** column name */
+  EnergyShield = 'energy_shield',
+  /** column name */
+  Evasion = 'evasion',
+  /** column name */
+  FireResist = 'fire_resist',
+  /** column name */
+  FullDps = 'full_dps',
+  /** column name */
+  Life = 'life',
+  /** column name */
+  LifeUnreserved = 'life_unreserved',
+  /** column name */
+  LightningResist = 'lightning_resist',
+  /** column name */
+  MainSkill = 'main_skill',
+  /** column name */
+  Mana = 'mana',
+  /** column name */
+  SpellBlockChance = 'spell_block_chance',
+  /** column name */
+  SpellSuppressionChance = 'spell_suppression_chance',
+  /** column name */
+  TotalDotDps = 'total_dot_dps',
+  /** column name */
+  TotalDps = 'total_dps',
+  /** column name */
+  TotalEhp = 'total_ehp',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  Ward = 'ward'
+}
+
+export type Character_Stats_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Character_Stats_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Character_Stats_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Character_Stats_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Character_Stats_Var_Pop_Fields = {
+  __typename?: 'character_stats_var_pop_fields';
+  armour?: Maybe<Scalars['Float']['output']>;
+  attack_speed?: Maybe<Scalars['Float']['output']>;
+  block_chance?: Maybe<Scalars['Float']['output']>;
+  chaos_resist?: Maybe<Scalars['Float']['output']>;
+  cold_resist?: Maybe<Scalars['Float']['output']>;
+  combined_dps?: Maybe<Scalars['Float']['output']>;
+  crit_chance?: Maybe<Scalars['Float']['output']>;
+  crit_multiplier?: Maybe<Scalars['Float']['output']>;
+  energy_shield?: Maybe<Scalars['Float']['output']>;
+  evasion?: Maybe<Scalars['Float']['output']>;
+  fire_resist?: Maybe<Scalars['Float']['output']>;
+  full_dps?: Maybe<Scalars['Float']['output']>;
+  life?: Maybe<Scalars['Float']['output']>;
+  life_unreserved?: Maybe<Scalars['Float']['output']>;
+  lightning_resist?: Maybe<Scalars['Float']['output']>;
+  mana?: Maybe<Scalars['Float']['output']>;
+  spell_block_chance?: Maybe<Scalars['Float']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['Float']['output']>;
+  total_dot_dps?: Maybe<Scalars['Float']['output']>;
+  total_dps?: Maybe<Scalars['Float']['output']>;
+  total_ehp?: Maybe<Scalars['Float']['output']>;
+  ward?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Character_Stats_Var_Samp_Fields = {
+  __typename?: 'character_stats_var_samp_fields';
+  armour?: Maybe<Scalars['Float']['output']>;
+  attack_speed?: Maybe<Scalars['Float']['output']>;
+  block_chance?: Maybe<Scalars['Float']['output']>;
+  chaos_resist?: Maybe<Scalars['Float']['output']>;
+  cold_resist?: Maybe<Scalars['Float']['output']>;
+  combined_dps?: Maybe<Scalars['Float']['output']>;
+  crit_chance?: Maybe<Scalars['Float']['output']>;
+  crit_multiplier?: Maybe<Scalars['Float']['output']>;
+  energy_shield?: Maybe<Scalars['Float']['output']>;
+  evasion?: Maybe<Scalars['Float']['output']>;
+  fire_resist?: Maybe<Scalars['Float']['output']>;
+  full_dps?: Maybe<Scalars['Float']['output']>;
+  life?: Maybe<Scalars['Float']['output']>;
+  life_unreserved?: Maybe<Scalars['Float']['output']>;
+  lightning_resist?: Maybe<Scalars['Float']['output']>;
+  mana?: Maybe<Scalars['Float']['output']>;
+  spell_block_chance?: Maybe<Scalars['Float']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['Float']['output']>;
+  total_dot_dps?: Maybe<Scalars['Float']['output']>;
+  total_dps?: Maybe<Scalars['Float']['output']>;
+  total_ehp?: Maybe<Scalars['Float']['output']>;
+  ward?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Character_Stats_Variance_Fields = {
+  __typename?: 'character_stats_variance_fields';
+  armour?: Maybe<Scalars['Float']['output']>;
+  attack_speed?: Maybe<Scalars['Float']['output']>;
+  block_chance?: Maybe<Scalars['Float']['output']>;
+  chaos_resist?: Maybe<Scalars['Float']['output']>;
+  cold_resist?: Maybe<Scalars['Float']['output']>;
+  combined_dps?: Maybe<Scalars['Float']['output']>;
+  crit_chance?: Maybe<Scalars['Float']['output']>;
+  crit_multiplier?: Maybe<Scalars['Float']['output']>;
+  energy_shield?: Maybe<Scalars['Float']['output']>;
+  evasion?: Maybe<Scalars['Float']['output']>;
+  fire_resist?: Maybe<Scalars['Float']['output']>;
+  full_dps?: Maybe<Scalars['Float']['output']>;
+  life?: Maybe<Scalars['Float']['output']>;
+  life_unreserved?: Maybe<Scalars['Float']['output']>;
+  lightning_resist?: Maybe<Scalars['Float']['output']>;
+  mana?: Maybe<Scalars['Float']['output']>;
+  spell_block_chance?: Maybe<Scalars['Float']['output']>;
+  spell_suppression_chance?: Maybe<Scalars['Float']['output']>;
+  total_dot_dps?: Maybe<Scalars['Float']['output']>;
+  total_dps?: Maybe<Scalars['Float']['output']>;
+  total_ehp?: Maybe<Scalars['Float']['output']>;
+  ward?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev on columns */
@@ -438,6 +1137,19 @@ export enum Cursor_Ordering {
   /** descending ordering of the cursor */
   Desc = 'DESC'
 }
+
+/** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
+export type Float8_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['float8']['input']>;
+  _gt?: InputMaybe<Scalars['float8']['input']>;
+  _gte?: InputMaybe<Scalars['float8']['input']>;
+  _in?: InputMaybe<Array<Scalars['float8']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['float8']['input']>;
+  _lte?: InputMaybe<Scalars['float8']['input']>;
+  _neq?: InputMaybe<Scalars['float8']['input']>;
+  _nin?: InputMaybe<Array<Scalars['float8']['input']>>;
+};
 
 /** columns and relationships of "item_order_type" */
 export type Item_Order_Type = {
@@ -1246,6 +1958,10 @@ export type Mutation_Root = {
   delete_character?: Maybe<Character_Mutation_Response>;
   /** delete single row from the table: "character" */
   delete_character_by_pk?: Maybe<Character>;
+  /** delete data from the table: "character_stats" */
+  delete_character_stats?: Maybe<Character_Stats_Mutation_Response>;
+  /** delete single row from the table: "character_stats" */
+  delete_character_stats_by_pk?: Maybe<Character_Stats>;
   /** delete data from the table: "item_order_type" */
   delete_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
   /** delete single row from the table: "item_order_type" */
@@ -1282,6 +1998,10 @@ export type Mutation_Root = {
   insert_character?: Maybe<Character_Mutation_Response>;
   /** insert a single row into the table: "character" */
   insert_character_one?: Maybe<Character>;
+  /** insert data into the table: "character_stats" */
+  insert_character_stats?: Maybe<Character_Stats_Mutation_Response>;
+  /** insert a single row into the table: "character_stats" */
+  insert_character_stats_one?: Maybe<Character_Stats>;
   /** insert data into the table: "item_order_type" */
   insert_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
   /** insert a single row into the table: "item_order_type" */
@@ -1320,6 +2040,12 @@ export type Mutation_Root = {
   update_character_by_pk?: Maybe<Character>;
   /** update multiples rows of table: "character" */
   update_character_many?: Maybe<Array<Maybe<Character_Mutation_Response>>>;
+  /** update data of the table: "character_stats" */
+  update_character_stats?: Maybe<Character_Stats_Mutation_Response>;
+  /** update single row of the table: "character_stats" */
+  update_character_stats_by_pk?: Maybe<Character_Stats>;
+  /** update multiples rows of table: "character_stats" */
+  update_character_stats_many?: Maybe<Array<Maybe<Character_Stats_Mutation_Response>>>;
   /** update data of the table: "item_order_type" */
   update_item_order_type?: Maybe<Item_Order_Type_Mutation_Response>;
   /** update single row of the table: "item_order_type" */
@@ -1380,6 +2106,18 @@ export type Mutation_RootDelete_CharacterArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Character_By_PkArgs = {
   id: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Character_StatsArgs = {
+  where: Character_Stats_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Character_Stats_By_PkArgs = {
+  character_id: Scalars['String']['input'];
 };
 
 
@@ -1490,6 +2228,20 @@ export type Mutation_RootInsert_CharacterArgs = {
 export type Mutation_RootInsert_Character_OneArgs = {
   object: Character_Insert_Input;
   on_conflict?: InputMaybe<Character_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Character_StatsArgs = {
+  objects: Array<Character_Stats_Insert_Input>;
+  on_conflict?: InputMaybe<Character_Stats_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Character_Stats_OneArgs = {
+  object: Character_Stats_Insert_Input;
+  on_conflict?: InputMaybe<Character_Stats_On_Conflict>;
 };
 
 
@@ -1624,6 +2376,28 @@ export type Mutation_RootUpdate_Character_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Character_ManyArgs = {
   updates: Array<Character_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Character_StatsArgs = {
+  _inc?: InputMaybe<Character_Stats_Inc_Input>;
+  _set?: InputMaybe<Character_Stats_Set_Input>;
+  where: Character_Stats_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Character_Stats_By_PkArgs = {
+  _inc?: InputMaybe<Character_Stats_Inc_Input>;
+  _set?: InputMaybe<Character_Stats_Set_Input>;
+  pk_columns: Character_Stats_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Character_Stats_ManyArgs = {
+  updates: Array<Character_Stats_Updates>;
 };
 
 
@@ -1810,6 +2584,12 @@ export type Query_Root = {
   character_aggregate: Character_Aggregate;
   /** fetch data from the table: "character" using primary key columns */
   character_by_pk?: Maybe<Character>;
+  /** fetch data from the table: "character_stats" */
+  character_stats: Array<Character_Stats>;
+  /** fetch aggregated fields from the table: "character_stats" */
+  character_stats_aggregate: Character_Stats_Aggregate;
+  /** fetch data from the table: "character_stats" using primary key columns */
+  character_stats_by_pk?: Maybe<Character_Stats>;
   /** fetch data from the table: "item_order_type" */
   item_order_type: Array<Item_Order_Type>;
   /** fetch aggregated fields from the table: "item_order_type" */
@@ -1881,6 +2661,29 @@ export type Query_RootCharacter_AggregateArgs = {
 
 export type Query_RootCharacter_By_PkArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type Query_RootCharacter_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Character_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Character_Stats_Order_By>>;
+  where?: InputMaybe<Character_Stats_Bool_Exp>;
+};
+
+
+export type Query_RootCharacter_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Character_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Character_Stats_Order_By>>;
+  where?: InputMaybe<Character_Stats_Bool_Exp>;
+};
+
+
+export type Query_RootCharacter_Stats_By_PkArgs = {
+  character_id: Scalars['String']['input'];
 };
 
 
@@ -2075,6 +2878,14 @@ export type Subscription_Root = {
   character_aggregate: Character_Aggregate;
   /** fetch data from the table: "character" using primary key columns */
   character_by_pk?: Maybe<Character>;
+  /** fetch data from the table: "character_stats" */
+  character_stats: Array<Character_Stats>;
+  /** fetch aggregated fields from the table: "character_stats" */
+  character_stats_aggregate: Character_Stats_Aggregate;
+  /** fetch data from the table: "character_stats" using primary key columns */
+  character_stats_by_pk?: Maybe<Character_Stats>;
+  /** fetch data from the table in a streaming manner: "character_stats" */
+  character_stats_stream: Array<Character_Stats>;
   /** fetch data from the table in a streaming manner: "character" */
   character_stream: Array<Character>;
   /** fetch data from the table: "item_order_type" */
@@ -2164,6 +2975,36 @@ export type Subscription_RootCharacter_AggregateArgs = {
 
 export type Subscription_RootCharacter_By_PkArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootCharacter_StatsArgs = {
+  distinct_on?: InputMaybe<Array<Character_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Character_Stats_Order_By>>;
+  where?: InputMaybe<Character_Stats_Bool_Exp>;
+};
+
+
+export type Subscription_RootCharacter_Stats_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Character_Stats_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Character_Stats_Order_By>>;
+  where?: InputMaybe<Character_Stats_Bool_Exp>;
+};
+
+
+export type Subscription_RootCharacter_Stats_By_PkArgs = {
+  character_id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootCharacter_Stats_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Character_Stats_Stream_Cursor_Input>>;
+  where?: InputMaybe<Character_Stats_Bool_Exp>;
 };
 
 
@@ -3226,12 +4067,19 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
+export type CharacterStatsSheetQueryVariables = Exact<{
+  characterId: Scalars['String']['input'];
+}>;
+
+
+export type CharacterStatsSheetQuery = { __typename?: 'query_root', character_stats_by_pk?: { __typename?: 'character_stats', character_id: string, main_skill?: string | null, combined_dps: number, total_dps: number, full_dps: number, total_dot_dps: number, life: number, life_unreserved: number, energy_shield: number, ward: number, mana: number, total_ehp: number, armour: number, evasion: number, block_chance: number, spell_block_chance: number, spell_suppression_chance: number, fire_resist: number, cold_resist: number, lightning_resist: number, chaos_resist: number, crit_chance: number, crit_multiplier: number, attack_speed: number, updated_at: string } | null };
+
 export type LeagueCharactersSubscriptionVariables = Exact<{
   leagueName?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type LeagueCharactersSubscription = { __typename?: 'subscription_root', character: Array<{ __typename?: 'character', twitch?: string | null, retired: boolean, poe_account_name: string, rank: number, name: string, level: number, id: string, experience: any, dead: boolean, class: string, challenges: number }> };
+export type LeagueCharactersSubscription = { __typename?: 'subscription_root', character: Array<{ __typename?: 'character', twitch?: string | null, retired: boolean, poe_account_name: string, rank: number, name: string, level: number, id: string, experience: any, dead: boolean, class: string, challenges: number, stats?: { __typename?: 'character_stats', main_skill?: string | null, combined_dps: number, life: number, energy_shield: number, total_ehp: number, updated_at: string } | null }> };
 
 export type LeagueQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3365,6 +4213,38 @@ export const UserFieldsFragmentDoc = gql`
   }
 }
     `;
+export const CharacterStatsSheetDocument = gql`
+    query CharacterStatsSheet($characterId: String!) {
+  character_stats_by_pk(character_id: $characterId) {
+    character_id
+    main_skill
+    combined_dps
+    total_dps
+    full_dps
+    total_dot_dps
+    life
+    life_unreserved
+    energy_shield
+    ward
+    mana
+    total_ehp
+    armour
+    evasion
+    block_chance
+    spell_block_chance
+    spell_suppression_chance
+    fire_resist
+    cold_resist
+    lightning_resist
+    chaos_resist
+    crit_chance
+    crit_multiplier
+    attack_speed
+    updated_at
+  }
+}
+    `;
+export type CharacterStatsSheetQueryResult = Apollo.QueryResult<CharacterStatsSheetQuery, CharacterStatsSheetQueryVariables>;
 export const LeagueCharactersDocument = gql`
     subscription LeagueCharacters($leagueName: String) {
   character(order_by: {rank: asc}, where: {league: {_eq: $leagueName}}) {
@@ -3379,6 +4259,14 @@ export const LeagueCharactersDocument = gql`
     dead
     class
     challenges
+    stats {
+      main_skill
+      combined_dps
+      life
+      energy_shield
+      total_ehp
+      updated_at
+    }
   }
 }
     `;

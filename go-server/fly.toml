@@ -6,13 +6,13 @@
 app = 'smol-go-server'
 primary_region = 'lhr'
 
-[build]
-  [build.args]
-    GO_VERSION = '1.22.1'
-
 # headroom for headless PoB spikes (~230-330MB peak per character after the
 # eager-GC fix in extract-stats.lua; rare tree/jewel combos can spike higher)
 swap_size_mb = 512
+
+[build]
+  [build.args]
+    GO_VERSION = '1.22.1'
 
 [env]
   PORT = '8080'

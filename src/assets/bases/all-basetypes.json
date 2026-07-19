@@ -1,5 +1,5 @@
 {
-  "size": 2897,
+  "size": 2973,
   "data": [
     {
       "Name": "Small Life Flask",
@@ -3152,7 +3152,7 @@
       "ItemLevel": "28"
     },
     {
-      "Name": "Sweep",
+      "Name": "Holy Sweep",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Sweep.png?scale=1&w=1&h=1",
       "ItemClassesID": "18",
       "ItemClassesName": "Skill Gems",
@@ -6617,6 +6617,34 @@
       "ItemLevel": "12"
     },
     {
+      "Name": "Holy Hammers",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/HolyHammers.png?scale=1&w=1&h=1",
+      "ItemClassesID": "18",
+      "ItemClassesName": "Skill Gems",
+      "ItemLevel": "28"
+    },
+    {
+      "Name": "Shield of Light",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/ShieldofLightGem.png?scale=1&w=1&h=1",
+      "ItemClassesID": "18",
+      "ItemClassesName": "Skill Gems",
+      "ItemLevel": "16"
+    },
+    {
+      "Name": "Holy Strike",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/HolyStrikeGem.png?scale=1&w=1&h=1",
+      "ItemClassesID": "18",
+      "ItemClassesName": "Skill Gems",
+      "ItemLevel": "5"
+    },
+    {
+      "Name": "Divine Blast",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/DiscusSlam.png?scale=1&w=1&h=1",
+      "ItemClassesID": "18",
+      "ItemClassesName": "Skill Gems",
+      "ItemLevel": "28"
+    },
+    {
       "Name": "Automation",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/AutoCastInstantSkills.png?scale=1&w=1&h=1",
       "ItemClassesID": "18",
@@ -6799,7 +6827,7 @@
       "ItemLevel": "38"
     },
     {
-      "Name": "Lesser Multiple Projectiles Support",
+      "Name": "Multiple Projectiles Support",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/LesserMultipleProjectiles.png?scale=1&w=1&h=1",
       "ItemClassesID": "19",
       "ItemClassesName": "Support Gems",
@@ -8241,7 +8269,7 @@
       "ItemLevel": "4"
     },
     {
-      "Name": "Royale Lesser Multiple Projectiles Support",
+      "Name": "Royale Multiple Projectiles Support",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/LesserMultipleProjectiles.png?scale=1&w=1&h=1",
       "ItemClassesID": "19",
       "ItemClassesName": "Support Gems",
@@ -8570,6 +8598,335 @@
       "ItemLevel": "38"
     },
     {
+      "Name": "Greater Spell Cascade Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/SpellCascade.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Eclipse Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Eclipse.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Invert the Rules Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/InverttheRules.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Cast on Ward Break Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/CastonWardBreak.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Ward Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/WardSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Vaal Sacrifice Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/VaalSacrifice.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Spell Echo Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Echo.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Vaal Temptation Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/VaalTemptationSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Machinations Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Machinations.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Pyre Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/PyreSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Bonespire Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/BonespireSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Foulgrasp Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Foulgrasp.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Hiveborn Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Hiveborn.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Scornful Herald Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/ScornfulHerald.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Cull the Weak Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/CullingStrike.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Ancestral Call Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/MirageStrike.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Fissure Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/FissureSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Hextoad Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/HexZoneSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Hexpass Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Hexpass.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Fork Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Fork.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Chain Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/chain.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Lethal Dose Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/LethalDoseSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Companionship Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Companionship.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Divine Sentinel Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/DivineSentinelSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Annihilation Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/ObliterationSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Edify Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/EdifySupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Invention Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/InventionSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Kinetic Instability Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/KineticInstabilitySupportGem.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Cooldown Recovery Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/CooldownRecovery.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Voidstorm Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Voidstorm.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Void Shockwave Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Shockwave.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Eldritch Blasphemy Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Aurify.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Gluttony Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/GluttonySupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Overheat Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/OverheatSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Multistrike Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/multipleattacks.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Congregation Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/UndeadArmy.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Frostmage Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/FrostmageSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Devour Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Devour.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Magnetism Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Magnetism.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Greater Unleash Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/UnleashSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Pacifism Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/ChancetoFlee.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Bloodsoaked Banner Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/BloodsoakedBannerSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Minion Pact Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/MinionPactSuppor.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Harrowing Throng Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/HarrowingThrongSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Unholy Trinity Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/UnholyTrinitySupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Overloaded Intensity Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/SpellFocusSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
+      "Name": "Transfusion Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/TransfusionSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "72"
+    },
+    {
       "Name": "Focused Channelling Support",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/FocusedChannellingSupportGem.png?scale=1&w=1&h=1",
       "ItemClassesID": "19",
@@ -8596,6 +8953,34 @@
       "ItemClassesID": "19",
       "ItemClassesName": "Support Gems",
       "ItemLevel": "18"
+    },
+    {
+      "Name": "Excommunicate Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/Excommunicate.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "31"
+    },
+    {
+      "Name": "Exemplar Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/ExemplarSupport.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "18"
+    },
+    {
+      "Name": "Blessed Call Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/BlessedCalling.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "31"
+    },
+    {
+      "Name": "Hallow Support",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/HallowingFlame.png?scale=1&w=1&h=1",
+      "ItemClassesID": "19",
+      "ItemClassesName": "Support Gems",
+      "ItemLevel": "5"
     },
     {
       "Name": "Ornate Quiver",
@@ -8796,6 +9181,13 @@
     {
       "Name": "Stygian Vise",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Belts/AbyssBelt.png?scale=1&w=2&h=1",
+      "ItemClassesID": "21",
+      "ItemClassesName": "Belts",
+      "ItemLevel": "1"
+    },
+    {
+      "Name": "Cord Belt",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Belts/SoulcordBelt.png?scale=1&w=2&h=1",
       "ItemClassesID": "21",
       "ItemClassesName": "Belts",
       "ItemLevel": "1"
@@ -12512,1155 +12904,1155 @@
     },
     {
       "Name": "Lookout Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Lookout.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Lookout.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "73"
+      "ItemLevel": "58"
     },
     {
       "Name": "Beach Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Beach.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Beach.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "83"
+      "ItemLevel": "58"
     },
     {
       "Name": "Graveyard Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Graveyard.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Graveyard.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "58"
     },
     {
       "Name": "Dungeon Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Dungeon.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Dungeon.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "58"
     },
     {
       "Name": "Foundry Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ThaumaturgyDungeon.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ThaumaturgyDungeon.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "82"
     },
     {
       "Name": "Alleyways Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Alleyways.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Alleyways.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "75"
+      "ItemLevel": "69"
     },
     {
       "Name": "Pen Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Pen.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Pen.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "69"
     },
     {
       "Name": "Desert Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Desert.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Desert.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "78"
+      "ItemLevel": "69"
     },
     {
       "Name": "Arid Lake Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/AridLake.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/AridLake.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "76"
+      "ItemLevel": "69"
     },
     {
       "Name": "Flooded Mine Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cavern.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cavern.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "69"
     },
     {
       "Name": "Marshes Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Marshes.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Marshes.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "79"
+      "ItemLevel": "69"
     },
     {
       "Name": "Iceberg Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Iceberg.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Iceberg.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "72"
+      "ItemLevel": "70"
     },
     {
       "Name": "Cage Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cage.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cage.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "70"
     },
     {
       "Name": "Fungal Hollow Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/FungalCaverns.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/FungalCaverns.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "70"
     },
     {
       "Name": "Excavation Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Excavation.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Excavation.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "70"
     },
     {
       "Name": "Leyline Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SulphurWastes.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SulphurWastes.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "70"
     },
     {
       "Name": "Peninsula Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DryPeninsula.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DryPeninsula.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "70"
     },
     {
       "Name": "Port Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Quay.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Quay.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "75"
+      "ItemLevel": "70"
     },
     {
       "Name": "Burial Chambers Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/BurialChambers.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/BurialChambers.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "80"
+      "ItemLevel": "70"
     },
     {
       "Name": "Cells Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cells.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cells.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "77"
+      "ItemLevel": "70"
     },
     {
       "Name": "Arcade Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arcade.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arcade.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "78"
+      "ItemLevel": "70"
     },
     {
       "Name": "City Square Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CitySquare.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CitySquare.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "74"
+      "ItemLevel": "71"
     },
     {
       "Name": "Relic Chambers Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Antiquary.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Antiquary.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "71"
     },
     {
       "Name": "Courthouse Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Courthouse.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Courthouse.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "71"
     },
     {
       "Name": "Strand Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Strand.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Strand.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "70"
+      "ItemLevel": "71"
     },
     {
       "Name": "Chateau Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Chateau.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Chateau.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "80"
+      "ItemLevel": "71"
     },
     {
       "Name": "Grotto Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Grotto.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Grotto.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "75"
+      "ItemLevel": "71"
     },
     {
       "Name": "Glacier Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Glacier.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Glacier.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "76"
+      "ItemLevel": "71"
     },
     {
       "Name": "Volcano Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Volcano.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Volcano.png?scale=1&w=1&h=1&mr=1&mn=24",
+      "ItemClassesID": "35",
+      "ItemClassesName": "Maps",
+      "ItemLevel": "71"
+    },
+    {
+      "Name": "Lighthouse Map",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Beacon.png?scale=1&w=1&h=1&mr=1&mn=24",
+      "ItemClassesID": "35",
+      "ItemClassesName": "Maps",
+      "ItemLevel": "71"
+    },
+    {
+      "Name": "Canyon Map",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Canyon.png?scale=1&w=1&h=1&mr=1&mn=24",
+      "ItemClassesID": "35",
+      "ItemClassesName": "Maps",
+      "ItemLevel": "71"
+    },
+    {
+      "Name": "Frozen Cabins Map",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/FrozenCabins.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "69"
     },
     {
-      "Name": "Lighthouse Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Beacon.png?scale=1&w=1&h=1&mr=1&mn=23",
-      "ItemClassesID": "35",
-      "ItemClassesName": "Maps",
-      "ItemLevel": "80"
-    },
-    {
-      "Name": "Canyon Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Canyon.png?scale=1&w=1&h=1&mr=1&mn=23",
-      "ItemClassesID": "35",
-      "ItemClassesName": "Maps",
-      "ItemLevel": "70"
-    },
-    {
-      "Name": "Frozen Cabins Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/FrozenCabins.png?scale=1&w=1&h=1&mr=1&mn=23",
-      "ItemClassesID": "35",
-      "ItemClassesName": "Maps",
-      "ItemLevel": "77"
-    },
-    {
       "Name": "Grave Trough Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Burn.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Burn.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "74"
+      "ItemLevel": "78"
     },
     {
       "Name": "Crimson Township Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CrimsonTownship.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CrimsonTownship.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "79"
     },
     {
       "Name": "Forking River Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ForkingRiver.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ForkingRiver.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "83"
+      "ItemLevel": "70"
     },
     {
       "Name": "Cold River Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ColdRiver.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ColdRiver.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "78"
     },
     {
       "Name": "Forbidden Woods Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ForbiddenWoods.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ForbiddenWoods.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "77"
     },
     {
       "Name": "Conservatory Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Baths.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Baths.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "72"
     },
     {
       "Name": "Sulphur Vents Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Corrosion.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Corrosion.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "82"
+      "ItemLevel": "72"
     },
     {
       "Name": "Haunted Mansion Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Chambers.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Chambers.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "72"
     },
     {
       "Name": "Maze Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Maze.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Maze.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "81"
+      "ItemLevel": "72"
     },
     {
       "Name": "Channel Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Channel.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Channel.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "75"
+      "ItemLevel": "72"
     },
     {
       "Name": "Toxic Sewer Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Sewer.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Sewer.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "69"
+      "ItemLevel": "72"
     },
     {
       "Name": "Ancient City Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/VaalCity.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/VaalCity.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "72"
     },
     {
       "Name": "Ivory Temple Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/IvoryTemple.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/IvoryTemple.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "83"
+      "ItemLevel": "72"
     },
     {
       "Name": "Spider Lair Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SpiderLair.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SpiderLair.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "72"
     },
     {
       "Name": "Barrows Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Barrows.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Barrows.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "72"
     },
     {
       "Name": "Mausoleum Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Mausoleum.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Mausoleum.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "76"
+      "ItemLevel": "73"
     },
     {
       "Name": "Fields Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Fields.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Fields.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "73"
     },
     {
       "Name": "Jungle Valley Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/JungleValley.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/JungleValley.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "71"
+      "ItemLevel": "73"
     },
     {
       "Name": "Phantasmagoria Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Phantasmagoria.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Phantasmagoria.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "82"
+      "ItemLevel": "73"
     },
     {
       "Name": "Academy Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Academy.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Academy.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "58"
+      "ItemLevel": "73"
     },
     {
       "Name": "Thicket Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Thicket.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Thicket.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "58"
+      "ItemLevel": "73"
     },
     {
       "Name": "Wharf Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Wharf.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Wharf.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "73"
     },
     {
       "Name": "Ashen Wood Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DryWoods.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DryWoods.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "78"
+      "ItemLevel": "73"
     },
     {
       "Name": "Atoll Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Atoll.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Atoll.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "72"
+      "ItemLevel": "73"
     },
     {
       "Name": "Cemetery Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cemetery.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Cemetery.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "71"
+      "ItemLevel": "73"
     },
     {
       "Name": "Underground Sea Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UndergroundSea.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UndergroundSea.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "77"
+      "ItemLevel": "73"
     },
     {
       "Name": "Crater Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Tribunal.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Tribunal.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "77"
+      "ItemLevel": "74"
     },
     {
       "Name": "Coral Ruins Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CorpseTrench.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CorpseTrench.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "74"
     },
     {
       "Name": "Lava Chamber Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Crematorium.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Crematorium.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "72"
+      "ItemLevel": "74"
     },
     {
       "Name": "Residence Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Residence.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Residence.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "69"
+      "ItemLevel": "74"
     },
     {
       "Name": "Ramparts Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Ramparts.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Ramparts.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "78"
+      "ItemLevel": "74"
     },
     {
       "Name": "Dunes Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Dunes.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Dunes.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "69"
+      "ItemLevel": "74"
     },
     {
       "Name": "Bone Crypt Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Catacomb.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Catacomb.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "58"
+      "ItemLevel": "74"
     },
     {
       "Name": "Underground River Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UndergroundRiver.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UndergroundRiver.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "82"
+      "ItemLevel": "74"
     },
     {
       "Name": "Gardens Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Terrace.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Terrace.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "74"
     },
     {
       "Name": "Arachnid Nest Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ArachnidNest.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ArachnidNest.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "75"
+      "ItemLevel": "74"
     },
     {
       "Name": "Bazaar Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Bazaar.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Bazaar.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "75"
+      "ItemLevel": "74"
     },
     {
       "Name": "Laboratory Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Laboratory.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Laboratory.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "75"
     },
     {
       "Name": "Infested Valley Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Infestation.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Infestation.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "74"
+      "ItemLevel": "75"
     },
     {
       "Name": "Overgrown Ruin Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/OvergrownRuin.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/OvergrownRuin.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "75"
     },
     {
       "Name": "Vaal Pyramid Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/VaalPyramid.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/VaalPyramid.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "71"
+      "ItemLevel": "75"
     },
     {
       "Name": "Geode Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Quarry.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Quarry.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "75"
     },
     {
       "Name": "Armoury Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Armory.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Armory.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "75"
     },
     {
       "Name": "Courtyard Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Courtyard.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Courtyard.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "72"
+      "ItemLevel": "75"
     },
     {
       "Name": "Mud Geyser Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/MudGeyser.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/MudGeyser.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "79"
+      "ItemLevel": "75"
     },
     {
       "Name": "Shore Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Shore.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Shore.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "73"
+      "ItemLevel": "75"
     },
     {
       "Name": "Tropical Island Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/TropicalIsland.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/TropicalIsland.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "69"
+      "ItemLevel": "75"
     },
     {
       "Name": "Mineral Pools Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/MineralPools.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/MineralPools.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "77"
+      "ItemLevel": "75"
     },
     {
       "Name": "Moon Temple Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/LunarisTemple.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/LunarisTemple.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "71"
+      "ItemLevel": "76"
     },
     {
       "Name": "Sepulchre Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Sepulchre.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Sepulchre.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "73"
+      "ItemLevel": "76"
     },
     {
       "Name": "Tower Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Tower.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Tower.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "74"
+      "ItemLevel": "76"
     },
     {
       "Name": "Waste Pool Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/WastePool.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/WastePool.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "73"
+      "ItemLevel": "76"
     },
     {
       "Name": "Plateau Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Plateau.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Plateau.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "82"
+      "ItemLevel": "76"
     },
     {
       "Name": "Estuary Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Estuary.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Estuary.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "74"
+      "ItemLevel": "76"
     },
     {
       "Name": "Vault Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Vault.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Vault.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "76"
     },
     {
       "Name": "Temple Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Temple.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Temple.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "81"
+      "ItemLevel": "76"
     },
     {
       "Name": "Arena Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arena.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arena.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "82"
+      "ItemLevel": "76"
     },
     {
       "Name": "Museum Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Museum.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Museum.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "79"
+      "ItemLevel": "76"
     },
     {
       "Name": "Scriptorium Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Scriptorium.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Scriptorium.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "76"
     },
     {
       "Name": "Siege Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Boulevard.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Boulevard.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "77"
     },
     {
       "Name": "Synthesised Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Boulevard.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Boulevard.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "77"
     },
     {
       "Name": "Shipyard Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Shipyard.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Shipyard.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "58"
+      "ItemLevel": "77"
     },
     {
       "Name": "Belfry Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Belfry.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Belfry.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "78"
+      "ItemLevel": "77"
     },
     {
       "Name": "Arachnid Tomb Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arachnid.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arachnid.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "81"
+      "ItemLevel": "77"
     },
     {
       "Name": "Wasteland Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Wasteland.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Wasteland.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "83"
+      "ItemLevel": "77"
     },
     {
       "Name": "Precinct Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Precinct.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Precinct.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "71"
+      "ItemLevel": "77"
     },
     {
       "Name": "Bog Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Bog.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Bog.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "77"
     },
     {
       "Name": "Pier Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Pier.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Pier.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "77"
     },
     {
       "Name": "Cursed Crypt Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Crypt.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Crypt.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "74"
+      "ItemLevel": "77"
     },
     {
       "Name": "Orchard Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Orchard.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Orchard.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "81"
+      "ItemLevel": "77"
     },
     {
       "Name": "Promenade Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Promenade.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Promenade.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "73"
+      "ItemLevel": "78"
     },
     {
       "Name": "Lair Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Lair.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Lair.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "78"
     },
     {
       "Name": "Colonnade Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Colonnade.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Colonnade.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "78"
     },
     {
       "Name": "Primordial Pool Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/PrimordialPool.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/PrimordialPool.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "77"
+      "ItemLevel": "78"
     },
     {
       "Name": "Spider Forest Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SpiderForest.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SpiderForest.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "73"
+      "ItemLevel": "78"
     },
     {
       "Name": "Coves Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Coves.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Coves.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "70"
+      "ItemLevel": "78"
     },
     {
       "Name": "Waterways Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Waterways.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Waterways.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "69"
+      "ItemLevel": "78"
     },
     {
       "Name": "Factory Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Factory.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Factory.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "71"
+      "ItemLevel": "78"
     },
     {
       "Name": "Mesa Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Mesa.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Mesa.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "71"
+      "ItemLevel": "78"
     },
     {
       "Name": "Pit Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Pit1.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Pit1.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "75"
+      "ItemLevel": "78"
     },
     {
       "Name": "Dry Sea Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DesertShipGraveyard.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DesertShipGraveyard.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "81"
     },
     {
       "Name": "Defiled Cathedral Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DefiledCathedral.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DefiledCathedral.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "80"
+      "ItemLevel": "79"
     },
     {
       "Name": "Summit Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Summit.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Summit.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "70"
+      "ItemLevel": "79"
     },
     {
       "Name": "Overgrown Shrine Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/OvergrownShrine.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/OvergrownShrine.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "70"
+      "ItemLevel": "79"
     },
     {
       "Name": "Castle Ruins Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CastleRuins.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CastleRuins.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "70"
+      "ItemLevel": "79"
     },
     {
       "Name": "Crystal Ore Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CrystalOre.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CrystalOre.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "79"
     },
     {
       "Name": "Villa Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Villa.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Villa.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "76"
+      "ItemLevel": "79"
     },
     {
       "Name": "Primordial Blocks Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/PrimevalRuins.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/PrimevalRuins.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "74"
+      "ItemLevel": "79"
     },
     {
       "Name": "Necropolis Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Necropolis.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Necropolis.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "79"
     },
     {
       "Name": "Racecourse Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Racecourse.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Racecourse.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "81"
+      "ItemLevel": "79"
     },
     {
       "Name": "Caldera Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Abyss.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Abyss.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "80"
     },
     {
       "Name": "Ghetto Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Ghetto.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Ghetto.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "72"
+      "ItemLevel": "80"
     },
     {
       "Name": "Park Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Park.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Park.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "79"
+      "ItemLevel": "80"
     },
     {
       "Name": "Malformation Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Malformation.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Malformation.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "80"
     },
     {
       "Name": "Terrace Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/HighGardens.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/HighGardens.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "80"
     },
     {
       "Name": "Shrine Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Shrine.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Shrine.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "80"
     },
     {
       "Name": "Arsenal Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arsenal.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Arsenal.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "73"
+      "ItemLevel": "80"
     },
     {
       "Name": "Desert Spring Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Oasis.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Oasis.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "80"
     },
     {
       "Name": "Core Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Core.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Core.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "69"
+      "ItemLevel": "80"
     },
     {
       "Name": "Colosseum Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Colosseum.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Colosseum.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "72"
+      "ItemLevel": "81"
     },
     {
       "Name": "Acid Caverns Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SulphurVents.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SulphurVents.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "78"
+      "ItemLevel": "81"
     },
     {
       "Name": "Dark Forest Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DarkForest.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/DarkForest.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "76"
+      "ItemLevel": "81"
     },
     {
       "Name": "Crimson Temple Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Sanctuary.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Sanctuary.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "72"
+      "ItemLevel": "81"
     },
     {
       "Name": "Plaza Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Plaza.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Plaza.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "81"
     },
     {
       "Name": "Dig Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Dig.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Dig.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "81"
     },
     {
       "Name": "Palace Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Palace.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Palace.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "70"
+      "ItemLevel": "81"
     },
     {
       "Name": "Lava Lake Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Corpse.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Corpse.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
-      "ItemLevel": "76"
+      "ItemLevel": "82"
     },
     {
       "Name": "Basilica Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Basilica.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Basilica.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "82"
     },
     {
       "Name": "Sunken City Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SunkenCity.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/SunkenCity.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "82"
     },
     {
       "Name": "Reef Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Reef.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Reef.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "82"
     },
     {
       "Name": "Carcass Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Carcass.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Carcass.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "82"
     },
     {
       "Name": "Stagnation Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Stagnation.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Stagnation.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "76"
     },
     {
       "Name": "Bramble Valley Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Bramblefall.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Bramblefall.png?scale=1&w=1&h=1&mr=1&mn=24",
+      "ItemClassesID": "35",
+      "ItemClassesName": "Maps",
+      "ItemLevel": "81"
+    },
+    {
+      "Name": "Silo Map",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/RobotTunnelSilo.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "72"
     },
     {
-      "Name": "Silo Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/RobotTunnelSilo.png?scale=1&w=1&h=1&mr=1&mn=23",
-      "ItemClassesID": "35",
-      "ItemClassesName": "Maps",
-      "ItemLevel": "71"
-    },
-    {
       "Name": "Pit of the Chimera Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Chimera.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Chimera.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Lair of the Hydra Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Hydra.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Hydra.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Maze of the Minotaur Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Minotaur.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Minotaur.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Forge of the Phoenix Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Phoenix.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/Phoenix.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "The Shaper's Realm",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/AtlasMaps/Atlas.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/AtlasMaps/Atlas.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "84"
     },
     {
       "Name": "Vaal Temple Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/VaalTempleBase.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/VaalTempleBase.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Harbinger Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerWhite.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerWhite.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "72"
     },
     {
       "Name": "Harbinger Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerYellow.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerYellow.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "77"
     },
     {
       "Name": "Harbinger Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerRed.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerRed.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "82"
     },
     {
       "Name": "Harbinger Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerRed.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerRed.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Engraved Ultimatum",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerRed.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/HarbingerRed.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Sanctuary Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberRelicChambers.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberRelicChambers.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "84"
     },
     {
       "Name": "Citadel Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberPrimordialBlocks.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberPrimordialBlocks.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "84"
     },
     {
       "Name": "Fortress Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberSilo.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberSilo.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "84"
     },
     {
       "Name": "Abomination Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberMalformation.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberMalformation.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "84"
     },
     {
       "Name": "Ziggurat Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberMausoleum.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/UberMausoleum.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "84"
     },
     {
       "Name": "Courtyard of Wasting Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CourtyardofWasting.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/CourtyardofWasting.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Chambers of Impurity Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ChambersofImpurity.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/ChambersofImpurity.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
     },
     {
       "Name": "Theatre of Lies Map",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/TheatreofLies.png?scale=1&w=1&h=1&mr=1&mn=23",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/Atlas2Maps/New/TheatreofLies.png?scale=1&w=1&h=1&mr=1&mn=24",
       "ItemClassesID": "35",
       "ItemClassesName": "Maps",
       "ItemLevel": "83"
@@ -14037,7 +14429,7 @@
       "ItemLevel": "1"
     },
     {
-      "Name": "Breach Scarab",
+      "Name": "Breach Scarab of the Hive",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/LesserScarabBreach.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
@@ -14051,21 +14443,21 @@
       "ItemLevel": "78"
     },
     {
-      "Name": "Breach Scarab of Lordship",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabBreach.png?scale=1&w=1&h=1",
+      "Name": "Breach Scarab of Instability",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltLesserScarabBreach.png?scale=1&w=1&h=1",
+      "ItemClassesID": "38",
+      "ItemClassesName": "Map Fragments",
+      "ItemLevel": "68"
+    },
+    {
+      "Name": "Breach Scarab of the Marshal",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltNormalScarabBreach.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
       "ItemLevel": "73"
     },
     {
-      "Name": "Breach Scarab of Splintering",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltGreaterScarabBreach.png?scale=1&w=1&h=1",
-      "ItemClassesID": "38",
-      "ItemClassesName": "Map Fragments",
-      "ItemLevel": "73"
-    },
-    {
-      "Name": "Breach Scarab of Snares",
+      "Name": "Breach Scarab of the Incensed Swarm",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabBreach.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
@@ -14212,7 +14604,7 @@
       "ItemLevel": "73"
     },
     {
-      "Name": "Influencing Scarab of Conversion",
+      "Name": "Influencing Scarab of Interference",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabShaper.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
@@ -14324,34 +14716,6 @@
       "ItemLevel": "73"
     },
     {
-      "Name": "Harbinger Scarab",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/LesserScarabHarbingers.png?scale=1&w=1&h=1",
-      "ItemClassesID": "38",
-      "ItemClassesName": "Map Fragments",
-      "ItemLevel": "68"
-    },
-    {
-      "Name": "Harbinger Scarab of Obelisks",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/NormalScarabHarbingers.png?scale=1&w=1&h=1",
-      "ItemClassesID": "38",
-      "ItemClassesName": "Map Fragments",
-      "ItemLevel": "73"
-    },
-    {
-      "Name": "Harbinger Scarab of Regency",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabHarbingers.png?scale=1&w=1&h=1",
-      "ItemClassesID": "38",
-      "ItemClassesName": "Map Fragments",
-      "ItemLevel": "73"
-    },
-    {
-      "Name": "Harbinger Scarab of Warhoards",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabHarbingers.png?scale=1&w=1&h=1",
-      "ItemClassesID": "38",
-      "ItemClassesName": "Map Fragments",
-      "ItemLevel": "73"
-    },
-    {
       "Name": "Expedition Scarab",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/LesserScarabExpedition.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
@@ -14373,7 +14737,7 @@
       "ItemLevel": "73"
     },
     {
-      "Name": "Expedition Scarab of the Skald",
+      "Name": "Expedition Scarab of Infusion",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltGreaterScarabExpedition.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
@@ -14401,7 +14765,7 @@
       "ItemLevel": "73"
     },
     {
-      "Name": "Legion Scarab of Command",
+      "Name": "Legion Scarab of Treasures",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltNormalScarabLegion.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
@@ -14443,11 +14807,11 @@
       "ItemLevel": "73"
     },
     {
-      "Name": "Abyss Scarab of Emptiness",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltNormalScarabAbyss.png?scale=1&w=1&h=1",
+      "Name": "Abyss Scarab of Descending",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabAbyss.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
-      "ItemLevel": "73"
+      "ItemLevel": "78"
     },
     {
       "Name": "Abyss Scarab of Profound Depth",
@@ -14476,6 +14840,13 @@
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
       "ItemLevel": "73"
+    },
+    {
+      "Name": "Anarchy Scarab of the Exceptional",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabAnarchy.png?scale=1&w=1&h=1",
+      "ItemClassesID": "38",
+      "ItemClassesName": "Map Fragments",
+      "ItemLevel": "78"
     },
     {
       "Name": "Essence Scarab",
@@ -14562,6 +14933,13 @@
       "ItemLevel": "73"
     },
     {
+      "Name": "Ritual Scarab of Corpses",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabRitual.png?scale=1&w=1&h=1",
+      "ItemClassesID": "38",
+      "ItemClassesName": "Map Fragments",
+      "ItemLevel": "73"
+    },
+    {
       "Name": "Harvest Scarab",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/LesserScarabHarvest.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
@@ -14632,7 +15010,7 @@
       "ItemLevel": "73"
     },
     {
-      "Name": "Betrayal Scarab of Perpetuation",
+      "Name": "Betrayal Scarab of Unbreaking",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabBetrayal.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
@@ -14800,6 +15178,13 @@
       "ItemLevel": "78"
     },
     {
+      "Name": "Kalguuran Scarab of Enriching",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabSettlers.png?scale=1&w=1&h=1",
+      "ItemClassesID": "38",
+      "ItemClassesName": "Map Fragments",
+      "ItemLevel": "73"
+    },
+    {
       "Name": "Scarab of Monstrous Lineage",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/LesserScarabMisc.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
@@ -14856,15 +15241,15 @@
       "ItemLevel": "73"
     },
     {
-      "Name": "Scarab of Bisection",
+      "Name": "Scarab of the Sinistral",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabMisc2.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
       "ItemLevel": "78"
     },
     {
-      "Name": "Scarab of Unity",
-      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabMisc2.png?scale=1&w=1&h=1",
+      "Name": "Scarab of the Dextral",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltGreaterScarabMisc.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
       "ItemLevel": "73"
@@ -14909,7 +15294,7 @@
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/SuperScarab5.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
-      "ItemLevel": "81"
+      "ItemLevel": "83"
     },
     {
       "Name": "Horned Scarab of Glittering",
@@ -14991,6 +15376,13 @@
     {
       "Name": "Hivebrain Gland",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Maps/BossKeyBrequel.png?scale=1&w=1&h=1",
+      "ItemClassesID": "38",
+      "ItemClassesName": "Map Fragments",
+      "ItemLevel": "1"
+    },
+    {
+      "Name": "The Black Barya",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Faridun/FaridunBossKey.png?scale=1&w=1&h=1",
       "ItemClassesID": "38",
       "ItemClassesName": "Map Fragments",
       "ItemLevel": "1"
@@ -16855,7 +17247,7 @@
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
       "ItemClassesID": "42",
       "ItemClassesName": "Divination Cards",
-      "ItemLevel": "68"
+      "ItemLevel": "81"
     },
     {
       "Name": "Arrogance of the Vaal",
@@ -17107,7 +17499,7 @@
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
       "ItemClassesID": "42",
       "ItemClassesName": "Divination Cards",
-      "ItemLevel": "81"
+      "ItemLevel": "75"
     },
     {
       "Name": "The Demon",
@@ -18384,6 +18776,62 @@
       "ItemLevel": "81"
     },
     {
+      "Name": "The Everlasting",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "68"
+    },
+    {
+      "Name": "Lucky Bastion",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "51"
+    },
+    {
+      "Name": "The Miracle",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "68"
+    },
+    {
+      "Name": "Apocalypse",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "82"
+    },
+    {
+      "Name": "The Slumbering Beast",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "40"
+    },
+    {
+      "Name": "The Forbidden Fruit",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "81"
+    },
+    {
+      "Name": "The Silly Boy",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "81"
+    },
+    {
+      "Name": "Reflection of the Heart",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "42",
+      "ItemClassesName": "Divination Cards",
+      "ItemLevel": "60"
+    },
+    {
       "Name": "Breach Leaguestone",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Classic/Breach.png?scale=1&w=1&h=1",
       "ItemClassesID": "47",
@@ -19184,6 +19632,27 @@
     {
       "Name": "Maddening Incubator",
       "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationDelirium.png?scale=1&w=1&h=1",
+      "ItemClassesID": "74",
+      "ItemClassesName": "Incubators",
+      "ItemLevel": "1"
+    },
+    {
+      "Name": "Honoured Incubator",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubatorMirageCommon.png?scale=1&w=1&h=1",
+      "ItemClassesID": "74",
+      "ItemClassesName": "Incubators",
+      "ItemLevel": "1"
+    },
+    {
+      "Name": "Sacred Incubator",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubatorMirageRare.png?scale=1&w=1&h=1",
+      "ItemClassesID": "74",
+      "ItemClassesName": "Incubators",
+      "ItemLevel": "1"
+    },
+    {
+      "Name": "Miraged Incubator",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubatorMirageMap.png?scale=1&w=1&h=1",
       "ItemClassesID": "74",
       "ItemClassesName": "Incubators",
       "ItemLevel": "1"
@@ -20279,6 +20748,69 @@
       "ItemClassesID": "90",
       "ItemClassesName": "Corpses",
       "ItemLevel": "46"
+    },
+    {
+      "Name": "Imperfect Astral Lich",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunGolemancer.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "48"
+    },
+    {
+      "Name": "Astral Lich",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunGolemancer.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "68"
+    },
+    {
+      "Name": "Perfect Astral Lich",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunGolemancer.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "78"
+    },
+    {
+      "Name": "Imperfect Conjuror of Rot",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunWarlock.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "48"
+    },
+    {
+      "Name": "Conjuror of Rot",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunWarlock.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "68"
+    },
+    {
+      "Name": "Perfect Conjuror of Rot",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunWarlock.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "78"
+    },
+    {
+      "Name": "Imperfect Adherent of Zarokh",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunAstralAcolyte.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "48"
+    },
+    {
+      "Name": "Adherent of Zarokh",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunAstralAcolyte.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "68"
+    },
+    {
+      "Name": "Perfect Adherent of Zarokh",
+      "IconPath": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/FaridunAstralAcolyte.png?scale=1&w=3&h=2",
+      "ItemClassesID": "90",
+      "ItemClassesName": "Corpses",
+      "ItemLevel": "78"
     }
   ],
   "code": 200

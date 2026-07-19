@@ -1,35 +1,5 @@
 [
   {
-    "name": "",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/TangledFossil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "[DNT - UNUSED] Allflame Ember of Rats",
-    "category": "Fragment",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Necropolis/AllflameEmbersBaseOther.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "[DNT - UNUSED] Arcane Orders Runegraft",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune17.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "[DNT - UNUSED] Limiting Runegraft",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune9.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "[DNT - UNUSED] Martial Orders Runegraft",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune18.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "[DNT - UNUSED] Test Runegraft",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune2.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "A Chilling Wind",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -120,11 +90,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltTier4ScarabAbyss.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Abyssal Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbAbyss.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Abyssal Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationAbyss.png?scale=1&w=1&h=1"
@@ -153,16 +118,6 @@
     "name": "Al-Hezmin's Crest",
     "category": "Fragment",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/HunterFragment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Albino Rhoa Feather",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRhoaFeather.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Alchemy Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToRareShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Alivia's Grace",
@@ -220,11 +175,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Alteration Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollMagicShard.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Altered Perception",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -265,11 +215,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabStrongboxes.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Amplifying Power Core",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sentinel/AmplifyingPowerCore.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "An Audience With The King",
     "category": "Fragment",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooKingEffigy.png?scale=1&w=1&h=1"
@@ -300,24 +245,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Ancestral Tattoo of Bloodlines",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/Unique1TatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Ancient Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AncientOrb.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Ancient Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AncientShard.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Annulment Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AnnullShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Apocalypse",
@@ -325,24 +255,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Apprentice Cartographer's Seal",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealWhite.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Armour Recombinator",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sentinel/ArmourRecombinator.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Armourer's Scrap",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyArmourQuality.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Armoursmith's Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbArmour.png?scale=1&w=1&h=1"
   },
   {
     "name": "Arrogance of the Vaal",
@@ -360,11 +275,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Astragali",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/GamblerRefreshCurrency.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Astral Protection",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -380,16 +290,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Augmentation Implant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Chayula/GraftedAugmentation.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Augmenting Power Core",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sentinel/AugmentingPowerCore.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Auspicious Ambitions",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -398,11 +298,6 @@
     "name": "Avian Pursuit",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Awakened Sextant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasRadiusTier3.png?scale=1&w=1&h=1"
   },
   {
     "name": "Awakener's Orb",
@@ -443,11 +338,6 @@
     "name": "Beauty Through Death",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Bestiary Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryOrbEmpty.png?scale=1&w=1&h=1"
   },
   {
     "name": "Bestiary Scarab",
@@ -520,19 +410,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Binding Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BindingShard.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Black Oil",
     "category": "Oil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/BlackOil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Blacksmith's Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbWeapons.png?scale=1&w=1&h=1"
   },
   {
     "name": "Blacksmith's Whetstone",
@@ -550,34 +430,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyImplicitMod.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Blessing of Chayula",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderChaos.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Blessing of Esh",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderLightning.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Blessing of God",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Blessing of Tul",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderCold.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Blessing of Uul-Netol",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderPhysical.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Blessing of Xoph",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachUpgraderFire.png?scale=1&w=1&h=1"
   },
   {
     "name": "Blight Scarab",
@@ -605,19 +460,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabBlight.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Blighted Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbBlight.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Blighted Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationBlight.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Blighted Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
   },
   {
     "name": "Blind Venture",
@@ -655,19 +500,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/ResonatingFossil.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Bound Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune3.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Boundless Realms",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Bounty Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune6.png?scale=1&w=1&h=1"
   },
   {
     "name": "Bowyer's Dream",
@@ -735,11 +570,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Burial Medallion",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/DannigRerollCurrency.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Buried Treasure",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -760,19 +590,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Cartographer's Chisel",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyMapQuality.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Cartographer's Delight",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Cartographer's Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbMaps.png?scale=1&w=1&h=1"
   },
   {
     "name": "Cartographer's Incubator",
@@ -820,11 +640,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationTrinkets.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Challenging Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbUltimatum.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Challenging Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationUltimatum.png?scale=1&w=1&h=1"
@@ -835,24 +650,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollRare.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Chaos Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ChaosShard.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Chaotic Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionUltimatum.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Chaotic Disposition",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Charged Compass",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ChargedCompass.png?scale=1&w=1&h=1"
   },
   {
     "name": "Chasing Risk",
@@ -878,36 +678,6 @@
     "name": "Clear Oil",
     "category": "Oil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/ClearOil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Coin of Desecration",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Faridun/CorruptedWishCurrencyItem.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Coin of Knowledge",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyWishSupportGemBlue.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Coin of Power",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyWishSupportGemRed.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Coin of Restoration",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Faridun/WishCurrencyItem.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Coin of Skill",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyWishSupportGemGreen.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Comprehensive Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
   },
   {
     "name": "Corroded Fossil",
@@ -940,11 +710,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Bestiary/CurrencyCrabAspect.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Crescent Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/MavenKeyFragment.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Crest of the Elderslayers",
     "category": "Fragment",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/SirusFragmentComplete.png?scale=1&w=1&h=1"
@@ -958,11 +723,6 @@
     "name": "Crusader's Exalted Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Influence Exalts/CrusaderOrb.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Crystalline Geode",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/CrucibleUberGeode.png?scale=1&w=1&h=1"
   },
   {
     "name": "Crystallised Rancour",
@@ -1125,16 +885,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/EnchantedFossil.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Delirious Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbGeneric.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Delirium Scarab",
     "category": "Scarab",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/LesserScarabDelirium.png?scale=1&w=1&h=1"
@@ -1173,11 +923,6 @@
     "name": "Dense Fossil",
     "category": "Fossil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/DenseFossil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Deregulation Scroll",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/HarbingerTokenHelm.png?scale=1&w=1&h=1"
   },
   {
     "name": "Desecrated Virtue",
@@ -1250,19 +995,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/SinFlaskEmpty.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Diviner's Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbDivinationCards.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Diviner's Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationDivinationCards.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Djinn-Touched Vaal Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SuperVaal.png?scale=1&w=1&h=1"
   },
   {
     "name": "Doedre's Madness",
@@ -1380,16 +1115,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Electroshock Scroll",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/HarbingerTokenSword.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Elevated Sextant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasRadiusTier4.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Emperor of Purity",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -1398,16 +1123,6 @@
     "name": "Emperor's Luck",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Empty Coffin",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Necropolis/NecropolisCoffinEmpty.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Enchant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Enchantment.png?scale=1&w=1&h=1"
   },
   {
     "name": "Enchanted Incubator",
@@ -1420,24 +1135,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Engineer's Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/EngineersOrb.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Engineer's Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/EngineersShard.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Enkindling Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/FlaskPlate.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Enshrouded Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionDelirium.png?scale=1&w=1&h=1"
   },
   {
     "name": "Essence of Delirium",
@@ -1505,29 +1205,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Exalted Implant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Chayula/GraftedExalted.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Exalted Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyAddModToRare.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Exalted Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ExaltedShard.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Exceptional Black Scythe Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune20.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Exceptional Broken Circle Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune3.png?scale=1&w=1&h=1"
   },
   {
     "name": "Exceptional Eldritch Ember",
@@ -1538,21 +1218,6 @@
     "name": "Exceptional Eldritch Ichor",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/TangleOrbRank4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Exceptional Order Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune21.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Exceptional Sun Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune1.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Exotic Coinage",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/BarterRefreshCurrency.png?scale=1&w=1&h=1"
   },
   {
     "name": "Expedition Scarab",
@@ -1580,24 +1245,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabExpedition.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Explorer's Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Faceted Fossil",
     "category": "Fossil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/FacetedFossil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Facetor's Lens",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyGemExperience.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Fading Reflecting Mist",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ReflectiveMist.png?scale=1&w=1&h=1"
   },
   {
     "name": "Farric Lure",
@@ -1630,16 +1280,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Catalysts/FertileCatalyst.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Filled Coffin",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Necropolis/NecropolisCoffinFilled.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Fine Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbCurrency.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Fine Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationCurrency.png?scale=1&w=1&h=1"
@@ -1658,41 +1298,6 @@
     "name": "Forbidden Power",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Forbidden Tattoo of the Duelist",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RandomDuelistTattoo.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Forbidden Tattoo of the Marauder",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RandomMarauderTattoo.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Forbidden Tattoo of the Ranger",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RandomRangerTattoo.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Forbidden Tattoo of the Scion",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RandomScionTattoo.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Forbidden Tattoo of the Shadow",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RandomShadowTattoo.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Forbidden Tattoo of the Templar",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RandomTemplarTattoo.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Forbidden Tattoo of the Witch",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RandomWitchTattoo.png?scale=1&w=1&h=1"
   },
   {
     "name": "Foreboding Incubator",
@@ -1733,11 +1338,6 @@
     "name": "Fracturing Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/FracturingOrbCombined.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Fracturing Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/FracturingOrbShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Fragment of Constriction",
@@ -1800,16 +1400,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/AtlasMaps/FragmentPhoenix.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Fragmentation Scroll",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/HarbingerTokenQuiver.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Fragmented Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbFragments.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Fragmented Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationFragments.png?scale=1&w=1&h=1"
@@ -1830,19 +1420,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Fruiting Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionHarvest.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Fundamental Fossil",
     "category": "Fossil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/EncrustedFossil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Fungal Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionBlight.png?scale=1&w=1&h=1"
   },
   {
     "name": "Further Invention",
@@ -1868,11 +1448,6 @@
     "name": "Gemcutter's Promise",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Gemcutters Lens",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/GemcuttersLense.png?scale=1&w=1&h=1"
   },
   {
     "name": "Geomancer's Incubator",
@@ -2000,16 +1575,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/GoldenOil.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Grand Black Scythe Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune10.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Grand Broken Circle Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune8.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Grand Eldritch Ember",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CleansingFireOrbRank3.png?scale=1&w=1&h=1"
@@ -2020,34 +1585,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/TangleOrbRank3.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Grand Order Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune7.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Grand Sun Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Grasping Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionBreach.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Grave Knowledge",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Greater Black Scythe Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune15.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Greater Broken Circle Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune11.png?scale=1&w=1&h=1"
   },
   {
     "name": "Greater Eldritch Ember",
@@ -2060,24 +1600,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/TangleOrbRank2.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Greater Order Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune14.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Greater Sun Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune2.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Guardian's Challenge",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Haemocombustion Scroll",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/HarbingerTokenStaff.png?scale=1&w=1&h=1"
   },
   {
     "name": "Harbinger Scarab",
@@ -2098,16 +1623,6 @@
     "name": "Harbinger Scarab of Warhoards",
     "category": "Scarab",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/Tier4ScarabHarbingers.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Harbinger's Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/HarbingerOrb.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Harbinger's Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/HarbingerShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Harmony of Souls",
@@ -2175,104 +1690,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubatorMirageCommon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Honoured Tattoo of the Barbarian",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Berserker",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Dove",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Flock",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Flood",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Hatungo",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Hunter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/Unique2TatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Mountain",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Oak",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Pa",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Pillager",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Sky",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Storm",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Tuatara",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Turtle",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraCommonTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Warlord",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Honoured Tattoo of the Wise",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/HinekoraRareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Hope",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Horizon Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/HorizonShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Horned Scarab of Awakening",
@@ -2345,11 +1765,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Igneous Geode",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/CrucibleGeode.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Imbued Catalyst",
     "category": "Catalyst",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Catalysts/ImbuedCatalyst.png?scale=1&w=1&h=1"
@@ -2365,19 +1780,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Imperial Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbLabyrinth.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Imperial Legacy",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Imprinted Bestiary Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryOrbFull.png?scale=1&w=1&h=1"
   },
   {
     "name": "Incursion Scarab",
@@ -2405,11 +1810,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/IndigoOil.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Influenced Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Influencing Scarab of Hordes",
     "category": "Scarab",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/GreaterScarabElder.png?scale=1&w=1&h=1"
@@ -2428,11 +1828,6 @@
     "name": "Influencing Scarab of the Shaper",
     "category": "Scarab",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/LesserScarabShaper.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Infused Engineer's Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/InfusedEngineersOrb.png?scale=1&w=1&h=1"
   },
   {
     "name": "Infused Incubator",
@@ -2465,49 +1860,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/JaggedFossil.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Jeweller's Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbTrinkets.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Jeweller's Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketNumbers.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Jewellery Recombinator",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sentinel/WeaponRecombinator.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Journey Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune7.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Journey Tattoo of Makanui",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/Unique4TatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Journey Tattoo of the Body",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/Unique3TatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Journey Tattoo of the Mind",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/Unique3TatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Journey Tattoo of the Soul",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/Unique3TatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Journeyman Cartographer's Seal",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealYellow.png?scale=1&w=1&h=1"
   },
   {
     "name": "Judging Voices",
@@ -2518,11 +1873,6 @@
     "name": "Justified Ambition",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Kalguuran Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbExpedition.png?scale=1&w=1&h=1"
   },
   {
     "name": "Kalguuran Incubator",
@@ -2615,16 +1965,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltNormalScarabLegion.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Lesser Black Scythe Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune6.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lesser Broken Circle Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune16.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Lesser Eldritch Ember",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CleansingFireOrbRank1.png?scale=1&w=1&h=1"
@@ -2635,34 +1975,14 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/TangleOrbRank1.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Lesser Order Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune13.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lesser Sun Artifact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/Rune17.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Lethean Temptation",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Life Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune1.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Light and Truth",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lightless Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionAbyss.png?scale=1&w=1&h=1"
   },
   {
     "name": "Lingering Remnants",
@@ -2695,56 +2015,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Loyalty Tattoo of Ahuana",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Akoya",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Ikiaho",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Kahuturoa",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Kaom",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Kiloava",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Maata",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Rakiata",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Tawhanuku",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Loyalty Tattoo of Utula",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Lucent Fossil",
     "category": "Fossil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/LucentFossil.png?scale=1&w=1&h=1"
@@ -2775,211 +2045,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Lycia's Invocation of Acrobatics",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Ancestral Bond",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Arrow Dancing",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Avatar of Fire",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Blood Magic",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Call to Arms",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Conduit",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Crimson Dance",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Divine Shield",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Eldritch Battery",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Elemental Equilibrium",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Elemental Overload",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Eternal Youth",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Ghost Dance",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Ghost Reaver",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Glancing Blows",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Hex Master",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Imbalanced Guard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Iron Grip",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Iron Reflexes",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Iron Will",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Lethe Shade",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Magebane",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Mind over Matter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Minion Instability",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Pain Attunement",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Perfect Agony",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Point Blank",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Precise Technique",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Resolute Technique",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Runebinder",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Solipsism",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Supreme Ego",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of the Agnostic",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of the Impaler",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Unwavering Stance",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Vaal Pact",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Versatile Combatant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Wicked Ward",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Wind Dancer",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Lycia's Invocation of Zealot's Oath",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sanctum/LyciaCorruptCurrency.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Lysah's Respite",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -2995,11 +2060,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/UberElderComplete.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Magmatic Ore",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Crucible/Magmatic Ore.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Magnum Opus",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -3008,11 +2068,6 @@
     "name": "Man With Bear",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Master Cartographer's Seal",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SealRed.png?scale=1&w=1&h=1"
   },
   {
     "name": "Matryoshka",
@@ -3048,21 +2103,6 @@
     "name": "Mawr Blaidd",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Memory of Loneliness",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/MemoryIncarnationofNeglect.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Memory of Reverence",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/MemoryIncarnationofDread.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Memory of Trauma",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/MemoryIncarnationofFear.png?scale=1&w=1&h=1"
   },
   {
     "name": "Merciless Armament",
@@ -3140,11 +2180,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/UberVaalComplete.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Mountain Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune8.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Muttering Essence of Anger",
     "category": "Essence",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger2.png?scale=1&w=1&h=1"
@@ -3190,16 +2225,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationGeneric.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Nameless Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionRitual.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Necromancy Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Necronet.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "No Traces",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -3215,11 +2240,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Catalysts/ChaosPhysicalCatalyst.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Obscured Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbBreach.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Obscured Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationBreach.png?scale=1&w=1&h=1"
@@ -3230,91 +2250,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/Labyrinth.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Oil Extractor",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/IchorExtractor.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Acceleration",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens1Yellow.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Adrenaline",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens3Yellow.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Amelioration",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens1Blue.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Bequeathal",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens1Blue.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Blanching",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens4Purple.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Brilliance",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens4Blue.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Connections",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens3Purple.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Death-dancing",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens1Yellow.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Death's Door",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens4Yellow.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Fortune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens1Purple.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Refreshment",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens2Yellow.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Resurgence",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens1Yellow.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Return",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens2Blue.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of Revenge",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens1Blue.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of the Jeweller",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens2Purple.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Omen of the Soul Devourer",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooOmens3Blue.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "One Last Score",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -3323,11 +2258,6 @@
     "name": "Opalescent Oil",
     "category": "Oil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/OpalescentOil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Operative's Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
   },
   {
     "name": "Opulent Fossil",
@@ -3380,11 +2310,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyRerollSocketLinks.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Orb of Horizons",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/HorizonOrb.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Orb of Intention",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SecretsoftheAtlas/ZanaPinnacleOrb3.png?scale=1&w=1&h=1"
@@ -3430,11 +2355,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationMaps.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Otherworldly Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Outfoxed",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -3453,11 +2373,6 @@
     "name": "Peaceful Moments",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Perandus Coin",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyCoin.png?scale=1&w=1&h=1"
   },
   {
     "name": "Perfection",
@@ -3565,16 +2480,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/Reroll2x1A.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Power Core",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sentinel/PowerCore.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Power Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune10.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Powerful Alchemical Resonator",
     "category": "Resonator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/Upgrade2x2A.png?scale=1&w=1&h=1"
@@ -3605,19 +2510,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/PrimalLifeforce.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Primal Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbTalismans.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Primal Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationTalismans.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Primal Wisps",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/WardenDustSymbol.png?scale=1&w=1&h=1"
   },
   {
     "name": "Prime Alchemical Resonator",
@@ -3628,16 +2523,6 @@
     "name": "Prime Chaotic Resonator",
     "category": "Resonator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/Reroll2x2C.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Prime Regrading Lens",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AlternateSkillGemCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Prime Sextant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasRadiusTier2.png?scale=1&w=1&h=1"
   },
   {
     "name": "Primitive Alchemical Resonator",
@@ -3673,16 +2558,6 @@
     "name": "Prometheus' Armoury",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Prophecy",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ProphecyOrbRed.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Prospecting Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionSettlers.png?scale=1&w=1&h=1"
   },
   {
     "name": "Prosperity",
@@ -3725,11 +2600,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Red Packet",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/TencentRedPocketHorse.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Redeemer's Exalted Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Influence Exalts/EyrieOrb.png?scale=1&w=1&h=1"
@@ -3755,44 +2625,14 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Regal Implant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Chayula/GraftedRegal.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Regal Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeMagicToRare.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Regal Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/RegalShard.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Reinforced Iron Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap5.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Reinforced Rope Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Reinforced Steel Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap8.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Remembrance",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Remnant of Corruption",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/EssenceCorrupt.png?scale=1&w=1&h=1"
   },
   {
     "name": "Reverent Fragment",
@@ -3820,189 +2660,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/NormalScarabRitual.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Ritual Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ritual/RitualSplinter.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Ritual Vessel",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ritual/Effigy.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "River Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune5.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Rogue's Marker",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Heist/HeistCoinCurrency.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Bellows",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune13.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Blasphemy",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune15.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Connection",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune29.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Consecration",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune36.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Fury",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune34.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Gemcraft",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune14.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Loyalty",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune23.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Quaffing",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune21.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Rallying",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune37.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Refraction",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune7.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Restitching",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune22.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Resurgence",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune31.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Rotblood",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune33.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Stability",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Suffering",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune27.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Agile",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune32.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Angler",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune10.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Bound",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Combatant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Fortress",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune1.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Gauche",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune16.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Imbued",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune30.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Jeweller",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune8.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Novamark",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune25.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the River",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune5.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Sinistral",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune6.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Soulwick",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune12.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Spellbound",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune26.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Warp",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune11.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of the Witchmark",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune24.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Time",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune19.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runegraft of Treachery",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune20.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Runic Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionExpedition.png?scale=1&w=1&h=1"
   },
   {
     "name": "Runic Luck",
@@ -4220,11 +2880,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/AmberFireFly.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Scrap Metal",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Expedition/DealerRefreshCurrency.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Screaming Essence of Anger",
     "category": "Essence",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger5.png?scale=1&w=1&h=1"
@@ -4325,19 +2980,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Zeal5.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Scroll Fragment",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyIdentificationFragment.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Scroll of Wisdom",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyIdentification.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Secondary Regrading Lens",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AlternateSupportGemCurrency.png?scale=1&w=1&h=1"
   },
   {
     "name": "Sepia Oil",
@@ -4475,34 +3120,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Silver Coin",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SilverObol.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Silver Oil",
     "category": "Oil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/SilverOil.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Simple Iron Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Simple Rope Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap1.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Simple Sextant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasRadiusTier1.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Simple Steel Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap7.png?scale=1&w=1&h=1"
   },
   {
     "name": "Simulacrum",
@@ -4510,34 +3130,14 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/DeliriumFragment.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Simulacrum Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/DeliriumSplinter.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Singular Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbUniques.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Singular Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationUniques.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Singular Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Sinistral Catalyst",
     "category": "Catalyst",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Catalysts/QualityPrefixCatalyst.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Skittering Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbScarabs.png?scale=1&w=1&h=1"
   },
   {
     "name": "Skittering Incubator",
@@ -4560,36 +3160,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Specularity Scroll",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/HarbingerTokenShield.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Splinter of Chayula",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardChaos.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Splinter of Esh",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardLightning.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Splinter of Tul",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardCold.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Splinter of Uul-Netol",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardPhysical.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Splinter of Xoph",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Breach/BreachShardFire.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Squandered Prosperity",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -4598,21 +3168,6 @@
     "name": "Stacked Deck",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/Deck.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Strong Iron Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap6.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Strong Rope Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Strong Steel Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap9.png?scale=1&w=1&h=1"
   },
   {
     "name": "Struck by Lightning",
@@ -4640,16 +3195,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/NormalScarabSulphite.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Sun Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Surveyor's Compass",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/SurveyorsCompass.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Syndicate Medallion",
     "category": "Fragment",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/CatarinaToken.png?scale=1&w=1&h=1"
@@ -4673,11 +3218,6 @@
     "name": "Tainted Blacksmith's Whetstone",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Hellscape/HellscapeBlacksmithWhetstone.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tainted Blessing",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/TaintedBlessing.png?scale=1&w=1&h=1"
   },
   {
     "name": "Tainted Catalyst",
@@ -4730,306 +3270,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delve/TangledFossil.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Tattoo of the Arohongui Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Arohongui Moonwarden",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Arohongui Scout",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Arohongui Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Arohongui Warmonger",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Arohongui Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Hinekora Deathwarden",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Hinekora Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Hinekora Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Hinekora Storyteller",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Hinekora Warmonger",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Hinekora Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Kitava Blood Drinker",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Kitava Heart Eater",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Kitava Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Kitava Rebel",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Kitava Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Kitava Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ngamahu Firewalker",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ngamahu Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ngamahu Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ngamahu Warmonger",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ngamahu Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ngamahu Woodcarver",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ramako Archer",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ramako Fleetfoot",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ramako Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ramako Scout",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ramako Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Ramako Sniper",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Rongokurai Brute",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Rongokurai Goliath",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Rongokurai Guard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Rongokurai Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Rongokurai Turtle",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Rongokurai Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tasalio Bladedancer",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tasalio Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tasalio Scout",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tasalio Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tasalio Tideshifter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tasalio Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tawhoa Herbalist",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tawhoa Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tawhoa Naturalist",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tawhoa Scout",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonDexTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tawhoa Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tawhoa Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tukohama Brawler",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tukohama Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tukohama Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tukohama Warcaller",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tukohama Warmonger",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Tukohama Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Valako Makanga",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/RareIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Valako Scout",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Valako Shaman",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Valako Shieldbearer",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonStrTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Valako Stormrider",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Tattoo of the Valako Warrior",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Ancestors/CommonIntTatttooEquipment.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Teal Oil",
     "category": "Oil",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Oils/TealOil.png?scale=1&w=1&h=1"
@@ -5050,29 +3290,14 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/DivineEnchantBodyArmourCurrency.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Templar Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionGeneric.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Terrible Secret of Space",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Thaumaturge's Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbGems.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Thaumaturge's Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationGems.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Thaumaturgical Net",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/BestiaryTrap10.png?scale=1&w=1&h=1"
   },
   {
     "name": "The Academic",
@@ -5246,7 +3471,7 @@
   },
   {
     "name": "The Catalyst",
-    "category": "Catalyst",
+    "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
@@ -6380,16 +4605,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Time Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune9.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Time-light Scroll",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/HarbingerTokenBelt.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Time-Lost Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationUniques.png?scale=1&w=1&h=1"
@@ -6400,24 +4615,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Timeless Astrolabe",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Atlas/AtlasMissionLegion.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Timeless Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbLegion.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Timeless Eternal Emblem",
     "category": "Fragment",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/EternalEmpireFragment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Timeless Eternal Empire Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/EternalEmpireShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Timeless Karui Emblem",
@@ -6425,19 +4625,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/KaruiFragment.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Timeless Karui Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/KaruiShard.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Timeless Maraketh Emblem",
     "category": "Fragment",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/MarakethFragment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Timeless Maraketh Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/MarakethShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Timeless Templar Emblem",
@@ -6445,19 +4635,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/TemplarFragment.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Timeless Templar Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/TemplarShard.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Timeless Vaal Emblem",
     "category": "Fragment",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/VaalFragment.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Timeless Vaal Splinter",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/VaalShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Titanic Scarab",
@@ -6503,16 +4683,6 @@
     "name": "Tranquillity",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Transforming Power Core",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sentinel/TransformingPowerCore.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Transmutation Shard",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyUpgradeToMagicShard.png?scale=1&w=1&h=1"
   },
   {
     "name": "Traumatic Fragment",
@@ -6575,11 +4745,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Scarabs/AltTier4ScarabUltimatum.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Uncarved Gemstone",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Jewels/RedCorrupt4.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Unchained",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -6620,34 +4785,14 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Unshaping Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/AtlasDowngrade.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Unstable Catalyst",
     "category": "Catalyst",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Catalysts/CriticalModifierCatalyst.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Unstable Implant",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Chayula/UnstableImplant.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Vaal Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/CurrencyVaal.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vaal Scouting Report",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ScoutingReport.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Valdo's Puzzle Box",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/ValdosPuzzleBox.png?scale=1&w=1&h=1"
   },
   {
     "name": "Vanity",
@@ -6680,51 +4825,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/RedeemerFragment.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Vial of Awakening",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialSlumber.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of Consequence",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialCowardsChains.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of Dominance",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialArchitectsHand.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of Fate",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialStoryVaal.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of Sacrifice",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialSacrificialHeart.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of Summoning",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialSpiritDrinker.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of the Ghost",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialSoulCatcher.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of the Ritual",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialDanceOffered.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vial of Transcendence",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/VialTemperedFlesh.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Vile Power",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
@@ -6743,11 +4843,6 @@
     "name": "Vivid Crystallised Lifeforce",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/VividLifeforce.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Vivid Wisps",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/PrimalistDustSymbol.png?scale=1&w=1&h=1"
   },
   {
     "name": "Void of the Elements",
@@ -6850,11 +4945,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Zeal4.png?scale=1&w=1&h=1"
   },
   {
-    "name": "War Rune",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Settlers/VillageRune4.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Warlord's Exalted Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Influence Exalts/ConquerorOrb.png?scale=1&w=1&h=1"
@@ -6863,11 +4953,6 @@
     "name": "Wealth and Power",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weapon Recombinator",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Sentinel/JewelleryRecombinator.png?scale=1&w=1&h=1"
   },
   {
     "name": "Weeping Essence of Anger",
@@ -6935,11 +5020,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Whispering Delirium Orb",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Delirium/DeliriumOrbEssence.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Whispering Essence of Contempt",
     "category": "Essence",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt1.png?scale=1&w=1&h=1"
@@ -6973,11 +5053,6 @@
     "name": "Wild Crystallised Lifeforce",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Harvest/WildLifeforce.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wild Wisps",
-    "category": "Currency",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Azmeri/VoodooShamanDustSymbol.png?scale=1&w=1&h=1"
   },
   {
     "name": "Winged Abyss Scarab",

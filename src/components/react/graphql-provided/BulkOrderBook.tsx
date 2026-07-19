@@ -1,7 +1,7 @@
 import { useMutation, useSubscription } from '@apollo/client';
 import { useStore } from '@nanostores/react';
-import { search as fuzzySearch } from 'fast-fuzzy';
 import { IconSearch } from '@tabler/icons-react';
+import { search as fuzzySearch } from 'fast-fuzzy';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
@@ -16,7 +16,6 @@ import {
   notifyBulkDiscord,
   type BulkDiscordUser,
 } from '../../../_utils/bulk-discord';
-import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import {
   BulkOrdersDocument,
   DeleteBulkOrderContributionDocument,
@@ -36,6 +35,7 @@ import {
   type UpdateBulkOrderMutation,
   type UpdateBulkOrderMutationVariables,
 } from '../../../graphql-api';
+import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import { Button } from '../ui/Button';
 import {
   Dialog,
@@ -46,12 +46,15 @@ import {
 import { Select } from '../ui/Select';
 import { Spinner } from '../ui/Spinner';
 import { Toggle } from '../ui/Toggle';
-import { BulkOrderCard, type BulkOrderWithContributions } from './BulkOrderCard';
-import { BulkOrderForm, type BulkOrderFormValues } from './BulkOrderForm';
 import {
   BulkContributeDialog,
   type BulkContributeValues,
 } from './BulkContributeDialog';
+import {
+  BulkOrderCard,
+  type BulkOrderWithContributions,
+} from './BulkOrderCard';
+import { BulkOrderForm, type BulkOrderFormValues } from './BulkOrderForm';
 
 const SORT_OPTIONS: { value: BulkOrderSort; display: string }[] = [
   { value: 'newest', display: 'Newest first' },
@@ -63,9 +66,8 @@ const sumOf = (order: BulkOrderWithContributions) =>
   order.contributions.reduce((acc, c) => acc + c.quantity, 0);
 
 export const BulkOrderBook = () => {
-  const { data: orders, loading } = useSubscription<BulkOrdersSubscription>(
-    BulkOrdersDocument,
-  );
+  const { data: orders, loading } =
+    useSubscription<BulkOrdersSubscription>(BulkOrdersDocument);
   const { data: myUser } = useMyHasuraUser();
   const myUserId = myUser?.id;
 
@@ -196,8 +198,7 @@ export const BulkOrderBook = () => {
       default:
         sorted.sort(
           (a, b) =>
-            new Date(b.created_at).getTime() -
-            new Date(a.created_at).getTime(),
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
         );
     }
 
@@ -330,7 +331,7 @@ export const BulkOrderBook = () => {
             origin: window.location.origin,
           }),
         );
-        toast.success(`🎉 You completed the order for ${order.item_name}!`);
+        toast.success(`You completed the order for ${order.item_name}!`);
       } else {
         const sumAfter = parent.contributions.reduce(
           (acc, c) => acc + c.quantity,
@@ -481,9 +482,7 @@ export const BulkOrderBook = () => {
             ref={inputRef}
             placeholder="search by item, description, or user"
             defaultValue={fuzzyQuery}
-            onChange={(e) =>
-              bulkFuzzySearchStore.set(e.target.value.trim())
-            }
+            onChange={(e) => bulkFuzzySearchStore.set(e.target.value.trim())}
             className="max-w-md grow border-[1px] border-primary-800 bg-gray-800"
           />
         </div>
@@ -506,9 +505,7 @@ export const BulkOrderBook = () => {
           placeholder="Sort"
           options={SORT_OPTIONS}
           defaultIndex={SORT_OPTIONS.findIndex((o) => o.value === sort)}
-          onSelectChange={(value) =>
-            bulkSortStore.set(value as BulkOrderSort)
-          }
+          onSelectChange={(value) => bulkSortStore.set(value as BulkOrderSort)}
         />
         <Button
           className="h-auto text-lg"

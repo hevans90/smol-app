@@ -177,6 +177,9 @@ progress("character loaded")
 local function frame()
 	build.buildFlag = true
 	runCallback("OnFrame")
+	-- LuaJIT's GC is lazy and each recalculated frame churns tens of MB of
+	-- garbage; collecting eagerly keeps peak RSS inside small containers
+	collectgarbage("collect")
 end
 
 -- Only positive finite numbers are meaningful DPS values; PoB reports 0/nan

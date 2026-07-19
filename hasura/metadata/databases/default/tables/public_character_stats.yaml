@@ -1,0 +1,70 @@
+table:
+  name: character_stats
+  schema: public
+object_relationships:
+  - name: character
+    using:
+      foreign_key_constraint_on: character_id
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - armour
+        - attack_speed
+        - block_chance
+        - chaos_resist
+        - character_id
+        - cold_resist
+        - combined_dps
+        - created_at
+        - crit_chance
+        - crit_multiplier
+        - energy_shield
+        - evasion
+        - fire_resist
+        - full_dps
+        - life
+        - life_unreserved
+        - lightning_resist
+        - main_skill
+        - mana
+        - spell_block_chance
+        - spell_suppression_chance
+        - total_dot_dps
+        - total_dps
+        - total_ehp
+        - updated_at
+        - ward
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - armour
+        - attack_speed
+        - block_chance
+        - chaos_resist
+        - character_id
+        - cold_resist
+        - combined_dps
+        - created_at
+        - crit_chance
+        - crit_multiplier
+        - energy_shield
+        - evasion
+        - fire_resist
+        - full_dps
+        - life
+        - life_unreserved
+        - lightning_resist
+        - main_skill
+        - mana
+        - spell_block_chance
+        - spell_suppression_chance
+        - total_dot_dps
+        - total_dps
+        - total_ehp
+        - updated_at
+        - ward
+      filter: {}
+    comment: ""

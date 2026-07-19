@@ -37,6 +37,7 @@ type Ladder struct {
 		Rank      int  `json:"rank"`
 		Dead      bool `json:"dead"`
 		Retired   bool `json:"retired"`
+		Public    bool `json:"public"`
 		Character struct {
 			ID         string `json:"id"`
 			Name       string `json:"name"`

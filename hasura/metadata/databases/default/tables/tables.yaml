@@ -1,4 +1,5 @@
 - "!include public_character.yaml"
+- "!include public_character_stats.yaml"
 - "!include public_item_order_type.yaml"
 - "!include public_league.yaml"
 - "!include public_league_category.yaml"

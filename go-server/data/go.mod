@@ -4,11 +4,14 @@ go 1.22.1
 
 replace poe => ../poe
 
+replace pob => ../pob
+
 require (
 	github.com/fatih/color v1.18.0
 	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.10.9
 	github.com/sqlc-dev/pqtype v0.3.0
+	pob v0.0.0-00010101000000-000000000000
 	poe v0.0.0-00010101000000-000000000000
 )
 

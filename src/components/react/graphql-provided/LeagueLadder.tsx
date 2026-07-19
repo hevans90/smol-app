@@ -6,13 +6,13 @@ import { playerLevelExperienceMap } from '../../../_utils/constants';
 import {
   LeagueCharactersDocument,
   LeagueDocument,
-  type Character,
   type LeagueCharactersSubscription,
   type LeagueCharactersSubscriptionVariables,
   type LeagueQuery,
 } from '../../../graphql-api';
 import useCharacterItems from '../../../hooks/useCharacterItems';
 import { CharacterSheet } from '../character-sheet/CharacterSheet';
+import { CharacterStatSheet } from '../character-sheet/CharacterStatSheet';
 import { RegisteredUserCount } from '../RegisteredUserCount';
 import { ModalDrawer } from '../ui/ModalDrawer';
 import { Spinner } from '../ui/Spinner';
@@ -59,7 +59,33 @@ export const LeagueLadder = () => {
   );
 };
 
-const CharacterTable: React.FC<{ characters: Character[] }> = ({
+type LadderCharacter = LeagueCharactersSubscription['character'][number];
+
+// PoB stats are computed periodically by the go-server, so some characters
+// (private profiles, freshly started) have none yet.
+const compactNumber = new Intl.NumberFormat('en', {
+  notation: 'compact',
+  maximumFractionDigits: 1,
+});
+
+const sortAccessors: Record<
+  string,
+  (character: LadderCharacter) => string | number
+> = {
+  rank: (character) => character.rank,
+  account: (character) => character.poe_account_name.toLowerCase(),
+  name: (character) => character.name.toLowerCase(),
+  class: (character) => character.class,
+  // experience is level plus progress towards the next one
+  level: (character) => Number(character.experience),
+  main_skill: (character) => character.stats?.main_skill?.toLowerCase() ?? '',
+  combined_dps: (character) => character.stats?.combined_dps ?? -1,
+  life_es: (character) =>
+    character.stats ? character.stats.life + character.stats.energy_shield : -1,
+  total_ehp: (character) => character.stats?.total_ehp ?? -1,
+};
+
+const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
   characters,
 }) => {
   const initialRowsPerPage = parseInt(
@@ -68,9 +94,8 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
   );
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
-    null,
-  );
+  const [selectedCharacter, setSelectedCharacter] =
+    useState<LadderCharacter | null>(null);
 
   const {
     items,
@@ -126,14 +151,13 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     }
   }, [characters.length]);
 
-  const sortedCharacters = sortConfig.key
+  const sortAccessor = sortConfig.key ? sortAccessors[sortConfig.key] : null;
+  const sortedCharacters = sortAccessor
     ? [...characters].sort((a, b) => {
-        //@ts-ignore
-        if (a[sortConfig.key] < b[sortConfig.key]) {
+        if (sortAccessor(a) < sortAccessor(b)) {
           return sortConfig.direction === 'asc' ? -1 : 1;
         }
-        //@ts-ignore
-        if (a[sortConfig.key] > b[sortConfig.key]) {
+        if (sortAccessor(a) > sortAccessor(b)) {
           return sortConfig.direction === 'asc' ? 1 : -1;
         }
         return 0;
@@ -174,7 +198,7 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
 
   const handleSort = (column: string) => {
     setCurrentPage(1);
-    if (!sortConfig.direction) {
+    if (sortConfig.key !== column || !sortConfig.direction) {
       setSortConfig({
         key: column,
         direction: 'asc',
@@ -201,42 +225,82 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
     return Math.min(progress, 100);
   };
 
+  const SortableHeader: React.FC<{
+    column: string;
+    label: string;
+    className?: string;
+  }> = ({ column, label, className }) => (
+    <th
+      className={twMerge(
+        'cursor-pointer select-none px-4 py-3 font-medium',
+        className,
+      )}
+      onClick={() => handleSort(column)}
+    >
+      <button className="flex w-full items-center gap-2 whitespace-nowrap bg-transparent hover:bg-transparent">
+        <span>{label}</span>
+
+        {sortConfig.key === null && (
+          <span className="text-primary-800 opacity-50">↑ ↓</span>
+        )}
+
+        {sortConfig.key === column ? (
+          sortConfig.direction === 'asc' ? (
+            <span>↑</span>
+          ) : (
+            <span>↓</span>
+          )
+        ) : (
+          ''
+        )}
+      </button>
+    </th>
+  );
+
   return (
     <>
       <div className="flex h-[85%] w-full flex-col lg:h-[90%]">
         {/* Table Wrapper */}
         <div className="grow overflow-auto">
-          <table className="min-w-full table-fixed text-left text-sm xl:text-base 2xl:text-xl">
+          {/* table-fixed only takes effect with an explicit width (min-width
+              alone falls back to auto layout, letting column widths jump as
+              row content changes on sort) */}
+          <table className="w-full min-w-[68rem] table-fixed text-left text-sm xl:text-base 2xl:text-xl">
             <thead className="sticky top-0 z-30 bg-gray-900 text-primary-500">
               <tr>
-                <th className="w-16 px-4 py-2 font-medium">Rank</th>
-                <th className="w-32 px-4 py-2 font-medium">Account</th>
-                <th className="w-48 px-4 py-2 font-medium">Character</th>
-                <th
-                  className="text w-32 cursor-pointer select-none px-4 py-3 font-medium"
-                  onClick={() => handleSort('class')}
-                >
-                  <button className="flex w-full whitespace-nowrap bg-transparent hover:bg-transparent">
-                    <span>Class &nbsp;&nbsp;&nbsp;</span>
-
-                    {sortConfig.key === null && (
-                      <span className="text-primary-800 opacity-50">↑ ↓</span>
-                    )}
-
-                    {sortConfig.key === 'class' ? (
-                      sortConfig.direction === 'asc' ? (
-                        <span>↑</span>
-                      ) : (
-                        <span>↓</span>
-                      )
-                    ) : (
-                      ''
-                    )}
-                  </button>
-                </th>
-                <th className="w-32 px-4 py-2 font-medium">Level</th>
-                <th className="w-32 px-4 py-2 font-medium">Experience</th>
-                <th className="w-32 px-4 py-2 font-medium"></th>
+                <SortableHeader column="rank" label="Rank" className="w-24" />
+                <SortableHeader
+                  column="account"
+                  label="Account"
+                  className="w-32"
+                />
+                <SortableHeader
+                  column="name"
+                  label="Character"
+                  className="w-44"
+                />
+                <SortableHeader column="class" label="Class" className="w-32" />
+                <SortableHeader column="level" label="Level" className="w-24" />
+                <SortableHeader
+                  column="main_skill"
+                  label="Main Skill"
+                  className="w-36"
+                />
+                <SortableHeader
+                  column="combined_dps"
+                  label="DPS"
+                  className="w-24"
+                />
+                <SortableHeader
+                  column="life_es"
+                  label="Life / ES"
+                  className="w-32"
+                />
+                <SortableHeader
+                  column="total_ehp"
+                  label="EHP"
+                  className="w-24"
+                />
               </tr>
             </thead>
             <tbody className="bg-gray-950 text-primary-800">
@@ -259,8 +323,13 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
                     )}
                   >
                     <td className="px-4 py-2">{character.rank}</td>
-                    <td className="px-4 py-2">{character.poe_account_name}</td>
-                    <td className="px-4 py-2">
+                    <td
+                      className="truncate px-4 py-2"
+                      title={character.poe_account_name}
+                    >
+                      {character.poe_account_name}
+                    </td>
+                    <td className="truncate px-4 py-2" title={character.name}>
                       {character.name}
 
                       {character.retired && (
@@ -268,13 +337,15 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
                       )}
                     </td>
                     <td className="px-4 py-2">{character.class}</td>
-                    <td className="px-4 py-2">{character.level}</td>
-                    <td className="px-4 py-2">{character.experience}</td>
-                    <td className="px-4 py-2">
-                      <div className="relative h-2">
+                    <td
+                      className="px-4 py-2"
+                      title={`${Number(character.experience).toLocaleString()} XP`}
+                    >
+                      <div>{character.level}</div>
+                      <div className="relative mt-1 h-1.5 w-16">
                         <div
                           className={twMerge(
-                            'absolute z-10 h-full bg-gray-600',
+                            'absolute z-10 h-full',
                             isLevel100 ? 'bg-primary-400' : 'bg-primary-800',
                           )}
                           style={{
@@ -283,6 +354,56 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
                         />
                         <div className="absolute h-full w-full bg-gray-700"></div>
                       </div>
+                    </td>
+                    <td className="px-4 py-2">
+                      <div
+                        className="w-full truncate text-xs xl:text-sm"
+                        title={character.stats?.main_skill ?? undefined}
+                      >
+                        {character.stats?.main_skill ?? (
+                          <span className="opacity-30">–</span>
+                        )}
+                      </div>
+                    </td>
+                    <td
+                      className="px-4 py-2"
+                      title={
+                        character.stats
+                          ? `${Math.round(character.stats.combined_dps).toLocaleString()} combined DPS`
+                          : 'No PoB stats yet (private profile?)'
+                      }
+                    >
+                      {character.stats ? (
+                        compactNumber.format(character.stats.combined_dps)
+                      ) : (
+                        <span className="opacity-30">–</span>
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2">
+                      {character.stats ? (
+                        <>
+                          <span className="text-red-400">
+                            {Math.round(character.stats.life).toLocaleString()}
+                          </span>
+                          {character.stats.energy_shield >= 1 && (
+                            <span className="text-sky-300">
+                              {' / '}
+                              {Math.round(
+                                character.stats.energy_shield,
+                              ).toLocaleString()}
+                            </span>
+                          )}
+                        </>
+                      ) : (
+                        <span className="opacity-30">–</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-2">
+                      {character.stats ? (
+                        compactNumber.format(character.stats.total_ehp)
+                      ) : (
+                        <span className="opacity-30">–</span>
+                      )}
                     </td>
                   </tr>
                 );
@@ -338,16 +459,30 @@ const CharacterTable: React.FC<{ characters: Character[] }> = ({
       >
         {!characterDetailsLoading &&
           selectedCharacter &&
-          character &&
-          passiveTree &&
-          items?.length && (
+          (character && passiveTree && items?.length ? (
             <CharacterSheet
               accountName={selectedCharacter.poe_account_name}
               items={items}
               character={character}
               passiveTreeItems={passiveTree?.items}
+              characterId={selectedCharacter.id}
             />
-          )}
+          ) : (
+            // Inventory unavailable (private profile / GGG hiccup) — the PoB
+            // stat sheet comes from our own DB, so still show it.
+            <div className="flex h-full flex-col items-center gap-2 overflow-y-auto">
+              <div className="font-fontinSmallcaps text-xl text-primary-500">
+                {selectedCharacter.name}
+              </div>
+              <div>
+                Level {selectedCharacter.level} {selectedCharacter.class}
+              </div>
+              <div className="mb-2 text-sm text-primary-800 opacity-60">
+                Couldn't load the inventory — the profile may be private.
+              </div>
+              <CharacterStatSheet characterId={selectedCharacter.id} />
+            </div>
+          ))}
       </ModalDrawer>
     </>
   );

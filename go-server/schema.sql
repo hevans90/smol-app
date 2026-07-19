@@ -2,8 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.8 (Debian 15.8-1.pgdg120+1)
--- Dumped by pg_dump version 16.2
+\restrict lqfyK6uRNb8FMOzGBx0kIlFsUHc3ZMKBNV8BJZybthgVZBPP8plqrnQzTnpCuUu
+
+-- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
+-- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -198,7 +200,42 @@ CREATE TABLE public."character" (
     dead boolean NOT NULL,
     id text NOT NULL,
     challenges integer NOT NULL,
-    twitch text
+    twitch text,
+    league text
+);
+
+
+--
+-- Name: character_stats; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.character_stats (
+    character_id text NOT NULL,
+    main_skill text,
+    combined_dps double precision DEFAULT 0 NOT NULL,
+    total_dps double precision DEFAULT 0 NOT NULL,
+    full_dps double precision DEFAULT 0 NOT NULL,
+    total_dot_dps double precision DEFAULT 0 NOT NULL,
+    life double precision DEFAULT 0 NOT NULL,
+    life_unreserved double precision DEFAULT 0 NOT NULL,
+    energy_shield double precision DEFAULT 0 NOT NULL,
+    mana double precision DEFAULT 0 NOT NULL,
+    ward double precision DEFAULT 0 NOT NULL,
+    total_ehp double precision DEFAULT 0 NOT NULL,
+    armour double precision DEFAULT 0 NOT NULL,
+    evasion double precision DEFAULT 0 NOT NULL,
+    block_chance double precision DEFAULT 0 NOT NULL,
+    spell_block_chance double precision DEFAULT 0 NOT NULL,
+    spell_suppression_chance double precision DEFAULT 0 NOT NULL,
+    fire_resist double precision DEFAULT 0 NOT NULL,
+    cold_resist double precision DEFAULT 0 NOT NULL,
+    lightning_resist double precision DEFAULT 0 NOT NULL,
+    chaos_resist double precision DEFAULT 0 NOT NULL,
+    crit_chance double precision DEFAULT 0 NOT NULL,
+    crit_multiplier double precision DEFAULT 0 NOT NULL,
+    attack_speed double precision DEFAULT 0 NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
 
@@ -386,6 +423,14 @@ ALTER TABLE ONLY public."character"
 
 
 --
+-- Name: character_stats character_stats_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.character_stats
+    ADD CONSTRAINT character_stats_pkey PRIMARY KEY (character_id);
+
+
+--
 -- Name: item_order_type item_order_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -538,6 +583,13 @@ CREATE INDEX idx_poe_name ON public."user" USING btree (poe_name);
 
 
 --
+-- Name: character_stats set_public_character_stats_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER set_public_character_stats_updated_at BEFORE UPDATE ON public.character_stats FOR EACH ROW EXECUTE FUNCTION public.set_current_timestamp_updated_at();
+
+
+--
 -- Name: user_item_order set_public_user_item_order_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -558,6 +610,14 @@ ALTER TABLE ONLY hdb_catalog.hdb_cron_event_invocation_logs
 
 ALTER TABLE ONLY hdb_catalog.hdb_scheduled_event_invocation_logs
     ADD CONSTRAINT hdb_scheduled_event_invocation_logs_event_id_fkey FOREIGN KEY (event_id) REFERENCES hdb_catalog.hdb_scheduled_events(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: character_stats character_stats_character_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.character_stats
+    ADD CONSTRAINT character_stats_character_id_fkey FOREIGN KEY (character_id) REFERENCES public."character"(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 
 
 --
@@ -619,4 +679,6 @@ ALTER TABLE ONLY public.user_league_mechanic
 --
 -- PostgreSQL database dump complete
 --
+
+\unrestrict lqfyK6uRNb8FMOzGBx0kIlFsUHc3ZMKBNV8BJZybthgVZBPP8plqrnQzTnpCuUu
 

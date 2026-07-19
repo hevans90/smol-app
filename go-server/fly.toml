@@ -17,7 +17,8 @@ primary_region = 'lhr'
   internal_port = 8080
   force_https = true
   auto_start_machines = true
-  min_machines_running = 0
+  # The periodic ladder sync + PoB stats sweep need a machine actually running
+  min_machines_running = 1
   processes = ['app']
 
 [[vm]]

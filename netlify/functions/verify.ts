@@ -30,6 +30,7 @@ type HasuraUser = {
   poe_user_id: string | null;
   discord_name: string | null;
   discord_user_id: string | null;
+  admin: boolean;
 };
 
 type HasuraUpsertUserResponse = {
@@ -39,7 +40,12 @@ type HasuraUpsertUserResponse = {
 export const handler: Handler = async (event: HandlerEvent) => {
   invariant(event.queryStringParameters);
 
-  const hasuraURL = `https://${process.env.HASURA_GRAPHQL_URI}`;
+  // local hasura (docker compose) has no TLS
+  const hasuraURL = (process.env.HASURA_GRAPHQL_URI as string).startsWith(
+    'localhost'
+  )
+    ? `http://${process.env.HASURA_GRAPHQL_URI}`
+    : `https://${process.env.HASURA_GRAPHQL_URI}`;
   const headers = {
     'Content-Type': 'application/json',
     'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET as string,
@@ -109,6 +115,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
               discord_name
               poe_name
               poe_user_id
+              admin
             }
           }
         }
@@ -132,9 +139,9 @@ export const handler: Handler = async (event: HandlerEvent) => {
     responseData.expires_in
   ).toISOString();
 
-  const dev = ['Hevans9000', 'Eplyratata', 'Thanangard'].includes(
-    responseData.username
-  );
+  // admins are assigned via the user.admin column (managed from the
+  // frontend admin section); they get the hasura dev role
+  const dev = upsertedHasuraUser?.admin === true;
 
   // now generate a new JWT for use with hasura
   const hasuraToken = sign(

@@ -20,6 +20,7 @@ select_permissions:
   - role: dev
     permission:
       columns:
+        - admin
         - discord_avatar
         - discord_name
         - discord_user_id
@@ -32,6 +33,7 @@ select_permissions:
   - role: user
     permission:
       columns:
+        - admin
         - discord_avatar
         - discord_name
         - discord_user_id
@@ -46,6 +48,7 @@ update_permissions:
   - role: dev
     permission:
       columns:
+        - admin
         - discord_avatar
         - discord_name
         - discord_user_id
@@ -53,9 +56,26 @@ update_permissions:
         - poe_name
         - poe_user_id
         - id
-      filter: {}
-      check: null
-    comment: ""
+      filter:
+        _exists:
+          _table:
+            name: user
+            schema: public
+          _where:
+            _and:
+              - id:
+                  _eq: X-Hasura-User-Id
+              - admin:
+                  _eq: true
+      check:
+        _or:
+          - id:
+              _neq: X-Hasura-User-Id
+          - admin:
+              _eq: true
+    comment: dev updates (incl. assigning admins) require a CURRENT admin flag,
+      so revoking admin takes effect immediately even with an unexpired dev
+      JWT; the check stops admins removing their OWN admin flag
   - role: user
     permission:
       columns:

@@ -13,6 +13,12 @@ import (
 	"github.com/sqlc-dev/pqtype"
 )
 
+type AppConfig struct {
+	ID         int32
+	LeagueName string
+	UpdatedAt  time.Time
+}
+
 type Character struct {
 	Rank           int32
 	PoeAccountName string
@@ -176,6 +182,7 @@ type User struct {
 	PoeName       sql.NullString
 	DiscordAvatar sql.NullString
 	Guild         sql.NullString
+	Admin         bool
 }
 
 type UserItemOrder struct {

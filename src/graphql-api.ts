@@ -79,6 +79,220 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** columns and relationships of "app_config" */
+export type App_Config = {
+  __typename?: 'app_config';
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  league?: Maybe<League>;
+  league_name: Scalars['String']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+/** aggregated selection of "app_config" */
+export type App_Config_Aggregate = {
+  __typename?: 'app_config_aggregate';
+  aggregate?: Maybe<App_Config_Aggregate_Fields>;
+  nodes: Array<App_Config>;
+};
+
+/** aggregate fields of "app_config" */
+export type App_Config_Aggregate_Fields = {
+  __typename?: 'app_config_aggregate_fields';
+  avg?: Maybe<App_Config_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<App_Config_Max_Fields>;
+  min?: Maybe<App_Config_Min_Fields>;
+  stddev?: Maybe<App_Config_Stddev_Fields>;
+  stddev_pop?: Maybe<App_Config_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<App_Config_Stddev_Samp_Fields>;
+  sum?: Maybe<App_Config_Sum_Fields>;
+  var_pop?: Maybe<App_Config_Var_Pop_Fields>;
+  var_samp?: Maybe<App_Config_Var_Samp_Fields>;
+  variance?: Maybe<App_Config_Variance_Fields>;
+};
+
+
+/** aggregate fields of "app_config" */
+export type App_Config_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<App_Config_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type App_Config_Avg_Fields = {
+  __typename?: 'app_config_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "app_config". All fields are combined with a logical 'AND'. */
+export type App_Config_Bool_Exp = {
+  _and?: InputMaybe<Array<App_Config_Bool_Exp>>;
+  _not?: InputMaybe<App_Config_Bool_Exp>;
+  _or?: InputMaybe<Array<App_Config_Bool_Exp>>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  league?: InputMaybe<League_Bool_Exp>;
+  league_name?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "app_config" */
+export enum App_Config_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  AppConfigPkey = 'app_config_pkey'
+}
+
+/** input type for incrementing numeric columns in table "app_config" */
+export type App_Config_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "app_config" */
+export type App_Config_Insert_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  league?: InputMaybe<League_Obj_Rel_Insert_Input>;
+  league_name?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type App_Config_Max_Fields = {
+  __typename?: 'app_config_max_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  league_name?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** aggregate min on columns */
+export type App_Config_Min_Fields = {
+  __typename?: 'app_config_min_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  league_name?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** response of any mutation on the table "app_config" */
+export type App_Config_Mutation_Response = {
+  __typename?: 'app_config_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<App_Config>;
+};
+
+/** on_conflict condition type for table "app_config" */
+export type App_Config_On_Conflict = {
+  constraint: App_Config_Constraint;
+  update_columns?: Array<App_Config_Update_Column>;
+  where?: InputMaybe<App_Config_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "app_config". */
+export type App_Config_Order_By = {
+  id?: InputMaybe<Order_By>;
+  league?: InputMaybe<League_Order_By>;
+  league_name?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: app_config */
+export type App_Config_Pk_Columns_Input = {
+  id: Scalars['Int']['input'];
+};
+
+/** select columns of table "app_config" */
+export enum App_Config_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LeagueName = 'league_name',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "app_config" */
+export type App_Config_Set_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  league_name?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type App_Config_Stddev_Fields = {
+  __typename?: 'app_config_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type App_Config_Stddev_Pop_Fields = {
+  __typename?: 'app_config_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type App_Config_Stddev_Samp_Fields = {
+  __typename?: 'app_config_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "app_config" */
+export type App_Config_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: App_Config_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type App_Config_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+  league_name?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate sum on columns */
+export type App_Config_Sum_Fields = {
+  __typename?: 'app_config_sum_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "app_config" */
+export enum App_Config_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LeagueName = 'league_name',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+export type App_Config_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<App_Config_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<App_Config_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: App_Config_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type App_Config_Var_Pop_Fields = {
+  __typename?: 'app_config_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type App_Config_Var_Samp_Fields = {
+  __typename?: 'app_config_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type App_Config_Variance_Fields = {
+  __typename?: 'app_config_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
 export type Bigint_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['bigint']['input']>;
@@ -1527,6 +1741,13 @@ export type League_Mutation_Response = {
   returning: Array<League>;
 };
 
+/** input type for inserting object relation for remote table "league" */
+export type League_Obj_Rel_Insert_Input = {
+  data: League_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<League_On_Conflict>;
+};
+
 /** on_conflict condition type for table "league" */
 export type League_On_Conflict = {
   constraint: League_Constraint;
@@ -1954,6 +2175,10 @@ export type League_Updates = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "app_config" */
+  delete_app_config?: Maybe<App_Config_Mutation_Response>;
+  /** delete single row from the table: "app_config" */
+  delete_app_config_by_pk?: Maybe<App_Config>;
   /** delete data from the table: "character" */
   delete_character?: Maybe<Character_Mutation_Response>;
   /** delete single row from the table: "character" */
@@ -1994,6 +2219,10 @@ export type Mutation_Root = {
   delete_user_league_mechanic?: Maybe<User_League_Mechanic_Mutation_Response>;
   /** delete single row from the table: "user_league_mechanic" */
   delete_user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
+  /** insert data into the table: "app_config" */
+  insert_app_config?: Maybe<App_Config_Mutation_Response>;
+  /** insert a single row into the table: "app_config" */
+  insert_app_config_one?: Maybe<App_Config>;
   /** insert data into the table: "character" */
   insert_character?: Maybe<Character_Mutation_Response>;
   /** insert a single row into the table: "character" */
@@ -2034,6 +2263,12 @@ export type Mutation_Root = {
   insert_user_league_mechanic_one?: Maybe<User_League_Mechanic>;
   /** insert a single row into the table: "user" */
   insert_user_one?: Maybe<User>;
+  /** update data of the table: "app_config" */
+  update_app_config?: Maybe<App_Config_Mutation_Response>;
+  /** update single row of the table: "app_config" */
+  update_app_config_by_pk?: Maybe<App_Config>;
+  /** update multiples rows of table: "app_config" */
+  update_app_config_many?: Maybe<Array<Maybe<App_Config_Mutation_Response>>>;
   /** update data of the table: "character" */
   update_character?: Maybe<Character_Mutation_Response>;
   /** update single row of the table: "character" */
@@ -2094,6 +2329,18 @@ export type Mutation_Root = {
   update_user_league_mechanic_many?: Maybe<Array<Maybe<User_League_Mechanic_Mutation_Response>>>;
   /** update multiples rows of table: "user" */
   update_user_many?: Maybe<Array<Maybe<User_Mutation_Response>>>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_App_ConfigArgs = {
+  where: App_Config_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_App_Config_By_PkArgs = {
+  id: Scalars['Int']['input'];
 };
 
 
@@ -2214,6 +2461,20 @@ export type Mutation_RootDelete_User_League_MechanicArgs = {
 /** mutation root */
 export type Mutation_RootDelete_User_League_Mechanic_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_App_ConfigArgs = {
+  objects: Array<App_Config_Insert_Input>;
+  on_conflict?: InputMaybe<App_Config_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_App_Config_OneArgs = {
+  object: App_Config_Insert_Input;
+  on_conflict?: InputMaybe<App_Config_On_Conflict>;
 };
 
 
@@ -2354,6 +2615,28 @@ export type Mutation_RootInsert_User_League_Mechanic_OneArgs = {
 export type Mutation_RootInsert_User_OneArgs = {
   object: User_Insert_Input;
   on_conflict?: InputMaybe<User_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_App_ConfigArgs = {
+  _inc?: InputMaybe<App_Config_Inc_Input>;
+  _set?: InputMaybe<App_Config_Set_Input>;
+  where: App_Config_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_App_Config_By_PkArgs = {
+  _inc?: InputMaybe<App_Config_Inc_Input>;
+  _set?: InputMaybe<App_Config_Set_Input>;
+  pk_columns: App_Config_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_App_Config_ManyArgs = {
+  updates: Array<App_Config_Updates>;
 };
 
 
@@ -2578,6 +2861,12 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "app_config" */
+  app_config: Array<App_Config>;
+  /** fetch aggregated fields from the table: "app_config" */
+  app_config_aggregate: App_Config_Aggregate;
+  /** fetch data from the table: "app_config" using primary key columns */
+  app_config_by_pk?: Maybe<App_Config>;
   /** fetch data from the table: "character" */
   character: Array<Character>;
   /** fetch aggregated fields from the table: "character" */
@@ -2638,6 +2927,29 @@ export type Query_Root = {
   user_league_mechanic_aggregate: User_League_Mechanic_Aggregate;
   /** fetch data from the table: "user_league_mechanic" using primary key columns */
   user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
+};
+
+
+export type Query_RootApp_ConfigArgs = {
+  distinct_on?: InputMaybe<Array<App_Config_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<App_Config_Order_By>>;
+  where?: InputMaybe<App_Config_Bool_Exp>;
+};
+
+
+export type Query_RootApp_Config_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<App_Config_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<App_Config_Order_By>>;
+  where?: InputMaybe<App_Config_Bool_Exp>;
+};
+
+
+export type Query_RootApp_Config_By_PkArgs = {
+  id: Scalars['Int']['input'];
 };
 
 
@@ -2872,6 +3184,14 @@ export type Query_RootUser_League_Mechanic_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "app_config" */
+  app_config: Array<App_Config>;
+  /** fetch aggregated fields from the table: "app_config" */
+  app_config_aggregate: App_Config_Aggregate;
+  /** fetch data from the table: "app_config" using primary key columns */
+  app_config_by_pk?: Maybe<App_Config>;
+  /** fetch data from the table in a streaming manner: "app_config" */
+  app_config_stream: Array<App_Config>;
   /** fetch data from the table: "character" */
   character: Array<Character>;
   /** fetch aggregated fields from the table: "character" */
@@ -2952,6 +3272,36 @@ export type Subscription_Root = {
   user_league_mechanic_stream: Array<User_League_Mechanic>;
   /** fetch data from the table in a streaming manner: "user" */
   user_stream: Array<User>;
+};
+
+
+export type Subscription_RootApp_ConfigArgs = {
+  distinct_on?: InputMaybe<Array<App_Config_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<App_Config_Order_By>>;
+  where?: InputMaybe<App_Config_Bool_Exp>;
+};
+
+
+export type Subscription_RootApp_Config_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<App_Config_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<App_Config_Order_By>>;
+  where?: InputMaybe<App_Config_Bool_Exp>;
+};
+
+
+export type Subscription_RootApp_Config_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type Subscription_RootApp_Config_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<App_Config_Stream_Cursor_Input>>;
+  where?: InputMaybe<App_Config_Bool_Exp>;
 };
 
 
@@ -3270,6 +3620,7 @@ export type Timestamptz_Comparison_Exp = {
 /** columns and relationships of "user" */
 export type User = {
   __typename?: 'user';
+  admin: Scalars['Boolean']['output'];
   discord_avatar?: Maybe<Scalars['String']['output']>;
   discord_name?: Maybe<Scalars['String']['output']>;
   discord_user_id?: Maybe<Scalars['String']['output']>;
@@ -3354,6 +3705,7 @@ export type User_Bool_Exp = {
   _and?: InputMaybe<Array<User_Bool_Exp>>;
   _not?: InputMaybe<User_Bool_Exp>;
   _or?: InputMaybe<Array<User_Bool_Exp>>;
+  admin?: InputMaybe<Boolean_Comparison_Exp>;
   discord_avatar?: InputMaybe<String_Comparison_Exp>;
   discord_name?: InputMaybe<String_Comparison_Exp>;
   discord_user_id?: InputMaybe<String_Comparison_Exp>;
@@ -3381,6 +3733,7 @@ export enum User_Constraint {
 
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
+  admin?: InputMaybe<Scalars['Boolean']['input']>;
   discord_avatar?: InputMaybe<Scalars['String']['input']>;
   discord_name?: InputMaybe<Scalars['String']['input']>;
   discord_user_id?: InputMaybe<Scalars['String']['input']>;
@@ -3965,6 +4318,7 @@ export type User_On_Conflict = {
 
 /** Ordering options when selecting data from "user". */
 export type User_Order_By = {
+  admin?: InputMaybe<Order_By>;
   discord_avatar?: InputMaybe<Order_By>;
   discord_name?: InputMaybe<Order_By>;
   discord_user_id?: InputMaybe<Order_By>;
@@ -3984,6 +4338,8 @@ export type User_Pk_Columns_Input = {
 /** select columns of table "user" */
 export enum User_Select_Column {
   /** column name */
+  Admin = 'admin',
+  /** column name */
   DiscordAvatar = 'discord_avatar',
   /** column name */
   DiscordName = 'discord_name',
@@ -4001,6 +4357,7 @@ export enum User_Select_Column {
 
 /** input type for updating data in table "user" */
 export type User_Set_Input = {
+  admin?: InputMaybe<Scalars['Boolean']['input']>;
   discord_avatar?: InputMaybe<Scalars['String']['input']>;
   discord_name?: InputMaybe<Scalars['String']['input']>;
   discord_user_id?: InputMaybe<Scalars['String']['input']>;
@@ -4020,6 +4377,7 @@ export type User_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type User_Stream_Cursor_Value_Input = {
+  admin?: InputMaybe<Scalars['Boolean']['input']>;
   discord_avatar?: InputMaybe<Scalars['String']['input']>;
   discord_name?: InputMaybe<Scalars['String']['input']>;
   discord_user_id?: InputMaybe<Scalars['String']['input']>;
@@ -4031,6 +4389,8 @@ export type User_Stream_Cursor_Value_Input = {
 
 /** update columns of table "user" */
 export enum User_Update_Column {
+  /** column name */
+  Admin = 'admin',
   /** column name */
   DiscordAvatar = 'discord_avatar',
   /** column name */
@@ -4067,6 +4427,48 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
 };
 
+export type MyAdminFlagSubscriptionVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type MyAdminFlagSubscription = { __typename?: 'subscription_root', user_by_pk?: { __typename?: 'user', id: string, admin: boolean } | null };
+
+export type AdminUsersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AdminUsersSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null, admin: boolean }> };
+
+export type SetUserAdminMutationVariables = Exact<{
+  id: Scalars['uuid']['input'];
+  admin: Scalars['Boolean']['input'];
+}>;
+
+
+export type SetUserAdminMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename?: 'user', id: string, admin: boolean } | null };
+
+export type KnownLeaguesSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type KnownLeaguesSubscription = { __typename?: 'subscription_root', league: Array<{ __typename?: 'league', id: string, start_at: string, end_at: string, description?: string | null }> };
+
+export type AppConfigSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AppConfigSubscription = { __typename?: 'subscription_root', app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, updated_at: string, league?: { __typename?: 'league', id: string, url?: string | null, description?: string | null, start_at: string, end_at: string } | null } | null };
+
+export type SetLeagueMutationVariables = Exact<{
+  leagueName: Scalars['String']['input'];
+}>;
+
+
+export type SetLeagueMutation = { __typename?: 'mutation_root', update_app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, updated_at: string } | null };
+
+export type PipelineStatusQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PipelineStatusQuery = { __typename?: 'query_root', character_aggregate: { __typename?: 'character_aggregate', aggregate?: { __typename?: 'character_aggregate_fields', count: number } | null }, character_stats_aggregate: { __typename?: 'character_stats_aggregate', aggregate?: { __typename?: 'character_stats_aggregate_fields', count: number, max?: { __typename?: 'character_stats_max_fields', updated_at?: string | null } | null } | null } };
+
 export type CharacterStatsSheetQueryVariables = Exact<{
   characterId: Scalars['String']['input'];
 }>;
@@ -4084,7 +4486,7 @@ export type LeagueCharactersSubscription = { __typename?: 'subscription_root', c
 export type LeagueQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LeagueQuery = { __typename?: 'query_root', league: Array<{ __typename?: 'league', url?: string | null, start_at: string, register_at: string, realm: string, id: string, end_at: string, delve_event: boolean, description?: string | null, category_id?: string | null }> };
+export type LeagueQuery = { __typename?: 'query_root', app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, league?: { __typename?: 'league', url?: string | null, start_at: string, register_at: string, realm: string, id: string, end_at: string, delve_event: boolean, description?: string | null, category_id?: string | null } | null } | null };
 
 export type LeaguesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4213,6 +4615,97 @@ export const UserFieldsFragmentDoc = gql`
   }
 }
     `;
+export const MyAdminFlagDocument = gql`
+    subscription MyAdminFlag($id: uuid!) {
+  user_by_pk(id: $id) {
+    id
+    admin
+  }
+}
+    `;
+export type MyAdminFlagSubscriptionResult = Apollo.SubscriptionResult<MyAdminFlagSubscription>;
+export const AdminUsersDocument = gql`
+    subscription AdminUsers {
+  user(order_by: {poe_name: asc_nulls_last}) {
+    id
+    poe_name
+    discord_name
+    discord_user_id
+    discord_avatar
+    admin
+  }
+}
+    `;
+export type AdminUsersSubscriptionResult = Apollo.SubscriptionResult<AdminUsersSubscription>;
+export const SetUserAdminDocument = gql`
+    mutation SetUserAdmin($id: uuid!, $admin: Boolean!) {
+  update_user_by_pk(pk_columns: {id: $id}, _set: {admin: $admin}) {
+    id
+    admin
+  }
+}
+    `;
+export type SetUserAdminMutationFn = Apollo.MutationFunction<SetUserAdminMutation, SetUserAdminMutationVariables>;
+export type SetUserAdminMutationResult = Apollo.MutationResult<SetUserAdminMutation>;
+export type SetUserAdminMutationOptions = Apollo.BaseMutationOptions<SetUserAdminMutation, SetUserAdminMutationVariables>;
+export const KnownLeaguesDocument = gql`
+    subscription KnownLeagues {
+  league(order_by: {start_at: desc}) {
+    id
+    start_at
+    end_at
+    description
+  }
+}
+    `;
+export type KnownLeaguesSubscriptionResult = Apollo.SubscriptionResult<KnownLeaguesSubscription>;
+export const AppConfigDocument = gql`
+    subscription AppConfig {
+  app_config_by_pk(id: 1) {
+    id
+    league_name
+    updated_at
+    league {
+      id
+      url
+      description
+      start_at
+      end_at
+    }
+  }
+}
+    `;
+export type AppConfigSubscriptionResult = Apollo.SubscriptionResult<AppConfigSubscription>;
+export const SetLeagueDocument = gql`
+    mutation SetLeague($leagueName: String!) {
+  update_app_config_by_pk(pk_columns: {id: 1}, _set: {league_name: $leagueName}) {
+    id
+    league_name
+    updated_at
+  }
+}
+    `;
+export type SetLeagueMutationFn = Apollo.MutationFunction<SetLeagueMutation, SetLeagueMutationVariables>;
+export type SetLeagueMutationResult = Apollo.MutationResult<SetLeagueMutation>;
+export type SetLeagueMutationOptions = Apollo.BaseMutationOptions<SetLeagueMutation, SetLeagueMutationVariables>;
+export const PipelineStatusDocument = gql`
+    query PipelineStatus {
+  character_aggregate {
+    aggregate {
+      count
+    }
+  }
+  character_stats_aggregate {
+    aggregate {
+      count
+      max {
+        updated_at
+      }
+    }
+  }
+}
+    `;
+export type PipelineStatusQueryResult = Apollo.QueryResult<PipelineStatusQuery, PipelineStatusQueryVariables>;
 export const CharacterStatsSheetDocument = gql`
     query CharacterStatsSheet($characterId: String!) {
   character_stats_by_pk(character_id: $characterId) {
@@ -4273,16 +4766,20 @@ export const LeagueCharactersDocument = gql`
 export type LeagueCharactersSubscriptionResult = Apollo.SubscriptionResult<LeagueCharactersSubscription>;
 export const LeagueDocument = gql`
     query League {
-  league(order_by: {start_at: desc}, limit: 1) {
-    url
-    start_at
-    register_at
-    realm
+  app_config_by_pk(id: 1) {
     id
-    end_at
-    delve_event
-    description
-    category_id
+    league_name
+    league {
+      url
+      start_at
+      register_at
+      realm
+      id
+      end_at
+      delve_event
+      description
+      category_id
+    }
   }
 }
     `;

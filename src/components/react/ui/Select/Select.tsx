@@ -6,6 +6,7 @@ export function Select({
   placeholder,
   showSelected,
   defaultIndex,
+  disabled = false,
   onSelectChange,
   className,
 }: {
@@ -13,6 +14,7 @@ export function Select({
   placeholder?: string;
   showSelected?: boolean;
   defaultIndex?: number;
+  disabled?: boolean;
   onSelectChange?: (value: string) => void;
   className?: string;
 }) {
@@ -32,6 +34,7 @@ export function Select({
       options={options}
       placeholder={placeholder}
       showSelected={showSelected}
+      disabled={disabled}
       multi={false}
       selectedIndices={selectedIndices}
       onSelectionChange={handleSelectionChange}

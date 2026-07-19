@@ -1,4 +1,8 @@
 ---
+import { AdminNavLink } from './react/AdminNavLink';
+
+const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
+
 type Route = {
   path: string;
   display: string;
@@ -30,17 +34,22 @@ let routes: Route[] = [
   },
 ];
 
-const baseClasses = `         
+// shared by every nav item, including the AdminNavLink island (whose
+// <astro-island> wrapper breaks first:/last: selectors, so the island link
+// gets its end-tab styling explicitly instead of via pseudo-classes)
+const itemClasses = `
           no-underline
           p-4 md:p-3
           basis-0 md:basis-auto
           text-center
-          
-          border-primary-800 
+
+          border-primary-800
           border-r-[1px]
           border-t-[1px] md:border-t-0
-          md:border-b-[1px]
-          md:last:border-r-[1px] 
+          md:border-b-[1px]`;
+
+const baseClasses = `${itemClasses}
+          md:last:border-r-[1px]
           md:first:border-l-[1px]
           md:first:rounded-bl-md md:last:rounded-br-md`;
 
@@ -86,10 +95,15 @@ const currentPath = `/${
           </a>
         ))
       }
+      <AdminNavLink
+        client:only="react"
+        hasuraUri={hasuraUri}
+        className={`w-full ${itemClasses} border-l-[1px] border-b-[1px]`}
+      />
     </div>
 
     <!-- Desktop Menu -->
-    <div class="hidden md:flex">
+    <div class="desktop-menu hidden md:flex">
       {
         routes.map(({ path, display }) =>
           path === currentPath ? (
@@ -106,6 +120,11 @@ const currentPath = `/${
           )
         )
       }
+      <AdminNavLink
+        client:only="react"
+        hasuraUri={hasuraUri}
+        className={`${itemClasses} md:rounded-br-md`}
+      />
     </div>
   </nav>
 </div>
@@ -153,6 +172,18 @@ const currentPath = `/${
     }
     .mobile-menu {
       display: none;
+    }
+  }
+</style>
+
+<style is:global>
+  /* The AdminNavLink <astro-island> is always the desktop menu's last child,
+     which stops :last-child matching the last visible tab. When the island
+     renders no Admin link, hand the end-tab rounding back to the last route
+     (matches md:last:rounded-br-md above). */
+  @media (min-width: 768px) {
+    .desktop-menu:not(:has(astro-island a)) > a:last-of-type {
+      border-bottom-right-radius: 0.375rem;
     }
   }
 </style>

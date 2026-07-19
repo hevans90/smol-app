@@ -14,13 +14,16 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/joho/godotenv"
+	"github.com/lib/pq"
 
 	"pob"
 	"poe"
 	"smoldata"
 )
 
-const leagueName = "SDRT Smol Djinn Rescue Team (PL78726)"
+// Fallback when the app_config table has no row yet; admins manage the
+// active league from the frontend admin section at runtime.
+const defaultLeagueName = "SDRT Smol Djinn Rescue Team (PL78726)"
 
 const (
 	// Character stats are computed much less often than the 5-minute ladder
@@ -46,7 +49,48 @@ func jsonMarshal(v interface{}) string {
 	return string(bytes)
 }
 
+// listenForConfigChanges emits the new league name whenever an admin updates
+// app_config (postgres NOTIFY from the notify_app_config_changed trigger),
+// letting a league change take effect immediately instead of on the next poll.
+func listenForConfigChanges(red *color.Color) <-chan string {
+	changes := make(chan string, 1)
+
+	listener := pq.NewListener(os.Getenv("DATABASE_URL"), 10*time.Second, time.Minute, nil)
+	if err := listener.Listen("app_config_changed"); err != nil {
+		red.Printf("Could not listen for app config changes: %v\n", err)
+		return changes
+	}
+
+	go func() {
+		for notification := range listener.Notify {
+			if notification == nil {
+				continue // reconnect marker
+			}
+			select {
+			case changes <- notification.Extra:
+			default: // a resync is already pending
+			}
+		}
+	}()
+
+	return changes
+}
+
+// configuredLeague reads the admin-managed league from app_config, falling
+// back to the compiled-in default so a fresh database still works.
+func configuredLeague(ctx context.Context, queries *smoldata.Queries) string {
+	league, err := queries.GetConfiguredLeague(ctx)
+	if err != nil || league == "" {
+		if err != nil && !errors.Is(err, sql.ErrNoRows) {
+			log.Printf("Could not read configured league, using default: %v", err)
+		}
+		return defaultLeagueName
+	}
+	return league
+}
+
 func saveCharacters(ctx context.Context, db *sql.DB, queries *smoldata.Queries, green, red *color.Color) {
+	leagueName := configuredLeague(ctx, queries)
 	tokenResponse := poe.GetToken()
 	leagueResponse := poe.GetLeague(tokenResponse, leagueName)
 
@@ -70,6 +114,7 @@ func saveCharacters(ctx context.Context, db *sql.DB, queries *smoldata.Queries, 
 // through headless PoB, and upserts the results into character_stats
 // (Hasura exposes that table to the frontend). Returns how many were saved.
 func computeCharacterStats(ctx context.Context, queries *smoldata.Queries, runner *pob.Runner, green, red *color.Color) int {
+	leagueName := configuredLeague(ctx, queries)
 	tokenResponse := poe.GetToken()
 	leagueResponse := poe.GetLeague(tokenResponse, leagueName)
 
@@ -151,6 +196,9 @@ func main() {
 	// Run initial character save immediately
 	saveCharacters(ctx, db, queries, green, red)
 
+	configChanges := listenForConfigChanges(red)
+	statsKick := make(chan struct{}, 1)
+
 	// Start periodic saving and countdown logging
 	go func() {
 		saveInterval := 5 * time.Minute
@@ -175,6 +223,15 @@ func main() {
 				saveCharacters(ctx, db, queries, green, red)
 				timeUntilNextSave = saveInterval
 				log.Printf("Next character save in %v...", timeUntilNextSave) // ✅ Reset log after saving
+			case league := <-configChanges:
+				green.Printf("League changed to %s, resyncing now\n", league)
+				saveCharacters(ctx, db, queries, green, red)
+				saveTicker.Reset(saveInterval)
+				timeUntilNextSave = saveInterval
+				select {
+				case statsKick <- struct{}{}:
+				default:
+				}
 			}
 		}
 	}()
@@ -188,7 +245,11 @@ func main() {
 				started := time.Now()
 				saved := computeCharacterStats(ctx, queries, statsRunner, green, red)
 				green.Printf("Saved PoB stats for %d characters in %v\n", saved, time.Since(started).Round(time.Second))
-				time.Sleep(statsInterval)
+				select {
+				case <-time.After(statsInterval):
+				case <-statsKick:
+					green.Printf("League changed, starting stats sweep now\n")
+				}
 			}
 		}()
 	} else {

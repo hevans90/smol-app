@@ -1,0 +1,75 @@
+subscription MyAdminFlag($id: uuid!) {
+  user_by_pk(id: $id) {
+    id
+    admin
+  }
+}
+
+subscription AdminUsers {
+  user(order_by: { poe_name: asc_nulls_last }) {
+    id
+    poe_name
+    discord_name
+    discord_user_id
+    discord_avatar
+    admin
+  }
+}
+
+mutation SetUserAdmin($id: uuid!, $admin: Boolean!) {
+  update_user_by_pk(pk_columns: { id: $id }, _set: { admin: $admin }) {
+    id
+    admin
+  }
+}
+
+subscription KnownLeagues {
+  league(order_by: { start_at: desc }) {
+    id
+    start_at
+    end_at
+    description
+  }
+}
+
+subscription AppConfig {
+  app_config_by_pk(id: 1) {
+    id
+    league_name
+    updated_at
+    league {
+      id
+      url
+      description
+      start_at
+      end_at
+    }
+  }
+}
+
+mutation SetLeague($leagueName: String!) {
+  update_app_config_by_pk(
+    pk_columns: { id: 1 }
+    _set: { league_name: $leagueName }
+  ) {
+    id
+    league_name
+    updated_at
+  }
+}
+
+query PipelineStatus {
+  character_aggregate {
+    aggregate {
+      count
+    }
+  }
+  character_stats_aggregate {
+    aggregate {
+      count
+      max {
+        updated_at
+      }
+    }
+  }
+}

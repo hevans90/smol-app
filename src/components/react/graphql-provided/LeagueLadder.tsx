@@ -18,35 +18,40 @@ import { ModalDrawer } from '../ui/ModalDrawer';
 import { Spinner } from '../ui/Spinner';
 
 export const LeagueLadder = () => {
-  const { data: leagueInfo, loading: leagueInfoLoading } =
-    useQuery<LeagueQuery>(LeagueDocument);
+  const { data: leagueInfo } = useQuery<LeagueQuery>(LeagueDocument);
 
-  const league = leagueInfo?.league?.[0];
+  // the admin-configured league; its `league` relationship is null until the
+  // go-server's first ladder sync after a league change
+  const config = leagueInfo?.app_config_by_pk;
+  const leagueName = config?.league_name;
+  const league = config?.league;
 
   const { data: charactersResponse, loading: charactersLoading } =
     useSubscription<
       LeagueCharactersSubscription,
       LeagueCharactersSubscriptionVariables
     >(LeagueCharactersDocument, {
-      variables: { leagueName: league?.id },
-      skip: !league,
+      variables: { leagueName },
+      skip: !leagueName,
     });
-
-  const leagueName = league?.id;
 
   return (
     <div className="mt-44 flex h-full w-full flex-col overflow-hidden md:mt-32 lg:mt-24">
       <div className="relative my-3 flex items-center gap-6 md:my-6 md:mt-12 md:items-baseline">
         <RegisteredUserCount className="absolute -top-6" />
-        {league && league?.url ? (
+        {leagueName ? (
           <>
             <h1 className="m-0 text-2xl xl:text-3xl 2xl:text-4xl">
-              <a href={league.url} target="_blank">
-                {leagueName}
-              </a>
+              {league?.url ? (
+                <a href={league.url} target="_blank">
+                  {leagueName}
+                </a>
+              ) : (
+                leagueName
+              )}
             </h1>
             <span className="hidden truncate text-lg md:inline">
-              {league.description}
+              {league?.description ?? 'Waiting for first ladder sync…'}
             </span>
           </>
         ) : (

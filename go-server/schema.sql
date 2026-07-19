@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict lqfyK6uRNb8FMOzGBx0kIlFsUHc3ZMKBNV8BJZybthgVZBPP8plqrnQzTnpCuUu
+\restrict frHe7uajAKFmtLkAsqZoM3wmElPzOdx85YcL90J0hlndRIsLgqql6mWv8uG6vXP
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -186,6 +186,18 @@ CREATE TABLE hdb_catalog.hdb_version (
 
 
 --
+-- Name: app_config; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.app_config (
+    id integer DEFAULT 1 NOT NULL,
+    league_name text NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT app_config_single_row CHECK ((id = 1))
+);
+
+
+--
 -- Name: character; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -307,7 +319,8 @@ CREATE TABLE public."user" (
     poe_user_id text,
     poe_name text,
     discord_avatar text,
-    guild text
+    guild text,
+    admin boolean DEFAULT false NOT NULL
 );
 
 
@@ -412,6 +425,14 @@ ALTER TABLE ONLY hdb_catalog.hdb_schema_notifications
 
 ALTER TABLE ONLY hdb_catalog.hdb_version
     ADD CONSTRAINT hdb_version_pkey PRIMARY KEY (hasura_uuid);
+
+
+--
+-- Name: app_config app_config_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.app_config
+    ADD CONSTRAINT app_config_pkey PRIMARY KEY (id);
 
 
 --
@@ -583,6 +604,13 @@ CREATE INDEX idx_poe_name ON public."user" USING btree (poe_name);
 
 
 --
+-- Name: app_config set_public_app_config_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER set_public_app_config_updated_at BEFORE UPDATE ON public.app_config FOR EACH ROW EXECUTE FUNCTION public.set_current_timestamp_updated_at();
+
+
+--
 -- Name: character_stats set_public_character_stats_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -680,5 +708,5 @@ ALTER TABLE ONLY public.user_league_mechanic
 -- PostgreSQL database dump complete
 --
 
-\unrestrict lqfyK6uRNb8FMOzGBx0kIlFsUHc3ZMKBNV8BJZybthgVZBPP8plqrnQzTnpCuUu
+\unrestrict frHe7uajAKFmtLkAsqZoM3wmElPzOdx85YcL90J0hlndRIsLgqql6mWv8uG6vXP
 

@@ -26,6 +26,7 @@ select_permissions:
         - retired
         - twitch
       filter: {}
+      allow_aggregations: true
     comment: ""
   - role: user
     permission:

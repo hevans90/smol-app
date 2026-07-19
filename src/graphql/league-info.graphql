@@ -1,13 +1,17 @@
 query League {
-  league(order_by: { start_at: desc }, limit: 1) {
-    url
-    start_at
-    register_at
-    realm
+  app_config_by_pk(id: 1) {
     id
-    end_at
-    delve_event
-    description
-    category_id
+    league_name
+    league {
+      url
+      start_at
+      register_at
+      realm
+      id
+      end_at
+      delve_event
+      description
+      category_id
+    }
   }
 }

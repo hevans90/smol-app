@@ -1,0 +1,48 @@
+table:
+  name: app_config
+  schema: public
+object_relationships:
+  - name: league
+    using:
+      manual_configuration:
+        column_mapping:
+          league_name: id
+        insertion_order: null
+        remote_table:
+          name: league
+          schema: public
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - id
+        - league_name
+        - updated_at
+      filter: {}
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - league_name
+        - updated_at
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: dev
+    permission:
+      columns:
+        - league_name
+      filter:
+        _exists:
+          _table:
+            name: user
+            schema: public
+          _where:
+            _and:
+              - id:
+                  _eq: X-Hasura-User-Id
+              - admin:
+                  _eq: true
+      check: null
+    comment: only current admins may change app config, evaluated per request

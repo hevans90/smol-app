@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { Image } from 'astro:assets';
+
+import logoSrc from '../assets/smol-logo.png';
+import { AdminPage } from '../components/AdminPage';
+
+const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
+---
+
+<Layout title="Admin" authPrompt={true}>
+  <main class="flex flex-col items-start relative mt-44 md:mt-32">
+    <Image
+      src={logoSrc}
+      alt="logo"
+      class="w-16 md:w-28 absolute -top-24 left-20 md:left-0"
+    />
+
+    <AdminPage hasuraUri={hasuraUri} client:only="react" />
+  </main>
+</Layout>

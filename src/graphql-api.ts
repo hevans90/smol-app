@@ -306,6 +306,713 @@ export type Bigint_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['bigint']['input']>>;
 };
 
+/** columns and relationships of "bulk_order" */
+export type Bulk_Order = {
+  __typename?: 'bulk_order';
+  cancelled_at?: Maybe<Scalars['timestamptz']['output']>;
+  completed_at?: Maybe<Scalars['timestamptz']['output']>;
+  /** An array relationship */
+  contributions: Array<Bulk_Order_Contribution>;
+  /** An aggregate relationship */
+  contributions_aggregate: Bulk_Order_Contribution_Aggregate;
+  created_at: Scalars['timestamptz']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  icon_url?: Maybe<Scalars['String']['output']>;
+  id: Scalars['uuid']['output'];
+  item_name: Scalars['String']['output'];
+  link_url?: Maybe<Scalars['String']['output']>;
+  quantity: Scalars['Int']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  user: User;
+  user_id: Scalars['uuid']['output'];
+};
+
+
+/** columns and relationships of "bulk_order" */
+export type Bulk_OrderContributionsArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Contribution_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "bulk_order" */
+export type Bulk_OrderContributions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Contribution_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+/** aggregated selection of "bulk_order" */
+export type Bulk_Order_Aggregate = {
+  __typename?: 'bulk_order_aggregate';
+  aggregate?: Maybe<Bulk_Order_Aggregate_Fields>;
+  nodes: Array<Bulk_Order>;
+};
+
+/** aggregate fields of "bulk_order" */
+export type Bulk_Order_Aggregate_Fields = {
+  __typename?: 'bulk_order_aggregate_fields';
+  avg?: Maybe<Bulk_Order_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Bulk_Order_Max_Fields>;
+  min?: Maybe<Bulk_Order_Min_Fields>;
+  stddev?: Maybe<Bulk_Order_Stddev_Fields>;
+  stddev_pop?: Maybe<Bulk_Order_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Bulk_Order_Stddev_Samp_Fields>;
+  sum?: Maybe<Bulk_Order_Sum_Fields>;
+  var_pop?: Maybe<Bulk_Order_Var_Pop_Fields>;
+  var_samp?: Maybe<Bulk_Order_Var_Samp_Fields>;
+  variance?: Maybe<Bulk_Order_Variance_Fields>;
+};
+
+
+/** aggregate fields of "bulk_order" */
+export type Bulk_Order_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Bulk_Order_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Bulk_Order_Avg_Fields = {
+  __typename?: 'bulk_order_avg_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "bulk_order". All fields are combined with a logical 'AND'. */
+export type Bulk_Order_Bool_Exp = {
+  _and?: InputMaybe<Array<Bulk_Order_Bool_Exp>>;
+  _not?: InputMaybe<Bulk_Order_Bool_Exp>;
+  _or?: InputMaybe<Array<Bulk_Order_Bool_Exp>>;
+  cancelled_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  completed_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  contributions?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+  contributions_aggregate?: InputMaybe<Bulk_Order_Contribution_Aggregate_Bool_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  icon_url?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  item_name?: InputMaybe<String_Comparison_Exp>;
+  link_url?: InputMaybe<String_Comparison_Exp>;
+  quantity?: InputMaybe<Int_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user?: InputMaybe<User_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "bulk_order" */
+export enum Bulk_Order_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  BulkOrderPkey = 'bulk_order_pkey'
+}
+
+/** columns and relationships of "bulk_order_contribution" */
+export type Bulk_Order_Contribution = {
+  __typename?: 'bulk_order_contribution';
+  /** An object relationship */
+  bulk_order: Bulk_Order;
+  bulk_order_id: Scalars['uuid']['output'];
+  created_at: Scalars['timestamptz']['output'];
+  delivery: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  note?: Maybe<Scalars['String']['output']>;
+  quantity: Scalars['Int']['output'];
+  /** An object relationship */
+  user: User;
+  user_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Aggregate = {
+  __typename?: 'bulk_order_contribution_aggregate';
+  aggregate?: Maybe<Bulk_Order_Contribution_Aggregate_Fields>;
+  nodes: Array<Bulk_Order_Contribution>;
+};
+
+export type Bulk_Order_Contribution_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Bulk_Order_Contribution_Aggregate_Bool_Exp_Count>;
+};
+
+export type Bulk_Order_Contribution_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Aggregate_Fields = {
+  __typename?: 'bulk_order_contribution_aggregate_fields';
+  avg?: Maybe<Bulk_Order_Contribution_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Bulk_Order_Contribution_Max_Fields>;
+  min?: Maybe<Bulk_Order_Contribution_Min_Fields>;
+  stddev?: Maybe<Bulk_Order_Contribution_Stddev_Fields>;
+  stddev_pop?: Maybe<Bulk_Order_Contribution_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Bulk_Order_Contribution_Stddev_Samp_Fields>;
+  sum?: Maybe<Bulk_Order_Contribution_Sum_Fields>;
+  var_pop?: Maybe<Bulk_Order_Contribution_Var_Pop_Fields>;
+  var_samp?: Maybe<Bulk_Order_Contribution_Var_Samp_Fields>;
+  variance?: Maybe<Bulk_Order_Contribution_Variance_Fields>;
+};
+
+
+/** aggregate fields of "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Aggregate_Order_By = {
+  avg?: InputMaybe<Bulk_Order_Contribution_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Bulk_Order_Contribution_Max_Order_By>;
+  min?: InputMaybe<Bulk_Order_Contribution_Min_Order_By>;
+  stddev?: InputMaybe<Bulk_Order_Contribution_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Bulk_Order_Contribution_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Bulk_Order_Contribution_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Bulk_Order_Contribution_Sum_Order_By>;
+  var_pop?: InputMaybe<Bulk_Order_Contribution_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Bulk_Order_Contribution_Var_Samp_Order_By>;
+  variance?: InputMaybe<Bulk_Order_Contribution_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Arr_Rel_Insert_Input = {
+  data: Array<Bulk_Order_Contribution_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Bulk_Order_Contribution_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Bulk_Order_Contribution_Avg_Fields = {
+  __typename?: 'bulk_order_contribution_avg_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Avg_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "bulk_order_contribution". All fields are combined with a logical 'AND'. */
+export type Bulk_Order_Contribution_Bool_Exp = {
+  _and?: InputMaybe<Array<Bulk_Order_Contribution_Bool_Exp>>;
+  _not?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+  _or?: InputMaybe<Array<Bulk_Order_Contribution_Bool_Exp>>;
+  bulk_order?: InputMaybe<Bulk_Order_Bool_Exp>;
+  bulk_order_id?: InputMaybe<Uuid_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  delivery?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  note?: InputMaybe<String_Comparison_Exp>;
+  quantity?: InputMaybe<Int_Comparison_Exp>;
+  user?: InputMaybe<User_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "bulk_order_contribution" */
+export enum Bulk_Order_Contribution_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  BulkOrderContributionPkey = 'bulk_order_contribution_pkey'
+}
+
+/** input type for incrementing numeric columns in table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Inc_Input = {
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Insert_Input = {
+  bulk_order?: InputMaybe<Bulk_Order_Obj_Rel_Insert_Input>;
+  bulk_order_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  delivery?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  user?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Bulk_Order_Contribution_Max_Fields = {
+  __typename?: 'bulk_order_contribution_max_fields';
+  bulk_order_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  delivery?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Max_Order_By = {
+  bulk_order_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  delivery?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  note?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Bulk_Order_Contribution_Min_Fields = {
+  __typename?: 'bulk_order_contribution_min_fields';
+  bulk_order_id?: Maybe<Scalars['uuid']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  delivery?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Min_Order_By = {
+  bulk_order_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  delivery?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  note?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Mutation_Response = {
+  __typename?: 'bulk_order_contribution_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Bulk_Order_Contribution>;
+};
+
+/** on_conflict condition type for table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_On_Conflict = {
+  constraint: Bulk_Order_Contribution_Constraint;
+  update_columns?: Array<Bulk_Order_Contribution_Update_Column>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "bulk_order_contribution". */
+export type Bulk_Order_Contribution_Order_By = {
+  bulk_order?: InputMaybe<Bulk_Order_Order_By>;
+  bulk_order_id?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  delivery?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  note?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
+  user?: InputMaybe<User_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: bulk_order_contribution */
+export type Bulk_Order_Contribution_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "bulk_order_contribution" */
+export enum Bulk_Order_Contribution_Select_Column {
+  /** column name */
+  BulkOrderId = 'bulk_order_id',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Delivery = 'delivery',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Note = 'note',
+  /** column name */
+  Quantity = 'quantity',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Set_Input = {
+  bulk_order_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  delivery?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Bulk_Order_Contribution_Stddev_Fields = {
+  __typename?: 'bulk_order_contribution_stddev_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Stddev_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Bulk_Order_Contribution_Stddev_Pop_Fields = {
+  __typename?: 'bulk_order_contribution_stddev_pop_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Stddev_Pop_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Bulk_Order_Contribution_Stddev_Samp_Fields = {
+  __typename?: 'bulk_order_contribution_stddev_samp_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Stddev_Samp_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Bulk_Order_Contribution_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Bulk_Order_Contribution_Stream_Cursor_Value_Input = {
+  bulk_order_id?: InputMaybe<Scalars['uuid']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  delivery?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Bulk_Order_Contribution_Sum_Fields = {
+  __typename?: 'bulk_order_contribution_sum_fields';
+  quantity?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Sum_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "bulk_order_contribution" */
+export enum Bulk_Order_Contribution_Update_Column {
+  /** column name */
+  BulkOrderId = 'bulk_order_id',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Delivery = 'delivery',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Note = 'note',
+  /** column name */
+  Quantity = 'quantity',
+  /** column name */
+  UserId = 'user_id'
+}
+
+export type Bulk_Order_Contribution_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Bulk_Order_Contribution_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Bulk_Order_Contribution_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Bulk_Order_Contribution_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Bulk_Order_Contribution_Var_Pop_Fields = {
+  __typename?: 'bulk_order_contribution_var_pop_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Var_Pop_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Bulk_Order_Contribution_Var_Samp_Fields = {
+  __typename?: 'bulk_order_contribution_var_samp_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Var_Samp_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Bulk_Order_Contribution_Variance_Fields = {
+  __typename?: 'bulk_order_contribution_variance_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "bulk_order_contribution" */
+export type Bulk_Order_Contribution_Variance_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** input type for incrementing numeric columns in table "bulk_order" */
+export type Bulk_Order_Inc_Input = {
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "bulk_order" */
+export type Bulk_Order_Insert_Input = {
+  cancelled_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  completed_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  contributions?: InputMaybe<Bulk_Order_Contribution_Arr_Rel_Insert_Input>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon_url?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  item_name?: InputMaybe<Scalars['String']['input']>;
+  link_url?: InputMaybe<Scalars['String']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Bulk_Order_Max_Fields = {
+  __typename?: 'bulk_order_max_fields';
+  cancelled_at?: Maybe<Scalars['timestamptz']['output']>;
+  completed_at?: Maybe<Scalars['timestamptz']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon_url?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  item_name?: Maybe<Scalars['String']['output']>;
+  link_url?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** aggregate min on columns */
+export type Bulk_Order_Min_Fields = {
+  __typename?: 'bulk_order_min_fields';
+  cancelled_at?: Maybe<Scalars['timestamptz']['output']>;
+  completed_at?: Maybe<Scalars['timestamptz']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon_url?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  item_name?: Maybe<Scalars['String']['output']>;
+  link_url?: Maybe<Scalars['String']['output']>;
+  quantity?: Maybe<Scalars['Int']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** response of any mutation on the table "bulk_order" */
+export type Bulk_Order_Mutation_Response = {
+  __typename?: 'bulk_order_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Bulk_Order>;
+};
+
+/** input type for inserting object relation for remote table "bulk_order" */
+export type Bulk_Order_Obj_Rel_Insert_Input = {
+  data: Bulk_Order_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Bulk_Order_On_Conflict>;
+};
+
+/** on_conflict condition type for table "bulk_order" */
+export type Bulk_Order_On_Conflict = {
+  constraint: Bulk_Order_Constraint;
+  update_columns?: Array<Bulk_Order_Update_Column>;
+  where?: InputMaybe<Bulk_Order_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "bulk_order". */
+export type Bulk_Order_Order_By = {
+  cancelled_at?: InputMaybe<Order_By>;
+  completed_at?: InputMaybe<Order_By>;
+  contributions_aggregate?: InputMaybe<Bulk_Order_Contribution_Aggregate_Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon_url?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_name?: InputMaybe<Order_By>;
+  link_url?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user?: InputMaybe<User_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: bulk_order */
+export type Bulk_Order_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "bulk_order" */
+export enum Bulk_Order_Select_Column {
+  /** column name */
+  CancelledAt = 'cancelled_at',
+  /** column name */
+  CompletedAt = 'completed_at',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  IconUrl = 'icon_url',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ItemName = 'item_name',
+  /** column name */
+  LinkUrl = 'link_url',
+  /** column name */
+  Quantity = 'quantity',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "bulk_order" */
+export type Bulk_Order_Set_Input = {
+  cancelled_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  completed_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon_url?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  item_name?: InputMaybe<Scalars['String']['input']>;
+  link_url?: InputMaybe<Scalars['String']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Bulk_Order_Stddev_Fields = {
+  __typename?: 'bulk_order_stddev_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Bulk_Order_Stddev_Pop_Fields = {
+  __typename?: 'bulk_order_stddev_pop_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Bulk_Order_Stddev_Samp_Fields = {
+  __typename?: 'bulk_order_stddev_samp_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "bulk_order" */
+export type Bulk_Order_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Bulk_Order_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Bulk_Order_Stream_Cursor_Value_Input = {
+  cancelled_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  completed_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon_url?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  item_name?: InputMaybe<Scalars['String']['input']>;
+  link_url?: InputMaybe<Scalars['String']['input']>;
+  quantity?: InputMaybe<Scalars['Int']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Bulk_Order_Sum_Fields = {
+  __typename?: 'bulk_order_sum_fields';
+  quantity?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "bulk_order" */
+export enum Bulk_Order_Update_Column {
+  /** column name */
+  CancelledAt = 'cancelled_at',
+  /** column name */
+  CompletedAt = 'completed_at',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  IconUrl = 'icon_url',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ItemName = 'item_name',
+  /** column name */
+  LinkUrl = 'link_url',
+  /** column name */
+  Quantity = 'quantity',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+export type Bulk_Order_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Bulk_Order_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Bulk_Order_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Bulk_Order_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Bulk_Order_Var_Pop_Fields = {
+  __typename?: 'bulk_order_var_pop_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Bulk_Order_Var_Samp_Fields = {
+  __typename?: 'bulk_order_var_samp_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Bulk_Order_Variance_Fields = {
+  __typename?: 'bulk_order_variance_fields';
+  quantity?: Maybe<Scalars['Float']['output']>;
+};
+
 /** columns and relationships of "character" */
 export type Character = {
   __typename?: 'character';
@@ -2179,6 +2886,14 @@ export type Mutation_Root = {
   delete_app_config?: Maybe<App_Config_Mutation_Response>;
   /** delete single row from the table: "app_config" */
   delete_app_config_by_pk?: Maybe<App_Config>;
+  /** delete data from the table: "bulk_order" */
+  delete_bulk_order?: Maybe<Bulk_Order_Mutation_Response>;
+  /** delete single row from the table: "bulk_order" */
+  delete_bulk_order_by_pk?: Maybe<Bulk_Order>;
+  /** delete data from the table: "bulk_order_contribution" */
+  delete_bulk_order_contribution?: Maybe<Bulk_Order_Contribution_Mutation_Response>;
+  /** delete single row from the table: "bulk_order_contribution" */
+  delete_bulk_order_contribution_by_pk?: Maybe<Bulk_Order_Contribution>;
   /** delete data from the table: "character" */
   delete_character?: Maybe<Character_Mutation_Response>;
   /** delete single row from the table: "character" */
@@ -2223,6 +2938,14 @@ export type Mutation_Root = {
   insert_app_config?: Maybe<App_Config_Mutation_Response>;
   /** insert a single row into the table: "app_config" */
   insert_app_config_one?: Maybe<App_Config>;
+  /** insert data into the table: "bulk_order" */
+  insert_bulk_order?: Maybe<Bulk_Order_Mutation_Response>;
+  /** insert data into the table: "bulk_order_contribution" */
+  insert_bulk_order_contribution?: Maybe<Bulk_Order_Contribution_Mutation_Response>;
+  /** insert a single row into the table: "bulk_order_contribution" */
+  insert_bulk_order_contribution_one?: Maybe<Bulk_Order_Contribution>;
+  /** insert a single row into the table: "bulk_order" */
+  insert_bulk_order_one?: Maybe<Bulk_Order>;
   /** insert data into the table: "character" */
   insert_character?: Maybe<Character_Mutation_Response>;
   /** insert a single row into the table: "character" */
@@ -2269,6 +2992,18 @@ export type Mutation_Root = {
   update_app_config_by_pk?: Maybe<App_Config>;
   /** update multiples rows of table: "app_config" */
   update_app_config_many?: Maybe<Array<Maybe<App_Config_Mutation_Response>>>;
+  /** update data of the table: "bulk_order" */
+  update_bulk_order?: Maybe<Bulk_Order_Mutation_Response>;
+  /** update single row of the table: "bulk_order" */
+  update_bulk_order_by_pk?: Maybe<Bulk_Order>;
+  /** update data of the table: "bulk_order_contribution" */
+  update_bulk_order_contribution?: Maybe<Bulk_Order_Contribution_Mutation_Response>;
+  /** update single row of the table: "bulk_order_contribution" */
+  update_bulk_order_contribution_by_pk?: Maybe<Bulk_Order_Contribution>;
+  /** update multiples rows of table: "bulk_order_contribution" */
+  update_bulk_order_contribution_many?: Maybe<Array<Maybe<Bulk_Order_Contribution_Mutation_Response>>>;
+  /** update multiples rows of table: "bulk_order" */
+  update_bulk_order_many?: Maybe<Array<Maybe<Bulk_Order_Mutation_Response>>>;
   /** update data of the table: "character" */
   update_character?: Maybe<Character_Mutation_Response>;
   /** update single row of the table: "character" */
@@ -2341,6 +3076,30 @@ export type Mutation_RootDelete_App_ConfigArgs = {
 /** mutation root */
 export type Mutation_RootDelete_App_Config_By_PkArgs = {
   id: Scalars['Int']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Bulk_OrderArgs = {
+  where: Bulk_Order_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Bulk_Order_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Bulk_Order_ContributionArgs = {
+  where: Bulk_Order_Contribution_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Bulk_Order_Contribution_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -2475,6 +3234,34 @@ export type Mutation_RootInsert_App_ConfigArgs = {
 export type Mutation_RootInsert_App_Config_OneArgs = {
   object: App_Config_Insert_Input;
   on_conflict?: InputMaybe<App_Config_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Bulk_OrderArgs = {
+  objects: Array<Bulk_Order_Insert_Input>;
+  on_conflict?: InputMaybe<Bulk_Order_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Bulk_Order_ContributionArgs = {
+  objects: Array<Bulk_Order_Contribution_Insert_Input>;
+  on_conflict?: InputMaybe<Bulk_Order_Contribution_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Bulk_Order_Contribution_OneArgs = {
+  object: Bulk_Order_Contribution_Insert_Input;
+  on_conflict?: InputMaybe<Bulk_Order_Contribution_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Bulk_Order_OneArgs = {
+  object: Bulk_Order_Insert_Input;
+  on_conflict?: InputMaybe<Bulk_Order_On_Conflict>;
 };
 
 
@@ -2637,6 +3424,50 @@ export type Mutation_RootUpdate_App_Config_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_App_Config_ManyArgs = {
   updates: Array<App_Config_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Bulk_OrderArgs = {
+  _inc?: InputMaybe<Bulk_Order_Inc_Input>;
+  _set?: InputMaybe<Bulk_Order_Set_Input>;
+  where: Bulk_Order_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Bulk_Order_By_PkArgs = {
+  _inc?: InputMaybe<Bulk_Order_Inc_Input>;
+  _set?: InputMaybe<Bulk_Order_Set_Input>;
+  pk_columns: Bulk_Order_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Bulk_Order_ContributionArgs = {
+  _inc?: InputMaybe<Bulk_Order_Contribution_Inc_Input>;
+  _set?: InputMaybe<Bulk_Order_Contribution_Set_Input>;
+  where: Bulk_Order_Contribution_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Bulk_Order_Contribution_By_PkArgs = {
+  _inc?: InputMaybe<Bulk_Order_Contribution_Inc_Input>;
+  _set?: InputMaybe<Bulk_Order_Contribution_Set_Input>;
+  pk_columns: Bulk_Order_Contribution_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Bulk_Order_Contribution_ManyArgs = {
+  updates: Array<Bulk_Order_Contribution_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Bulk_Order_ManyArgs = {
+  updates: Array<Bulk_Order_Updates>;
 };
 
 
@@ -2867,6 +3698,18 @@ export type Query_Root = {
   app_config_aggregate: App_Config_Aggregate;
   /** fetch data from the table: "app_config" using primary key columns */
   app_config_by_pk?: Maybe<App_Config>;
+  /** fetch data from the table: "bulk_order" */
+  bulk_order: Array<Bulk_Order>;
+  /** fetch aggregated fields from the table: "bulk_order" */
+  bulk_order_aggregate: Bulk_Order_Aggregate;
+  /** fetch data from the table: "bulk_order" using primary key columns */
+  bulk_order_by_pk?: Maybe<Bulk_Order>;
+  /** fetch data from the table: "bulk_order_contribution" */
+  bulk_order_contribution: Array<Bulk_Order_Contribution>;
+  /** fetch aggregated fields from the table: "bulk_order_contribution" */
+  bulk_order_contribution_aggregate: Bulk_Order_Contribution_Aggregate;
+  /** fetch data from the table: "bulk_order_contribution" using primary key columns */
+  bulk_order_contribution_by_pk?: Maybe<Bulk_Order_Contribution>;
   /** fetch data from the table: "character" */
   character: Array<Character>;
   /** fetch aggregated fields from the table: "character" */
@@ -2950,6 +3793,52 @@ export type Query_RootApp_Config_AggregateArgs = {
 
 export type Query_RootApp_Config_By_PkArgs = {
   id: Scalars['Int']['input'];
+};
+
+
+export type Query_RootBulk_OrderArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Bool_Exp>;
+};
+
+
+export type Query_RootBulk_Order_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Bool_Exp>;
+};
+
+
+export type Query_RootBulk_Order_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootBulk_Order_ContributionArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Contribution_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+
+export type Query_RootBulk_Order_Contribution_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Contribution_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+
+export type Query_RootBulk_Order_Contribution_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -3192,6 +4081,22 @@ export type Subscription_Root = {
   app_config_by_pk?: Maybe<App_Config>;
   /** fetch data from the table in a streaming manner: "app_config" */
   app_config_stream: Array<App_Config>;
+  /** fetch data from the table: "bulk_order" */
+  bulk_order: Array<Bulk_Order>;
+  /** fetch aggregated fields from the table: "bulk_order" */
+  bulk_order_aggregate: Bulk_Order_Aggregate;
+  /** fetch data from the table: "bulk_order" using primary key columns */
+  bulk_order_by_pk?: Maybe<Bulk_Order>;
+  /** fetch data from the table: "bulk_order_contribution" */
+  bulk_order_contribution: Array<Bulk_Order_Contribution>;
+  /** fetch aggregated fields from the table: "bulk_order_contribution" */
+  bulk_order_contribution_aggregate: Bulk_Order_Contribution_Aggregate;
+  /** fetch data from the table: "bulk_order_contribution" using primary key columns */
+  bulk_order_contribution_by_pk?: Maybe<Bulk_Order_Contribution>;
+  /** fetch data from the table in a streaming manner: "bulk_order_contribution" */
+  bulk_order_contribution_stream: Array<Bulk_Order_Contribution>;
+  /** fetch data from the table in a streaming manner: "bulk_order" */
+  bulk_order_stream: Array<Bulk_Order>;
   /** fetch data from the table: "character" */
   character: Array<Character>;
   /** fetch aggregated fields from the table: "character" */
@@ -3302,6 +4207,66 @@ export type Subscription_RootApp_Config_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<App_Config_Stream_Cursor_Input>>;
   where?: InputMaybe<App_Config_Bool_Exp>;
+};
+
+
+export type Subscription_RootBulk_OrderArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Bool_Exp>;
+};
+
+
+export type Subscription_RootBulk_Order_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Bool_Exp>;
+};
+
+
+export type Subscription_RootBulk_Order_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootBulk_Order_ContributionArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Contribution_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+
+export type Subscription_RootBulk_Order_Contribution_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Bulk_Order_Contribution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Bulk_Order_Contribution_Order_By>>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+
+export type Subscription_RootBulk_Order_Contribution_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootBulk_Order_Contribution_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Bulk_Order_Contribution_Stream_Cursor_Input>>;
+  where?: InputMaybe<Bulk_Order_Contribution_Bool_Exp>;
+};
+
+
+export type Subscription_RootBulk_Order_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Bulk_Order_Stream_Cursor_Input>>;
+  where?: InputMaybe<Bulk_Order_Bool_Exp>;
 };
 
 
@@ -4469,6 +5434,61 @@ export type PipelineStatusQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PipelineStatusQuery = { __typename?: 'query_root', character_aggregate: { __typename?: 'character_aggregate', aggregate?: { __typename?: 'character_aggregate_fields', count: number } | null }, character_stats_aggregate: { __typename?: 'character_stats_aggregate', aggregate?: { __typename?: 'character_stats_aggregate_fields', count: number, max?: { __typename?: 'character_stats_max_fields', updated_at?: string | null } | null } | null } };
 
+export type BulkOrderContributorFieldsFragment = { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null };
+
+export type BulkOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BulkOrdersSubscription = { __typename?: 'subscription_root', bulk_order: Array<{ __typename?: 'bulk_order', id: string, user_id: string, item_name: string, description?: string | null, icon_url?: string | null, link_url?: string | null, quantity: number, cancelled_at?: string | null, completed_at?: string | null, created_at: string, updated_at: string, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, contributions: Array<{ __typename?: 'bulk_order_contribution', id: string, quantity: number, delivery: string, note?: string | null, created_at: string, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } }> }> };
+
+export type InsertBulkOrderMutationVariables = Exact<{
+  userId: Scalars['uuid']['input'];
+  itemName: Scalars['String']['input'];
+  quantity: Scalars['Int']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  iconUrl?: InputMaybe<Scalars['String']['input']>;
+  linkUrl?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type InsertBulkOrderMutation = { __typename?: 'mutation_root', insert_bulk_order_one?: { __typename?: 'bulk_order', id: string, item_name: string, quantity: number, description?: string | null, icon_url?: string | null, link_url?: string | null, user_id: string, created_at: string } | null };
+
+export type UpdateBulkOrderMutationVariables = Exact<{
+  id: Scalars['uuid']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  quantity: Scalars['Int']['input'];
+  linkUrl?: InputMaybe<Scalars['String']['input']>;
+  cancelledAt?: InputMaybe<Scalars['timestamptz']['input']>;
+}>;
+
+
+export type UpdateBulkOrderMutation = { __typename?: 'mutation_root', update_bulk_order_by_pk?: { __typename?: 'bulk_order', id: string, description?: string | null, quantity: number, link_url?: string | null, cancelled_at?: string | null, completed_at?: string | null } | null };
+
+export type DeleteBulkOrderMutationVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type DeleteBulkOrderMutation = { __typename?: 'mutation_root', delete_bulk_order_by_pk?: { __typename?: 'bulk_order', id: string } | null };
+
+export type InsertBulkOrderContributionMutationVariables = Exact<{
+  bulkOrderId: Scalars['uuid']['input'];
+  userId: Scalars['uuid']['input'];
+  quantity: Scalars['Int']['input'];
+  delivery: Scalars['String']['input'];
+  note?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type InsertBulkOrderContributionMutation = { __typename?: 'mutation_root', insert_bulk_order_contribution_one?: { __typename?: 'bulk_order_contribution', id: string, quantity: number, delivery: string, note?: string | null, bulk_order: { __typename?: 'bulk_order', id: string, quantity: number, completed_at?: string | null, contributions: Array<{ __typename?: 'bulk_order_contribution', quantity: number, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } }> } } | null };
+
+export type DeleteBulkOrderContributionMutationVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type DeleteBulkOrderContributionMutation = { __typename?: 'mutation_root', delete_bulk_order_contribution_by_pk?: { __typename?: 'bulk_order_contribution', id: string } | null };
+
 export type CharacterStatsSheetQueryVariables = Exact<{
   characterId: Scalars['String']['input'];
 }>;
@@ -4600,6 +5620,15 @@ export type SetMyGuildMutationVariables = Exact<{
 
 export type SetMyGuildMutation = { __typename?: 'mutation_root', update_user_by_pk?: { __typename?: 'user', id: string, guild?: string | null } | null };
 
+export const BulkOrderContributorFieldsFragmentDoc = gql`
+    fragment BulkOrderContributorFields on user {
+  id
+  poe_name
+  discord_name
+  discord_user_id
+  discord_avatar
+}
+    `;
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on user {
   id
@@ -4706,6 +5735,120 @@ export const PipelineStatusDocument = gql`
 }
     `;
 export type PipelineStatusQueryResult = Apollo.QueryResult<PipelineStatusQuery, PipelineStatusQueryVariables>;
+export const BulkOrdersDocument = gql`
+    subscription BulkOrders {
+  bulk_order(order_by: {created_at: desc}) {
+    id
+    user_id
+    item_name
+    description
+    icon_url
+    link_url
+    quantity
+    cancelled_at
+    completed_at
+    created_at
+    updated_at
+    user {
+      ...BulkOrderContributorFields
+    }
+    contributions(order_by: {created_at: asc}) {
+      id
+      quantity
+      delivery
+      note
+      created_at
+      user {
+        ...BulkOrderContributorFields
+      }
+    }
+  }
+}
+    ${BulkOrderContributorFieldsFragmentDoc}`;
+export type BulkOrdersSubscriptionResult = Apollo.SubscriptionResult<BulkOrdersSubscription>;
+export const InsertBulkOrderDocument = gql`
+    mutation InsertBulkOrder($userId: uuid!, $itemName: String!, $quantity: Int!, $description: String, $iconUrl: String, $linkUrl: String) {
+  insert_bulk_order_one(
+    object: {user_id: $userId, item_name: $itemName, quantity: $quantity, description: $description, icon_url: $iconUrl, link_url: $linkUrl}
+  ) {
+    id
+    item_name
+    quantity
+    description
+    icon_url
+    link_url
+    user_id
+    created_at
+  }
+}
+    `;
+export type InsertBulkOrderMutationFn = Apollo.MutationFunction<InsertBulkOrderMutation, InsertBulkOrderMutationVariables>;
+export type InsertBulkOrderMutationResult = Apollo.MutationResult<InsertBulkOrderMutation>;
+export type InsertBulkOrderMutationOptions = Apollo.BaseMutationOptions<InsertBulkOrderMutation, InsertBulkOrderMutationVariables>;
+export const UpdateBulkOrderDocument = gql`
+    mutation UpdateBulkOrder($id: uuid!, $description: String, $quantity: Int!, $linkUrl: String, $cancelledAt: timestamptz) {
+  update_bulk_order_by_pk(
+    pk_columns: {id: $id}
+    _set: {description: $description, quantity: $quantity, link_url: $linkUrl, cancelled_at: $cancelledAt}
+  ) {
+    id
+    description
+    quantity
+    link_url
+    cancelled_at
+    completed_at
+  }
+}
+    `;
+export type UpdateBulkOrderMutationFn = Apollo.MutationFunction<UpdateBulkOrderMutation, UpdateBulkOrderMutationVariables>;
+export type UpdateBulkOrderMutationResult = Apollo.MutationResult<UpdateBulkOrderMutation>;
+export type UpdateBulkOrderMutationOptions = Apollo.BaseMutationOptions<UpdateBulkOrderMutation, UpdateBulkOrderMutationVariables>;
+export const DeleteBulkOrderDocument = gql`
+    mutation DeleteBulkOrder($id: uuid!) {
+  delete_bulk_order_by_pk(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteBulkOrderMutationFn = Apollo.MutationFunction<DeleteBulkOrderMutation, DeleteBulkOrderMutationVariables>;
+export type DeleteBulkOrderMutationResult = Apollo.MutationResult<DeleteBulkOrderMutation>;
+export type DeleteBulkOrderMutationOptions = Apollo.BaseMutationOptions<DeleteBulkOrderMutation, DeleteBulkOrderMutationVariables>;
+export const InsertBulkOrderContributionDocument = gql`
+    mutation InsertBulkOrderContribution($bulkOrderId: uuid!, $userId: uuid!, $quantity: Int!, $delivery: String!, $note: String) {
+  insert_bulk_order_contribution_one(
+    object: {bulk_order_id: $bulkOrderId, user_id: $userId, quantity: $quantity, delivery: $delivery, note: $note}
+  ) {
+    id
+    quantity
+    delivery
+    note
+    bulk_order {
+      id
+      quantity
+      completed_at
+      contributions {
+        quantity
+        user {
+          ...BulkOrderContributorFields
+        }
+      }
+    }
+  }
+}
+    ${BulkOrderContributorFieldsFragmentDoc}`;
+export type InsertBulkOrderContributionMutationFn = Apollo.MutationFunction<InsertBulkOrderContributionMutation, InsertBulkOrderContributionMutationVariables>;
+export type InsertBulkOrderContributionMutationResult = Apollo.MutationResult<InsertBulkOrderContributionMutation>;
+export type InsertBulkOrderContributionMutationOptions = Apollo.BaseMutationOptions<InsertBulkOrderContributionMutation, InsertBulkOrderContributionMutationVariables>;
+export const DeleteBulkOrderContributionDocument = gql`
+    mutation DeleteBulkOrderContribution($id: uuid!) {
+  delete_bulk_order_contribution_by_pk(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteBulkOrderContributionMutationFn = Apollo.MutationFunction<DeleteBulkOrderContributionMutation, DeleteBulkOrderContributionMutationVariables>;
+export type DeleteBulkOrderContributionMutationResult = Apollo.MutationResult<DeleteBulkOrderContributionMutation>;
+export type DeleteBulkOrderContributionMutationOptions = Apollo.BaseMutationOptions<DeleteBulkOrderContributionMutation, DeleteBulkOrderContributionMutationVariables>;
 export const CharacterStatsSheetDocument = gql`
     query CharacterStatsSheet($characterId: String!) {
   character_stats_by_pk(character_id: $characterId) {

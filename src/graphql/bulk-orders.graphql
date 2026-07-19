@@ -1,0 +1,136 @@
+fragment BulkOrderContributorFields on user {
+  id
+  poe_name
+  discord_name
+  discord_user_id
+  discord_avatar
+}
+
+subscription BulkOrders {
+  bulk_order(order_by: { created_at: desc }) {
+    id
+    user_id
+    item_name
+    description
+    icon_url
+    link_url
+    quantity
+    cancelled_at
+    completed_at
+    created_at
+    updated_at
+    user {
+      ...BulkOrderContributorFields
+    }
+    contributions(order_by: { created_at: asc }) {
+      id
+      quantity
+      delivery
+      note
+      created_at
+      user {
+        ...BulkOrderContributorFields
+      }
+    }
+  }
+}
+
+mutation InsertBulkOrder(
+  $userId: uuid!
+  $itemName: String!
+  $quantity: Int!
+  $description: String
+  $iconUrl: String
+  $linkUrl: String
+) {
+  insert_bulk_order_one(
+    object: {
+      user_id: $userId
+      item_name: $itemName
+      quantity: $quantity
+      description: $description
+      icon_url: $iconUrl
+      link_url: $linkUrl
+    }
+  ) {
+    id
+    item_name
+    quantity
+    description
+    icon_url
+    link_url
+    user_id
+    created_at
+  }
+}
+
+mutation UpdateBulkOrder(
+  $id: uuid!
+  $description: String
+  $quantity: Int!
+  $linkUrl: String
+  $cancelledAt: timestamptz
+) {
+  update_bulk_order_by_pk(
+    pk_columns: { id: $id }
+    _set: {
+      description: $description
+      quantity: $quantity
+      link_url: $linkUrl
+      cancelled_at: $cancelledAt
+    }
+  ) {
+    id
+    description
+    quantity
+    link_url
+    cancelled_at
+    completed_at
+  }
+}
+
+mutation DeleteBulkOrder($id: uuid!) {
+  delete_bulk_order_by_pk(id: $id) {
+    id
+  }
+}
+
+mutation InsertBulkOrderContribution(
+  $bulkOrderId: uuid!
+  $userId: uuid!
+  $quantity: Int!
+  $delivery: String!
+  $note: String
+) {
+  insert_bulk_order_contribution_one(
+    object: {
+      bulk_order_id: $bulkOrderId
+      user_id: $userId
+      quantity: $quantity
+      delivery: $delivery
+      note: $note
+    }
+  ) {
+    id
+    quantity
+    delivery
+    note
+    bulk_order {
+      id
+      quantity
+      completed_at
+      contributions {
+        quantity
+        user {
+          ...BulkOrderContributorFields
+        }
+      }
+    }
+  }
+}
+
+mutation DeleteBulkOrderContribution($id: uuid!) {
+  delete_bulk_order_contribution_by_pk(id: $id) {
+    id
+  }
+}

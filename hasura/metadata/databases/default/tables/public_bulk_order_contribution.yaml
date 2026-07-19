@@ -1,0 +1,103 @@
+table:
+  name: bulk_order_contribution
+  schema: public
+object_relationships:
+  - name: bulk_order
+    using:
+      foreign_key_constraint_on: bulk_order_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+insert_permissions:
+  - role: dev
+    permission:
+      check:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - bulk_order:
+              _and:
+                - cancelled_at:
+                    _is_null: true
+                - completed_at:
+                    _is_null: true
+      columns:
+        - bulk_order_id
+        - user_id
+        - quantity
+        - delivery
+        - note
+    comment: ""
+  - role: user
+    permission:
+      check:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - bulk_order:
+              _and:
+                - cancelled_at:
+                    _is_null: true
+                - completed_at:
+                    _is_null: true
+      columns:
+        - bulk_order_id
+        - user_id
+        - quantity
+        - delivery
+        - note
+    comment: ""
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - id
+        - bulk_order_id
+        - user_id
+        - quantity
+        - delivery
+        - note
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - bulk_order_id
+        - user_id
+        - quantity
+        - delivery
+        - note
+        - created_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+delete_permissions:
+  - role: dev
+    permission:
+      filter:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - bulk_order:
+              _and:
+                - completed_at:
+                    _is_null: true
+                - cancelled_at:
+                    _is_null: true
+    comment: withdraw own contribution, only while the parent order is active
+  - role: user
+    permission:
+      filter:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - bulk_order:
+              _and:
+                - completed_at:
+                    _is_null: true
+                - cancelled_at:
+                    _is_null: true
+    comment: withdraw own contribution, only while the parent order is active

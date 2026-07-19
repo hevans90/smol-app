@@ -1,4 +1,6 @@
 - "!include public_app_config.yaml"
+- "!include public_bulk_order.yaml"
+- "!include public_bulk_order_contribution.yaml"
 - "!include public_character.yaml"
 - "!include public_character_stats.yaml"
 - "!include public_item_order_type.yaml"

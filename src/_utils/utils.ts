@@ -1,5 +1,6 @@
 import { search as fuzzySearch } from 'fast-fuzzy';
 import basesResponse from '../assets/bases/all-basetypes.json';
+import stackablesResponse from '../assets/stackables/stackables.json';
 import uniquesResponse from '../assets/uniques/uniques.json';
 import {
   type ArmorDefenceType,
@@ -114,6 +115,19 @@ export const mapDdsToPoeImageUrl = (
   return `${baseUrl}${pathWithoutExt}.png?scale=1&w=${width}&h=${height}`;
 };
 
+// Derives an inventory icon from a poewiki page link, e.g.
+// https://www.poewiki.net/wiki/Ming%27s_Heart -> Special:FilePath/Ming's_Heart_inventory_icon.png
+export const getWikiImgSrcFromUrl = (url: string) => {
+  const itemName = url.split('/').pop();
+  return `https://www.poewiki.net/wiki/Special:FilePath/${itemName}_inventory_icon.png`;
+};
+
+// Same idea, but starting from a bare item name rather than a full wiki URL
+// (used for the bulk order "custom item" escape hatch, where there's no
+// wiki link yet — just a best-effort guess at the icon).
+export const guessWikiIconUrlFromName = (name: string) =>
+  `https://www.poewiki.net/wiki/Special:FilePath/${name.replace(/ /g, '_')}_inventory_icon.png`;
+
 export type UniqueSearchResult = {
   name: string;
   id: string;
@@ -137,6 +151,67 @@ export const searchUniquesByNameOrBase = (
       class: item.item_class,
       icon: mapDdsToPoeImageUrl(item.visual_identity.dds_file),
     }));
+
+export type StackableSearchResult = {
+  name: string;
+  category: string;
+  icon: string;
+};
+
+const stackableItems = stackablesResponse as StackableSearchResult[];
+
+// Currency/essences/fragments/etc only — NOT uniques, which are single-item
+// and served by the existing (searchUniquesByNameOrBase) order flow. Backs
+// the bulk order item picker.
+//
+// Item names here are multi-word ("Screaming Essence of Contempt"), and the
+// natural way to type-ahead them is one abbreviation per word ("scr cont").
+// fast-fuzzy's whole-string edit distance scores that query far from the
+// full name and misses it, so word matches are found first (every query
+// token must be a substring of some word in the name — order-independent,
+// so "cont scr" also matches), then padded with fast-fuzzy's typo-tolerant
+// full-string search for single-word/misspelled queries.
+export const searchStackablesByName = (
+  query: string,
+  maxResults = 8,
+): StackableSearchResult[] => {
+  const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return [];
+
+  const rank = (item: StackableSearchResult) => {
+    const lowerName = item.name.toLowerCase();
+    if (lowerName.startsWith(query.toLowerCase())) return 0;
+    const firstWord = lowerName.split(/\s+/)[0];
+    if (tokens[0] && firstWord.startsWith(tokens[0])) return 1;
+    return 2;
+  };
+
+  const wordMatches = stackableItems
+    .filter((item) => {
+      const words = item.name.toLowerCase().split(/\s+/);
+      return tokens.every((token) => words.some((word) => word.includes(token)));
+    })
+    .sort((a, b) => rank(a) - rank(b));
+
+  if (wordMatches.length >= maxResults) {
+    return wordMatches.slice(0, maxResults);
+  }
+
+  const fuzzyMatches = fuzzySearch(query, stackableItems, {
+    keySelector: (item) => item.name,
+    threshold: 0.7,
+  });
+
+  const seen = new Set(wordMatches.map((item) => item.name));
+  for (const item of fuzzyMatches) {
+    if (wordMatches.length >= maxResults) break;
+    if (seen.has(item.name)) continue;
+    seen.add(item.name);
+    wordMatches.push(item);
+  }
+
+  return wordMatches.slice(0, maxResults);
+};
 
 export const getUniqueItemWikiInfo = async (itemName: string) => {
   const baseUrl = 'https://www.poewiki.net/w/api.php';

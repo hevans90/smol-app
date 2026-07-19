@@ -19,6 +19,30 @@ type AppConfig struct {
 	UpdatedAt  time.Time
 }
 
+type BulkOrder struct {
+	ID          uuid.UUID
+	UserID      uuid.UUID
+	ItemName    string
+	Description sql.NullString
+	IconUrl     sql.NullString
+	LinkUrl     sql.NullString
+	Quantity    int32
+	CancelledAt sql.NullTime
+	CompletedAt sql.NullTime
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+}
+
+type BulkOrderContribution struct {
+	ID          uuid.UUID
+	BulkOrderID uuid.UUID
+	UserID      uuid.UUID
+	Quantity    int32
+	Delivery    string
+	Note        sql.NullString
+	CreatedAt   time.Time
+}
+
 type Character struct {
 	Rank           int32
 	PoeAccountName string

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict frHe7uajAKFmtLkAsqZoM3wmElPzOdx85YcL90J0hlndRIsLgqql6mWv8uG6vXP
+\restrict ei5B6puyjkrBfh9j2o7wWCPW9ojJG9zWEo1LON5KVYlUDRXEvNAP8ijQp4y1S0W
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -39,6 +39,100 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 CREATE FUNCTION hdb_catalog.gen_hasura_uuid() RETURNS uuid
     LANGUAGE sql
     AS $$select gen_random_uuid()$$;
+
+
+--
+-- Name: bulk_order_contribution_guard(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bulk_order_contribution_guard() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  parent public.bulk_order%ROWTYPE;
+  contributed integer;
+BEGIN
+  SELECT * INTO parent FROM public.bulk_order
+    WHERE id = NEW.bulk_order_id FOR UPDATE;
+  IF parent.cancelled_at IS NOT NULL THEN
+    RAISE EXCEPTION 'bulk order is cancelled';
+  END IF;
+  IF parent.completed_at IS NOT NULL THEN
+    RAISE EXCEPTION 'bulk order is already complete';
+  END IF;
+  SELECT COALESCE(SUM(quantity), 0) INTO contributed
+    FROM public.bulk_order_contribution WHERE bulk_order_id = NEW.bulk_order_id;
+  IF contributed + NEW.quantity > parent.quantity THEN
+    RAISE EXCEPTION 'contribution exceeds remaining quantity (% remaining)',
+      parent.quantity - contributed;
+  END IF;
+  RETURN NEW;
+END $$;
+
+
+--
+-- Name: bulk_order_quantity_guard(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bulk_order_quantity_guard() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  contributed integer;
+BEGIN
+  SELECT COALESCE(SUM(quantity), 0) INTO contributed
+    FROM public.bulk_order_contribution WHERE bulk_order_id = NEW.id;
+  IF NEW.quantity < contributed THEN
+    RAISE EXCEPTION 'quantity cannot be lower than already-contributed amount (%)', contributed;
+  END IF;
+  IF contributed >= NEW.quantity THEN
+    NEW.completed_at := COALESCE(NEW.completed_at, now());
+  ELSE
+    NEW.completed_at := NULL;
+  END IF;
+  RETURN NEW;
+END $$;
+
+
+--
+-- Name: bulk_order_recompute_completed(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.bulk_order_recompute_completed() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  target_id uuid := COALESCE(NEW.bulk_order_id, OLD.bulk_order_id);
+  parent public.bulk_order%ROWTYPE;
+  contributed integer;
+BEGIN
+  SELECT * INTO parent FROM public.bulk_order WHERE id = target_id FOR UPDATE;
+  IF NOT FOUND THEN
+    RETURN NULL; -- parent already gone (cascade delete)
+  END IF;
+  SELECT COALESCE(SUM(quantity), 0) INTO contributed
+    FROM public.bulk_order_contribution WHERE bulk_order_id = target_id;
+  IF contributed >= parent.quantity AND parent.completed_at IS NULL THEN
+    UPDATE public.bulk_order SET completed_at = now() WHERE id = target_id;
+  ELSIF contributed < parent.quantity AND parent.completed_at IS NOT NULL THEN
+    UPDATE public.bulk_order SET completed_at = NULL WHERE id = target_id;
+  END IF;
+  RETURN NULL;
+END $$;
+
+
+--
+-- Name: notify_app_config_changed(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.notify_app_config_changed() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    PERFORM pg_notify('app_config_changed', NEW.league_name);
+    RETURN NEW;
+END;
+$$;
 
 
 --
@@ -194,6 +288,43 @@ CREATE TABLE public.app_config (
     league_name text NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT app_config_single_row CHECK ((id = 1))
+);
+
+
+--
+-- Name: bulk_order; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bulk_order (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL,
+    item_name text NOT NULL,
+    description text,
+    icon_url text,
+    link_url text,
+    quantity integer NOT NULL,
+    cancelled_at timestamp with time zone,
+    completed_at timestamp with time zone,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT bulk_order_quantity_positive CHECK ((quantity > 0))
+);
+
+
+--
+-- Name: bulk_order_contribution; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bulk_order_contribution (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    bulk_order_id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    quantity integer NOT NULL,
+    delivery text DEFAULT 'gstash'::text NOT NULL,
+    note text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT bulk_order_contribution_delivery_valid CHECK ((delivery = ANY (ARRAY['gstash'::text, 'dm'::text]))),
+    CONSTRAINT bulk_order_contribution_quantity_positive CHECK ((quantity > 0))
 );
 
 
@@ -436,6 +567,22 @@ ALTER TABLE ONLY public.app_config
 
 
 --
+-- Name: bulk_order_contribution bulk_order_contribution_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bulk_order_contribution
+    ADD CONSTRAINT bulk_order_contribution_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bulk_order bulk_order_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bulk_order
+    ADD CONSTRAINT bulk_order_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: character character_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -583,6 +730,13 @@ CREATE UNIQUE INDEX hdb_version_one_row ON hdb_catalog.hdb_version USING btree (
 
 
 --
+-- Name: bulk_order_contribution_bulk_order_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX bulk_order_contribution_bulk_order_id_idx ON public.bulk_order_contribution USING btree (bulk_order_id);
+
+
+--
 -- Name: idx_league_rules_league_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -604,10 +758,45 @@ CREATE INDEX idx_poe_name ON public."user" USING btree (poe_name);
 
 
 --
+-- Name: bulk_order_contribution bulk_order_contribution_guard; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bulk_order_contribution_guard BEFORE INSERT ON public.bulk_order_contribution FOR EACH ROW EXECUTE FUNCTION public.bulk_order_contribution_guard();
+
+
+--
+-- Name: bulk_order bulk_order_quantity_guard; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bulk_order_quantity_guard BEFORE UPDATE OF quantity ON public.bulk_order FOR EACH ROW EXECUTE FUNCTION public.bulk_order_quantity_guard();
+
+
+--
+-- Name: bulk_order_contribution bulk_order_recompute_completed; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER bulk_order_recompute_completed AFTER INSERT OR DELETE ON public.bulk_order_contribution FOR EACH ROW EXECUTE FUNCTION public.bulk_order_recompute_completed();
+
+
+--
+-- Name: app_config notify_public_app_config_changed; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER notify_public_app_config_changed AFTER UPDATE ON public.app_config FOR EACH ROW EXECUTE FUNCTION public.notify_app_config_changed();
+
+
+--
 -- Name: app_config set_public_app_config_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER set_public_app_config_updated_at BEFORE UPDATE ON public.app_config FOR EACH ROW EXECUTE FUNCTION public.set_current_timestamp_updated_at();
+
+
+--
+-- Name: bulk_order set_public_bulk_order_updated_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER set_public_bulk_order_updated_at BEFORE UPDATE ON public.bulk_order FOR EACH ROW EXECUTE FUNCTION public.set_current_timestamp_updated_at();
 
 
 --
@@ -638,6 +827,30 @@ ALTER TABLE ONLY hdb_catalog.hdb_cron_event_invocation_logs
 
 ALTER TABLE ONLY hdb_catalog.hdb_scheduled_event_invocation_logs
     ADD CONSTRAINT hdb_scheduled_event_invocation_logs_event_id_fkey FOREIGN KEY (event_id) REFERENCES hdb_catalog.hdb_scheduled_events(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: bulk_order_contribution bulk_order_contribution_bulk_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bulk_order_contribution
+    ADD CONSTRAINT bulk_order_contribution_bulk_order_id_fkey FOREIGN KEY (bulk_order_id) REFERENCES public.bulk_order(id) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+
+--
+-- Name: bulk_order_contribution bulk_order_contribution_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bulk_order_contribution
+    ADD CONSTRAINT bulk_order_contribution_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+
+--
+-- Name: bulk_order bulk_order_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bulk_order
+    ADD CONSTRAINT bulk_order_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 
 
 --
@@ -708,5 +921,5 @@ ALTER TABLE ONLY public.user_league_mechanic
 -- PostgreSQL database dump complete
 --
 
-\unrestrict frHe7uajAKFmtLkAsqZoM3wmElPzOdx85YcL90J0hlndRIsLgqql6mWv8uG6vXP
+\unrestrict ei5B6puyjkrBfh9j2o7wWCPW9ojJG9zWEo1LON5KVYlUDRXEvNAP8ijQp4y1S0W
 

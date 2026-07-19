@@ -1,0 +1,121 @@
+table:
+  name: bulk_order
+  schema: public
+object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+array_relationships:
+  - name: contributions
+    using:
+      foreign_key_constraint_on:
+        column: bulk_order_id
+        table:
+          name: bulk_order_contribution
+          schema: public
+insert_permissions:
+  - role: dev
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - user_id
+        - item_name
+        - description
+        - icon_url
+        - link_url
+        - quantity
+    comment: ""
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - user_id
+        - item_name
+        - description
+        - icon_url
+        - link_url
+        - quantity
+    comment: ""
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - id
+        - user_id
+        - item_name
+        - description
+        - icon_url
+        - link_url
+        - quantity
+        - cancelled_at
+        - completed_at
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - id
+        - user_id
+        - item_name
+        - description
+        - icon_url
+        - link_url
+        - quantity
+        - cancelled_at
+        - completed_at
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true
+    comment: ""
+update_permissions:
+  - role: dev
+    permission:
+      columns:
+        - description
+        - quantity
+        - link_url
+        - cancelled_at
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+  - role: user
+    permission:
+      columns:
+        - description
+        - quantity
+        - link_url
+        - cancelled_at
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: dev
+    permission:
+      filter:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - _not:
+              contributions: {}
+    comment: hard delete only allowed with zero contributions; otherwise cancel
+  - role: user
+    permission:
+      filter:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - _not:
+              contributions: {}
+    comment: hard delete only allowed with zero contributions; otherwise cancel

@@ -2180,46 +2180,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/UberVaalComplete.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Muttering Essence of Anger",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Muttering Essence of Contempt",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Muttering Essence of Fear",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Fear2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Muttering Essence of Greed",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Greed2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Muttering Essence of Hatred",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Hatred2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Muttering Essence of Sorrow",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Sorrow2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Muttering Essence of Torment",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Torment2.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Muttering Essence of Woe",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe2.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Mysterious Incubator",
     "category": "Incubator",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Incubation/IncubationGeneric.png?scale=1&w=1&h=1"
@@ -4865,86 +4825,6 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Maps/PaleCourt04.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Wailing Essence of Anger",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Anguish",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anguish4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Contempt",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Doubt",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Doubt4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Fear",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Fear4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Greed",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Greed4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Hatred",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Hatred4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Loathing",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Loathing4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Rage",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Rage4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Sorrow",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Sorrow4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Spite",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Spite4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Suffering",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Suffering4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Torment",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Torment4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Woe",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Wrath",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Wrath4.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Wailing Essence of Zeal",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Zeal4.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "Warlord's Exalted Orb",
     "category": "Currency",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Influence Exalts/ConquerorOrb.png?scale=1&w=1&h=1"
@@ -4955,89 +4835,9 @@
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
   },
   {
-    "name": "Weeping Essence of Anger",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Anger3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Contempt",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Doubt",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Doubt3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Fear",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Fear3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Greed",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Greed3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Hatred",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Hatred3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Rage",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Rage3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Sorrow",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Sorrow3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Suffering",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Suffering3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Torment",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Torment3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Woe",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe3.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Weeping Essence of Wrath",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Wrath3.png?scale=1&w=1&h=1"
-  },
-  {
     "name": "When Currents Blaze",
     "category": "Divination Card",
     "icon": "https://web.poecdn.com/image/Art/2DItems/Divination/InventoryIcon.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Whispering Essence of Contempt",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Contempt1.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Whispering Essence of Greed",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Greed1.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Whispering Essence of Hatred",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Hatred1.png?scale=1&w=1&h=1"
-  },
-  {
-    "name": "Whispering Essence of Woe",
-    "category": "Essence",
-    "icon": "https://web.poecdn.com/image/Art/2DItems/Currency/Essence/Woe1.png?scale=1&w=1&h=1"
   },
   {
     "name": "Whispering Incubator",

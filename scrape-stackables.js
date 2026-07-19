@@ -28,6 +28,11 @@ const ninjaCurrencyOverviewUrl = (league) =>
   `https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${encodeURIComponent(league)}&type=Currency`;
 const OUTPUT_PATH = 'src/assets/stackables/stackables.json';
 
+// The 4 lowest essence tiers (levels 1-4) are worthless enough that no
+// guild would ever bulk-order them — not a "vaulted/removed" case, just
+// noise we deliberately exclude from the picker.
+const USELESS_ESSENCE_TIERS = ['Muttering', 'Wailing', 'Weeping', 'Whispering'];
+
 // Matches the allowed item classes; DivinationCard/MapFragment/
 // IncubatorStackable fall back to a class-based category, everything else
 // gets a name-based category below.
@@ -109,6 +114,7 @@ async function main() {
 
   const stackables = [];
   let droppedVaultedCurrency = 0;
+  let droppedUselessEssences = 0;
 
   for (const item of byName.values()) {
     const category = categoryOf(item);
@@ -117,6 +123,13 @@ async function main() {
     // what's actually still obtainable (see file header comment).
     if (category === 'Currency' && !currentCurrencyNames.has(item.name)) {
       droppedVaultedCurrency++;
+      continue;
+    }
+    if (
+      category === 'Essence' &&
+      USELESS_ESSENCE_TIERS.some((tier) => item.name.startsWith(`${tier} `))
+    ) {
+      droppedUselessEssences++;
       continue;
     }
 
@@ -141,6 +154,7 @@ async function main() {
   console.log(
     `Dropped ${droppedVaultedCurrency} Currency items not currently tradeable on poe.ninja (${league})`,
   );
+  console.log(`Dropped ${droppedUselessEssences} low-tier essences`);
 }
 
 main().catch((error) => {

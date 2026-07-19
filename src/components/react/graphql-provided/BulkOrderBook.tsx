@@ -475,7 +475,15 @@ export const BulkOrderBook = () => {
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
-        <h1 className="mb-0 hidden sm:inline">Bulk Orders</h1>
+        <Button
+          className="h-auto text-lg"
+          onClick={() => {
+            setEditingOrder(null);
+            setFormOpen(true);
+          }}
+        >
+          Create Bulk Order
+        </Button>
         <div className="flex grow items-center gap-2">
           <IconSearch />
           <input
@@ -507,15 +515,6 @@ export const BulkOrderBook = () => {
           defaultIndex={SORT_OPTIONS.findIndex((o) => o.value === sort)}
           onSelectChange={(value) => bulkSortStore.set(value as BulkOrderSort)}
         />
-        <Button
-          className="h-auto text-lg"
-          onClick={() => {
-            setEditingOrder(null);
-            setFormOpen(true);
-          }}
-        >
-          Create Bulk Order
-        </Button>
       </div>
 
       <div className="h-full overflow-y-auto pb-4">

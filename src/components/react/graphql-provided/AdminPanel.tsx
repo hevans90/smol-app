@@ -61,9 +61,10 @@ const LeagueControl = () => {
   const trimmed = draft.trim();
   const changed = trimmed !== '' && trimmed !== config?.league_name;
 
-  // leagues the app already has ladder data for (minus the active one)
+  // leagues the app already has ladder data for (minus the active one and a
+  // historical garbage row with an empty id from a failed GGG sync)
   const knownLeagues = (leaguesData?.league ?? []).filter(
-    (league) => league.id !== config?.league_name,
+    (league) => league.id !== '' && league.id !== config?.league_name,
   );
 
   const reset = () => {

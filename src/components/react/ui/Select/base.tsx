@@ -75,7 +75,11 @@ export function BaseSelect({
   });
 
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
-  const listContentRef = React.useRef(options.map(({ value }) => value));
+  // refreshed every render so the list can change while mounted (e.g. options
+  // fed by a live subscription) — capturing once froze floating-ui's view of
+  // the list and silently broke opening the dropdown
+  const listContentRef = React.useRef<Array<string | null>>([]);
+  listContentRef.current = options.map(({ value }) => value);
   const isTypingRef = React.useRef(false);
 
   const click = useClick(context, { event: 'mousedown' });

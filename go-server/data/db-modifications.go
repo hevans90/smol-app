@@ -12,6 +12,12 @@ import (
 )
 
 func InsertLeague(ctx context.Context, q *Queries, league poe.League) (string, error) {
+	// a zero-value league means the GGG API call failed upstream; inserting
+	// it would create a garbage empty-id row (this happened once in prod)
+	if league.ID == "" {
+		return "", fmt.Errorf("refusing to insert league with empty id")
+	}
+
 	var rules []map[string]interface{}
 	for _, rule := range league.Rules {
 		rules = append(rules, map[string]interface{}{

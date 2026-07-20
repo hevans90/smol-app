@@ -14,6 +14,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -154,25 +155,39 @@ func (r *Runner) Compute(ctx context.Context, characterName string, items, passi
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 
+	stealBefore, stealBeforeOk := readCPUStealTicks()
 	start := time.Now()
 	runErr := cmd.Run()
 	elapsed := time.Since(start)
+	stealAfter, stealAfterOk := readCPUStealTicks()
+	// stealAfter >= stealBefore is guaranteed for a monotonic counter read
+	// twice in order, but guard it anyway: an unsigned underflow here would
+	// print a wildly wrong (huge) duration instead of just a missing one.
+	stealOk := stealBeforeOk && stealAfterOk && stealAfter >= stealBefore
 
 	// Diagnostic for the intermittent multi-minute PoB slowdowns seen on the
 	// shared-cpu Fly VM: cmd.ProcessState's rusage reports the CHILD's own
 	// CPU time regardless of how it exited (including SIGKILL from a context
 	// timeout), so comparing it against elapsed wall time tells us whether
 	// the process was actually computing that whole time or sitting blocked/
-	// descheduled (e.g. CPU stolen by another tenant on the shared host) —
-	// logged for every run, not just failures, so the fast/normal cases give
-	// a baseline to compare against.
+	// descheduled. cpu_steal is the SYSTEM-WIDE (not per-process — Linux
+	// doesn't attribute steal to individual processes) hypervisor-steal delta
+	// over the same window, in case another tenant on the shared host is the
+	// cause rather than plain scheduling contention. Logged for every run,
+	// not just failures, so the fast/normal cases give a baseline to compare
+	// against.
 	if cmd.ProcessState != nil {
+		stealMsg := "cpu_steal=unavailable"
+		if stealOk {
+			stealMsg = fmt.Sprintf("cpu_steal=%v", cpuTicksToDuration(stealAfter-stealBefore).Round(10*time.Millisecond))
+		}
 		log.Printf(
-			"PoB timing for %s: elapsed=%v cpu_user=%v cpu_sys=%v\n",
+			"PoB timing for %s: elapsed=%v cpu_user=%v cpu_sys=%v %s\n",
 			characterName,
 			elapsed.Round(10*time.Millisecond),
 			cmd.ProcessState.UserTime().Round(10*time.Millisecond),
 			cmd.ProcessState.SystemTime().Round(10*time.Millisecond),
+			stealMsg,
 		)
 	} else {
 		log.Printf("PoB timing for %s: elapsed=%v (process never started: %v)\n", characterName, elapsed.Round(10*time.Millisecond), runErr)
@@ -201,4 +216,39 @@ func lastLine(output []byte) string {
 		return ""
 	}
 	return lines[len(lines)-1]
+}
+
+// clkTck is USER_HZ, the unit /proc/stat and /proc/[pid]/stat report CPU time
+// in. 100 on every Linux x86_64/arm64 config Fly runs (and virtually all
+// modern Linux distros) — not worth a real sysconf(_SC_CLK_TCK) call for a
+// diagnostic-only reading.
+const clkTck = 100
+
+func cpuTicksToDuration(ticks uint64) time.Duration {
+	return time.Duration(ticks) * time.Second / clkTck
+}
+
+// readCPUStealTicks reads the aggregate "cpu" line of /proc/stat and returns
+// the cumulative hypervisor-steal counter, in clock ticks (see clkTck) —
+// system-wide, not scoped to this process, since Linux only tracks steal at
+// that granularity. ok is false off Linux (e.g. local dev on macOS) or if the
+// file is missing/malformed, in which case callers should just omit the
+// reading rather than log a bogus zero.
+func readCPUStealTicks() (steal uint64, ok bool) {
+	data, err := os.ReadFile("/proc/stat")
+	if err != nil {
+		return 0, false
+	}
+	line, _, _ := strings.Cut(string(data), "\n")
+	fields := strings.Fields(line)
+	// cpu user nice system idle iowait irq softirq steal guest guest_nice
+	const stealField = 8
+	if len(fields) <= stealField || fields[0] != "cpu" {
+		return 0, false
+	}
+	steal, err = strconv.ParseUint(fields[stealField], 10, 64)
+	if err != nil {
+		return 0, false
+	}
+	return steal, true
 }

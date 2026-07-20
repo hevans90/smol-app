@@ -34,8 +34,17 @@ const (
 	statsInitialDelay = 150 * time.Second
 	// Pause after every character-window request (~40 requests/minute).
 	characterWindowDelay = 1500 * time.Millisecond
-	// One PoB run takes ~1.5s; leave lots of headroom.
-	pobTimeout = 90 * time.Second
+	// PoB itself only needs single-digit seconds of actual CPU time per
+	// character (measured via cmd.ProcessState rusage), but on Fly's shared
+	// vCPU tier a run can spend the vast majority of its wall-clock time
+	// descheduled/waiting for CPU rather than computing (observed as low as
+	// ~7-9% utilisation) — so the timeout needs enough wall-clock headroom to
+	// absorb that contention, not just the actual compute cost.
+	pobTimeout = 3 * time.Minute
+	// A run that times out isn't necessarily doing anything wrong — it may
+	// have just lost the CPU-scheduling lottery — so retry once before
+	// giving up on the character for this sweep.
+	pobMaxAttempts = 2
 )
 
 //go:embed templates/*
@@ -152,9 +161,19 @@ func computeCharacterStats(ctx context.Context, queries *smoldata.Queries, runne
 			continue
 		}
 
-		pobCtx, cancel := context.WithTimeout(ctx, pobTimeout)
-		stats, err := runner.Compute(pobCtx, entry.Character.Name, items, passives)
-		cancel()
+		var stats *pob.Stats
+		var err error
+		for attempt := 1; attempt <= pobMaxAttempts; attempt++ {
+			pobCtx, cancel := context.WithTimeout(ctx, pobTimeout)
+			stats, err = runner.Compute(pobCtx, entry.Character.Name, items, passives)
+			cancel()
+			if err == nil {
+				break
+			}
+			if attempt < pobMaxAttempts {
+				log.Printf("PoB failed for %s (attempt %d/%d), retrying: %v\n", entry.Character.Name, attempt, pobMaxAttempts, err)
+			}
+		}
 		if err != nil {
 			red.Printf("PoB failed for %s: %v\n", entry.Character.Name, err)
 			continue

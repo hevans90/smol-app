@@ -153,7 +153,7 @@ func computeCharacterStats(ctx context.Context, queries *smoldata.Queries, runne
 		}
 
 		pobCtx, cancel := context.WithTimeout(ctx, pobTimeout)
-		stats, err := runner.Compute(pobCtx, items, passives)
+		stats, err := runner.Compute(pobCtx, entry.Character.Name, items, passives)
 		cancel()
 		if err != nil {
 			red.Printf("PoB failed for %s: %v\n", entry.Character.Name, err)

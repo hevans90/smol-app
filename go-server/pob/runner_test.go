@@ -28,7 +28,7 @@ func TestComputeWithDocker(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	stats, err := runner.Compute(ctx, items, passives)
+	stats, err := runner.Compute(ctx, "VaalMulliSpark", items, passives)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -72,7 +72,7 @@ func TestComputeTimelessJewelCharacter(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	stats, err := runner.Compute(ctx, items, passives)
+	stats, err := runner.Compute(ctx, "timeless-jewel-test", items, passives)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -94,7 +94,7 @@ func TestComputeErrorPayload(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
-	_, err := runner.Compute(ctx, []byte(`{}`), []byte(`{}`))
+	_, err := runner.Compute(ctx, "error-payload-test", []byte(`{}`), []byte(`{}`))
 	if err == nil {
 		t.Fatal("expected an error for a payload with no character data")
 	}

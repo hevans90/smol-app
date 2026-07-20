@@ -10,11 +10,13 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 )
 
 //go:embed extract-stats.lua
@@ -123,7 +125,10 @@ func (r *Runner) ensureScript() (string, error) {
 // Compute runs headless PoB over the two raw character-window payloads and
 // returns the calculated stats. It is safe for concurrent use, though each
 // call spawns its own ~250MB PoB process, so callers should run sequentially.
-func (r *Runner) Compute(ctx context.Context, items, passives json.RawMessage) (*Stats, error) {
+//
+// characterName is used only to label the timing diagnostic logged for every
+// call (see below) — it has no effect on the computation itself.
+func (r *Runner) Compute(ctx context.Context, characterName string, items, passives json.RawMessage) (*Stats, error) {
 	payload, err := json.Marshal(map[string]json.RawMessage{
 		"items":    items,
 		"passives": passives,
@@ -148,7 +153,30 @@ func (r *Runner) Compute(ctx context.Context, items, passives json.RawMessage) (
 	cmd.Stdin = bytes.NewReader(payload)
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
+
+	start := time.Now()
 	runErr := cmd.Run()
+	elapsed := time.Since(start)
+
+	// Diagnostic for the intermittent multi-minute PoB slowdowns seen on the
+	// shared-cpu Fly VM: cmd.ProcessState's rusage reports the CHILD's own
+	// CPU time regardless of how it exited (including SIGKILL from a context
+	// timeout), so comparing it against elapsed wall time tells us whether
+	// the process was actually computing that whole time or sitting blocked/
+	// descheduled (e.g. CPU stolen by another tenant on the shared host) —
+	// logged for every run, not just failures, so the fast/normal cases give
+	// a baseline to compare against.
+	if cmd.ProcessState != nil {
+		log.Printf(
+			"PoB timing for %s: elapsed=%v cpu_user=%v cpu_sys=%v\n",
+			characterName,
+			elapsed.Round(10*time.Millisecond),
+			cmd.ProcessState.UserTime().Round(10*time.Millisecond),
+			cmd.ProcessState.SystemTime().Round(10*time.Millisecond),
+		)
+	} else {
+		log.Printf("PoB timing for %s: elapsed=%v (process never started: %v)\n", characterName, elapsed.Round(10*time.Millisecond), runErr)
+	}
 
 	// stdout is one JSON document even on failure ({"error": "..."}, exit 1).
 	var stats Stats

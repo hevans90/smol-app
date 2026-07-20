@@ -6,8 +6,10 @@
 app = 'smol-go-server'
 primary_region = 'lhr'
 
-# headroom for headless PoB spikes (~230-330MB peak per character after the
-# eager-GC fix in extract-stats.lua; rare tree/jewel combos can spike higher)
+# extra headroom on top of the 1gb VM below for headless PoB spikes (~230-330MB
+# peak per character after the eager-GC fix in extract-stats.lua; rare tree/
+# jewel combos can spike higher) — bumped from a 512mb VM after PoB runs
+# started reliably missing the 90s timeout, most likely from swap thrashing
 swap_size_mb = 512
 
 [build]
@@ -26,6 +28,6 @@ swap_size_mb = 512
   processes = ['app']
 
 [[vm]]
-  memory = '512mb'
+  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1

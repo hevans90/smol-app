@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/fatih/color"
@@ -148,6 +149,15 @@ func computeCharacterStats(ctx context.Context, queries *smoldata.Queries, runne
 
 	saved := 0
 	for _, entry := range leagueResponse.Ladder.Entries {
+		// The league can change mid-sweep (a full sweep of a large ladder
+		// takes well over an hour) — without this check we'd keep grinding
+		// through the OLD league's characters long after the admin has
+		// already switched to a new one, which is exactly backwards for a
+		// pre-season league with zero real characters yet.
+		if ctx.Err() != nil {
+			return saved
+		}
+
 		if !entry.Public {
 			continue
 		}
@@ -218,6 +228,17 @@ func main() {
 	configChanges := listenForConfigChanges(red)
 	statsKick := make(chan struct{}, 1)
 
+	// Guards the cancel func for whichever PoB sweep is currently running (if
+	// any), so a league change can abort it immediately instead of letting it
+	// grind through a now-stale league for up to another hour+.
+	var sweepMu sync.Mutex
+	cancelCurrentSweep := func() {}
+	abortSweepInProgress := func() {
+		sweepMu.Lock()
+		defer sweepMu.Unlock()
+		cancelCurrentSweep()
+	}
+
 	// Start periodic saving and countdown logging
 	go func() {
 		saveInterval := 5 * time.Minute
@@ -247,6 +268,7 @@ func main() {
 				saveCharacters(ctx, db, queries, green, red)
 				saveTicker.Reset(saveInterval)
 				timeUntilNextSave = saveInterval
+				abortSweepInProgress()
 				select {
 				case statsKick <- struct{}{}:
 				default:
@@ -261,9 +283,20 @@ func main() {
 		go func() {
 			time.Sleep(statsInitialDelay)
 			for {
+				sweepCtx, cancelSweep := context.WithCancel(ctx)
+				sweepMu.Lock()
+				cancelCurrentSweep = cancelSweep
+				sweepMu.Unlock()
+
 				started := time.Now()
-				saved := computeCharacterStats(ctx, queries, statsRunner, green, red)
-				green.Printf("Saved PoB stats for %d characters in %v\n", saved, time.Since(started).Round(time.Second))
+				saved := computeCharacterStats(sweepCtx, queries, statsRunner, green, red)
+				if sweepCtx.Err() != nil {
+					green.Printf("PoB sweep aborted after %v (league changed mid-sweep; %d characters saved before abort)\n", time.Since(started).Round(time.Second), saved)
+				} else {
+					green.Printf("Saved PoB stats for %d characters in %v\n", saved, time.Since(started).Round(time.Second))
+				}
+				cancelSweep()
+
 				select {
 				case <-time.After(statsInterval):
 				case <-statsKick:

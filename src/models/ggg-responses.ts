@@ -56,6 +56,9 @@ export interface GGGItem {
   y: number;
   inventoryId: GGGInventoryId;
   socketedItems?: GGGSocketedItem[]; // Reference socketed item structure
+  // Stash/currency items only (not present on character/passive-tree items).
+  stackSize?: number;
+  maxStackSize?: number;
 }
 
 export interface GGGSocketedItem extends GGGItem {

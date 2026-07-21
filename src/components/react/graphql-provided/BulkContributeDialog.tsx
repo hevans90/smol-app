@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { buildBulkEmbed, type BulkDiscordUser } from '../../../_utils/bulk-discord';
+import { matchBulkOrder } from '../../../_utils/stash-matching';
+import type { AggregatedStashItem } from '../../../models/ggg-stash';
 import {
   Dialog,
   DialogContent,
@@ -84,18 +86,56 @@ const DiscordPreview = ({
   </div>
 );
 
+// Reuses whatever stash scan the order list already ran (see
+// BulkOrderBook.tsx's "Check my stash" button) — this dialog never triggers
+// its own scan, it just surfaces a quick-fill for the same result.
+const StashQuickFill = ({
+  order,
+  remaining,
+  stashItems,
+  onQuantityFound,
+}: {
+  order: BulkOrderWithContributions;
+  remaining: number;
+  stashItems: AggregatedStashItem[] | null | undefined;
+  onQuantityFound: (quantity: number) => void;
+}) => {
+  if (!stashItems) return null;
+  const verdict = matchBulkOrder(stashItems, order);
+  if (!verdict.matched) return null;
+
+  return (
+    <div className="flex items-center gap-2 text-sm text-primary-300">
+      <span>
+        You have <strong>{verdict.availableQuantity.toLocaleString()}</strong> of these in your stash.
+      </span>
+      <button
+        type="button"
+        className="rounded bg-gray-800 px-3 py-1.5 text-xs text-primary-300 hover:bg-gray-700"
+        onClick={() => onQuantityFound(Math.min(remaining, verdict.availableQuantity))}
+      >
+        Fill from stash
+      </button>
+    </div>
+  );
+};
+
 export const BulkContributeDialog = ({
   order,
   myUser,
   open,
   onOpenChange,
   onSubmit,
+  stashItems,
 }: {
   order: BulkOrderWithContributions;
   myUser: BulkDiscordUser | undefined;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (values: BulkContributeValues) => Promise<void>;
+  // Whatever the order list's "Check my stash" scan already found, if any —
+  // this dialog only reuses it, it never scans on its own.
+  stashItems?: AggregatedStashItem[] | null;
 }) => {
   const sum = sumOf(order);
   const remaining = Math.max(0, order.quantity - sum);
@@ -225,6 +265,12 @@ export const BulkContributeDialog = ({
                 All ({remaining})
               </button>
             </div>
+            <StashQuickFill
+              order={order}
+              remaining={remaining}
+              stashItems={stashItems}
+              onQuantityFound={(found) => setQuantity(Math.max(1, found))}
+            />
           </div>
 
           <div>

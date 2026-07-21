@@ -42,12 +42,26 @@ const generateUrlParams = async () => {
   return new URLSearchParams({
     client_id: 'smolapp',
     response_type: 'code',
-    scope: 'account:profile',
+    scope: 'account:profile account:stashes',
     state: poeState,
     redirect_uri: 'https://smol-app.netlify.app/api/auth',
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
   });
+};
+
+// Members who logged in before the account:stashes scope was added only have
+// an account:profile token. Rather than forcing everyone to re-login, the
+// stash-check feature calls this lazily (only once someone actually tries to
+// use it) to grab a fresh token with both scopes, then bounces back to
+// wherever they were via poe_return_to (see login-result.astro).
+export const startPoEReauth = async (returnTo?: string) => {
+  localStorage.setItem(
+    'poe_return_to',
+    returnTo ?? window.location.pathname + window.location.search,
+  );
+  const params = await generateUrlParams();
+  window.location.href = `https://www.pathofexile.com/oauth/authorize?${params.toString()}`;
 };
 
 const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {

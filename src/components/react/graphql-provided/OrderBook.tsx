@@ -11,6 +11,7 @@ import {
   InsertUserItemOrderDocument,
   InsertUserItemOrdersDocument,
   Item_Order_Type_Enum,
+  LeagueDocument,
   OrderTypesDocument,
   UpdateUserItemOrderDocument,
   UserItemOrdersDocument,
@@ -22,12 +23,17 @@ import {
   type InsertUserItemOrderMutationVariables,
   type InsertUserItemOrdersMutation,
   type InsertUserItemOrdersMutationVariables,
+  type LeagueQuery,
   type OrderTypesQuery,
   type UpdateUserItemOrderMutation,
   type UpdateUserItemOrderMutationVariables,
   type UserItemOrdersSubscription,
 } from '../../../graphql-api';
+import { usePoEStash } from '../../../hooks/usePoEStash';
+import { matchRegularOrder } from '../../../_utils/stash-matching';
+import type { AggregatedStashItem } from '../../../models/ggg-stash';
 import { Spinner } from '../ui/Spinner';
+import { StashScopeReauthPrompt } from './StashScopeReauthPrompt';
 
 import { IconAlertCircle, IconSearch, IconTrash } from '@tabler/icons-react';
 import TimeAgo from 'javascript-time-ago';
@@ -63,6 +69,32 @@ const getWikiImgSrcFromUrl = (url: string) => {
   return `https://www.poewiki.net/wiki/Special:FilePath/${itemName}_inventory_icon.png`;
 };
 
+// Driven entirely by the list-level "Check my stash" scan (see the
+// stashItems state in OrderBook below) — this badge never triggers its own
+// scan, it just reports the cached result for one row. Renders nothing
+// until a scan has actually run, and never blocks the existing manual
+// "Fulfill" action either way.
+const StashMatchBadge = ({
+  order,
+  stashItems,
+}: {
+  order: { type: string; description: string; link_url?: string | null; item_base_type?: string | null };
+  stashItems: AggregatedStashItem[] | null;
+}) => {
+  if (!stashItems) return null;
+  const verdict = matchRegularOrder(stashItems, order);
+
+  if (verdict.unverifiable) return null;
+  if (verdict.matched) {
+    return (
+      <span className="whitespace-nowrap text-xs text-emerald-400" title={`Found in your '${verdict.location?.tabName}' tab`}>
+        ✓ In your stash
+      </span>
+    );
+  }
+  return <span className="whitespace-nowrap text-xs text-primary-900">✗ Not found</span>;
+};
+
 export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
     UserItemOrdersDocument,
@@ -77,6 +109,21 @@ export const OrderBook = () => {
   const showInactive = useStore(orderBookShowInactiveStore);
   const showFulfilled = useStore(orderBookShowFulfilledStore);
   const typeFilters = useStore(orderBookTypeFiltersStore);
+
+  // "Check my stash" — one scan for the whole list, reused by every row's
+  // StashMatchBadge (and the fulfill dialog's quick-fill) rather than each
+  // order doing its own.
+  const { data: leagueData } = useQuery<LeagueQuery>(LeagueDocument);
+  const league = leagueData?.app_config_by_pk?.league_name;
+  const {
+    loading: stashLoading,
+    items: stashItems,
+    progress: stashProgress,
+    error: stashError,
+    scanStash,
+    hasToken: hasPoEToken,
+  } = usePoEStash(league ?? '');
+  const [stashChecked, setStashChecked] = useState(false);
 
   const exportBaseDataToSpreadsheet = async () => {
     window.location.hostname !== 'localhost' &&
@@ -171,6 +218,11 @@ export const OrderBook = () => {
     fulfillment: 'DM' | 'gstash';
     fulfillerInSmolGuild: boolean;
     recipientInSmolGuild: boolean;
+    // Carried through only so the "Check my stash" verification can match
+    // against this order's identity — unrelated to the fulfillment mutation.
+    type: string;
+    linkUrl?: string | null;
+    itemBaseType?: string | null;
   }>({
     discordUserName: '',
     discordUserId: '',
@@ -179,6 +231,9 @@ export const OrderBook = () => {
     orderId: '',
     fulfillerInSmolGuild: true,
     recipientInSmolGuild: true,
+    type: '',
+    linkUrl: '',
+    itemBaseType: '',
   });
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -280,6 +335,10 @@ export const OrderBook = () => {
     }
   }, [loading, userLoading]);
 
+  useEffect(() => {
+    if (stashProgress.phase === 'done') setStashChecked(true);
+  }, [stashProgress.phase]);
+
   if (loading || userLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -332,9 +391,38 @@ export const OrderBook = () => {
               label="Inactive (> 2 weeks)"
             />
           </div>
+
+          {hasPoEToken && (
+            <div className="flex items-center gap-2">
+              <Button
+                className="h-auto text-lg"
+                disabled={stashLoading || !league}
+                onClick={() => {
+                  setStashChecked(false);
+                  void scanStash();
+                }}
+              >
+                {stashLoading ? 'Checking your stash…' : 'Stash check'}
+              </Button>
+              {stashLoading && stashProgress.phase === 'fetching-tabs' && (
+                <span className="whitespace-nowrap text-xs text-primary-900">
+                  Tab {stashProgress.currentTabIndex} of {stashProgress.totalTabs}
+                </span>
+              )}
+              {stashError?.kind === 'missing-scope' && <StashScopeReauthPrompt />}
+              {stashError?.kind === 'rate-limited' && (
+                <span className="text-sm text-red-400">
+                  Rate-limited — try again in {stashError.retryAfterSeconds}s.
+                </span>
+              )}
+              {(stashError?.kind === 'network' || stashError?.kind === 'unknown') && (
+                <span className="text-sm text-red-400">Couldn't check your stash: {stashError.message}</span>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex w-[calc(100%-2rem)] gap-2 sm:w-full">
+      <div className="flex w-[calc(100%-2rem)] items-center gap-2 sm:w-full">
         <Button
           className="hidden h-auto text-xl sm:block"
           onClick={() => {
@@ -471,6 +559,19 @@ export const OrderBook = () => {
                       ) : (
                         description
                       )}
+                      {!isMe && (
+                        <div>
+                          <StashMatchBadge
+                            order={{
+                              type,
+                              description,
+                              link_url,
+                              item_base_type,
+                            }}
+                            stashItems={stashChecked ? stashItems : null}
+                          />
+                        </div>
+                      )}
                     </td>
 
                     <td className="hidden text-center lg:table-cell">
@@ -535,6 +636,9 @@ export const OrderBook = () => {
                                   : 'DM',
                               recipientInSmolGuild: inSmolGuild,
                               fulfillerInSmolGuild: myUserIsInSmolGuild,
+                              type,
+                              linkUrl: link_url,
+                              itemBaseType: item_base_type,
                             });
                           }}
                         >

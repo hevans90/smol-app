@@ -39,5 +39,11 @@ const { BASE_HREF } = import.meta.env;
   localStorage.setItem('hasura_token', hasuraToken);
 
   document.cookie = `hasura_user_id=${hasuraUserId}; expires=${sixMonthsFromNowUTC}`;
-  window.location.href = BASE_HREF;
+
+  // If this login round trip was triggered by startPoEReauth() (e.g. the
+  // stash-check feature lazily asking for the account:stashes scope), send
+  // the member back to whatever page they were on instead of the homepage.
+  const returnTo = localStorage.getItem('poe_return_to');
+  localStorage.removeItem('poe_return_to');
+  window.location.href = returnTo || BASE_HREF;
 </script>

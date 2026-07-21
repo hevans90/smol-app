@@ -2,9 +2,31 @@ import { IconTrash } from '@tabler/icons-react';
 import ReactTimeAgo from 'react-time-ago';
 import { twMerge } from 'tailwind-merge';
 import { getWikiImgSrcFromUrl } from '../../../_utils/utils';
+import { matchBulkOrder } from '../../../_utils/stash-matching';
 import type { BulkOrdersSubscription } from '../../../graphql-api';
+import type { AggregatedStashItem } from '../../../models/ggg-stash';
 import { Button } from '../ui/Button';
 import { BulkProgressBar, type BulkProgressSegment } from '../ui/BulkProgressBar';
+
+// Driven by the board's single "Check my stash" scan (see BulkOrderBook.tsx)
+// — this never scans on its own, it just reports the cached result.
+const StashMatchBadge = ({
+  order,
+  stashItems,
+}: {
+  order: BulkOrderWithContributions;
+  stashItems: AggregatedStashItem[] | null;
+}) => {
+  if (!stashItems) return null;
+  const verdict = matchBulkOrder(stashItems, order);
+  if (!verdict.matched) return null;
+
+  return (
+    <span className="whitespace-nowrap text-xs text-emerald-400">
+      ✓ You have {verdict.availableQuantity.toLocaleString()}
+    </span>
+  );
+};
 
 export type BulkOrderWithContributions =
   BulkOrdersSubscription['bulk_order'][number];
@@ -68,6 +90,7 @@ export const BulkOrderCard = ({
   onUncancel,
   onDelete,
   onWithdraw,
+  stashItems,
 }: {
   order: BulkOrderWithContributions;
   myUserId: string | undefined;
@@ -77,6 +100,8 @@ export const BulkOrderCard = ({
   onUncancel: (order: BulkOrderWithContributions) => void;
   onDelete: (order: BulkOrderWithContributions) => void;
   onWithdraw: (contribution: { id: string; quantity: number }) => void;
+  // Whatever the board's "Check my stash" scan already found, if any.
+  stashItems?: AggregatedStashItem[] | null;
 }) => {
   const status = bulkOrderStatus(order);
   const sum = order.contributions.reduce((acc, c) => acc + c.quantity, 0);
@@ -148,6 +173,7 @@ export const BulkOrderCard = ({
             <span className="shrink-0 text-sm text-primary-800">
               ×{order.quantity.toLocaleString()}
             </span>
+            <StashMatchBadge order={order} stashItems={stashItems ?? null} />
           </div>
           {order.description && (
             <div className="truncate text-sm text-primary-800 opacity-80">

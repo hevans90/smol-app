@@ -46,6 +46,18 @@ module.exports = {
         fontin: ['fontin', 'sans-serif'],
         fontinSmallcaps: ['fontin-smallcaps', 'sans-serif'],
       },
+      keyframes: {
+        // Dark -> slightly-lighter green, low opacity throughout so row text
+        // stays readable at every point in the cycle. Used to flag orders a
+        // "Stash check" found without adding a text badge on every row.
+        'stash-found': {
+          '0%, 100%': { backgroundColor: 'rgb(6 78 59 / 0.2)' },
+          '50%': { backgroundColor: 'rgb(16 185 129 / 0.22)' },
+        },
+      },
+      animation: {
+        'stash-found': 'stash-found 2.5s ease-in-out infinite',
+      },
     },
     screens,
   },

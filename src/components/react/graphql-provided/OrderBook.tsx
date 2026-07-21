@@ -69,32 +69,6 @@ const getWikiImgSrcFromUrl = (url: string) => {
   return `https://www.poewiki.net/wiki/Special:FilePath/${itemName}_inventory_icon.png`;
 };
 
-// Driven entirely by the list-level "Check my stash" scan (see the
-// stashItems state in OrderBook below) — this badge never triggers its own
-// scan, it just reports the cached result for one row. Renders nothing
-// until a scan has actually run, and never blocks the existing manual
-// "Fulfill" action either way.
-const StashMatchBadge = ({
-  order,
-  stashItems,
-}: {
-  order: { type: string; description: string; link_url?: string | null; item_base_type?: string | null };
-  stashItems: AggregatedStashItem[] | null;
-}) => {
-  if (!stashItems) return null;
-  const verdict = matchRegularOrder(stashItems, order);
-
-  if (verdict.unverifiable) return null;
-  if (verdict.matched) {
-    return (
-      <span className="whitespace-nowrap text-xs text-emerald-400" title={`Found in your '${verdict.location?.tabName}' tab`}>
-        ✓ In your stash
-      </span>
-    );
-  }
-  return <span className="whitespace-nowrap text-xs text-primary-900">✗ Not found</span>;
-};
-
 export const OrderBook = () => {
   const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
     UserItemOrdersDocument,
@@ -218,11 +192,12 @@ export const OrderBook = () => {
     fulfillment: 'DM' | 'gstash';
     fulfillerInSmolGuild: boolean;
     recipientInSmolGuild: boolean;
-    // Carried through only so the "Check my stash" verification can match
+    // Carried through only so the "Stash check" verification can match
     // against this order's identity — unrelated to the fulfillment mutation.
     type: string;
     linkUrl?: string | null;
     itemBaseType?: string | null;
+    iconUrl?: string | null;
   }>({
     discordUserName: '',
     discordUserId: '',
@@ -234,6 +209,7 @@ export const OrderBook = () => {
     type: '',
     linkUrl: '',
     itemBaseType: '',
+    iconUrl: '',
   });
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -345,6 +321,19 @@ export const OrderBook = () => {
         <Spinner />
       </div>
     );
+
+  // Reuses the board's cached scan (no new fetch) to show where the item
+  // was found once the fulfill dialog for it is open.
+  const fulfillStashVerdict =
+    fulfillModalOpen && stashChecked && stashItems
+      ? matchRegularOrder(stashItems, {
+          type: fulfillModalState.type,
+          description: fulfillModalState.message,
+          link_url: fulfillModalState.linkUrl,
+          item_base_type: fulfillModalState.itemBaseType,
+        })
+      : undefined;
+
   return (
     <div
       id="order-book-container"
@@ -483,11 +472,26 @@ export const OrderBook = () => {
                 const myUserIsInSmolGuild = true; // hardcode for now because guilds bugged from poe api
                 const isMe = user.discord_user_id === myDiscordId;
                 const orderFulfilled = !!fulfilled_by_user;
+                const stashVerdict =
+                  !isMe && stashChecked && stashItems
+                    ? matchRegularOrder(stashItems, {
+                        type,
+                        description,
+                        link_url,
+                        item_base_type,
+                      })
+                    : undefined;
 
                 return (
                   <tr
                     key={i}
-                    className={orderFulfilled ? 'bg-gray-900 opacity-60' : ''}
+                    className={
+                      orderFulfilled
+                        ? 'bg-gray-900 opacity-60'
+                        : stashVerdict?.matched
+                          ? 'animate-stash-found'
+                          : ''
+                    }
                   >
                     <td>
                       <div
@@ -559,19 +563,6 @@ export const OrderBook = () => {
                       ) : (
                         description
                       )}
-                      {!isMe && (
-                        <div>
-                          <StashMatchBadge
-                            order={{
-                              type,
-                              description,
-                              link_url,
-                              item_base_type,
-                            }}
-                            stashItems={stashChecked ? stashItems : null}
-                          />
-                        </div>
-                      )}
                     </td>
 
                     <td className="hidden text-center lg:table-cell">
@@ -639,6 +630,7 @@ export const OrderBook = () => {
                               type,
                               linkUrl: link_url,
                               itemBaseType: item_base_type,
+                              iconUrl: icon_url,
                             });
                           }}
                         >
@@ -778,15 +770,34 @@ export const OrderBook = () => {
           <DialogHeading>Fulfill Order</DialogHeading>
 
           <DialogDescription className="mb-4 max-w-xl">
-            You are about to fulfill the order{' '}
-            <span className="text-primary-500">
-              {fulfillModalState?.message}
-            </span>{' '}
-            for
-            <span className="text-green-500">
-              {' '}
-              {fulfillModalState.discordUserName}
-            </span>
+            <div className="mb-2 flex items-center gap-2">
+              {(fulfillModalState.iconUrl ||
+                fulfillModalState.linkUrl) && (
+                <img
+                  className="h-10 w-10 object-contain"
+                  src={
+                    fulfillModalState.iconUrl ||
+                    getWikiImgSrcFromUrl(fulfillModalState.linkUrl as string)
+                  }
+                />
+              )}
+              <span>
+                You are about to fulfill the order{' '}
+                <span className="text-primary-500">
+                  {fulfillModalState?.message}
+                </span>{' '}
+                for
+                <span className="text-green-500">
+                  {' '}
+                  {fulfillModalState.discordUserName}
+                </span>
+              </span>
+            </div>
+            {fulfillStashVerdict?.matched && (
+              <div className="text-sm text-emerald-400">
+                ✓ Found in your '{fulfillStashVerdict.location?.tabName}' tab
+              </div>
+            )}
           </DialogDescription>
 
           <label className="mb-2 cursor-pointer hover:text-primary-500">

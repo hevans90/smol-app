@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { twMerge } from 'tailwind-merge';
 import {
+  getItemInfluenceIcons,
   itemHeaderBg,
   itemHeaderFontColor,
   ItemSeparator,
@@ -23,19 +24,42 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
   );
   const headerFontColor = itemHeaderFontColor(rarity);
 
+  // A single influence mirrors the same icon on both sides of the header;
+  // two influences show one icon per side. Pinned to the header's own left
+  // and right edges (not next to the name) — the name stays centered in
+  // the header regardless of whether icons are present, matching the game.
+  const influenceIcons = getItemInfluenceIcons(item);
+  const leftInfluence = influenceIcons[0];
+  const rightInfluence =
+    influenceIcons.length === 1 ? influenceIcons[0] : influenceIcons[1];
+
   return (
     <div className="flex flex-col items-center bg-black pb-2 text-center font-fontinSmallcaps">
       <div
         className={twMerge(
-          'flex w-full flex-col items-center px-[1.875rem] text-[19px] text-primary-500 md:text-xl',
+          'relative flex w-full flex-col items-center px-[1.875rem] text-[19px] text-primary-500 md:text-xl',
           headerFontColor,
           doubleHeader ? 'h-[3.75rem]' : 'h-10 pt-0.5',
         )}
         style={headerBackground}
       >
+        {leftInfluence && (
+          <img
+            src={leftInfluence}
+            alt=""
+            className="absolute left-1 top-1/2 h-8 w-8 -translate-y-1/2"
+          />
+        )}
         <span className="leading-7">
           {item.name?.length ? item.name : item.typeLine}
         </span>
+        {rightInfluence && (
+          <img
+            src={rightInfluence}
+            alt=""
+            className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2"
+          />
+        )}
         {doubleHeader && item.baseType && (
           <span className="leading-none">{item.baseType}</span>
         )}

@@ -1,138 +1,178 @@
 import { twMerge } from 'tailwind-merge';
-import type { GGGItem, GGGItemProperty } from '../../../models/ggg-responses';
+import type { GGGItem, GGGSocketedItem } from '../../../models/ggg-responses';
+import { ItemDetail } from '../item-hovers/ItemDetail';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
 
-export const SocketTreeVisualizer = ({
-  item,
-  className,
-}: {
-  item: GGGItem;
-  className?: string;
-}) => {
-  const baseSize = 'w-16 h-16';
-  const iconSize = 'w-10 h-10';
+const getGemBorderColor = (colour: string | undefined): string => {
+  switch (colour) {
+    case 'S':
+      return 'border-red-500';
+    case 'D':
+      return 'border-green-500';
+    case 'I':
+      return 'border-blue-500';
+    default:
+      return 'border-gray-400';
+  }
+};
 
-  // Helper to determine border color based on socket color
-  const getSocketColor = (colour: string | undefined): string => {
-    switch (colour) {
-      case 'S':
-        return 'border-red-500';
-      case 'D':
-        return 'border-green-500';
-      case 'I':
-        return 'border-blue-500';
-      default:
-        return 'border-gray-400';
-    }
-  };
+const getNameColor = (frameType: number): string => {
+  switch (frameType) {
+    case 3:
+      return 'text-amber-500'; // Unique
+    case 4:
+      return 'text-cyan-400'; // Gem
+    default:
+      return 'text-gray-200';
+  }
+};
 
-  // Helper to determine text color based on frame type
-  const getTextColor = (frameType: number): string => {
-    switch (frameType) {
-      case 3:
-        return 'text-amber-500'; // Unique
-      case 4:
-        return 'text-cyan-400'; // Gem
-      default:
-        return 'text-gray-200';
-    }
-  };
+// Sockets carry a `group` index — gems whose sockets share a group are
+// actually linked in-game. Splitting by group (rather than treating every
+// socketed gem as one long chain) keeps e.g. a 3+3 split six-socket item
+// visually honest instead of implying a fake 6-link.
+const groupGemsByLink = (item: GGGItem): GGGSocketedItem[][] => {
+  const groups = new Map<number, GGGSocketedItem[]>();
 
-  // Helper to get gem level from properties
-  const getGemLevel = (properties: GGGItemProperty[] | undefined): string => {
-    const levelProp = properties?.find((p) => p.name === 'Level');
-    return levelProp?.values[0][0] || '1';
-  };
-
-  // Helper to get gem quality from properties
-  const getGemQuality = (properties: GGGItemProperty[] | undefined) => {
-    const qualityProp = properties?.find((p) => p.name === 'Quality');
-    return qualityProp?.values[0][0] || null;
-  };
-
-  if (!item.socketedItems) return null;
-
-  const sortedSocketedItems = item.socketedItems.sort((a, b) => {
-    const supportA = a.support === undefined ? false : a.support;
-    const supportB = b.support === undefined ? false : b.support;
-
-    // Sorting so that true comes first, followed by false (and undefined treated as false)
-    return (supportA ? 1 : 0) - (supportB ? 1 : 0);
+  (item.socketedItems ?? []).forEach((gem) => {
+    const socketIndex = gem.socket ?? 0;
+    const groupId = item.sockets?.[socketIndex]?.group ?? 0;
+    const list = groups.get(groupId) ?? [];
+    list.push(gem);
+    groups.set(groupId, list);
   });
 
+  // Supports last within each link, matching the item's own socket order.
+  return Array.from(groups.values()).map((gems) =>
+    gems
+      .slice()
+      .sort((a, b) => (a.support ? 1 : 0) - (b.support ? 1 : 0)),
+  );
+};
+
+const GemIcon = ({ gem }: { gem: GGGSocketedItem }) => (
+  <Popover openOnHover={true} placement="top">
+    <PopoverTrigger asChild>
+      <div
+        className={twMerge(
+          'relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-md border-2 bg-gray-800',
+          getGemBorderColor(gem.colour),
+        )}
+      >
+        <img
+          src={gem.icon}
+          alt={gem.typeLine}
+          className="h-full w-full object-contain"
+        />
+      </div>
+    </PopoverTrigger>
+    <PopoverContent className="outline-none focus:ring-0" style={{ zIndex: 200 }}>
+      <ItemDetail item={gem} />
+    </PopoverContent>
+  </Popover>
+);
+
+// A single link group renders as a horizontal chain — a short bar between
+// each adjacent pair of gems stands in for the in-game link line, so it's
+// visually obvious which gems are actually linked together (as opposed to
+// merely occupying different, unlinked sockets on the same item).
+const LinkGroup = ({ gems }: { gems: GGGSocketedItem[] }) => (
+  <div className="flex items-center">
+    {gems.map((gem, index) => (
+      <div key={gem.id} className="flex items-center">
+        {index > 0 && <div className="h-1 w-2.5 shrink-0 bg-primary-600" />}
+        <GemIcon gem={gem} />
+      </div>
+    ))}
+  </div>
+);
+
+const ItemGemSection = ({
+  item,
+  highlighted,
+}: {
+  item: GGGItem;
+  highlighted: boolean;
+}) => {
+  const linkGroups = groupGemsByLink(item);
+
   return (
-    <div className={twMerge('flex flex-col items-start', className)}>
-      {/* Main item */}
-      <div className="mb-8 flex items-center">
-        <div
-          className={`${baseSize} relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`}
-        >
+    <div
+      className={twMerge(
+        // A real `border` (not `ring`, which paints as a box-shadow outside
+        // the border-box) — the panel scrolls with `overflow-y-auto`, which
+        // forces `overflow-x` to compute as `auto` too, clipping anything
+        // painted outside the box on the left edge. A border is part of the
+        // box itself so it can't be clipped that way. Transparent by default
+        // to reserve the space and avoid a 1px layout shift on highlight.
+        'flex flex-col gap-2 rounded-md border p-2 transition-colors duration-200',
+        highlighted
+          ? 'border-primary-500 bg-primary-900/40'
+          : 'border-transparent',
+      )}
+    >
+      <div className="flex items-center gap-2">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded bg-gray-800">
           <img
             src={item.icon}
-            alt={item.name}
-            className={`${baseSize} object-contain`}
+            alt={item.name || item.typeLine}
+            className="h-full w-full object-contain"
           />
         </div>
-        <div className="ml-4">
-          <div className={`font-bold ${getTextColor(item.frameType)}`}>
-            {item.name}
-          </div>
-          <div className="text-sm text-primary-500">{item.baseType}</div>
+        <div
+          className={twMerge(
+            'truncate text-sm font-bold',
+            getNameColor(item.frameType),
+          )}
+        >
+          {item.name || item.typeLine}
         </div>
       </div>
 
-      {/* Gems — a border-left on the wrapping column is inherently exactly
-          as tall as its content, unlike the old absolutely-positioned line
-          that had to duplicate each row's height in a separate calc(). */}
-      {sortedSocketedItems.length > 0 && (
-        <div className="ml-8 flex flex-col border-l-2 border-primary-600">
-          {sortedSocketedItems.map((socketedItem) => {
-            const quality = getGemQuality(socketedItem.properties);
-            return (
-              <div key={socketedItem.id} className="flex h-14 items-center">
-                {/* Horizontal tick connecting to the vertical line */}
-                <div className="h-1 w-8 bg-primary-600" />
+      <div className="flex flex-row flex-wrap gap-x-4 gap-y-2">
+        {linkGroups.map((gems, index) => (
+          <LinkGroup key={index} gems={gems} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-                <div
-                  className={twMerge(
-                    `relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`,
-                    iconSize,
-                    getSocketColor(socketedItem.colour),
-                  )}
-                >
-                  <img
-                    src={socketedItem.icon}
-                    alt={socketedItem.typeLine}
-                    className={`${iconSize} object-contain`}
-                  />
-                </div>
+// GGG returns weapon-swap items with these inventoryIds — they're not
+// currently equipped (CharacterInventory's doll grid doesn't show them
+// either), so they shouldn't get a row here.
+const WEAPON_SWAP_INVENTORY_IDS = new Set(['weapon2', 'offhand2']);
 
-                {/* Item details */}
-                <div className="ml-4">
-                  <div
-                    className={twMerge(
-                      socketedItem.support &&
-                        getTextColor(socketedItem.frameType),
-                      !socketedItem.support && 'font-bold text-cyan-200',
-                    )}
-                  >
-                    {socketedItem.typeLine}
-                  </div>
-                  <div className="flex gap-2 text-sm text-gray-400">
-                    <span>Lvl {getGemLevel(socketedItem.properties)}</span>
+// Always-visible list of every equipped item's gems and links — no hover
+// required to see it, and no single "selected" item replacing the rest.
+// Hovering a doll-grid slot (CharacterInventory) just highlights the
+// matching section here via `highlightedItemId`.
+export const GemLinksPanel = ({
+  items,
+  highlightedItemId,
+  className,
+}: {
+  items: GGGItem[];
+  highlightedItemId?: string | null;
+  className?: string;
+}) => {
+  const itemsWithGems = items.filter(
+    (item) =>
+      (item.socketedItems?.length ?? 0) > 0 &&
+      !WEAPON_SWAP_INVENTORY_IDS.has(item.inventoryId.toLowerCase()),
+  );
 
-                    {quality && (
-                      <>
-                        <span>•</span>
-                        <span>Qual {quality}</span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+  if (itemsWithGems.length === 0) return null;
+
+  return (
+    <div className={twMerge('flex flex-col gap-3', className)}>
+      {itemsWithGems.map((item) => (
+        <ItemGemSection
+          key={item.id}
+          item={item}
+          highlighted={item.id === highlightedItemId}
+        />
+      ))}
     </div>
   );
 };

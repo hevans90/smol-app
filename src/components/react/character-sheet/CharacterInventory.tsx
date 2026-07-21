@@ -9,13 +9,14 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
 // absolute positioning — every named area below is a valid CSS grid
 // rectangle. `ring3` (the third-ring ruleset, e.g. "Nameless bloodline")
 // sits directly above the first ring slot; its cell is simply empty for
-// the common two-ring case.
+// the common two-ring case. `belt` sits directly under `body` in the row
+// that already had a free cell there, instead of its own trailing row —
+// keeps the doll shorter overall so potions/jewels below sit higher too.
 const DOLL_GRID_TEMPLATE_AREAS = `
   "weapon .      helm    .       offhand"
   "weapon ring3  body    amulet  offhand"
   "weapon ring   body    ring2   offhand"
-  "trinket gloves .      boots   ."
-  ".      .      belt    .       ."
+  "trinket gloves belt   boots   ."
 `;
 
 type DollSlot = {
@@ -79,7 +80,7 @@ export const CharacterInventory = ({
         style={{
           gridTemplateAreas: DOLL_GRID_TEMPLATE_AREAS,
           gridTemplateColumns: 'repeat(5, auto)',
-          gridTemplateRows: 'repeat(5, auto)',
+          gridTemplateRows: 'repeat(4, auto)',
         }}
       >
         {slotsWithItems.map(

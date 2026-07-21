@@ -1,6 +1,12 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import type { GGGItemProperty, GGGItemRarity } from '../models/ggg-responses';
+import {
+  INFLUENCE_ORDER,
+  type GGGItem,
+  type GGGItemProperty,
+  type GGGItemRarity,
+  type GGGSocketedItem,
+} from '../models/ggg-responses';
 
 export const itemHeaderBg = (
   rarity: GGGItemRarity,
@@ -12,6 +18,22 @@ export const itemHeaderBg = (
       url('/item-preview/${rarity}/header-${height === 'double' ? 'double-' : ''}${rarity}-middle.png') top repeat-x
     `,
 });
+
+// An item can have at most two influences at once. Returns their icon URLs
+// in a stable order so the first renders left-of-name and the second
+// right-of-name, matching the game's own tooltip layout. Checks both the
+// flat legacy fields (shaper/elder) and the nested `influences` object (the
+// four Conquerors-of-the-Atlas influences, which never got flat fields) —
+// see the comment on GGGItem for why both need checking.
+export const getItemInfluenceIcons = (
+  item: GGGItem | GGGSocketedItem,
+): string[] => {
+  const flatFields = item as unknown as Record<string, boolean | undefined>;
+
+  return INFLUENCE_ORDER.filter(
+    (influence) => item.influences?.[influence] || flatFields[influence],
+  ).map((influence) => `/item-preview/influences/${influence}-symbol.png`);
+};
 
 export const ItemSeparator = ({
   rarity,

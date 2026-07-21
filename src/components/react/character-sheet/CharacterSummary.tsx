@@ -16,7 +16,7 @@ export const CharacterSummary = ({
       className={twMerge('flex h-full flex-col items-center gap-1', className)}
     >
       <div
-        className="font-fontinSmallcaps h-10 px-12 text-lg text-primary-500 md:text-xl"
+        className="font-fontinSmallcaps h-10 w-full truncate px-4 text-center text-lg text-primary-500 md:text-xl"
         style={itemHeaderBg('normal')}
       >
         {character.name}

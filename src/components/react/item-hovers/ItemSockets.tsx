@@ -152,6 +152,24 @@ export const ItemSockets = ({
   // Create an ordered list of socket indices, ensuring that we respect the desired order
   const orderedSockets = socketOrder.filter((index) => index < actualSockets);
 
+  // Single source of truth for where a socket actually renders in the grid.
+  // The natural fill order is left-to-right, top-to-bottom in 2 columns —
+  // except 3- and 5-socket items, where the lone leftover socket in the
+  // last row is visually centered under the pair above it (right column,
+  // not left) to match how PoE itself lays these out. This MUST be the
+  // only place that decides socket placement — a previous version had this
+  // logic duplicated (once here, once as literal CSS grid classes on the
+  // rendered socket), and the two definitions disagreed for the 3- and
+  // 5-socket cases, so the link lines were drawn to a different cell than
+  // the socket icon actually occupied.
+  const getSocketGridPosition = (
+    index: number,
+  ): { row: number; col: number } => {
+    if (actualSockets === 3 && index === 2) return { row: 1, col: 1 };
+    if (actualSockets === 5 && index === 4) return { row: 2, col: 1 };
+    return { row: Math.floor(index / 2), col: index % 2 };
+  };
+
   // Create a mapping from socket index to socketed item
   const socketToItemMap = useMemo(() => {
     const map: Record<number, GGGSocketedItem> = {};
@@ -179,16 +197,15 @@ export const ItemSockets = ({
     const positions: Record<number, { top: number; left: number }> = {};
 
     orderedSockets.forEach((socketIndex, index) => {
-      const column = index % 2; // Assuming 2 columns
-      const row = Math.floor(index / 2);
-      const top = row * SOCKET_CELL_PX;
-      const left = column * SOCKET_CELL_PX;
-
-      positions[socketIndex] = { top, left };
+      const { row, col } = getSocketGridPosition(index);
+      positions[socketIndex] = {
+        top: row * SOCKET_CELL_PX,
+        left: col * SOCKET_CELL_PX,
+      };
     });
 
     return positions;
-  }, [orderedSockets]);
+  }, [orderedSockets, actualSockets]);
 
   // Render a link between two sockets
   const renderLink = (from: number, to: number) => {
@@ -283,19 +300,13 @@ export const ItemSockets = ({
             ? socketImages[socket.sColour]
             : socketImages.default;
 
+        const { row, col } = getSocketGridPosition(index);
+
         return (
           <div
             key={socketIndex}
-            className={`relative flex items-center justify-center ${
-              // Adjust placement for 3-socket, 5-socket, or 6-socket items
-              actualSockets === 3 && index === 2
-                ? 'col-start-2 row-start-2' // For the 3rd socket in 3-socket items
-                : actualSockets === 5 && index === 4
-                  ? 'col-start-2 row-start-3' // For the 5th socket in 5-socket items
-                  : actualSockets === 6 && index === 5
-                    ? 'col-start-2 row-start-3' // For the 6th socket in 6-socket items
-                    : ''
-            }`}
+            className="relative flex items-center justify-center"
+            style={{ gridRow: row + 1, gridColumn: col + 1 }}
           >
             <img
               src={socketImage}

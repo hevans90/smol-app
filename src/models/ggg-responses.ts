@@ -59,7 +59,47 @@ export interface GGGItem {
   // Stash/currency items only (not present on character/passive-tree items).
   stackSize?: number;
   maxStackSize?: number;
+  // Influence flags. `shaper`/`elder` predate the other four and are only
+  // ever present as flat top-level booleans; the four Conquerors-of-the-
+  // Atlas influences added later are only ever present under the nested
+  // `influences` object — GGG never backported them into flat fields. An
+  // item can have at most two influences at once, from either source.
+  shaper?: boolean;
+  elder?: boolean;
+  influences?: Partial<Record<GGGInfluence, boolean>>;
+  // Eldritch corruption markers (GGG's own field names, confirmed against
+  // their developer docs — NOT "eaterOfWorlds"/"searingExarch" as the names
+  // might suggest): `searing` = Searing Exarch, `tangled` = Eater of Worlds.
+  // Flat top-level booleans, present and true only when corrupted by that
+  // eldritch horror.
+  searing?: boolean;
+  tangled?: boolean;
 }
+
+export type GGGInfluence =
+  | 'shaper'
+  | 'elder'
+  | 'crusader'
+  | 'redeemer'
+  | 'hunter'
+  | 'warlord'
+  | 'searing'
+  | 'tangled';
+
+// Display order matches the game's own convention closely enough for our
+// purposes — shaper/elder first (the original pair), then the four
+// Conquerors of the Atlas influences, then the eldritch corruption markers
+// (searing = Searing Exarch, tangled = Eater of Worlds).
+export const INFLUENCE_ORDER: GGGInfluence[] = [
+  'shaper',
+  'elder',
+  'crusader',
+  'redeemer',
+  'hunter',
+  'warlord',
+  'searing',
+  'tangled',
+];
 
 export interface GGGSocketedItem extends GGGItem {
   support?: boolean;

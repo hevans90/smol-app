@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react';
 import { useMemo, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import {
   type GGGItemSocket,
   type GGGSocketedItem,
@@ -23,6 +22,12 @@ const linkImages: Record<'horizontal' | 'vertical', string> = {
   horizontal: '/item-preview/links/link-horizontal.png',
   vertical: '/item-preview/links/link-vertical.png',
 };
+
+// Single source of truth for the socket grid's cell size — both the grid
+// container's track sizing and each socket image's explicit dimensions are
+// derived from this, so link-line geometry (which assumes this exact cell
+// size) can't silently drift out of sync with what's actually rendered.
+const SOCKET_CELL_PX = 48;
 
 // Sprite coordinates for gem icons from socket-map.png
 const gemSpriteMap: Record<string, { x: number; y: number }> = {
@@ -114,7 +119,6 @@ export const ItemSockets = ({
   sockets: GGGItemSocket[];
   socketedItems: GGGSocketedItem[];
 }) => {
-  const gridCellSize = 48;
   const imageLinkWidth = 20;
 
   // Define the fixed socket order for all items
@@ -123,25 +127,27 @@ export const ItemSockets = ({
   // Determine the actual number of sockets for the item based on passed prop
   const actualSockets = sockets.length;
 
-  // Create a grid layout based on the number of actual sockets
-  const getGridTemplate = (sockets: number): string => {
+  // Column/row counts for the socket grid, by socket count.
+  const getGridDimensions = (sockets: number): { cols: number; rows: number } => {
     switch (sockets) {
       case 1:
-        return 'grid-cols-1';
+        return { cols: 1, rows: 1 };
       case 2:
-        return 'grid-cols-2';
+        return { cols: 2, rows: 1 };
       case 3:
-        return 'grid-cols-2 grid-rows-2'; // 3 sockets: first 2 on top, 1 below
+        return { cols: 2, rows: 2 }; // 3 sockets: first 2 on top, 1 below
       case 4:
-        return 'grid-cols-2 grid-rows-2'; // 4 sockets
+        return { cols: 2, rows: 2 };
       case 5:
-        return 'grid-cols-2 grid-rows-3'; // 5 sockets
+        return { cols: 2, rows: 3 };
       case 6:
-        return 'grid-cols-2 grid-rows-3'; // 6 sockets
+        return { cols: 2, rows: 3 };
       default:
-        return '';
+        return { cols: 1, rows: 1 };
     }
   };
+
+  const gridDimensions = getGridDimensions(actualSockets);
 
   // Create an ordered list of socket indices, ensuring that we respect the desired order
   const orderedSockets = socketOrder.filter((index) => index < actualSockets);
@@ -175,8 +181,8 @@ export const ItemSockets = ({
     orderedSockets.forEach((socketIndex, index) => {
       const column = index % 2; // Assuming 2 columns
       const row = Math.floor(index / 2);
-      const top = row * gridCellSize;
-      const left = column * gridCellSize;
+      const top = row * SOCKET_CELL_PX;
+      const left = column * SOCKET_CELL_PX;
 
       positions[socketIndex] = { top, left };
     });
@@ -196,7 +202,7 @@ export const ItemSockets = ({
 
     if (!horizontal && !vertical) return null;
 
-    const gridCellSizeOffset = gridCellSize / 2;
+    const gridCellSizeOffset = SOCKET_CELL_PX / 2;
 
     const linkSizeOffset = imageLinkWidth / 2;
 
@@ -255,11 +261,12 @@ export const ItemSockets = ({
 
   return (
     <div
-      className={twMerge(
-        'relative grid h-fit w-full',
-        getGridTemplate(actualSockets),
-      )}
-      style={{ minWidth: '50px' }}
+      className="relative grid h-fit w-full"
+      style={{
+        gridTemplateColumns: `repeat(${gridDimensions.cols}, ${SOCKET_CELL_PX}px)`,
+        gridTemplateRows: `repeat(${gridDimensions.rows}, ${SOCKET_CELL_PX}px)`,
+        minWidth: '50px',
+      }}
     >
       {/* Render links first */}
       {renderLinks()}
@@ -293,7 +300,8 @@ export const ItemSockets = ({
             <img
               src={socketImage}
               alt={`${socket.sColour || 'default'} socket`}
-              className="h-full"
+              className="object-contain"
+              style={{ width: SOCKET_CELL_PX, height: SOCKET_CELL_PX }}
             />
             {/* Render gem icon with popover if socketed item exists */}
             {socketToItemMap[socketIndex] && (

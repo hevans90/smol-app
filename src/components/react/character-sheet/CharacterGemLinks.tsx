@@ -1,7 +1,13 @@
 import { twMerge } from 'tailwind-merge';
 import type { GGGItem, GGGItemProperty } from '../../../models/ggg-responses';
 
-export const SocketTreeVisualizer = ({ item }: { item: GGGItem }) => {
+export const SocketTreeVisualizer = ({
+  item,
+  className,
+}: {
+  item: GGGItem;
+  className?: string;
+}) => {
   const baseSize = 'w-16 h-16';
   const iconSize = 'w-10 h-10';
 
@@ -54,91 +60,79 @@ export const SocketTreeVisualizer = ({ item }: { item: GGGItem }) => {
   });
 
   return (
-    <div className="flex flex-col items-start">
-      <div className="relative h-full">
-        {/* Vertical connecting line */}
-        {item.socketedItems?.length > 0 && (
-          <div
-            style={{
-              position: 'absolute',
-              left: '2rem',
-              top: '4rem',
-              height: `calc(${item.socketedItems.length * 3.5}rem + 3px)`,
-            }}
-            className="w-1 bg-primary-600"
+    <div className={twMerge('flex flex-col items-start', className)}>
+      {/* Main item */}
+      <div className="mb-8 flex items-center">
+        <div
+          className={`${baseSize} relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`}
+        >
+          <img
+            src={item.icon}
+            alt={item.name}
+            className={`${baseSize} object-contain`}
           />
-        )}
-
-        {/* Main item */}
-        <div className="mb-8 flex items-center">
-          <div
-            className={`${baseSize} relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`}
-          >
-            <img
-              src={item.icon}
-              alt={item.name}
-              className={`${baseSize} object-contain`}
-            />
-          </div>
-          <div className="ml-4">
-            <div className={`font-bold ${getTextColor(item.frameType)}`}>
-              {item.name}
-            </div>
-            <div className="text-sm text-primary-500">{item.baseType}</div>
-          </div>
         </div>
+        <div className="ml-4">
+          <div className={`font-bold ${getTextColor(item.frameType)}`}>
+            {item.name}
+          </div>
+          <div className="text-sm text-primary-500">{item.baseType}</div>
+        </div>
+      </div>
 
-        {/* Gems */}
-        {sortedSocketedItems?.map((socketedItem, index) => {
-          const quality = getGemQuality(socketedItem.properties);
-          return (
-            <div
-              key={socketedItem.id}
-              className="relative ml-8 flex h-14 items-center"
-            >
-              {/* Horizontal line */}
-              <div className="h-1 w-8 bg-primary-600" />
+      {/* Gems — a border-left on the wrapping column is inherently exactly
+          as tall as its content, unlike the old absolutely-positioned line
+          that had to duplicate each row's height in a separate calc(). */}
+      {sortedSocketedItems.length > 0 && (
+        <div className="ml-8 flex flex-col border-l-2 border-primary-600">
+          {sortedSocketedItems.map((socketedItem) => {
+            const quality = getGemQuality(socketedItem.properties);
+            return (
+              <div key={socketedItem.id} className="flex h-14 items-center">
+                {/* Horizontal tick connecting to the vertical line */}
+                <div className="h-1 w-8 bg-primary-600" />
 
-              <div
-                className={twMerge(
-                  `relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`,
-                  iconSize,
-                  getSocketColor(socketedItem.colour),
-                )}
-              >
-                <img
-                  src={socketedItem.icon}
-                  alt={socketedItem.typeLine}
-                  className={`${iconSize} object-contain`}
-                />
-              </div>
-
-              {/* Item details */}
-              <div className="ml-4">
                 <div
                   className={twMerge(
-                    socketedItem.support &&
-                      getTextColor(socketedItem.frameType),
-                    !socketedItem.support && 'font-bold text-cyan-200',
+                    `relative flex items-center justify-center overflow-hidden rounded-lg border-2 border-primary-600 bg-gray-800`,
+                    iconSize,
+                    getSocketColor(socketedItem.colour),
                   )}
                 >
-                  {socketedItem.typeLine}
+                  <img
+                    src={socketedItem.icon}
+                    alt={socketedItem.typeLine}
+                    className={`${iconSize} object-contain`}
+                  />
                 </div>
-                <div className="flex gap-2 text-sm text-gray-400">
-                  <span>Lvl {getGemLevel(socketedItem.properties)}</span>
 
-                  {quality && (
-                    <>
-                      <span>•</span>
-                      <span>Qual {quality}</span>
-                    </>
-                  )}
+                {/* Item details */}
+                <div className="ml-4">
+                  <div
+                    className={twMerge(
+                      socketedItem.support &&
+                        getTextColor(socketedItem.frameType),
+                      !socketedItem.support && 'font-bold text-cyan-200',
+                    )}
+                  >
+                    {socketedItem.typeLine}
+                  </div>
+                  <div className="flex gap-2 text-sm text-gray-400">
+                    <span>Lvl {getGemLevel(socketedItem.properties)}</span>
+
+                    {quality && (
+                      <>
+                        <span>•</span>
+                        <span>Qual {quality}</span>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

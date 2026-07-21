@@ -110,6 +110,7 @@ export type GGGInventoryId =
   | 'Offhand'
   | 'Ring'
   | 'Ring2'
+  | 'Ring3' // third ring slot, e.g. the "Nameless bloodline" ruleset
   | 'Trinket'
   | 'Weapon';
 
@@ -125,6 +126,7 @@ export const maxGemSockets: Record<GGGInventoryId, number> = {
   Offhand: 3, // Shields/quivers have up to 3 sockets
   Ring: 1, // Rarely socketable, e.g., special crafting
   Ring2: 1, // Rarely socketable, e.g., special crafting
+  Ring3: 1,
   Trinket: 0,
   Weapon: 6, // Two-handed weapons, bows, or certain unique weapons
 };

@@ -36,20 +36,30 @@ export const CharacterSheet = ({
   };
 
   return (
-    <div className="flex h-full grow gap-4">
-      <CharacterSummary accountName={accountName} character={character} />
+    <div className="flex h-full min-h-0 w-full flex-col gap-4 overflow-y-auto md:flex-row md:items-start md:overflow-visible">
+      <CharacterSummary
+        accountName={accountName}
+        character={character}
+        className="h-auto shrink-0 md:h-full md:w-40"
+      />
       <CharacterInventory
         onItemHovered={onItemHovered}
         items={items}
         passiveTreeItems={passiveTreeItems}
+        className="md:min-w-0 md:flex-1"
       />
 
-      {selectedItem && <SocketTreeVisualizer item={selectedItem} />}
+      {selectedItem && (
+        <SocketTreeVisualizer
+          item={selectedItem}
+          className="w-full md:w-auto md:max-w-xs md:shrink-0"
+        />
+      )}
 
       {characterId && (
         <CharacterStatSheet
           characterId={characterId}
-          className="ml-auto h-full shrink-0 overflow-y-auto pr-2"
+          className="w-full shrink-0 md:ml-auto md:h-full md:w-56 md:overflow-y-auto md:pr-2"
         />
       )}
     </div>

@@ -250,7 +250,7 @@ export const OrderForm = ({
       try {
         const resolved: OrderFormInputs[] = [];
         for (const row of list) {
-          const wikiResult = await getUniqueItemWikiInfo(row.name);
+          const wikiResult = getUniqueItemWikiInfo(row.name);
           resolved.push({
             description: row.description || row.name,
             linkUrl: wikiResult?.wikiLink ?? '',

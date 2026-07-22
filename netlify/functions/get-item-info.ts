@@ -1,74 +1,63 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import invariant from 'tiny-invariant';
 import {
-    BASE_TYPE_CATEGORIES,
-    type BaseTypeCategory,
+  BASE_TYPE_CATEGORIES,
+  FLASK_CLASS_NAMES,
+  type BaseTypeCategory,
 } from '../../src/models/base-types';
+import basesResponse from '../../src/assets/bases/all-basetypes.json';
+import uniqueBaseTypesResponse from '../../src/assets/uniques/unique-base-types.json';
 
-const findCategoryContaining = (
+const uniqueBaseTypesByName: Record<string, string> = uniqueBaseTypesResponse;
+
+const baseTypeCategoriesByName: Record<string, string> = (
+  basesResponse as { data: { Name: string; ItemClassesName: string }[] }
+).data.reduce<Record<string, string>>((acc, item) => {
+  acc[item.Name] = item.ItemClassesName;
+  return acc;
+}, {});
+
+const getCategoryForBaseType = (
   baseType: string,
 ): BaseTypeCategory | undefined => {
-  const lowerBaseType = baseType.toLowerCase();
-  // Normalize flask classes to unified 'Flasks' category
-  if (lowerBaseType.includes('flask')) {
-    return 'Flasks' as BaseTypeCategory;
+  const rawCategory = baseTypeCategoriesByName[baseType];
+  if (!rawCategory) return undefined;
+
+  if ((FLASK_CLASS_NAMES as readonly string[]).includes(rawCategory)) {
+    return 'Flasks';
   }
 
-  const category = BASE_TYPE_CATEGORIES.find((category) => {
-    const lowerCategory = category.toLowerCase();
-    return (
-      lowerCategory.includes(lowerBaseType) ||
-      lowerBaseType.includes(lowerCategory)
-    );
-  });
-
-  return category;
+  return (BASE_TYPE_CATEGORIES as readonly string[]).includes(rawCategory)
+    ? (rawCategory as BaseTypeCategory)
+    : undefined;
 };
 
-export const getBaseItem = async (itemName: string) => {
-  const apiUrl = `https://www.poewiki.net/w/api.php?action=query&format=json&titles=${
-    itemName
-  }&prop=revisions&rvprop=content`;
-
+// `name` comes from the last path segment of a pasted poewiki.net URL (see
+// OrderForm.tsx's getBaseItemInfoFromWikiLink), so it's MediaWiki's
+// page-title format — underscores for spaces, percent-encoded punctuation —
+// not the plain in-game display name our local unique-base-types map is
+// keyed by.
+const toDisplayName = (wikiPageTitle: string): string => {
   try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-
-    // Extract page content
-    const pages = data.query.pages;
-    const page: any = Object.values(pages)[0]; // Assuming single page response
-    const content: string = page.revisions?.[0]['*']; // Accessing the wiki text content
-
-    if (!content) {
-      throw new Error(`No wiki entry found for ${itemName}`);
-    }
-
-    let baseItem = itemName;
-    let category: BaseTypeCategory | undefined;
-
-    const baseItemRegex = /{{Item[\s\S]*?\|base_item\s*=\s*([^\|\n]*)/;
-    const baseItemMatch = baseItemRegex.exec(content);
-
-    const classIdRegex = /{{Item[\s\S]*?\|class_id\s*=\s*([^\|\n]*)/;
-    const classIdMatch = classIdRegex.exec(content);
-
-    if (classIdMatch) {
-      category = findCategoryContaining(classIdMatch[1].trim());
-    }
-
-    if (baseItemMatch) {
-      baseItem = baseItemMatch[1].trim();
-    }
-
-    console.log(`Base item for ${itemName}: ${baseItem}`);
-    console.log(`Category for ${itemName}: ${category}`);
-
-    return { baseItem, category };
-  } catch (error) {
-    throw new Error(
-      `Error fetching data from PoE Wiki API: ${(error as Error)?.message}`,
-    );
+    return decodeURIComponent(wikiPageTitle).replace(/_/g, ' ');
+  } catch {
+    return wikiPageTitle.replace(/_/g, ' ');
   }
+};
+
+// Looks up a unique item's base type and category from local data extracted
+// from Path of Building's own item database — this used to call
+// poewiki.net's API directly, but poewiki now sits behind Anubis
+// bot-protection that blocks this app's requests outright, so every lookup
+// failed (loudly here — it throws and blocks order submission, unlike the
+// bulk-order flow's silent empty-string fallback, which is what broke the
+// Google Sheets base-type export).
+export const getBaseItem = (itemName: string) => {
+  const displayName = toDisplayName(itemName);
+  const baseItem = uniqueBaseTypesByName[displayName] ?? itemName;
+  const category = getCategoryForBaseType(baseItem);
+
+  return { baseItem, category };
 };
 
 export const handler: Handler = async (event: HandlerEvent) => {
@@ -76,7 +65,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
   const { name } = event.queryStringParameters;
   invariant(name);
 
-  const itemInfo = await getBaseItem(name);
+  const itemInfo = getBaseItem(name);
   return {
     statusCode: 200,
     body: JSON.stringify(itemInfo),

@@ -1,6 +1,7 @@
 import { search as fuzzySearch } from 'fast-fuzzy';
 import basesResponse from '../assets/bases/all-basetypes.json';
 import stackablesResponse from '../assets/stackables/stackables.json';
+import uniqueBaseTypesResponse from '../assets/uniques/unique-base-types.json';
 import uniquesResponse from '../assets/uniques/uniques.json';
 import {
   type ArmorDefenceType,
@@ -213,42 +214,26 @@ export const searchStackablesByName = (
   return wordMatches.slice(0, maxResults);
 };
 
-export const getUniqueItemWikiInfo = async (itemName: string) => {
-  const baseUrl = 'https://www.poewiki.net/w/api.php';
+// Unique item name -> base type, extracted from Path of Building's own
+// Data/Uniques Lua source (the same upstream data this app already trusts
+// for headless PoB character stats) via a one-off scratch script. This used
+// to be a live poewiki.net cargoquery lookup, but poewiki now sits behind
+// Anubis bot-protection that blocks this app's requests outright — every
+// lookup silently failed and defaulted callers to an empty base type
+// (see OrderForm.tsx's bulk-order flow), which is what broke the Google
+// Sheets base-type export. A local, no-network lookup can't go stale that
+// way; it just needs re-generating occasionally as new uniques ship.
+const uniqueBaseTypesByName: Record<string, string> = uniqueBaseTypesResponse;
+
+export const getUniqueItemWikiInfo = (itemName: string) => {
+  const baseItem = uniqueBaseTypesByName[itemName];
+  if (!baseItem) return null;
+
   const wikiBase = 'https://www.poewiki.net/wiki/';
+  const pageName = itemName.replace(/ /g, '_');
 
-  const params = new URLSearchParams({
-    action: 'cargoquery',
-    format: 'json',
-    tables: 'items',
-    fields: 'name,inventory_icon,base_item',
-    where: `rarity="Unique" AND name="${itemName}"`,
-    limit: '1',
-    origin: '*',
-  });
-
-  const url = `${baseUrl}?${params.toString()}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.cargoquery && data.cargoquery.length > 0) {
-      const item = data.cargoquery[0].title;
-      const name = item.name as string;
-      const baseItem = item['base item'] as string;
-      const pageName = name.replace(/ /g, '_');
-      const encodedPageName = encodeURIComponent(pageName);
-
-      return {
-        wikiLink: wikiBase + encodedPageName,
-        baseItem: baseItem,
-      };
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return null;
-  }
+  return {
+    wikiLink: wikiBase + encodeURIComponent(pageName),
+    baseItem,
+  };
 };

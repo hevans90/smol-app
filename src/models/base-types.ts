@@ -84,9 +84,12 @@ export type PobItemBase = {
   flask?: Record<string, unknown>;
   // Newline-joined implicit mod text (one or more lines) and their
   // [category, subCategory] tags, in the same order. Absent when the base
-  // has no implicit.
+  // has no implicit. Untyped as a strict tuple since this comes straight
+  // off a dynamically-imported JSON asset (TS infers plain string[][] for
+  // it, not [string, string][], making an `as PobItemBase` cast against
+  // the JSON import unsound) — nothing here destructures it as a tuple.
   implicit?: string;
-  implicitModTypes?: [string, string][];
+  implicitModTypes?: string[][];
 };
 
 // Shape of src/assets/uniques/unique-item-previews.json (see

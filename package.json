@@ -13,7 +13,7 @@
     "dev": "astro dev",
     "docker-down": "docker compose --env-file .env down",
     "docker-up": "docker compose --env-file .env up -d",
-    "generate:unique-base-types": "node scripts/generate-unique-base-types.js",
+    "generate:pob-data": "./scripts/generate-pob-data.sh",
     "go:run": "pnpm run go:sqlc && cd ./go-server && PORT=4000 go run .",
     "go:sqlc": "cd ./go-server && pnpm run go:schema && sqlc generate",
     "go:schema": "PGPASSWORD=pw pg_dump --no-owner --no-comments  -h localhost -p 5432 -U postgres -d postgres -s -f ./go-server/schema.sql",

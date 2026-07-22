@@ -1,18 +1,15 @@
 import { search as fuzzySearch } from 'fast-fuzzy';
-import basesResponse from '../assets/bases/all-basetypes.json';
+import iconsResponse from '../assets/bases/all-basetypes.json';
+import pobItemBasesResponse from '../assets/bases/pob-item-bases.json';
 import stackablesResponse from '../assets/stackables/stackables.json';
 import uniqueBaseTypesResponse from '../assets/uniques/unique-base-types.json';
 import uniquesResponse from '../assets/uniques/uniques.json';
 import {
   type ArmorDefenceType,
-  type BaseItemResponse,
+  type BaseTypeCategory,
   type BaseType,
-  type RawBaseItemResponse,
+  type PobItemBase,
   type SortedBaseTypes,
-  ARMOR_DEFENCE_TYPES,
-  BASE_TYPE_CATEGORIES,
-  FLASK_CLASS_NAMES,
-  exclusions,
 } from '../models/base-types';
 import type { DDSItem } from '../models/dds-items';
 
@@ -28,83 +25,164 @@ const uniqueItems: DDSItem[] = Object.entries(uniquesResponse)
     return acc;
   }, []);
 
-export const getSortedBaseItems = () => {
-  const rawBases = (basesResponse as { data: RawBaseItemResponse[] }).data;
+// Icons aren't part of PoB's own data (it renders from local game texture
+// files, not web URLs) — cross-referenced by name from the older
+// GGG-data-mining asset instead. Coverage on the bases we actually keep is
+// ~99%; the handful of misses are variant bases PoB names with a
+// disambiguating suffix the icon dataset doesn't use (e.g. PoB's "Two-Stone
+// Ring (Cold/Lightning)" vs the icon dataset's plain "Two-Stone Ring" — same
+// icon either way, so getIcon falls back to the name with that suffix
+// stripped) plus one genuinely obscure base (Maelstrom Staff) that just
+// renders iconless.
+const iconsByBaseName: Record<string, string> = Object.fromEntries(
+  (iconsResponse as { data: { Name: string; IconPath: string }[] }).data.map(
+    (item) => [item.Name, item.IconPath],
+  ),
+);
 
-  // Select only the top 2 Life and top 2 Mana flasks by ItemLevel.
-  const lifeFlasks = rawBases
-    .filter((i) => i.ItemClassesName === 'Life Flasks')
-    .sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel))
-    .slice(0, 2)
-    .map((i) => ({ ...i, ItemClassesName: 'Flasks' as const }));
+const getIcon = (name: string): string =>
+  iconsByBaseName[name] ??
+  iconsByBaseName[name.replace(/\s*\([^)]*\)\s*$/, '')] ??
+  '';
 
-  const manaFlasks = rawBases
-    .filter((i) => i.ItemClassesName === 'Mana Flasks')
-    .sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel))
-    .slice(0, 2)
-    .map((i) => ({ ...i, ItemClassesName: 'Flasks' as const }));
-
-  // Include ALL Utility flasks
-  const utilityFlasks = rawBases
-    .filter((i) => i.ItemClassesName === 'Utility Flasks')
-    .map((i) => ({ ...i, ItemClassesName: 'Flasks' as const }));
-
-  const selectedFlasks = [...lifeFlasks, ...manaFlasks, ...utilityFlasks];
-
-  // Exclude all other flask classes (Hybrid/Utility and the rest of Life/Mana beyond top 2)
-  const nonFlaskItems = rawBases.filter(
-    (i) => !(FLASK_CLASS_NAMES as readonly string[]).includes(i.ItemClassesName),
-  );
-
-  const normalizedBases: Array<RawBaseItemResponse & { ItemClassesName: string }> = [
-    ...nonFlaskItems,
-    ...selectedFlasks,
-  ];
-
-  const basesData = (
-    normalizedBases.filter((item) =>
-      BASE_TYPE_CATEGORIES.includes(item.ItemClassesName as any),
-    ) as unknown as BaseItemResponse[]
-  );
-
-  const baseItemsWithoutExclusions = filterExclusions(basesData, exclusions);
-
-  const baseItemsWithDefenceTypes: BaseType[] = baseItemsWithoutExclusions.map(
-    (item) => ({
-      ...item,
-      DefenceType: getDefenceType(item.IconPath),
-    }),
-  );
-
-  return baseItemsWithDefenceTypes.reduce<SortedBaseTypes>((acc, obj) => {
-    const key = obj.ItemClassesName;
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-    acc[key].push(obj);
-    acc[key].sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel));
-
-    return acc;
-  }, {} as SortedBaseTypes);
+// PoB's own `type` field, mapped to this app's (finer-grained, in a couple
+// of cases) BaseTypeCategory. Jewels and one-hand swords need a `tags`
+// check too — PoB doesn't split those by `type` alone. Grafts are excluded
+// entirely (legacy items, no longer obtainable) rather than mapped.
+const POB_TYPE_TO_CATEGORY: Record<string, BaseTypeCategory> = {
+  Amulet: 'Amulets',
+  Belt: 'Belts',
+  'Body Armour': 'Body Armours',
+  Boots: 'Boots',
+  Bow: 'Bows',
+  Claw: 'Claws',
+  Dagger: 'Daggers',
+  'Fishing Rod': 'Fishing Rods',
+  Flask: 'Flasks',
+  Gloves: 'Gloves',
+  Helmet: 'Helmets',
+  Jewel: 'Jewels',
+  'One Handed Axe': 'One Hand Axes',
+  'One Handed Mace': 'One Hand Maces',
+  'One Handed Sword': 'One Hand Swords',
+  Quiver: 'Quivers',
+  Ring: 'Rings',
+  Sceptre: 'Sceptres',
+  Shield: 'Shields',
+  Staff: 'Staves',
+  Tincture: 'Tinctures',
+  'Two Handed Axe': 'Two Hand Axes',
+  'Two Handed Mace': 'Two Hand Maces',
+  'Two Handed Sword': 'Two Hand Swords',
+  Wand: 'Wands',
 };
 
-const filterExclusions = (
-  items: BaseItemResponse[],
-  exclusions: { [key in keyof Partial<BaseItemResponse>]: string }[],
-): BaseItemResponse[] =>
-  items.filter(
-    (item) =>
-      !exclusions.some((exclusion) =>
-        Object.entries(exclusion).some(([key, value]) =>
-          item[key as keyof BaseItemResponse].includes(value),
-        ),
-      ),
+const getCategory = (base: PobItemBase): BaseTypeCategory | undefined => {
+  if (base.type === 'Jewel' && base.tags.abyss_jewel) return 'Abyss Jewels';
+  if (base.type === 'One Handed Sword' && base.tags.rapier) {
+    return 'Thrusting One Hand Swords';
+  }
+  return POB_TYPE_TO_CATEGORY[base.type];
+};
+
+// Given a base type's exact name (e.g. "Karui Chopper"), returns its
+// BaseTypeCategory — shared with netlify/functions/get-item-info.ts so both
+// the app and that function agree on categories from the same PoB source,
+// instead of each maintaining its own lookup against a different dataset.
+export const getBaseTypeCategory = (
+  baseTypeName: string,
+): BaseTypeCategory | undefined => {
+  const base = (pobItemBasesResponse as Record<string, PobItemBase>)[
+    baseTypeName
+  ];
+  return base && getCategory(base);
+};
+
+// A small, known set of bases PoB includes that aren't real orderable items:
+// PvP/race rewards, internal placeholders, and legacy variants GGG removed
+// from the drop pool. `hidden` and `tags.demigods` are PoB's own semantic
+// flags for most of these; the rest (Energy Blade, Ethereal Bow/Blade, and
+// PoB's internal "Random X Sword" placeholders) have no such tag, so they're
+// matched by name — same approach the old exclusion list used, just for a
+// much smaller residual set now that PoB's own flags cover the rest.
+const EXCLUDED_NAMES = new Set([
+  'Energy Blade One Handed',
+  'Energy Blade Two Handed',
+  'Ethereal Bow',
+  'Ethereal Blade',
+]);
+
+const isExcluded = (name: string, base: PobItemBase): boolean =>
+  base.hidden === true ||
+  base.tags.demigods === true ||
+  base.tags.talisman === true ||
+  base.tags.animal_charm === true ||
+  base.type === 'Graft' ||
+  name.startsWith('Random ') ||
+  EXCLUDED_NAMES.has(name);
+
+const getDefenceType = (armour: PobItemBase['armour']): ArmorDefenceType | undefined => {
+  const hasArmour = !!armour?.ArmourBaseMin;
+  const hasEvasion = !!armour?.EvasionBaseMin;
+  const hasEnergyShield = !!armour?.EnergyShieldBaseMin;
+
+  if (hasArmour && hasEvasion) return 'StrDex';
+  if (hasArmour && hasEnergyShield) return 'StrInt';
+  if (hasEvasion && hasEnergyShield) return 'DexInt';
+  if (hasArmour) return 'Str';
+  if (hasEvasion) return 'Dex';
+  if (hasEnergyShield) return 'Int';
+  return undefined;
+};
+
+export const getSortedBaseItems = () => {
+  const pobBases = pobItemBasesResponse as Record<string, PobItemBase>;
+
+  const toItem = ([name, base]: [string, PobItemBase]): BaseType => ({
+    Name: name,
+    IconPath: getIcon(name),
+    ItemClassesID: base.type,
+    ItemClassesName: getCategory(base)!,
+    ItemLevel: String(base.req?.level ?? 1),
+    DefenceType: getDefenceType(base.armour),
+  });
+
+  const candidates = Object.entries(pobBases).filter(
+    ([name, base]) => !isExcluded(name, base) && getCategory(base),
   );
 
-const getDefenceType = (iconPath: string): ArmorDefenceType | undefined =>
-  ARMOR_DEFENCE_TYPES.find((defenceType) => iconPath.includes(defenceType)) as
-    | ArmorDefenceType
-    | undefined;
+  // Flasks: only the top 2 Life and top 2 Mana bases (by level) are useful
+  // to order — the rest are strictly worse versions of the same flask. All
+  // Utility flasks are kept (each is functionally distinct); Hybrid flasks
+  // are dropped entirely (matches the previous behaviour).
+  const flaskEntries = candidates.filter(([, base]) => base.type === 'Flask');
+  const topBySubType = (subType: string, n?: number) =>
+    flaskEntries
+      .filter(([, base]) => base.subType === subType)
+      .sort(([, a], [, b]) => (b.req?.level ?? 1) - (a.req?.level ?? 1))
+      .slice(0, n);
+  const keptFlaskNames = new Set(
+    [...topBySubType('Life', 2), ...topBySubType('Mana', 2), ...topBySubType('Utility')].map(
+      ([name]) => name,
+    ),
+  );
+
+  const sorted: SortedBaseTypes = {} as SortedBaseTypes;
+  for (const entry of candidates) {
+    const [name, base] = entry;
+    if (base.type === 'Flask' && !keptFlaskNames.has(name)) continue;
+
+    const category = getCategory(base)!;
+    sorted[category] ??= [];
+    sorted[category].push(toItem(entry));
+  }
+
+  for (const category of Object.keys(sorted) as BaseTypeCategory[]) {
+    sorted[category].sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel));
+  }
+
+  return sorted;
+};
 
 export const mapDdsToPoeImageUrl = (
   ddsFilePath: string,

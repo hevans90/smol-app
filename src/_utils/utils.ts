@@ -3,6 +3,7 @@ import iconsResponse from '../assets/bases/all-basetypes.json';
 import pobItemBasesResponse from '../assets/bases/pob-item-bases.json';
 import stackablesResponse from '../assets/stackables/stackables.json';
 import uniqueBaseTypesResponse from '../assets/uniques/unique-base-types.json';
+import uniqueItemPreviewsResponse from '../assets/uniques/unique-item-previews.json';
 import uniquesResponse from '../assets/uniques/uniques.json';
 import {
   type ArmorDefenceType,
@@ -10,8 +11,11 @@ import {
   type BaseType,
   type PobItemBase,
   type SortedBaseTypes,
+  type UniqueItemPreview,
 } from '../models/base-types';
 import type { DDSItem } from '../models/dds-items';
+import type { GGGItem, GGGItemProperty } from '../models/ggg-responses';
+import { deriveUniqueNameCandidate } from './stash-matching';
 
 const uniqueItems: DDSItem[] = Object.entries(uniquesResponse)
   .map(([key, item]) => ({
@@ -314,4 +318,291 @@ export const getUniqueItemWikiInfo = (itemName: string) => {
     wikiLink: wikiBase + encodeURIComponent(pageName),
     baseItem,
   };
+};
+
+const uniqueItemPreviewsByName = uniqueItemPreviewsResponse as Record<
+  string,
+  UniqueItemPreview
+>;
+const pobItemBases = pobItemBasesResponse as Record<string, PobItemBase>;
+
+// A base type has no specific roll (quality, affixes) to derive a single
+// display number from, unlike a real dropped item — show its base min-max
+// range as-is rather than picking/faking one end of it.
+const rangeProperty = (min?: number, max?: number): string | undefined => {
+  if (min == null && max == null) return undefined;
+  if (min == null) return String(max);
+  if (max == null) return String(min);
+  return min === max ? String(min) : `${min}-${max}`;
+};
+
+// Stats a unique's own mod text can affect, and the property they map to.
+// "Evasion" and "Evasion Rating" both appear in real mod wording for the
+// same stat (e.g. Rigwald's Hunt: "increased Armour and Evasion").
+type StatKey =
+  | 'armour'
+  | 'evasion'
+  | 'energyShield'
+  | 'ward'
+  | 'physical'
+  | 'attackSpeed'
+  | 'critChance';
+
+const STAT_NAME_TO_KEY: Record<string, StatKey> = {
+  Armour: 'armour',
+  Evasion: 'evasion',
+  'Evasion Rating': 'evasion',
+  'Energy Shield': 'energyShield',
+  Ward: 'ward',
+  'Physical Damage': 'physical',
+  'Attack Speed': 'attackSpeed',
+  'Critical Strike Chance': 'critChance',
+};
+// Longest name first, so e.g. "Evasion Rating" is tried before the shorter
+// "Evasion" at the same position in the alternation.
+const STAT_NAME_GROUP = Object.keys(STAT_NAME_TO_KEY)
+  .sort((a, b) => b.length - a.length)
+  .join('|');
+const STAT_LIST_GROUP = `(?:maximum\\s+)?(?:${STAT_NAME_GROUP})(?:(?:,\\s+|\\s+and\\s+)(?:maximum\\s+)?(?:${STAT_NAME_GROUP}))*`;
+
+// Anchored to the WHOLE mod line (start to end) deliberately — a real mod's
+// trailing qualifier ("if you haven't Cast Dash recently", "while Phasing",
+// "per Intensity", "taken", "with Ranged Weapons") means the line no longer
+// matches to its end, so it's excluded rather than misapplied. This also
+// naturally rules out "increased Physical Damage taken" (a defensive stat,
+// not the weapon's own damage) and minion/ally stats ("Minions have ...")
+// without needing an explicit blocklist for either.
+const PERCENT_MOD_RE = new RegExp(
+  `^\\(?(\\d+)(?:-(\\d+))?\\)?%\\s+(increased|reduced)\\s+(?:Global\\s+)?(${STAT_LIST_GROUP})$`,
+  'i',
+);
+const FLAT_MOD_RE = new RegExp(
+  `^\\+\\(?(\\d+)(?:-(\\d+))?\\)?\\s+to\\s+(${STAT_LIST_GROUP})$`,
+  'i',
+);
+
+type StatTotal = { incMin: number; incMax: number; addMin: number; addMax: number };
+
+const lookupStatKey = (rawName: string): StatKey | undefined =>
+  STAT_NAME_TO_KEY[rawName.trim().replace(/^maximum\s+/i, '')];
+
+// Sums every unconditional "X% increased/reduced <stat>" and "+X to <stat>"
+// mod line into per-stat totals (PoE's own additive-percentage stacking
+// rule), so a unique's own mods can modify its displayed base stats instead
+// of always showing the plain, unaffected base-type numbers.
+const parseModTotals = (mods: string[]): Partial<Record<StatKey, StatTotal>> => {
+  const totals: Partial<Record<StatKey, StatTotal>> = {};
+  const ensure = (key: StatKey): StatTotal =>
+    (totals[key] ??= { incMin: 0, incMax: 0, addMin: 0, addMax: 0 });
+
+  for (const rawMod of mods) {
+    const mod = rawMod.trim();
+
+    const percentMatch = mod.match(PERCENT_MOD_RE);
+    if (percentMatch) {
+      const [, lowStr, highStr, direction, statList] = percentMatch;
+      const sign = direction.toLowerCase() === 'reduced' ? -1 : 1;
+      const low = Number(lowStr) * sign;
+      const high = (highStr ? Number(highStr) : Number(lowStr)) * sign;
+      for (const name of statList.split(/,\s+|\s+and\s+/)) {
+        const key = lookupStatKey(name);
+        if (!key) continue;
+        const total = ensure(key);
+        total.incMin += low;
+        total.incMax += high;
+      }
+      continue;
+    }
+
+    const flatMatch = mod.match(FLAT_MOD_RE);
+    if (flatMatch) {
+      const [, lowStr, highStr, statList] = flatMatch;
+      const low = Number(lowStr);
+      const high = highStr ? Number(highStr) : low;
+      for (const name of statList.split(/,\s+|\s+and\s+/)) {
+        const key = lookupStatKey(name);
+        if (!key) continue;
+        const total = ensure(key);
+        total.addMin += low;
+        total.addMax += high;
+      }
+    }
+  }
+
+  return totals;
+};
+
+const applyStatTotal = (
+  base: number,
+  total: StatTotal | undefined,
+  isMax: boolean,
+): number => {
+  if (!total) return base;
+  const add = isMax ? total.addMax : total.addMin;
+  const inc = isMax ? total.incMax : total.incMin;
+  return (base + add) * (1 + inc / 100);
+};
+
+const formatStatValue = (min: number, max: number, decimals = 0): string => {
+  const roundedMin = Number(min.toFixed(decimals));
+  const roundedMax = Number(max.toFixed(decimals));
+  return roundedMin === roundedMax ? String(roundedMin) : `${roundedMin}-${roundedMax}`;
+};
+
+// Builds the same Armour/Evasion/Energy Shield/Physical Damage/Critical
+// Strike Chance/etc. property lines a real GGG API item has, straight from
+// PoB's raw base-type stats — used for both base-type orders and unique
+// orders (a unique still has its base's underlying armour/weapon stats).
+// `mods` (a unique's own implicit+explicit mod text) lets matching stats
+// come out modified and coloured blue, same as a real item tooltip; base
+// orders have no mods of their own, so they always show the plain white
+// base-type numbers.
+const buildBaseTypeProperties = (
+  base: PobItemBase,
+  mods: string[] = [],
+): GGGItemProperty[] => {
+  const properties: GGGItemProperty[] = [];
+  const totals = parseModTotals(mods);
+
+  const pushRange = (
+    key: StatKey,
+    name: string,
+    type: number,
+    min?: number,
+    max?: number,
+  ) => {
+    if (min == null || max == null) return;
+    const total = totals[key];
+    const modifiedMin = applyStatTotal(min, total, false);
+    const modifiedMax = applyStatTotal(max, total, true);
+    properties.push({
+      name,
+      values: [[formatStatValue(modifiedMin, modifiedMax), total ? 1 : 0]],
+      displayMode: 0,
+      type,
+    });
+  };
+
+  if (base.armour) {
+    const { armour } = base;
+    pushRange('armour', 'Armour', 16, armour.ArmourBaseMin, armour.ArmourBaseMax);
+    pushRange(
+      'evasion',
+      'Evasion Rating',
+      17,
+      armour.EvasionBaseMin,
+      armour.EvasionBaseMax,
+    );
+    pushRange(
+      'energyShield',
+      'Energy Shield',
+      18,
+      armour.EnergyShieldBaseMin,
+      armour.EnergyShieldBaseMax,
+    );
+    pushRange('ward', 'Ward', 19, armour.WardBaseMin, armour.WardBaseMax);
+    if (armour.BlockChance) {
+      properties.push({
+        name: 'Chance to Block',
+        values: [[`${armour.BlockChance}%`, 0]],
+        displayMode: 0,
+        type: 15,
+      });
+    }
+  }
+
+  if (base.weapon) {
+    const { weapon } = base;
+    pushRange('physical', 'Physical Damage', 9, weapon.PhysicalMin, weapon.PhysicalMax);
+
+    if (weapon.CritChanceBase != null) {
+      const total = totals.critChance;
+      const modified = applyStatTotal(weapon.CritChanceBase, total, false);
+      properties.push({
+        name: 'Critical Strike Chance',
+        values: [[`${modified.toFixed(2)}%`, total ? 1 : 0]],
+        displayMode: 0,
+        type: 12,
+      });
+    }
+    if (weapon.AttackRateBase != null) {
+      const total = totals.attackSpeed;
+      const modifiedMin = applyStatTotal(weapon.AttackRateBase, total, false);
+      const modifiedMax = applyStatTotal(weapon.AttackRateBase, total, true);
+      properties.push({
+        name: 'Attacks per Second',
+        values: [[formatStatValue(modifiedMin, modifiedMax, 2), total ? 1 : 0]],
+        displayMode: 0,
+        type: 13,
+      });
+    }
+    if (weapon.Range != null) {
+      properties.push({
+        name: 'Weapon Range: {0} metre',
+        values: [[String(weapon.Range), 0]],
+        displayMode: 3,
+        type: 14,
+      });
+    }
+  }
+
+  return properties;
+};
+
+// Orders have no real per-instance item (no mods/sockets/rarity — just
+// description/link_url/item_base_type/item_category/type), so there's
+// nothing to show a live GGGItem-shaped tooltip for. This builds a
+// canonical, static stand-in instead — "what does this unique/base type
+// generally look like" — from the local PoB-derived datasets, good enough
+// to feed the same ItemDetail renderer the character sheet uses. Returns
+// null when there's nothing worth previewing (Other/Transfiguredgem orders,
+// or a unique/base name that doesn't resolve).
+export const buildOrderItemPreview = (order: {
+  type: string;
+  description?: string | null;
+  link_url?: string | null;
+  item_base_type?: string | null;
+}): GGGItem | null => {
+  if (order.type === 'unique') {
+    const name = deriveUniqueNameCandidate({
+      link_url: order.link_url,
+      description: order.description ?? '',
+    });
+    const preview = uniqueItemPreviewsByName[name];
+    if (!preview) return null;
+
+    const base = pobItemBases[preview.baseType];
+    const mods = [...preview.implicitMods, ...preview.explicitMods];
+
+    return {
+      rarity: 'unique',
+      name,
+      baseType: preview.baseType,
+      typeLine: preview.baseType,
+      properties: base ? buildBaseTypeProperties(base, mods) : undefined,
+      implicitMods: preview.implicitMods,
+      explicitMods: preview.explicitMods,
+      corrupted: preview.corrupted,
+    } as GGGItem;
+  }
+
+  if (order.type === 'base' && order.item_base_type) {
+    const base = pobItemBases[order.item_base_type];
+    if (!base) return null;
+
+    return {
+      rarity: 'normal',
+      name: order.item_base_type,
+      baseType: order.item_base_type,
+      typeLine: order.item_base_type,
+      properties: buildBaseTypeProperties(base),
+      // ItemDetail renders each implicitMods entry as its own line (unlike
+      // explicitMods, it doesn't split embedded "\n" itself) — pob-item-bases.json's
+      // `implicit` is a single "\n"-joined string for multi-line implicits, so split
+      // it here to match.
+      implicitMods: base.implicit ? base.implicit.split('\n') : undefined,
+    } as GGGItem;
+  }
+
+  return null;
 };

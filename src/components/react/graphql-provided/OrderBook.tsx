@@ -32,6 +32,7 @@ import {
 import { usePoEStash } from '../../../hooks/usePoEStash';
 import { matchRegularOrder } from '../../../_utils/stash-matching';
 import type { AggregatedStashItem } from '../../../models/ggg-stash';
+import { OrderItemPopover } from '../item-hovers/OrderItemPopover';
 import { Spinner } from '../ui/Spinner';
 import { StashScopeReauthPrompt } from './StashScopeReauthPrompt';
 
@@ -534,24 +535,28 @@ export const OrderBook = () => {
 
                     <td>
                       <div className="flex justify-center">
-                        {icon_url ? (
-                          <img
-                            className="h-10 w-10 object-contain p-1 md:h-12 md:w-12"
-                            src={icon_url}
-                          />
-                        ) : link_url ? (
-                          <a href={link_url} target="_blank">
+                        <OrderItemPopover
+                          order={{ type, description, link_url, item_base_type }}
+                        >
+                          {icon_url ? (
                             <img
-                              className="h-10 object-cover p-1 md:h-12"
-                              src={getWikiImgSrcFromUrl(link_url)}
+                              className="h-10 w-10 object-contain p-1 md:h-12 md:w-12"
+                              src={icon_url}
                             />
-                          </a>
-                        ) : (
-                          <img
-                            className="h-10 w-10 p-1 md:h-12 md:w-12"
-                            src={`/order-types/${type}.webp`}
-                          />
-                        )}
+                          ) : link_url ? (
+                            <a href={link_url} target="_blank">
+                              <img
+                                className="h-10 object-cover p-1 md:h-12"
+                                src={getWikiImgSrcFromUrl(link_url)}
+                              />
+                            </a>
+                          ) : (
+                            <img
+                              className="h-10 w-10 p-1 md:h-12 md:w-12"
+                              src={`/order-types/${type}.webp`}
+                            />
+                          )}
+                        </OrderItemPopover>
                       </div>
                     </td>
 
@@ -773,13 +778,22 @@ export const OrderBook = () => {
             <div className="mb-2 flex items-center gap-2">
               {(fulfillModalState.iconUrl ||
                 fulfillModalState.linkUrl) && (
-                <img
-                  className="h-10 w-10 object-contain"
-                  src={
-                    fulfillModalState.iconUrl ||
-                    getWikiImgSrcFromUrl(fulfillModalState.linkUrl as string)
-                  }
-                />
+                <OrderItemPopover
+                  order={{
+                    type: fulfillModalState.type,
+                    description: fulfillModalState.message,
+                    link_url: fulfillModalState.linkUrl,
+                    item_base_type: fulfillModalState.itemBaseType,
+                  }}
+                >
+                  <img
+                    className="h-10 w-10 object-contain"
+                    src={
+                      fulfillModalState.iconUrl ||
+                      getWikiImgSrcFromUrl(fulfillModalState.linkUrl as string)
+                    }
+                  />
+                </OrderItemPopover>
               )}
               <span>
                 You are about to fulfill the order{' '}

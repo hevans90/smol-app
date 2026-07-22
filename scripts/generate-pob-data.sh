@@ -7,6 +7,9 @@
 #
 # Currently regenerates:
 #   - src/assets/uniques/unique-base-types.json (unique item name -> base type)
+#   - src/assets/uniques/unique-item-previews.json (unique item name -> base
+#     type + implicit/explicit mod text + corrupted flag, for the app-wide
+#     order-preview popover — see buildOrderItemPreview in src/_utils/utils.ts)
 #   - src/assets/bases/pob-item-bases.json (PoB's raw base-type data — sockets,
 #     tags, requirements, weapon/armour stats, influence compatibility — see
 #     getSortedBaseItems in src/_utils/utils.ts for how the app consumes it)

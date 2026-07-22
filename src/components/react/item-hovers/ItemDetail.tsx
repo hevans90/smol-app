@@ -65,7 +65,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
         )}
       </div>
 
-      {item.properties?.length && (
+      {!!item.properties?.length && (
         <div className="flex flex-col items-center text-[15px]">
           {item.properties.map((property) => (
             <StyledDefaultItemProperty key={property.name} input={property} />
@@ -74,7 +74,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
         </div>
       )}
 
-      {item.enchantMods?.length && (
+      {!!item.enchantMods?.length && (
         <div className="flex flex-col items-center text-[15px] leading-[18px] text-poeItem-enchant">
           {item.enchantMods.map((enchant) => (
             <span key={enchant} className="mx-2">
@@ -84,7 +84,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
           <ItemSeparator rarity={rarity} className="my-0.5" />
         </div>
       )}
-      {item.implicitMods?.length && (
+      {!!item.implicitMods?.length && (
         <div className="flex flex-col items-center text-[15px] leading-[18px] text-poeItem-magic">
           {item.implicitMods.map((implicit, i) => (
             <span key={i} className="mx-2">
@@ -94,7 +94,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
           <ItemSeparator rarity={rarity} className="my-0.5" />
         </div>
       )}
-      {item.fracturedMods?.length && (
+      {!!item.fracturedMods?.length && (
         <div className="flex flex-col text-[15px] leading-[18px] text-primary-800">
           {item.fracturedMods.map((mod) => (
             <span key={mod} className="mx-2">
@@ -103,7 +103,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
           ))}
         </div>
       )}
-      {item.explicitMods?.length && (
+      {!!item.explicitMods?.length && (
         <div className="flex flex-col text-[15px] leading-[18px] text-poeItem-magic">
           {item.explicitMods.map((mod) => (
             <span key={mod} className="mx-2">
@@ -118,7 +118,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
           ))}
         </div>
       )}
-      {item.craftedMods?.length && (
+      {!!item.craftedMods?.length && (
         <div className="flex flex-col text-[15px] leading-[18px] text-poeItem-enchant">
           {item.craftedMods.map((mod) => (
             <span key={mod} className="mx-2">

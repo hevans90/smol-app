@@ -82,4 +82,22 @@ export type PobItemBase = {
     MovementPenalty?: number;
   };
   flask?: Record<string, unknown>;
+  // Newline-joined implicit mod text (one or more lines) and their
+  // [category, subCategory] tags, in the same order. Absent when the base
+  // has no implicit.
+  implicit?: string;
+  implicitModTypes?: [string, string][];
+};
+
+// Shape of src/assets/uniques/unique-item-previews.json (see
+// go-server/pob/extract-data.lua) — a unique item's base type and mod text,
+// parsed from Path of Building's own Data/Uniques text blocks. Used to
+// build a canonical, static item preview for orders (see
+// buildOrderItemPreview in src/_utils/utils.ts), since order rows have no
+// real per-instance item data to draw from.
+export type UniqueItemPreview = {
+  baseType: string;
+  implicitMods: string[];
+  explicitMods: string[];
+  corrupted?: boolean;
 };

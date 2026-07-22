@@ -9,9 +9,18 @@ import { fileURLToPath } from 'node:url';
 const UNIQUE_BASE_TYPES_PATH = fileURLToPath(
   new URL('../src/assets/uniques/unique-base-types.json', import.meta.url),
 );
+const UNIQUE_ITEM_PREVIEWS_PATH = fileURLToPath(
+  new URL('../src/assets/uniques/unique-item-previews.json', import.meta.url),
+);
 const POB_ITEM_BASES_PATH = fileURLToPath(
   new URL('../src/assets/bases/pob-item-bases.json', import.meta.url),
 );
+
+// dkjson (the Lua JSON encoder extract-data.lua uses) encodes an empty Lua
+// table `{}` the same whether it originated as an array or a map, so a
+// unique with zero implicit/explicit mods round-trips as `{}` here instead
+// of `[]` — coerce it back, since ItemDetail.tsx expects real arrays.
+const asArray = (value) => (Array.isArray(value) ? value : []);
 
 async function main() {
   const dumpPath = process.argv[2];
@@ -34,6 +43,27 @@ async function main() {
   );
   console.log(
     `Wrote ${Object.keys(sortedUniqueBaseTypes).length} unique -> base-type entries to ${UNIQUE_BASE_TYPES_PATH}`,
+  );
+
+  const sortedUniqueItemPreviews = Object.fromEntries(
+    Object.entries(raw.uniqueItemPreviews)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([name, preview]) => [
+        name,
+        {
+          ...preview,
+          implicitMods: asArray(preview.implicitMods),
+          explicitMods: asArray(preview.explicitMods),
+        },
+      ]),
+  );
+  await writeFile(
+    UNIQUE_ITEM_PREVIEWS_PATH,
+    JSON.stringify(sortedUniqueItemPreviews, null, 2) + '\n',
+    'utf-8',
+  );
+  console.log(
+    `Wrote ${Object.keys(sortedUniqueItemPreviews).length} unique item previews to ${UNIQUE_ITEM_PREVIEWS_PATH}`,
   );
 
   // Raw PoB base-type data — src/_utils/utils.ts's getSortedBaseItems()

@@ -17,6 +17,7 @@ import {
   type UpdateUserItemOrderMutationVariables,
 } from '../../../graphql-api';
 import type { BaseTypeCategory } from '../../../models/base-types';
+import { OrderItemPopover } from '../item-hovers/OrderItemPopover';
 import { Button } from '../ui/Button';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
 import { Spinner } from '../ui/Spinner';
@@ -338,34 +339,39 @@ export const OrderForm = ({
                 initialFocusRef={quickSearchInputRef}
               >
                 {quickSearchResults?.map((result) => (
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    onClick={() => {
-                      addPreviewRow(uniqueSearchResultToPreviewRow(result));
-                      setquickSearchResults([]);
-                      if (quickSearchInputRef.current)
-                        quickSearchInputRef.current.value = '';
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
+                  <OrderItemPopover
+                    key={result.id}
+                    order={{ type: 'unique', description: result.name }}
+                    placement="right"
+                  >
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => {
                         addPreviewRow(uniqueSearchResultToPreviewRow(result));
                         setquickSearchResults([]);
                         if (quickSearchInputRef.current)
                           quickSearchInputRef.current.value = '';
-                      }
-                    }}
-                    key={result.id}
-                    className="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-800 focus:bg-gray-700"
-                  >
-                    <img
-                      className="h-10 w-10 object-contain"
-                      src={result.icon}
-                      alt=""
-                    />
-                    <span>{result.name}</span>
-                  </div>
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          addPreviewRow(uniqueSearchResultToPreviewRow(result));
+                          setquickSearchResults([]);
+                          if (quickSearchInputRef.current)
+                            quickSearchInputRef.current.value = '';
+                        }
+                      }}
+                      className="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-800 focus:bg-gray-700"
+                    >
+                      <img
+                        className="h-10 w-10 object-contain"
+                        src={result.icon}
+                        alt=""
+                      />
+                      <span>{result.name}</span>
+                    </div>
+                  </OrderItemPopover>
                 ))}
               </PopoverContent>
             </Popover>
@@ -486,11 +492,16 @@ export const OrderForm = ({
                     key={field.id}
                     className="flex items-center gap-2 rounded border border-primary-800/50 bg-gray-900/50 p-2"
                   >
-                    <img
-                      className="h-10 w-10 shrink-0 object-contain"
-                      src={previews[index]?.icon}
-                      alt=""
-                    />
+                    <OrderItemPopover
+                      order={{ type: 'unique', description: previews[index]?.name ?? '' }}
+                      placement="right"
+                    >
+                      <img
+                        className="h-10 w-10 shrink-0 object-contain"
+                        src={previews[index]?.icon}
+                        alt=""
+                      />
+                    </OrderItemPopover>
                     <div className="min-w-0 flex-1">
                       <span className="block truncate text-primary-400">
                         {previews[index]?.name}

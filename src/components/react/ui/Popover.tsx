@@ -219,15 +219,21 @@ export const PopoverContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLProps<HTMLDivElement> & {
     initialFocusRef?: React.RefObject<HTMLElement>;
+    // A popover rendered inside another open popover's content (e.g. an
+    // item-hover tooltip inside a search-results dropdown) needs to paint
+    // above it unambiguously — every PopoverContent otherwise shares the
+    // same fixed z-index, so which one wins is left to DOM-order/portal
+    // details that can vary. Pass a higher value for nested cases.
+    zIndex?: number;
   }
->(function PopoverContent({ style, initialFocusRef, ...props }, propRef) {
+>(function PopoverContent({ style, initialFocusRef, zIndex = 100, ...props }, propRef) {
   const { context: floatingContext, ...context } = usePopoverContext();
   const ref = useMergeRefs([context.refs.setFloating, propRef]);
 
   if (!floatingContext.open) return null;
 
   return (
-    <FloatingPortal>
+    <FloatingPortal root={typeof document !== 'undefined' ? document.body : undefined}>
       <FloatingFocusManager
         context={floatingContext}
         modal={false}
@@ -239,7 +245,7 @@ export const PopoverContent = React.forwardRef<
           style={{
             ...context.floatingStyles,
             ...style,
-            zIndex: 100,
+            zIndex,
             pointerEvents: 'auto',
           }}
           aria-labelledby={context.labelId}

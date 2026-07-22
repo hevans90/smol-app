@@ -5,6 +5,7 @@ import {
   itemHeaderBg,
   itemHeaderFontColor,
   ItemSeparator,
+  renderModLine,
   StyledDefaultItemProperty,
 } from '../../../_utils/item-preview-utils';
 import type {
@@ -88,7 +89,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
         <div className="flex flex-col items-center text-[15px] leading-[18px] text-poeItem-magic">
           {item.implicitMods.map((implicit, i) => (
             <span key={i} className="mx-2">
-              {implicit}
+              {renderModLine(implicit)}
             </span>
           ))}
           <ItemSeparator rarity={rarity} className="my-0.5" />
@@ -110,7 +111,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
               {' '}
               {mod.split('\n').map((line, index) => (
                 <Fragment key={index}>
-                  {line}
+                  {renderModLine(line)}
                   <br />
                 </Fragment>
               ))}

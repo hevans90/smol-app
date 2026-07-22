@@ -3,18 +3,20 @@ import iconsResponse from '../assets/bases/all-basetypes.json';
 import pobItemBasesResponse from '../assets/bases/pob-item-bases.json';
 import stackablesResponse from '../assets/stackables/stackables.json';
 import uniqueBaseTypesResponse from '../assets/uniques/unique-base-types.json';
+import uniqueFoulbornModsResponse from '../assets/uniques/unique-foulborn-mods.json';
 import uniqueItemPreviewsResponse from '../assets/uniques/unique-item-previews.json';
 import uniquesResponse from '../assets/uniques/uniques.json';
 import {
   type ArmorDefenceType,
-  type BaseTypeCategory,
   type BaseType,
+  type BaseTypeCategory,
   type PobItemBase,
   type SortedBaseTypes,
   type UniqueItemPreview,
 } from '../models/base-types';
 import type { DDSItem } from '../models/dds-items';
 import type { GGGItem, GGGItemProperty } from '../models/ggg-responses';
+import { FOULBORN_MARK_END, FOULBORN_MARK_START } from './item-preview-utils';
 import { deriveUniqueNameCandidate } from './stash-matching';
 
 const uniqueItems: DDSItem[] = Object.entries(uniquesResponse)
@@ -125,7 +127,9 @@ const isExcluded = (name: string, base: PobItemBase): boolean =>
   name.startsWith('Random ') ||
   EXCLUDED_NAMES.has(name);
 
-const getDefenceType = (armour: PobItemBase['armour']): ArmorDefenceType | undefined => {
+const getDefenceType = (
+  armour: PobItemBase['armour'],
+): ArmorDefenceType | undefined => {
   const hasArmour = !!armour?.ArmourBaseMin;
   const hasEvasion = !!armour?.EvasionBaseMin;
   const hasEnergyShield = !!armour?.EnergyShieldBaseMin;
@@ -166,9 +170,11 @@ export const getSortedBaseItems = () => {
       .sort(([, a], [, b]) => (b.req?.level ?? 1) - (a.req?.level ?? 1))
       .slice(0, n);
   const keptFlaskNames = new Set(
-    [...topBySubType('Life', 2), ...topBySubType('Mana', 2), ...topBySubType('Utility')].map(
-      ([name]) => name,
-    ),
+    [
+      ...topBySubType('Life', 2),
+      ...topBySubType('Mana', 2),
+      ...topBySubType('Utility'),
+    ].map(([name]) => name),
   );
 
   const sorted: SortedBaseTypes = {} as SortedBaseTypes;
@@ -182,7 +188,9 @@ export const getSortedBaseItems = () => {
   }
 
   for (const category of Object.keys(sorted) as BaseTypeCategory[]) {
-    sorted[category].sort((a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel));
+    sorted[category].sort(
+      (a, b) => parseInt(b.ItemLevel) - parseInt(a.ItemLevel),
+    );
   }
 
   return sorted;
@@ -218,11 +226,64 @@ export type UniqueSearchResult = {
   icon: string;
 };
 
+// "Foulborn X" isn't a name in the uniques.json search dataset at all — it's
+// an existing named unique with one or two mods replaced (see
+// uniqueFoulbornModsByName and buildOrderItemPreview below) — so a query
+// whose first word means "foulborn" searches the REST of the query against
+// only the uniques that actually have a Foulborn mod pool, surfacing
+// synthetic "Foulborn <name>" results that reuse the base unique's own icon
+// (there's no separate Foulborn art).
+const FOULBORN_KEYWORD = 'foulborn';
+
+// Matches the same typo/partial tolerance every other unique name search
+// here already has — a bare, literal-prefix `RegExp` check would (and did)
+// require the whole word typed out before recognizing intent, unlike every
+// other query which narrows down progressively as you type.
+const isFoulbornKeyword = (word: string): boolean => {
+  const lower = word.toLowerCase();
+  if (lower.length < 3) return false;
+  if (FOULBORN_KEYWORD.startsWith(lower)) return true;
+  return fuzzySearch(lower, [FOULBORN_KEYWORD], { threshold: 0.7 }).length > 0;
+};
+
+// Splits "foulborn kaom" (or just "foulborn") into its first word + the
+// rest, and checks the first word against isFoulbornKeyword. Returns null
+// when the query isn't a Foulborn query at all.
+const splitFoulbornQuery = (query: string): string | null => {
+  const trimmed = query.trimStart();
+  const spaceIndex = trimmed.search(/\s/);
+  const firstWord = spaceIndex === -1 ? trimmed : trimmed.slice(0, spaceIndex);
+  if (!isFoulbornKeyword(firstWord)) return null;
+  return spaceIndex === -1 ? '' : trimmed.slice(spaceIndex + 1).trim();
+};
+
 export const searchUniquesByNameOrBase = (
   query: string,
   maxResults = 6,
-): UniqueSearchResult[] =>
-  fuzzySearch(query, uniqueItems, {
+): UniqueSearchResult[] => {
+  const foulbornRemainder = splitFoulbornQuery(query);
+  if (foulbornRemainder !== null) {
+    const candidates = foulbornRemainder
+      ? fuzzySearch(foulbornRemainder, uniqueItems, {
+          keySelector: (item) => [item.name, item.item_class],
+          threshold: 0.7,
+        })
+      : uniqueItems;
+
+    return candidates
+      .filter(
+        (item) => !item.is_alternate_art && uniqueFoulbornModsByName[item.name],
+      )
+      .slice(0, maxResults)
+      .map((item) => ({
+        name: `Foulborn ${item.name}`,
+        id: `foulborn_${item.id}`,
+        class: item.item_class,
+        icon: mapDdsToPoeImageUrl(item.visual_identity.dds_file),
+      }));
+  }
+
+  return fuzzySearch(query, uniqueItems, {
     keySelector: (item) => [item.name, item.item_class],
     threshold: 0.7,
   })
@@ -234,6 +295,7 @@ export const searchUniquesByNameOrBase = (
       class: item.item_class,
       icon: mapDdsToPoeImageUrl(item.visual_identity.dds_file),
     }));
+};
 
 export type StackableSearchResult = {
   name: string;
@@ -272,7 +334,9 @@ export const searchStackablesByName = (
   const wordMatches = stackableItems
     .filter((item) => {
       const words = item.name.toLowerCase().split(/\s+/);
-      return tokens.every((token) => words.some((word) => word.includes(token)));
+      return tokens.every((token) =>
+        words.some((word) => word.includes(token)),
+      );
     })
     .sort((a, b) => rank(a) - rank(b));
 
@@ -307,12 +371,24 @@ export const searchStackablesByName = (
 // way; it just needs re-generating occasionally as new uniques ship.
 const uniqueBaseTypesByName: Record<string, string> = uniqueBaseTypesResponse;
 
+// Foulborn (3.27+) items are an existing named unique with one or two of
+// its normal mods swapped for a deterministic replacement (which original
+// mod(s) get swapped is the random part; what a given original mod becomes
+// is fixed — see uniqueFoulbornModsByName below) — not a separate item,
+// base type, or wiki page. Community/order naming convention prefixes the
+// underlying unique's name ("Foulborn Kaom's Heart"), so strip it before
+// any lookup keyed on the real unique name.
+const FOULBORN_PREFIX_RE = /^Foulborn\s+/i;
+const stripFoulbornPrefix = (itemName: string) =>
+  itemName.replace(FOULBORN_PREFIX_RE, '');
+
 export const getUniqueItemWikiInfo = (itemName: string) => {
-  const baseItem = uniqueBaseTypesByName[itemName];
+  const baseName = stripFoulbornPrefix(itemName);
+  const baseItem = uniqueBaseTypesByName[baseName];
   if (!baseItem) return null;
 
   const wikiBase = 'https://www.poewiki.net/wiki/';
-  const pageName = itemName.replace(/ /g, '_');
+  const pageName = baseName.replace(/ /g, '_');
 
   return {
     wikiLink: wikiBase + encodeURIComponent(pageName),
@@ -324,7 +400,40 @@ const uniqueItemPreviewsByName = uniqueItemPreviewsResponse as Record<
   string,
   UniqueItemPreview
 >;
+// Each unique's deterministic original-mod -> Foulborn-replacement pairs
+// (scraped + verified — see scripts/scrape-foulborn-mods.mjs). `original`
+// is one or more of the unique's own current mod lines that, together,
+// become `replacement` on an actual Foulborn instance.
+type FoulbornPair = { original: string[]; replacement: string };
+const uniqueFoulbornModsByName = uniqueFoulbornModsResponse as Record<
+  string,
+  FoulbornPair[]
+>;
 const pobItemBases = pobItemBasesResponse as Record<string, PobItemBase>;
+
+// Which mod(s) actually got swapped on a real Foulborn item is random, so
+// rather than guess, this shows every eligible mod line as-is (what a
+// plain copy has) with its known, deterministic replacement noted inline —
+// precise about what IS known (the correlation) without overclaiming what
+// isn't (whether this specific line was the one that rolled).
+const annotateFoulbornReplacements = (
+  modLines: string[],
+  pairs: FoulbornPair[] | undefined,
+): string[] => {
+  if (!pairs?.length) return modLines;
+  const replacementByLastOriginalLine = new Map(
+    pairs.map((pair) => [
+      pair.original[pair.original.length - 1],
+      pair.replacement,
+    ]),
+  );
+  return modLines.map((line) => {
+    const replacement = replacementByLastOriginalLine.get(line);
+    return replacement
+      ? `${line} → ${FOULBORN_MARK_START} ${replacement}${FOULBORN_MARK_END}`
+      : line;
+  });
+};
 
 // A base type has no specific roll (quality, affixes) to derive a single
 // display number from, unlike a real dropped item — show its base min-max
@@ -381,7 +490,12 @@ const FLAT_MOD_RE = new RegExp(
   'i',
 );
 
-type StatTotal = { incMin: number; incMax: number; addMin: number; addMax: number };
+type StatTotal = {
+  incMin: number;
+  incMax: number;
+  addMin: number;
+  addMax: number;
+};
 
 const lookupStatKey = (rawName: string): StatKey | undefined =>
   STAT_NAME_TO_KEY[rawName.trim().replace(/^maximum\s+/i, '')];
@@ -390,7 +504,9 @@ const lookupStatKey = (rawName: string): StatKey | undefined =>
 // mod line into per-stat totals (PoE's own additive-percentage stacking
 // rule), so a unique's own mods can modify its displayed base stats instead
 // of always showing the plain, unaffected base-type numbers.
-const parseModTotals = (mods: string[]): Partial<Record<StatKey, StatTotal>> => {
+const parseModTotals = (
+  mods: string[],
+): Partial<Record<StatKey, StatTotal>> => {
   const totals: Partial<Record<StatKey, StatTotal>> = {};
   const ensure = (key: StatKey): StatTotal =>
     (totals[key] ??= { incMin: 0, incMax: 0, addMin: 0, addMax: 0 });
@@ -446,7 +562,9 @@ const applyStatTotal = (
 const formatStatValue = (min: number, max: number, decimals = 0): string => {
   const roundedMin = Number(min.toFixed(decimals));
   const roundedMax = Number(max.toFixed(decimals));
-  return roundedMin === roundedMax ? String(roundedMin) : `${roundedMin}-${roundedMax}`;
+  return roundedMin === roundedMax
+    ? String(roundedMin)
+    : `${roundedMin}-${roundedMax}`;
 };
 
 // Builds the same Armour/Evasion/Energy Shield/Physical Damage/Critical
@@ -485,7 +603,13 @@ const buildBaseTypeProperties = (
 
   if (base.armour) {
     const { armour } = base;
-    pushRange('armour', 'Armour', 16, armour.ArmourBaseMin, armour.ArmourBaseMax);
+    pushRange(
+      'armour',
+      'Armour',
+      16,
+      armour.ArmourBaseMin,
+      armour.ArmourBaseMax,
+    );
     pushRange(
       'evasion',
       'Evasion Rating',
@@ -513,7 +637,13 @@ const buildBaseTypeProperties = (
 
   if (base.weapon) {
     const { weapon } = base;
-    pushRange('physical', 'Physical Damage', 9, weapon.PhysicalMin, weapon.PhysicalMax);
+    pushRange(
+      'physical',
+      'Physical Damage',
+      9,
+      weapon.PhysicalMin,
+      weapon.PhysicalMax,
+    );
 
     if (weapon.CritChanceBase != null) {
       const total = totals.critChance;
@@ -564,24 +694,43 @@ export const buildOrderItemPreview = (order: {
   item_base_type?: string | null;
 }): GGGItem | null => {
   if (order.type === 'unique') {
-    const name = deriveUniqueNameCandidate({
+    // Check the order's own free text for "Foulborn " — deriveUniqueNameCandidate
+    // prefers the wiki-link-derived name when one is set, which (correctly,
+    // since Foulborn has no separate wiki page) already has the prefix
+    // stripped by getUniqueItemWikiInfo, so it wouldn't survive that path.
+    const isFoulborn = FOULBORN_PREFIX_RE.test(
+      (order.description ?? '').trim(),
+    );
+    const resolvedName = deriveUniqueNameCandidate({
       link_url: order.link_url,
       description: order.description ?? '',
     });
+    const name = stripFoulbornPrefix(resolvedName);
     const preview = uniqueItemPreviewsByName[name];
     if (!preview) return null;
 
     const base = pobItemBases[preview.baseType];
     const mods = [...preview.implicitMods, ...preview.explicitMods];
+    const foulbornPairs = isFoulborn
+      ? uniqueFoulbornModsByName[name]
+      : undefined;
+    const implicitMods = annotateFoulbornReplacements(
+      preview.implicitMods,
+      foulbornPairs,
+    );
+    const explicitMods = annotateFoulbornReplacements(
+      preview.explicitMods,
+      foulbornPairs,
+    );
 
     return {
       rarity: 'unique',
-      name,
+      name: isFoulborn ? `Foulborn ${name}` : name,
       baseType: preview.baseType,
       typeLine: preview.baseType,
       properties: base ? buildBaseTypeProperties(base, mods) : undefined,
-      implicitMods: preview.implicitMods,
-      explicitMods: preview.explicitMods,
+      implicitMods,
+      explicitMods,
       corrupted: preview.corrupted,
     } as GGGItem;
   }

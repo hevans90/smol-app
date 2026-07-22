@@ -1,0 +1,2543 @@
+{
+  "Abyssus": [
+    {
+      "original": [
+        "+(100-125)% to Melee Critical Strike Multiplier"
+      ],
+      "replacement": "+(50-75)% to Damage over Time Multiplier for Bleeding"
+    }
+  ],
+  "Aegis Aurora": [
+    {
+      "original": [
+        "(10-20)% increased Elemental Damage with Attack Skills"
+      ],
+      "replacement": "Damage cannot be Reflected"
+    }
+  ],
+  "Al Dhih": [
+    {
+      "original": [
+        "(100-120)% increased Physical Damage"
+      ],
+      "replacement": "(100-120)% increased Chaos Damage"
+    }
+  ],
+  "Alberon's Warpath": [
+    {
+      "original": [
+        "(15-18)% increased Strength"
+      ],
+      "replacement": "(15-18)% increased Intelligence"
+    }
+  ],
+  "Alpha's Howl": [
+    {
+      "original": [
+        "+2 to Level of Socketed Aura Gems"
+      ],
+      "replacement": "+2 to Level of Socketed Minion Gems"
+    },
+    {
+      "original": [
+        "16% increased Mana Reservation Efficiency of Skills"
+      ],
+      "replacement": "32% increased Life Reservation Efficiency of Skills"
+    }
+  ],
+  "Ambu's Charge": [
+    {
+      "original": [
+        "+15% to all Elemental Resistances"
+      ],
+      "replacement": "+1 to Maximum Endurance Charges"
+    }
+  ],
+  "Anathema": [
+    {
+      "original": [
+        "(10-20)% chance to gain a Power Charge when you Cast a Curse Spell"
+      ],
+      "replacement": "Curse Skills have (-30-30)% reduced Skill Effect Duration"
+    }
+  ],
+  "Ancestral Vision": [
+    {
+      "original": [
+        "+(5-10) to Dexterity"
+      ],
+      "replacement": "+(5-10)% chance to Suppress Spell Damage (40% of Damage from Suppressed Hits and Ailments they inflict is prevented)"
+    },
+    {
+      "original": [
+        "Modifiers to Chance to Suppress Spell Damage also apply to Chance to Avoid Elemental Ailments at 50% of their Value"
+      ],
+      "replacement": "Modifiers to Chance to Suppress Spell Damage also apply to Chance to Defend with 200% of Armour at 50% of their Value"
+    },
+    {
+      "original": [
+        "Modifiers to Chance to Suppress Spell Damage also apply to Chance to Avoid Elemental Ailments at 50% of their Value"
+      ],
+      "replacement": "Prevent +(3-5)% of Suppressed Spell Damage (40% of Damage from Suppressed Hits and Ailments they inflict is prevented)"
+    }
+  ],
+  "Apep's Rage": [
+    {
+      "original": [
+        "Adds (90-130) to (140-190) Chaos Damage to Spells"
+      ],
+      "replacement": "Skills gain Added Chaos Damage equal to (20-25)% of Mana Cost, if Mana Cost is not higher than the maximum you could spend"
+    }
+  ],
+  "Asenath's Gentle Touch": [
+    {
+      "original": [
+        "Curse Enemies with Temporal Chains on Hit"
+      ],
+      "replacement": "Curse Enemies with Punishment on Hit (Punishment is a Hex which increases Damage taken by 30% while the target is on low life and causes them to be Debilitated for 2 seconds when they Hit. It lasts 8 seconds)"
+    }
+  ],
+  "Asenath's Mark": [
+    {
+      "original": [
+        "(10-15)% increased Attack Speed"
+      ],
+      "replacement": "(10-15)% increased Cooldown Recovery Rate"
+    }
+  ],
+  "Ashrend": [
+    {
+      "original": [
+        "(75-150)% increased Physical Damage with Ranged Weapons"
+      ],
+      "replacement": "(75-150)% increased Melee Fire Damage"
+    }
+  ],
+  "Astral Projector": [
+    {
+      "original": [
+        "Nova Spells have 20% less Area of Effect"
+      ],
+      "replacement": "(40-50)% reduced maximum Energy Shield"
+    }
+  ],
+  "Astramentis": [
+    {
+      "original": [
+        "-4 Physical Damage taken from Attack Hits"
+      ],
+      "replacement": "(-13-13)% to Chaos Resistance"
+    }
+  ],
+  "Aurseize": [
+    {
+      "original": [
+        "+15% to all Elemental Resistances"
+      ],
+      "replacement": "15% increased Quantity of Gold Dropped by Slain Enemies"
+    }
+  ],
+  "Auxium": [
+    {
+      "original": [
+        "0.2% of Attack Damage Leeched as Mana per Power Charge"
+      ],
+      "replacement": "(4-6)% increased Energy Shield per Power Charge"
+    }
+  ],
+  "Badge of the Brotherhood": [
+    {
+      "original": [
+        "(7-10)% increased Cooldown Recovery Rate of Travel Skills per Frenzy Charge"
+      ],
+      "replacement": "2% increased Movement Speed per Frenzy Charge"
+    }
+  ],
+  "Belly of the Beast": [
+    {
+      "original": [
+        "+(10-15)% to all Elemental Resistances"
+      ],
+      "replacement": "+(8-12) to Maximum Rage (Every Rage grants 1% more Attack Damage. Maximum Rage is 30. Lose 10 Rage per second if you have not been Hit or gained Rage in the last 2 seconds)"
+    }
+  ],
+  "Belt of the Deceiver": [
+    {
+      "original": [
+        "You take 30% reduced Extra Damage from Critical Strikes"
+      ],
+      "replacement": "20% reduced Effect of Curses on you"
+    }
+  ],
+  "Berek's Grip": [
+    {
+      "original": [
+        "1% of Damage Leeched as Energy Shield against Frozen Enemies"
+      ],
+      "replacement": "Enemies Frozen by you take 10% increased Damage"
+    },
+    {
+      "original": [
+        "1% of Damage Leeched as Life against Shocked Enemies"
+      ],
+      "replacement": "Enemies Shocked by you are Debilitated (Enemies that are Debilitated have 20% less Movement Speed and deal 10% less damage)"
+    }
+  ],
+  "Berek's Pass": [
+    {
+      "original": [
+        "+5000 to Armour while Frozen"
+      ],
+      "replacement": "25% of Damage taken while Frozen Recouped as Life (Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"
+    },
+    {
+      "original": [
+        "30% increased Damage while Ignited"
+      ],
+      "replacement": "Action Speed cannot be modified to below Base Value while Ignited"
+    }
+  ],
+  "Berek's Respite": [
+    {
+      "original": [
+        "When you Kill a Shocked Enemy, inflict an equivalent Shock on each nearby Enemy"
+      ],
+      "replacement": "Shocked Enemies you Kill Explode, dealing 5% oftheir Life as Lightning Damage which cannot Shock"
+    },
+    {
+      "original": [
+        "When you Kill an Ignited Enemy, inflict an equivalent Ignite on each nearby Enemy"
+      ],
+      "replacement": "Ignited Enemies you Kill Explode, dealing 5% of their Life as Fire Damage which cannot Ignite"
+    }
+  ],
+  "Bramblejack": [
+    {
+      "original": [
+        "+(30-60) to maximum Life"
+      ],
+      "replacement": "+(500-800) to Armour"
+    }
+  ],
+  "Bronn's Lithe": [
+    {
+      "original": [
+        "10% increased Attack Speed"
+      ],
+      "replacement": "(20-40)% increased Cooldown Recovery Rate of Movement Skills"
+    }
+  ],
+  "Call of the Brotherhood": [
+    {
+      "original": [
+        "Your spells have 100% chance to Shock against Frozen Enemies"
+      ],
+      "replacement": "Gain a Power Charge on Killing a Frozen Enemy"
+    }
+  ],
+  "Carcass Jack": [
+    {
+      "original": [
+        "(40-50)% increased Area Damage"
+      ],
+      "replacement": "(15-30)% increased Effect of Non-Curse Auras from your Skills on Enemies"
+    },
+    {
+      "original": [
+        "(40-50)% increased Area of Effect"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 20 Intensify"
+    }
+  ],
+  "Chalice of Horrors": [
+    {
+      "original": [
+        "+20% Chance to Block Attack Damage from Cursed Enemies"
+      ],
+      "replacement": "+(23-37)% to Chaos Damage over Time Multiplier"
+    }
+  ],
+  "Cherrubim's Maleficence": [
+    {
+      "original": [
+        "100% increased total Recovery per second from Life Leech"
+      ],
+      "replacement": "20% of Physical Damage from Hits taken as Chaos Damage"
+    }
+  ],
+  "Chin Sol": [
+    {
+      "original": [
+        "50% more Damage with Arrow Hits at Close Range"
+      ],
+      "replacement": "50% more Damage with Arrow Hits not at Close Range (Close Range is up to 2 metres)"
+    },
+    {
+      "original": [
+        "Bow Knockback at Close Range"
+      ],
+      "replacement": "Projectiles Pierce all nearby Targets"
+    }
+  ],
+  "Choir of the Storm": [
+    {
+      "original": [
+        "(10-20)% increased maximum Mana"
+      ],
+      "replacement": "+3% to maximum Lightning Resistance (Maximum Resistances cannot be raised above 90%)"
+    },
+    {
+      "original": [
+        "Critical Strike Chance is increased by Overcapped Lightning Resistance"
+      ],
+      "replacement": "Mana is increased by 1% per 4% Overcapped Lightning Resistance (Overcapped Resistance is the amount by whch Uncapped Resistance is higher than Maximum Resistance)"
+    }
+  ],
+  "Cloak of Defiance": [
+    {
+      "original": [
+        "(300-400)% increased Evasion and Energy Shield"
+      ],
+      "replacement": "Gain (15-20)% of Maximum Mana as Extra Maximum Energy Shield"
+    },
+    {
+      "original": [
+        "+(100-150) to maximum Mana"
+      ],
+      "replacement": "Eldritch Battery (Spend Energy Shield before Mana for Skill Mana Costs. Energy Shield protects Mana instead of Life. 50% less Energy Shield Recharge Rate)"
+    }
+  ],
+  "Cloak of Flame": [
+    {
+      "original": [
+        "(40-75)% increased Ignite Duration on Enemies"
+      ],
+      "replacement": "(50-100)% increased Damage while Ignited"
+    },
+    {
+      "original": [
+        "+(50-75)% to Fire Resistance"
+      ],
+      "replacement": "(5-7)% of Fire Damage Leeched as Life (Leeched Life is recovered over time. Multiple Leeches can occur simultaneously, up to a maximum rate)"
+    }
+  ],
+  "Cospri's Malice": [
+    {
+      "original": [
+        "Adds (40-60) to (90-110) Cold Damage to Spells"
+      ],
+      "replacement": "(80-120)% increased Elemental Damage with Attack Skills"
+    }
+  ],
+  "Cospri's Will": [
+    {
+      "original": [
+        "Always Poison on Hit against Cursed Enemies"
+      ],
+      "replacement": "(15-20)% chance to inflict Withered for 2 seconds on Hit against Cursed Enemies (Withered applies 6% increased Chaos Damage Taken, and can be inflicted up to 15 times)"
+    }
+  ],
+  "Crown of the Pale King": [
+    {
+      "original": [
+        "(0.4-0.8)% of Physical Attack Damage Leeched as Life"
+      ],
+      "replacement": "Retaliation Skills have (25-35)% increased Cooldown Recovery Rate"
+    }
+  ],
+  "Cybil's Paw": [
+    {
+      "original": [
+        "Gain (15-20) Life per Enemy Hit with Spells"
+      ],
+      "replacement": "Recover Energy Shield equal to 1% of Evasion Rating when you Block"
+    }
+  ],
+  "Darkray Vectors": [
+    {
+      "original": [
+        "10% increased Evasion Rating per Frenzy Charge"
+      ],
+      "replacement": "(4-8)% increased Accuracy Rating per Frenzy Charge"
+    }
+  ],
+  "Darkscorn": [
+    {
+      "original": [
+        "25% of Physical Damage Converted to Chaos Damage"
+      ],
+      "replacement": "25% chance to gain Unholy Might for 4 seconds on Critical Strike (Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
+    }
+  ],
+  "Death's Hand": [
+    {
+      "original": [
+        "30% chance to gain a Power Charge when you Stun"
+      ],
+      "replacement": "Gain Chaotic Might for 4 seconds on Critical Strike (Chaotic Might grants 30% of Physical Damage as extra Chaos Damage)"
+    }
+  ],
+  "Death's Harp": [
+    {
+      "original": [
+        "(90-105)% increased Physical Damage"
+      ],
+      "replacement": "Gain (67-83)% of Physical Damage as Extra Chaos Damage"
+    }
+  ],
+  "Death's Oath": [
+    {
+      "original": [
+        "(10-15)% increased Attack Speed"
+      ],
+      "replacement": "(20-40)% increased Effect of Withered (Withered applies 6% increased Chaos Damage Taken, and can be inflicted up to 15 times)"
+    }
+  ],
+  "Defiance of Destiny": [
+    {
+      "original": [
+        "Gain (10-20)% of Missing Unreserved Life before being Hit by an Enemy"
+      ],
+      "replacement": "Gain (15-30)% of Missing Unreserved Mana before being Hit by an Enemy"
+    }
+  ],
+  "Deidbell": [
+    {
+      "original": [
+        "+(20-30) to Dexterity"
+      ],
+      "replacement": "(20-40)% increased Warcry Cooldown Recovery Rate"
+    },
+    {
+      "original": [
+        "Skills which Exert an Attack have (20-40)% chance to not count that Attack"
+      ],
+      "replacement": "(20-35)% increased Warcry Buff Effect"
+    }
+  ],
+  "Devoto's Devotion": [
+    {
+      "original": [
+        "+(50-65) to Dexterity"
+      ],
+      "replacement": "+(10-20)% chance to Suppress Spell Damage (40% of Damage from Suppressed Hits and Ailments they inflict is prevented)"
+    },
+    {
+      "original": [
+        "20% increased Movement Speed"
+      ],
+      "replacement": "20% increased Attack Speed with Movement Skills"
+    }
+  ],
+  "Dialla's Malefaction": [
+    {
+      "original": [
+        "Gems can be Socketed in this Item ignoring Socket Colour"
+      ],
+      "replacement": "+1 to Level of Socketed Gems"
+    },
+    {
+      "original": [
+        "Gems Socketed in Blue Sockets gain 100% increased Experience"
+      ],
+      "replacement": "Ignore Attribute Requirements of Gems Socketed in Blue Sockets (Attributes are Strength, Dexterity, and Intelligence)"
+    }
+  ],
+  "Doedre's Scorn": [
+    {
+      "original": [
+        "+2 to Level of Socketed Curse Gems"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 30 Impending Doom"
+    }
+  ],
+  "Doomfletch": [
+    {
+      "original": [
+        "(10-14)% increased Attack Speed"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 25 Prismatic Burst"
+    }
+  ],
+  "Doomsower": [
+    {
+      "original": [
+        "Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem"
+      ],
+      "replacement": "10% of Damage taken Recouped as Life per Socketed Red Gem (Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"
+    },
+    {
+      "original": [
+        "You have Vaal Pact while all Socketed Gems are Red"
+      ],
+      "replacement": "You have Immortal Ambition while all Socketed Gems are Red (Energy Shield starts at zero. Cannot Recharge or Regenerate Energy Shield. Lose 5% of Energy Shield per second. Life Leech effects are not removed when Unreserved Life is Filled. Life Leech effects Recover Energy Shield instead while on Full Life)"
+    }
+  ],
+  "Doon Cuebiyari": [
+    {
+      "original": [
+        "1% increased Armour per 16 Strength when in Off Hand"
+      ],
+      "replacement": "1% increased maximum Energy Shield per 25 Strength when in Off Hand"
+    },
+    {
+      "original": [
+        "1% increased Damage per 8 Strength when in Main Hand"
+      ],
+      "replacement": "1% increased maximum Mana per 18 Strength when in Main Hand"
+    }
+  ],
+  "Doryani's Fist": [
+    {
+      "original": [
+        "30% chance to Shock"
+      ],
+      "replacement": "30% chance to Sap Enemies (Sapped Enemies deal up to 20% less Damage, based on the Lightning Damage of the Hit, for 4 seconds)"
+    }
+  ],
+  "Dream Fragments": [
+    {
+      "original": [
+        "50% increased Mana Regeneration Rate"
+      ],
+      "replacement": "(200-300)% increased Stun and Block Recovery"
+    }
+  ],
+  "Dreamfeather": [
+    {
+      "original": [
+        "Adds (30-50) to (65-80) Physical Damage"
+      ],
+      "replacement": "1% increased Attack Speed per 150 Accuracy Rating"
+    }
+  ],
+  "Drillneck": [
+    {
+      "original": [
+        "(8-12)% increased Attack Speed"
+      ],
+      "replacement": "(20-30)% increased Impale Effect"
+    }
+  ],
+  "Dyadian Dawn": [
+    {
+      "original": [
+        "1% of Attack Damage Leeched as Life against Chilled Enemies"
+      ],
+      "replacement": "Recover 2% of Life when you Chill a non-Chilled Enemy (Chill reduces Enemy Action Speed by up to 30%, depending on the amount of Cold Damage in the hit, for 2 seconds)"
+    },
+    {
+      "original": [
+        "Ignites you inflict with Attacks deal Damage 35% faster"
+      ],
+      "replacement": "All Damage can Ignite"
+    }
+  ],
+  "Edge of Madness": [
+    {
+      "original": [
+        "+1 to Level of Socketed Skill Gems"
+      ],
+      "replacement": "+(6-8) to Accuracy Rating per Level"
+    }
+  ],
+  "Emperor's Vigilance": [
+    {
+      "original": [
+        "(16-22)% Chance to Block Spell Damage"
+      ],
+      "replacement": "+20% to Maximum Quality"
+    }
+  ],
+  "Esh's Mirror": [
+    {
+      "original": [
+        "+(35-40)% to Lightning Resistance"
+      ],
+      "replacement": "Damage cannot be Reflected"
+    },
+    {
+      "original": [
+        "Shocks you inflict spread to other Enemies within 1.5 metres"
+      ],
+      "replacement": "Hits always Shock Enemies that are on Low Life (Shock increases Damage taken by up to 50%, depending on the amount of Lightning Damage in the hit, for 2 seconds)"
+    }
+  ],
+  "Esh's Visage": [
+    {
+      "original": [
+        "+(30-40)% to Lightning Resistance"
+      ],
+      "replacement": "Damage cannot be Reflected"
+    },
+    {
+      "original": [
+        "Chaos Damage taken does not bypass Energy Shield while not on Low Life"
+      ],
+      "replacement": "Chaos Damage taken does not bypass Energy Shield while not on Low Mana (You are on Low Mana if you have 50% of your Maximum Mana or less)"
+    }
+  ],
+  "Eye of Chayula": [
+    {
+      "original": [
+        "20% reduced maximum Life"
+      ],
+      "replacement": "20% reduced maximum Mana"
+    },
+    {
+      "original": [
+        "30% increased Rarity of Items found"
+      ],
+      "replacement": "20% increased Quantity of Gold Dropped by Slain Enemies"
+    }
+  ],
+  "Facebreaker": [
+    {
+      "original": [
+        "+30% to Global Critical Strike Multiplier"
+      ],
+      "replacement": "(20-30)% increased Area of Effect while Unarmed (You are Unarmed as long as you have no Equipped Weapons)"
+    }
+  ],
+  "Firesong": [
+    {
+      "original": [
+        "+(10-15)% to Fire Resistance"
+      ],
+      "replacement": "+(10-15)% to Fire Damage over Time Multiplier"
+    },
+    {
+      "original": [
+        "Modifiers to Ignite Duration on you apply to all Elemental Ailments"
+      ],
+      "replacement": "(25-50)% increased Ignite Duration on Enemies"
+    }
+  ],
+  "Flesh and Spirit": [
+    {
+      "original": [
+        "Recover 20% of Life on Rampage"
+      ],
+      "replacement": "Vaal Skills have (20-40)% increased Skill Effect Duration"
+    }
+  ],
+  "Fleshcrafter": [
+    {
+      "original": [
+        "Minions have (50-100)% faster start of Energy Shield Recharge"
+      ],
+      "replacement": "Minions Leech 5% of Elemental Damage as Energy Shield (Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultaneously, up to a maximum rate)"
+    }
+  ],
+  "Fleshrender": [
+    {
+      "original": [
+        "(20-40)% increased Critical Strike Chance"
+      ],
+      "replacement": "(25-27)% increased Attack Speed"
+    }
+  ],
+  "Frostbreath": [
+    {
+      "original": [
+        "(8-14)% increased Attack Speed"
+      ],
+      "replacement": "(60-100)% increased Critical Strike Chance"
+    }
+  ],
+  "Gang's Momentum": [
+    {
+      "original": [
+        "25% increased Movement Speed"
+      ],
+      "replacement": "(25-50)% increased Movement Speed while Ignited"
+    }
+  ],
+  "Geofri's Crest": [
+    {
+      "original": [
+        "+1 to maximum number of Summoned Holy Relics"
+      ],
+      "replacement": "+(2-3) to maximum number of Sentinels of Purity"
+    }
+  ],
+  "Ghostwrithe": [
+    {
+      "original": [
+        "+50% to Chaos Resistance"
+      ],
+      "replacement": "50% of Chaos Damage taken Recouped as Life (Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"
+    },
+    {
+      "original": [
+        "50% of Maximum Life Converted to Energy Shield"
+      ],
+      "replacement": "Your Maximum Energy Shield is Equal to 40% of Your Maximum Life"
+    }
+  ],
+  "Gifts from Above": [
+    {
+      "original": [
+        "(30-35)% increased Global Critical Strike Chance"
+      ],
+      "replacement": "(25-40)% increased Effect of Consecrated Ground you create"
+    }
+  ],
+  "Goldrim": [
+    {
+      "original": [
+        "+(30-40)% to all Elemental Resistances"
+      ],
+      "replacement": "+(50-75)% to Chaos Resistance"
+    }
+  ],
+  "Goldwyrm": [
+    {
+      "original": [
+        "(20-40)% increased Rarity of Items found"
+      ],
+      "replacement": "(20-30)% increased Quantity of Gold Dropped by Slain Enemies"
+    }
+  ],
+  "Great Old One's Ward": [
+    {
+      "original": [
+        "(8-12)% Chance to Block Spell Damage"
+      ],
+      "replacement": "(20-40)% chance to Impale Enemies on Hit with Attacks (When an Impaled enemy is hit, the Impale reflects 10% of the physical damage of the Impaling hit to that enemy. Impale lasts for 5 hits or 8 seconds)"
+    }
+  ],
+  "Greed's Embrace": [
+    {
+      "original": [
+        "100% increased Rarity of Items found"
+      ],
+      "replacement": "5% increased Experience gain"
+    }
+  ],
+  "Gruthkul's Pelt": [
+    {
+      "original": [
+        "100% increased Global Physical Damage"
+      ],
+      "replacement": "100% increased Attack Damage"
+    },
+    {
+      "original": [
+        "Your Spells are disabled"
+      ],
+      "replacement": "Your Warcries are disabled"
+    }
+  ],
+  "Hand of Thought and Motion": [
+    {
+      "original": [
+        "5% increased Critical Strike Chance per 25 Intelligence"
+      ],
+      "replacement": "3% increased Accuracy Rating per 25 Intelligence"
+    },
+    {
+      "original": [
+        "Recover 1% of Life on Kill"
+      ],
+      "replacement": "(8-12)% increased Strength"
+    }
+  ],
+  "Hand of Wisdom and Action": [
+    {
+      "original": [
+        "1% increased Attack Speed per 25 Dexterity"
+      ],
+      "replacement": "+3% to Critical Strike Multiplier per 25 Dexterity"
+    },
+    {
+      "original": [
+        "1% of Attack Damage Leeched as Life"
+      ],
+      "replacement": "(8-12)% increased Strength"
+    }
+  ],
+  "Headhunter": [
+    {
+      "original": [
+        "(20-30)% increased Damage with Hits against Rare monsters"
+      ],
+      "replacement": "Culling Strike (Culling Strike means enemies that are on 10% or lower life after your Hit are Killed)"
+    },
+    {
+      "original": [
+        "+(40-55) to Strength"
+      ],
+      "replacement": "Rare and Unique Enemies within 120 metres have Minimap Icons"
+    },
+    {
+      "original": [
+        "When you Kill a Rare monster, you gain its Modifiers for 60 seconds"
+      ],
+      "replacement": "Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0.25 seconds (Each soul grants 5% increased Attack and Cast speed. You lose 1 soul every 0.5 seconds if you have not eaten any souls Recently. Maximum of 45 souls consumed)"
+    }
+  ],
+  "Heartbound Loop": [
+    {
+      "original": [
+        "Regenerate (10-15) Life per second"
+      ],
+      "replacement": "(10-20)% reduced Mana Cost of Minion Skills"
+    }
+  ],
+  "Heatshiver": [
+    {
+      "original": [
+        "60% increased Mana Regeneration Rate"
+      ],
+      "replacement": "50% of Cold Damage Converted to Fire Damage"
+    }
+  ],
+  "Hinekora's Sight": [
+    {
+      "original": [
+        "+(600-1000) to Evasion Rating"
+      ],
+      "replacement": "(30-50)% increased Light Radius"
+    }
+  ],
+  "Hyrri's Ire": [
+    {
+      "original": [
+        "+30% chance to Suppress Spell Damage"
+      ],
+      "replacement": "Prevent +(8-10)% of Suppressed Spell Damage (40% of Damage from Suppressed Hits and Ailments they inflict is prevented)"
+    }
+  ],
+  "Incandescent Heart": [
+    {
+      "original": [
+        "+(80-90) to maximum Life"
+      ],
+      "replacement": "Increases and Reductions to Light Radius also apply to Accuracy"
+    }
+  ],
+  "Infernal Mantle": [
+    {
+      "original": [
+        "100% increased Global Critical Strike Chance"
+      ],
+      "replacement": "Gain (15-20)% of Maximum Mana as Extra Maximum Energy Shield"
+    }
+  ],
+  "Inpulsa's Broken Heart": [
+    {
+      "original": [
+        "(20-50)% increased Damage if you have Shocked an Enemy Recently"
+      ],
+      "replacement": "Purity of Lightning has no Reservation"
+    }
+  ],
+  "Jorrhast's Blacksteel": [
+    {
+      "original": [
+        "(8-12)% increased Cast Speed"
+      ],
+      "replacement": "Minions deal (50-70)% increased Damage if you've Hit Recently (Recently refers to the past 4 seconds)"
+    }
+  ],
+  "Kalisa's Grace": [
+    {
+      "original": [
+        "Gain +2% to Critical Strike Chance for 2 seconds after Spending a total of 800 Mana"
+      ],
+      "replacement": "50% reduced Mana Cost of Skills for 2 seconds after Spending a total of 800 Mana"
+    },
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 18 Faster Casting"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 18 Focused Channelling"
+    }
+  ],
+  "Kaom's Primacy": [
+    {
+      "original": [
+        "Culling Strike"
+      ],
+      "replacement": "+1 to Maximum Endurance Charges"
+    }
+  ],
+  "Kaom's Roots": [
+    {
+      "original": [
+        "+(150-200) to maximum Life"
+      ],
+      "replacement": "+(150-200) to Strength"
+    }
+  ],
+  "Kaom's Spirit": [
+    {
+      "original": [
+        "+(20-30)% to Fire Resistance"
+      ],
+      "replacement": "Inherent Rage Loss starts 2 seconds later (This only affects the inherent loss of Rage when you haven't been Hit or gained Rage Recently)"
+    }
+  ],
+  "Khatal's Geyser": [
+    {
+      "original": [
+        "+(55-70) to maximum Mana"
+      ],
+      "replacement": "(12-14)% increased maximum Mana"
+    },
+    {
+      "original": [
+        "Mana Flask Effects are not removed when Unreserved Mana is Filled",
+        "Mana Flask Effects do not Queue"
+      ],
+      "replacement": "Mana Flasks gain (1-3) Charges every 3 seconds"
+    }
+  ],
+  "Khatal's Weeping": [
+    {
+      "original": [
+        "+(80-100) to maximum Life"
+      ],
+      "replacement": "(8-10)% increased maximum Life"
+    },
+    {
+      "original": [
+        "While on Low Life, Life Flasks gain (3-6) Charges every 3 seconds"
+      ],
+      "replacement": "Life Flasks gain (1-3) Charges every 3 seconds"
+    }
+  ],
+  "Kikazaru": [
+    {
+      "original": [
+        "Regenerate 3 Life per second per Level"
+      ],
+      "replacement": "+2 Maximum Mana per Level"
+    }
+  ],
+  "Kiloava's Bluster": [
+    {
+      "original": [
+        "(30-40)% chance for Elemental Resistances to count as being 90% against Enemy Hits"
+      ],
+      "replacement": "Hits have (20-25)% chance to treat Enemy Monster Elemental Resistance values as inverted"
+    },
+    {
+      "original": [
+        "+(3-8)% Chance to Block"
+      ],
+      "replacement": "(10-15)% reduced Damage taken from Damage Over Time"
+    }
+  ],
+  "Kintsugi": [
+    {
+      "original": [
+        "100% increased Evasion Rating if you have been Hit Recently"
+      ],
+      "replacement": "+(20-30)% chance to Suppress Spell Damage if you've Suppressed Spell Damage Recently (Recently refers to the past 4 seconds)"
+    },
+    {
+      "original": [
+        "35% less Damage taken if you have not been Hit Recently"
+      ],
+      "replacement": "Prevent +35% of Suppressed Spell Damage if you have not Suppressed Spell Damage Recently"
+    }
+  ],
+  "Kitava's Thirst": [
+    {
+      "original": [
+        "50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an",
+        "Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown"
+      ],
+      "replacement": "50% chance to Trigger Socketed Spells when you Spend at least 200 Life on anUpfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown (Upfront Costs are all Costs that are not paid per-second)"
+    }
+  ],
+  "Kongming's Stratagem": [
+    {
+      "original": [
+        "(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies"
+      ],
+      "replacement": "Enemies Blinded by you have 100% reduced Critical Strike Chance"
+    }
+  ],
+  "Kongor's Undying Rage": [
+    {
+      "original": [
+        "Hits can't be Evaded"
+      ],
+      "replacement": "Battlemage (Gain Added Spell Damage equal to the Damage of your Main Hand Weapon)"
+    },
+    {
+      "original": [
+        "Your Critical Strikes do not deal extra Damage"
+      ],
+      "replacement": "Lose 1% of Life when you deal a Critical Strike"
+    }
+  ],
+  "Le Heup of All": [
+    {
+      "original": [
+        "(10-30)% increased Damage"
+      ],
+      "replacement": "(10-30)% increased Global Defences (Armour, Evasion Rating and Energy Shield are the standard Defences)"
+    },
+    {
+      "original": [
+        "(10-30)% increased Rarity of Items found"
+      ],
+      "replacement": "+(10-30)% to Global Critical Strike Multiplier"
+    }
+  ],
+  "Lightning Coil": [
+    {
+      "original": [
+        "+(60-80) to maximum Life"
+      ],
+      "replacement": "50% of Chaos Damage taken as Lightning Damage"
+    }
+  ],
+  "Lioneye's Paws": [
+    {
+      "original": [
+        "40% reduced Movement Speed when on Low Life"
+      ],
+      "replacement": "40% increased Movement Speed when on Full Life"
+    }
+  ],
+  "Lioneye's Remorse": [
+    {
+      "original": [
+        "+(160-180) to maximum Life"
+      ],
+      "replacement": "Gain (20-25)% of Maximum Life as Extra Armour"
+    }
+  ],
+  "Lioneye's Vision": [
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 15 Pierce"
+      ],
+      "replacement": "25% chance to avoid Projectiles"
+    }
+  ],
+  "Lori's Lantern": [
+    {
+      "original": [
+        "(6-8)% increased Movement Speed when on Low Life"
+      ],
+      "replacement": "(12-16)% increased Attack Speed when on Low Life (You are on Low Life if you have 50% of your Maximum Life or less)"
+    },
+    {
+      "original": [
+        "Damage of Enemies Hitting you is Unlucky while you are on Low Life"
+      ],
+      "replacement": "Your Damage with Hits is Lucky while on Low Life (You are on Low Life if you have 50% of your Maximum Life or less)"
+    }
+  ],
+  "Maata's Teaching": [
+    {
+      "original": [
+        "(15-30)% increased Critical Strike Chance"
+      ],
+      "replacement": "Minions have +(20-40)% to Critical Strike Multiplier"
+    }
+  ],
+  "Mageblood": [
+    {
+      "original": [
+        "Leftmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you"
+      ],
+      "replacement": "Rightmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you"
+    }
+  ],
+  "Malachai's Loop": [
+    {
+      "original": [
+        "(12-16)% increased Spell Damage per Power Charge"
+      ],
+      "replacement": "+4% chance to Suppress Spell Damage per Power Charge (40% of Damage from Suppressed Hits and Ailments they inflict is prevented)"
+    }
+  ],
+  "Malachai's Simula": [
+    {
+      "original": [
+        "Spells have a 20% chance to deal Double Damage"
+      ],
+      "replacement": "Minions have 20% chance to deal Double Damage"
+    }
+  ],
+  "Maligaro's Restraint": [
+    {
+      "original": [
+        "Adds 1 to (30-50) Lightning Damage to Attacks"
+      ],
+      "replacement": "40% of Lightning Damage Converted to Chaos Damage"
+    }
+  ],
+  "Maligaro's Virtuosity": [
+    {
+      "original": [
+        "50% increased Global Critical Strike Chance"
+      ],
+      "replacement": "50% increased Effect of non-Damaging Ailments you inflict with Critical Strikes (Ailments that do not deal Damage are Scorched, Chilled, Frozen, Brittle, Shocked, and Sapped)"
+    },
+    {
+      "original": [
+        "Your Critical Strike Multiplier is 300%"
+      ],
+      "replacement": "Your Action Speed is at least 90% of base value"
+    }
+  ],
+  "Maloney's Mechanism": [
+    {
+      "original": [
+        "(7-12)% increased Attack Speed"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 25 Arrow Nova"
+    }
+  ],
+  "Matua Tupuna": [
+    {
+      "original": [
+        "+2 to Level of Socketed Minion Gems"
+      ],
+      "replacement": "+2 to Level of Socketed Aura Gems"
+    }
+  ],
+  "Meginord's Girdle": [
+    {
+      "original": [
+        "25% increased Flask Life Recovery rate"
+      ],
+      "replacement": "(5-15)% increased Strength"
+    }
+  ],
+  "Meginord's Vise": [
+    {
+      "original": [
+        "+50 to Strength"
+      ],
+      "replacement": "+700 Strength Requirement(10-15)% chance to deal Triple Damage"
+    }
+  ],
+  "Midnight Bargain": [
+    {
+      "original": [
+        "+1 to maximum number of Raised Zombies",
+        "+1 to maximum number of Spectres",
+        "+1 to maximum number of Skeletons"
+      ],
+      "replacement": "+2 to maximum number of Summoned Golems"
+    },
+    {
+      "original": [
+        "Cannot be used with Chaos Inoculation",
+        "Reserves 30% of Life"
+      ],
+      "replacement": "Lose 0.5% Life and Energy Shield per Second per Minion"
+    }
+  ],
+  "Mind of the Council": [
+    {
+      "original": [
+        "(20-30)% increased maximum Mana"
+      ],
+      "replacement": "30% of Physical Damage is taken from Mana before Life"
+    }
+  ],
+  "Ming's Heart": [
+    {
+      "original": [
+        "25% reduced maximum Life"
+      ],
+      "replacement": "Can't use other Rings"
+    }
+  ],
+  "Mjölner": [
+    {
+      "original": [
+        "Skills Chain +1 times"
+      ],
+      "replacement": "(20-30)% increased Area of Effect"
+    },
+    {
+      "original": [
+        "Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown",
+        "Socketed Lightning Spells have no Cost if Triggered"
+      ],
+      "replacement": "Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldownlocal unique cast lightning bolt on melee hit % [100]"
+    }
+  ],
+  "Mokou's Embrace": [
+    {
+      "original": [
+        "+(25-40)% to Cold Resistance"
+      ],
+      "replacement": "+3% to maximum Fire Resistance (Maximum Resistances cannot be raised above 90%)"
+    }
+  ],
+  "Moonbender's Wing": [
+    {
+      "original": [
+        "(30-50)% increased Physical Damage"
+      ],
+      "replacement": "(30-50)% increased Attack Speed"
+    }
+  ],
+  "Ngamahu's Flame": [
+    {
+      "original": [
+        "Damage Penetrates 20% Fire Resistance"
+      ],
+      "replacement": "Attacks fire 3 additional Projectiles"
+    }
+  ],
+  "Null and Void": [
+    {
+      "original": [
+        "(20-40)% increased Mana Regeneration Rate"
+      ],
+      "replacement": "(15-25)% increased Life Regeneration rate"
+    }
+  ],
+  "Null's Inclination": [
+    {
+      "original": [
+        "+(7-11)% to Chaos Resistance"
+      ],
+      "replacement": "An Enemy Writhing Worm spawns every 2 seconds"
+    },
+    {
+      "original": [
+        "Adds (50-80) to (130-180) Chaos Damage"
+      ],
+      "replacement": "Minions deal (25-35) to (50-65) additional Chaos Damage"
+    },
+    {
+      "original": [
+        "Trigger Socketed Minion Spells on Kill with this Weapon",
+        "Minion Spells Triggered by this Item have a 0.25 second Cooldown with 5 Uses"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 20 Summon Phantasm"
+    }
+  ],
+  "Piscator's Vigil": [
+    {
+      "original": [
+        "(20-30)% increased Critical Strike Chance"
+      ],
+      "replacement": "(30-50)% increased effect of Wishes granted by Ancient Fish"
+    }
+  ],
+  "Presence of Chayula": [
+    {
+      "original": [
+        "+60% to Chaos Resistance"
+      ],
+      "replacement": "Recoup Energy Shield instead of Life (Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"
+    },
+    {
+      "original": [
+        "20% of Maximum Life Converted to Energy Shield"
+      ],
+      "replacement": "50% of Chaos Damage taken Recouped as Life (Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"
+    }
+  ],
+  "Prism Guardian": [
+    {
+      "original": [
+        "Socketed Gems have 30% increased Reservation Efficiency"
+      ],
+      "replacement": "+(20-30)% to Quality of Socketed Gems"
+    }
+  ],
+  "Pyre": [
+    {
+      "original": [
+        "(60-80)% increased Burning Damage"
+      ],
+      "replacement": "40% of Cold Damage from Hits taken as Fire Damage"
+    }
+  ],
+  "Queen of the Forest": [
+    {
+      "original": [
+        "1% increased Movement Speed per 600 Evasion Rating, up to 75%"
+      ],
+      "replacement": "1% increased Projectile Speed per 600 Evasion Rating, up to 75%"
+    },
+    {
+      "original": [
+        "25% reduced Movement Speed"
+      ],
+      "replacement": "25% increased Damage taken"
+    }
+  ],
+  "Quill Rain": [
+    {
+      "original": [
+        "(50-100)% increased Projectile Speed"
+      ],
+      "replacement": "(40-60)% increased Area of Effect"
+    },
+    {
+      "original": [
+        "Grants 2 Mana per Enemy Hit"
+      ],
+      "replacement": "Insufficient Mana doesn't prevent your Bow Attacks"
+    }
+  ],
+  "Rathpith Globe": [
+    {
+      "original": [
+        "5% increased Spell Critical Strike Chance per 100 Player Maximum Life"
+      ],
+      "replacement": "Deal 5% increased Damage Over Time per 100 Player Maximum Life"
+    },
+    {
+      "original": [
+        "5% increased Spell Damage per 100 Player Maximum Life"
+      ],
+      "replacement": "2% increased Effect of Non-Damaging Ailments you inflict with Critical Strikes per 100 Player Maximum Life (Ailments that do not deal Damage are Scorched, Chilled, Frozen, Brittle, Shocked, and Sapped)"
+    }
+  ],
+  "Razor of the Seventh Sun": [
+    {
+      "original": [
+        "100% increased Melee Physical Damage against Ignited Enemies"
+      ],
+      "replacement": "Ignites inflicted with this Weapon deal 100% more Damage"
+    }
+  ],
+  "Rearguard": [
+    {
+      "original": [
+        "(20-30)% increased Projectile Speed"
+      ],
+      "replacement": "50% reduced Enemy Stun Threshold with Bows (The Stun Threshold determines how much Damage can Stun something)"
+    }
+  ],
+  "Rebuke of the Vaal": [
+    {
+      "original": [
+        "(10-20)% increased Attack Speed"
+      ],
+      "replacement": "(20-40)% increased Trap Throwing Speed"
+    }
+  ],
+  "Reefbane": [
+    {
+      "original": [
+        "(30-40)% increased Cast Speed"
+      ],
+      "replacement": "(30-40)% chance to Ignore Stuns while Casting"
+    },
+    {
+      "original": [
+        "Thaumaturgical Lure"
+      ],
+      "replacement": "Otherworldly Lure"
+    }
+  ],
+  "Repentance": [
+    {
+      "original": [
+        "(6-12)% increased Strength"
+      ],
+      "replacement": "(12-16)% increased Intelligence"
+    }
+  ],
+  "Reverberation Rod": [
+    {
+      "original": [
+        "+2 to Level of Socketed Gems"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 1 Greater Spell Cascade"
+    }
+  ],
+  "Rigwald's Command": [
+    {
+      "original": [
+        "+(350-400) to Accuracy Rating"
+      ],
+      "replacement": "+10% Chance to Block Spell Damage while Dual Wielding"
+    }
+  ],
+  "Rigwald's Quills": [
+    {
+      "original": [
+        "(30-50)% increased Projectile Damage"
+      ],
+      "replacement": "(30-50)% chance to Aggravate Bleeding on targets you Hit with Attacks (Bleeding which has been Aggravated always deals higher Damage as though the target was moving)"
+    }
+  ],
+  "Rigwald's Savagery": [
+    {
+      "original": [
+        "40% increased Physical Attack Damage while Dual Wielding"
+      ],
+      "replacement": "Your Melee Hits can't be Evaded while wielding a Sword"
+    }
+  ],
+  "Rime Gaze": [
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 20 Concentrated Effect"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 25 Frigid Bond"
+    }
+  ],
+  "Rise of the Phoenix": [
+    {
+      "original": [
+        "10% increased Movement Speed when on Low Life"
+      ],
+      "replacement": "(10-20)% increased Cast Speed when on Low Life (You are on Low Life if you have 50% of your Maximum Life or less)"
+    },
+    {
+      "original": [
+        "Regenerate (100-200) Life per second"
+      ],
+      "replacement": "Regenerate (100-200) Energy Shield per second"
+    }
+  ],
+  "Rive": [
+    {
+      "original": [
+        "1% increased Bleeding Duration per 12 Intelligence"
+      ],
+      "replacement": "Physical Skills have 1% increased Duration per 12 Intelligence"
+    },
+    {
+      "original": [
+        "25% chance to cause Bleeding on Hit"
+      ],
+      "replacement": "25% chance to Crush on Hit (Crushed lowers Physical Damage Reduction by 15% for 4 seconds)"
+    }
+  ],
+  "Romira's Banquet": [
+    {
+      "original": [
+        "+333 to Accuracy Rating"
+      ],
+      "replacement": "+1 to Maximum Power Charges"
+    }
+  ],
+  "Saffell's Frame": [
+    {
+      "original": [
+        "(20-30)% Chance to Block Spell Damage"
+      ],
+      "replacement": "Maximum Energy Shield is increased by Chaos Resistance"
+    }
+  ],
+  "Saresh's Darkness": [
+    {
+      "original": [
+        "(10-25)% increased Poison Duration"
+      ],
+      "replacement": "(40-60)% chance to Avoid being Poisoned"
+    },
+    {
+      "original": [
+        "+(23-37)% to Chaos Resistance"
+      ],
+      "replacement": "(30-50)% increased Chaos Damage"
+    }
+  ],
+  "Scold's Bridle": [
+    {
+      "original": [
+        "15% reduced Cast Speed"
+      ],
+      "replacement": "(20-30)% increased Mana Cost of Skills"
+    }
+  ],
+  "Seven-League Step": [
+    {
+      "original": [
+        "50% increased Movement Speed"
+      ],
+      "replacement": "15% increased Action Speed"
+    }
+  ],
+  "Severed in Sleep": [
+    {
+      "original": [
+        "Minions have +29% to Chaos Resistance"
+      ],
+      "replacement": "Minions have 25% chance to gain Unholy Might for 4 seconds on Kill (Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
+    },
+    {
+      "original": [
+        "Minions have 60% chance to inflict Withered on Hit"
+      ],
+      "replacement": "Minions have +5% to Critical Strike Chance"
+    }
+  ],
+  "Shackles of the Wretched": [
+    {
+      "original": [
+        "(40-60)% increased Stun and Block Recovery"
+      ],
+      "replacement": "(-30-30)% reduced Duration of Curses on you"
+    }
+  ],
+  "Shavronne's Revelation": [
+    {
+      "original": [
+        "Left ring slot: +250 to maximum Energy Shield"
+      ],
+      "replacement": "Left ring slot: +1000 to Evasion Rating"
+    },
+    {
+      "original": [
+        "Right ring slot: +250 to maximum Mana"
+      ],
+      "replacement": "Right ring slot: +1000 to Armour"
+    }
+  ],
+  "Shavronne's Wrappings": [
+    {
+      "original": [
+        "10% faster start of Energy Shield Recharge"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 20 Living Lightning"
+    }
+  ],
+  "Singularity": [
+    {
+      "original": [
+        "Adds (1-10) to (150-200) Lightning Damage to Spells"
+      ],
+      "replacement": "+(30-40)% to Cold Damage over Time Multiplier"
+    }
+  ],
+  "Sire of Shards": [
+    {
+      "original": [
+        "(60-100)% increased Projectile Damage"
+      ],
+      "replacement": "Socketed Gems Chain 2 additional times"
+    }
+  ],
+  "Skin of the Lords": [
+    {
+      "original": [
+        "+2 to Level of Socketed Gems"
+      ],
+      "replacement": "+30% to Quality of Socketed Gems"
+    },
+    {
+      "original": [
+        "100% increased Global Defences"
+      ],
+      "replacement": "50% increased Elemental and Chaos Resistances"
+    }
+  ],
+  "Skin of the Loyal": [
+    {
+      "original": [
+        "+1 to Level of Socketed Gems"
+      ],
+      "replacement": "+20% to Quality of Socketed Gems"
+    },
+    {
+      "original": [
+        "100% increased Global Defences"
+      ],
+      "replacement": "50% increased Elemental and Chaos Resistances"
+    }
+  ],
+  "Skyforth": [
+    {
+      "original": [
+        "25% chance to gain a Power Charge on Critical Strike"
+      ],
+      "replacement": "+(3-5)% to Critical Strike Multiplier per Power Charge"
+    }
+  ],
+  "Snakebite": [
+    {
+      "original": [
+        "+(60-70) to maximum Life"
+      ],
+      "replacement": "+(100-130) to maximum Energy Shield"
+    }
+  ],
+  "Solerai's Radiance": [
+    {
+      "original": [
+        "(10-25)% increased Ignite Duration on Enemies"
+      ],
+      "replacement": "(40-60)% reduced Ignite Duration on you"
+    },
+    {
+      "original": [
+        "+(35-50)% to Fire Resistance"
+      ],
+      "replacement": "(30-50)% increased Fire Damage"
+    }
+  ],
+  "Song of the Sirens": [
+    {
+      "original": [
+        "Siren Worm Bait"
+      ],
+      "replacement": "Wombgift Bait"
+    },
+    {
+      "original": [
+        "You can catch Exotic Fish"
+      ],
+      "replacement": "You can catch Foulborn Fish"
+    }
+  ],
+  "Soul Mantle": [
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 20 Spell Totem"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 20 Flamewood"
+    }
+  ],
+  "Soul Strike": [
+    {
+      "original": [
+        "+(100-120) to maximum Energy Shield"
+      ],
+      "replacement": "(10-15)% of Maximum Life Converted to Energy Shield"
+    },
+    {
+      "original": [
+        "80% faster start of Energy Shield Recharge"
+      ],
+      "replacement": "(10-15)% chance for Energy Shield Recharge to start when you use a Skill"
+    }
+  ],
+  "Soul Tether": [
+    {
+      "original": [
+        "Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield"
+      ],
+      "replacement": "(8-12)% of Leech is Instant"
+    },
+    {
+      "original": [
+        "Immortal Ambition"
+      ],
+      "replacement": "Everlasting Sacrifice (When you reach full Energy Shield, Sacrifice all Energy Shield to gain +5% to all Maximum Resistances for 4 seconds)"
+    }
+  ],
+  "Soulthirst": [
+    {
+      "original": [
+        "(20-30)% reduced Flask Effect Duration"
+      ],
+      "replacement": "50% reduced Mana Recovery rate"
+    }
+  ],
+  "Starkonja's Head": [
+    {
+      "original": [
+        "+(80-100) to maximum Life"
+      ],
+      "replacement": "+(100-200) to maximum Mana"
+    }
+  ],
+  "Stormshroud": [
+    {
+      "original": [
+        "+(10-15)% to Lightning Resistance"
+      ],
+      "replacement": "(10-15)% increased Shock Duration on Enemies"
+    },
+    {
+      "original": [
+        "Modifiers to Chance to Avoid being Shocked apply to all Elemental Ailments"
+      ],
+      "replacement": "(25-50)% increased Effect of Shock"
+    }
+  ],
+  "Sunblast": [
+    {
+      "original": [
+        "(50-75)% reduced Trap Duration"
+      ],
+      "replacement": "Skills used by Traps have (40-60)% increased Area of Effect"
+    }
+  ],
+  "The Anticipation": [
+    {
+      "original": [
+        "+(1500-3000) Armour if you've Blocked Recently"
+      ],
+      "replacement": "(8-12)% of Armour applies to Fire, Cold and Lightning Damage taken from Hits if you have Blocked Recently (Recently refers to the past 4 seconds)"
+    },
+    {
+      "original": [
+        "+6% Chance to Block"
+      ],
+      "replacement": "+3% to maximum Chance to Block Attack Damage (Maximum Chance to Block Attack Damage cannot be raised above 90%)"
+    }
+  ],
+  "The Aylardex": [
+    {
+      "original": [
+        "+(30-50) to maximum Life"
+      ],
+      "replacement": "Eldritch Battery (Spend Energy Shield before Mana for Skill Mana Costs. Energy Shield protects Mana instead of Life. 50% less Energy Shield Recharge Rate)"
+    }
+  ],
+  "The Bane of Hope": [
+    {
+      "original": [
+        "(15-30)% chance to Impale Enemies on Hit with Attacks"
+      ],
+      "replacement": "(10-15)% chance on Hitting an Enemy for all Impales on that Enemy to last for an additional Hit"
+    },
+    {
+      "original": [
+        "+(28-35)% to Physical Damage over Time Multiplier"
+      ],
+      "replacement": "(14-18)% increased Attack Speed"
+    }
+  ],
+  "The Baron": [
+    {
+      "original": [
+        "+1 to maximum number of Raised Zombies per 500 Strength"
+      ],
+      "replacement": "+1 to maximum number of Raised Zombies per 500 Intelligence"
+    },
+    {
+      "original": [
+        "With at least 1000 Strength, (1.5-2)% of Damage dealt by your Raised Zombies is Leeched to you as Life"
+      ],
+      "replacement": "With at least 1000 Intelligence, (1.5-2)% of Damage dealt by your Raised Zombies is Leeched to you as Energy Shield"
+    }
+  ],
+  "The Blue Dream": [
+    {
+      "original": [
+        "Gain (6-10)% of Lightning Damage as Extra Chaos Damage"
+      ],
+      "replacement": "+3% to Critical Strike Multiplier per Power Charge"
+    },
+    {
+      "original": [
+        "Gain (6-10)% of Lightning Damage as Extra Chaos Damage"
+      ],
+      "replacement": "Lightning Damage with Hits is Lucky if you've Blocked Spell Damage Recently (Recently refers to the past 4 seconds)"
+    }
+  ],
+  "The Blue Nightmare": [
+    {
+      "original": [
+        "Gain (6-10)% of Lightning Damage as Extra Chaos Damage"
+      ],
+      "replacement": "+3% to Critical Strike Multiplier per Power Charge"
+    },
+    {
+      "original": [
+        "Gain (6-10)% of Lightning Damage as Extra Chaos Damage"
+      ],
+      "replacement": "Lightning Damage with Hits is Lucky if you've Blocked Spell Damage Recently (Recently refers to the past 4 seconds)"
+    },
+    {
+      "original": [
+        "Passives granting Lightning Resistance or all Elemental Resistances in Radius",
+        "also grant Chance to Block Spell Damage at 50% of its value"
+      ],
+      "replacement": "Passives granting Lightning Resistance or all Elemental Resistances in Radiusalso grant Lightning Damage Converted to Chaos Damage at 100% of its value"
+    }
+  ],
+  "The Brass Dome": [
+    {
+      "original": [
+        "+(1-5)% to all maximum Elemental Resistances"
+      ],
+      "replacement": "Transcendence (Armour applies to Fire, Cold and Lightning Damage taken from Hits instead of Physical Damage -15% to all maximum Elemental Resistances)"
+    },
+    {
+      "original": [
+        "Strength provides no bonus to Maximum Life"
+      ],
+      "replacement": "Gain no inherent bonuses from Strength"
+    }
+  ],
+  "The Bringer of Rain": [
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 30 Faster Attacks"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 30 Sadism"
+    }
+  ],
+  "The Coming Calamity": [
+    {
+      "original": [
+        "35% chance to avoid being Stunned for each Herald Buff affecting you"
+      ],
+      "replacement": "Lone Messenger (You can only have one Herald 50% more Effect of Herald Buffs on you 100% more Damage with Hits from Herald Skills 50% more Damage Over Time with Herald Skills Minions from Herald Skills deal 25% more Damage Your Aura Skills are Disabled)"
+    },
+    {
+      "original": [
+        "Mana Reservation of Herald Skills is always 45%"
+      ],
+      "replacement": "(80-100)% increased Effect of Herald Buffs on you"
+    }
+  ],
+  "The Consuming Dark": [
+    {
+      "original": [
+        "Your Chaos Damage has 60% chance to Poison Enemies"
+      ],
+      "replacement": "Your Chaos Damage can Ignite"
+    }
+  ],
+  "The Covenant": [
+    {
+      "original": [
+        "Skills gain a Base Life Cost equal to 100% of Base Mana Cost"
+      ],
+      "replacement": "Blood Magic (Removes all mana. 10% more maximum Life. Skills Cost Life instead of Mana. Skills Reserve Life instead of Mana)"
+    }
+  ],
+  "The Dancing Dervish": [
+    {
+      "original": [
+        "(130-160)% increased Physical Damage"
+      ],
+      "replacement": "Adds 1 to 777 Lightning Damage"
+    }
+  ],
+  "The Desecrated Chalice": [
+    {
+      "original": [
+        "(0.4-0.5)% of Chaos Damage Leeched as Life"
+      ],
+      "replacement": "+(25-30)% to Chaos Resistance"
+    },
+    {
+      "original": [
+        "(20-30)% increased Critical Strike Chance"
+      ],
+      "replacement": "(20-22)% increased Attack Speed"
+    }
+  ],
+  "The Embalmer": [
+    {
+      "original": [
+        "(20-25)% increased Poison Duration"
+      ],
+      "replacement": "When you kill a Poisoned Enemy, Enemies within 1.5 metres are Poisoned"
+    },
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 20 Vile Toxins"
+      ],
+      "replacement": "Poisons you inflict deal Damage (15-20)% faster (Poison deals Chaos Damage over time, based on the base Physical and Chaos Damage of the Skill. Multiple instances of Poison stack)"
+    }
+  ],
+  "The Flame of Hope": [
+    {
+      "original": [
+        "(14-18)% increased Attack Speed"
+      ],
+      "replacement": "(30-34)% increased Critical Strike Chance"
+    },
+    {
+      "original": [
+        "(90-110)% increased Fire Damage"
+      ],
+      "replacement": "+(28-35)% to Fire Damage over Time Multiplier"
+    }
+  ],
+  "The Formless Flame": [
+    {
+      "original": [
+        "-30% to Fire Resistance"
+      ],
+      "replacement": "30% of Fire Damage from Hits taken as Physical Damage"
+    },
+    {
+      "original": [
+        "Armour is increased by Overcapped Fire Resistance"
+      ],
+      "replacement": "Totem Life is increased by their Overcapped Fire Resistance (Overcapped Resistance is the amount by whch Uncapped Resistance is higher than Maximum Resistance)"
+    }
+  ],
+  "The Formless Inferno": [
+    {
+      "original": [
+        "-30% to Fire Resistance"
+      ],
+      "replacement": "30% of Fire Damage from Hits taken as Physical Damage"
+    },
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 30 Infernal Legion"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 30 Minion Life"
+    }
+  ],
+  "The Fourth Vow": [
+    {
+      "original": [
+        "Physical Damage taken bypasses Energy Shield"
+      ],
+      "replacement": "40% of Non-Chaos Damage taken bypasses Energy Shield"
+    }
+  ],
+  "The Green Dream": [
+    {
+      "original": [
+        "Gain (6-10)% of Cold Damage as Extra Chaos Damage"
+      ],
+      "replacement": "1% increased Movement Speed per Frenzy Charge"
+    }
+  ],
+  "The Green Nightmare": [
+    {
+      "original": [
+        "Gain (6-10)% of Cold Damage as Extra Chaos Damage"
+      ],
+      "replacement": "1% increased Movement Speed per Frenzy Charge"
+    },
+    {
+      "original": [
+        "Gain (6-10)% of Cold Damage as Extra Chaos Damage"
+      ],
+      "replacement": "Cold Damage with Hits is Lucky if you've Suppressed Spell Damage Recently (Recently refers to the past 4 seconds)"
+    },
+    {
+      "original": [
+        "Passives granting Cold Resistance or all Elemental Resistances in Radius",
+        "also grant Chance to Suppress Spell Damage at 70% of its value"
+      ],
+      "replacement": "Passives granting Cold Resistance or all Elemental Resistances in Radiusalso grant Cold Damage Converted to Chaos Damage at 100% of its value"
+    }
+  ],
+  "The Gull": [
+    {
+      "original": [
+        "+(60-80) to maximum Life"
+      ],
+      "replacement": "(15-20)% of Maximum Life Converted to Energy Shield"
+    }
+  ],
+  "The Halcyon": [
+    {
+      "original": [
+        "+(35-40)% to Cold Resistance"
+      ],
+      "replacement": "(5-15)% of Physical Damage from Hits taken as Cold Damage"
+    },
+    {
+      "original": [
+        "60% increased Damage if you've Frozen an Enemy Recently"
+      ],
+      "replacement": "Cannot be Frozen"
+    }
+  ],
+  "The Harvest": [
+    {
+      "original": [
+        "(120-140)% increased Physical Damage"
+      ],
+      "replacement": "(120-140)% increased Spell Damage"
+    }
+  ],
+  "The Infinite Pursuit": [
+    {
+      "original": [
+        "Cannot be Stunned while Bleeding"
+      ],
+      "replacement": "Immune to Elemental Ailments while Bleeding"
+    },
+    {
+      "original": [
+        "Moving while Bleeding doesn't cause you to take extra Damage"
+      ],
+      "replacement": "(50-100)% increased Armour while Bleeding"
+    }
+  ],
+  "The Iron Fortress": [
+    {
+      "original": [
+        "+1% Chance to Block Attack Damage per 50 Strength"
+      ],
+      "replacement": "+1% Chance to Block Spell Damage per 50 Strength"
+    },
+    {
+      "original": [
+        "Chance to Block Spell Damage is Unlucky"
+      ],
+      "replacement": "Chance to Block Attack Damage is Unlucky (Unlucky things are rolled twice and the worst result used)"
+    }
+  ],
+  "The Magnate": [
+    {
+      "original": [
+        "50% increased Flask Charges gained"
+      ],
+      "replacement": "Flasks applied to you have (10-15)% increased Effect"
+    }
+  ],
+  "The Oppressor": [
+    {
+      "original": [
+        "-10% to amount of Suppressed Spell Damage Prevented"
+      ],
+      "replacement": "(10-15)% chance to Avoid All Damage from Hits (No chance to avoid damage can be higher than 75%)"
+    },
+    {
+      "original": [
+        "You take 20% of Damage from Blocked Hits"
+      ],
+      "replacement": "(20-30)% Chance to Block Spell Damage"
+    }
+  ],
+  "The Pandemonius": [
+    {
+      "original": [
+        "(20-30)% increased Cold Damage"
+      ],
+      "replacement": "Cannot be Chilled"
+    },
+    {
+      "original": [
+        "+(35-40)% to Cold Resistance"
+      ],
+      "replacement": "(5-15)% of Physical Damage from Hits taken as Cold Damage"
+    }
+  ],
+  "The Perfect Form": [
+    {
+      "original": [
+        "(150-200)% increased Evasion Rating"
+      ],
+      "replacement": "+8 to Evasion Rating per 10 Player Maximum Life"
+    },
+    {
+      "original": [
+        "Acrobatics"
+      ],
+      "replacement": "Ghost Dance (Cannot Recover Energy Shield to above Evasion Rating. Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3. When Hit, lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating)"
+    }
+  ],
+  "The Poet's Pen": [
+    {
+      "original": [
+        "Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels"
+      ],
+      "replacement": "Adds 3 to 5 Physical Damage to Spells per 3 Player Levels"
+    }
+  ],
+  "The Red Dream": [
+    {
+      "original": [
+        "Gain (6-10)% of Fire Damage as Extra Chaos Damage"
+      ],
+      "replacement": "+4% to Chaos Resistance per Endurance Charge"
+    }
+  ],
+  "The Red Nightmare": [
+    {
+      "original": [
+        "Gain (6-10)% of Fire Damage as Extra Chaos Damage"
+      ],
+      "replacement": "+4% to Chaos Resistance per Endurance Charge"
+    },
+    {
+      "original": [
+        "Gain (6-10)% of Fire Damage as Extra Chaos Damage"
+      ],
+      "replacement": "Fire Damage with Hits is Lucky if you've Blocked an Attack Recently (Recently refers to the past 4 seconds)"
+    },
+    {
+      "original": [
+        "Passives granting Fire Resistance or all Elemental Resistances in Radius",
+        "also grant Chance to Block Attack Damage at 50% of its value"
+      ],
+      "replacement": "Passives granting Fire Resistance or all Elemental Resistances in Radiusalso grant Fire Damage Converted to Chaos Damage at 100% of its value"
+    }
+  ],
+  "The Red Trail": [
+    {
+      "original": [
+        "10% additional Physical Damage Reduction while stationary"
+      ],
+      "replacement": "Gain an Endurance Charge every 1 seconds while Stationary"
+    },
+    {
+      "original": [
+        "Gain a Frenzy Charge on Hit while Bleeding"
+      ],
+      "replacement": "Gain a Power Charge on Hit while Bleeding"
+    }
+  ],
+  "The Sacred Chalice": [
+    {
+      "original": [
+        "(20-30)% increased Critical Strike Chance"
+      ],
+      "replacement": "(20-22)% increased Attack Speed"
+    }
+  ],
+  "The Searing Touch": [
+    {
+      "original": [
+        "10% increased Cast Speed"
+      ],
+      "replacement": "+(3-5) to maximum number of Summoned Searing Bond Totems"
+    }
+  ],
+  "The Snowblind Grace": [
+    {
+      "original": [
+        "(80-100)% increased Evasion Rating"
+      ],
+      "replacement": "+6 to Evasion Rating per 10 Player Maximum Life"
+    },
+    {
+      "original": [
+        "50% increased Arctic Armour Buff Effect"
+      ],
+      "replacement": "Purity of Ice has no Reservation"
+    }
+  ],
+  "The Squire": [
+    {
+      "original": [
+        "+(5-8)% to Quality of Socketed Support Gems"
+      ],
+      "replacement": "+1 to Level of Socketed Gems"
+    },
+    {
+      "original": [
+        "All Sockets are White"
+      ],
+      "replacement": "Ignore Attribute Requirements of Socketed Gems (Attributes are Strength, Dexterity, and Intelligence)"
+    }
+  ],
+  "The Surrender": [
+    {
+      "original": [
+        "+6% Chance to Block"
+      ],
+      "replacement": "+3% to maximum Chance to Block Attack Damage (Maximum Chance to Block Attack Damage cannot be raised above 90%)"
+    },
+    {
+      "original": [
+        "Recover (250-500) Life when you Block"
+      ],
+      "replacement": "Gain (300-650) Energy Shield when you Block"
+    }
+  ],
+  "The Three Dragons": [
+    {
+      "original": [
+        "Your Cold Damage can Ignite but not Freeze or Chill"
+      ],
+      "replacement": "Your Chaos Damage can Ignite"
+    },
+    {
+      "original": [
+        "Your Fire Damage can Shock but not Ignite"
+      ],
+      "replacement": "Your Chaos Damage can Shock (Shock increases Damage taken by up to 50%, depending on the amount of Lightning Damage in the hit, for 2 seconds)"
+    },
+    {
+      "original": [
+        "Your Lightning Damage can Freeze but not Shock"
+      ],
+      "replacement": "Your Chaos Damage can Freeze (Freeze lowers Enemy Action Speed to zero, preventing them from acting. Duration is based on the Cold Damage of the Hit)"
+    }
+  ],
+  "The Whispering Ice": [
+    {
+      "original": [
+        "1% increased Spell Damage per 10 Intelligence"
+      ],
+      "replacement": "1% increased Area of Effect per 20 Intelligence"
+    }
+  ],
+  "Thief's Torment": [
+    {
+      "original": [
+        "50% reduced Effect of Curses on you"
+      ],
+      "replacement": "50% reduced Effect of Non-Damaging Ailments on you (Ailments that do not deal Damage are Scorched, Chilled, Frozen, Brittle, Shocked, and Sapped)"
+    }
+  ],
+  "Thunderfist": [
+    {
+      "original": [
+        "100% increased Effect of Lightning Ailments"
+      ],
+      "replacement": "Herald of Thunder has 100% increased Buff Effect"
+    }
+  ],
+  "Timeclasp": [
+    {
+      "original": [
+        "(-20-20)% reduced Skill Effect Duration"
+      ],
+      "replacement": "Debuffs on you expire (-20-20)% slower (Effects cannot be slowed below 25% of their normal expiry rate)"
+    }
+  ],
+  "Tinkerskin": [
+    {
+      "original": [
+        "15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy"
+      ],
+      "replacement": "Skills which Throw Traps have +2 Cooldown Uses"
+    }
+  ],
+  "Tremor Rod": [
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 10 Blastchain Mine"
+      ],
+      "replacement": "(60-100)% increased Effect of Auras from Mines"
+    }
+  ],
+  "Tulborn": [
+    {
+      "original": [
+        "Adds (120-140) to (150-170) Cold Damage to Spells"
+      ],
+      "replacement": "+(2-3) to Level of all Cold Spell Skill Gems"
+    },
+    {
+      "original": [
+        "Gain a Power Charge on Killing a Frozen Enemy"
+      ],
+      "replacement": "Gain a Power Charge after Spending a total of 200 Mana"
+    }
+  ],
+  "Tulfall": [
+    {
+      "original": [
+        "Adds 50 to 70 Cold Damage to Spells per Power Charge"
+      ],
+      "replacement": "+(15-20)% to Cold Damage over Time Multiplier per Power Charge"
+    }
+  ],
+  "Umbilicus Immortalis": [
+    {
+      "original": [
+        "Flasks do not apply to you"
+      ],
+      "replacement": "100% increased Flask Charges used"
+    },
+    {
+      "original": [
+        "Regenerate 2% of Life per second"
+      ],
+      "replacement": "Flasks gain 1 Charges every 3 seconds"
+    }
+  ],
+  "United in Dream": [
+    {
+      "original": [
+        "Minions have +29% to Chaos Resistance"
+      ],
+      "replacement": "Minions have 25% chance to gain Unholy Might for 4 seconds on Kill (Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
+    },
+    {
+      "original": [
+        "Minions Recover 10% of Life on Killing a Poisoned Enemy"
+      ],
+      "replacement": "+(20-30)% to Quality of all Minion Skill Gems"
+    }
+  ],
+  "Unnatural Instinct": [
+    {
+      "original": [
+        "Allocated Small Passive Skills in Radius grant nothing"
+      ],
+      "replacement": "Allocated Notable Passive Skills in Radius grant nothing"
+    }
+  ],
+  "Utula's Hunger": [
+    {
+      "original": [
+        "+(700-1000) to maximum Life if there are no Life Modifiers on other Equipped Items"
+      ],
+      "replacement": "+(1200-1800) to maximum Energy Shield if there are no Defence Modifiers on other Equipped Items (Flasks and Jewels are not Equipped)"
+    }
+  ],
+  "Uul-Netol's Embrace": [
+    {
+      "original": [
+        "(25-30)% reduced Attack Speed"
+      ],
+      "replacement": "80% reduced Intelligence"
+    },
+    {
+      "original": [
+        "25% chance to cause Bleeding on Hit"
+      ],
+      "replacement": "Bleeding you inflict deals Damage (20-40)% faster (They will deal the same total damage over a shorter duration)"
+    }
+  ],
+  "Uul-Netol's Kiss": [
+    {
+      "original": [
+        "Curse Enemies with Vulnerability on Hit"
+      ],
+      "replacement": "Warcries Exert 1 additional Attacks"
+    },
+    {
+      "original": [
+        "Exerted Attacks deal 200% increased Damage"
+      ],
+      "replacement": "500% increased Warcry Cooldown Recovery Rate"
+    }
+  ],
+  "Vaal Caress": [
+    {
+      "original": [
+        "You gain Onslaught for 20 seconds on using a Vaal Skill"
+      ],
+      "replacement": "You gain Adrenaline for 3 seconds on using a Vaal Skill (Adrenaline grants 100% increased Damage, 25% increased Attack, Cast and Movement Speed and 10% additional Physical Damage Reduction. You cannot gain Adrenaline if you already have it)"
+    }
+  ],
+  "Veil of the Night": [
+    {
+      "original": [
+        "(18-22)% increased Global Defences"
+      ],
+      "replacement": "50% increased maximum Life"
+    }
+  ],
+  "Ventor's Gamble": [
+    {
+      "original": [
+        "+(0-60) to maximum Life"
+      ],
+      "replacement": "+(0-60) to maximum Energy Shield+(0-60) to maximum Mana"
+    }
+  ],
+  "Veruso's Battering Rams": [
+    {
+      "original": [
+        "You cannot be Shocked while at maximum Endurance Charges"
+      ],
+      "replacement": "Cannot be Ignited while at maximum Endurance Charges"
+    }
+  ],
+  "Victario's Flight": [
+    {
+      "original": [
+        "(10-20)% increased Movement Speed"
+      ],
+      "replacement": "(6-12)% increased Action Speed"
+    }
+  ],
+  "Victario's Influence": [
+    {
+      "original": [
+        "(20-40)% increased Area of Effect of Aura Skills"
+      ],
+      "replacement": "Non-Curse Aura Skills have (40-80)% increased Duration"
+    }
+  ],
+  "Vis Mortis": [
+    {
+      "original": [
+        "Minions gain (15-20)% of Elemental Damage as Extra Chaos Damage"
+      ],
+      "replacement": "Minions have Unholy Might (Unholy Might grants 100% of Physical Damage converted to Chaos Damage and 25% chance to apply Withered on Hit)"
+    }
+  ],
+  "Voice of the Storm": [
+    {
+      "original": [
+        "(10-20)% increased maximum Mana"
+      ],
+      "replacement": "+3% to maximum Lightning Resistance (Maximum Resistances cannot be raised above 90%)"
+    },
+    {
+      "original": [
+        "Lightning Damage with Non-Critical Strikes is Lucky"
+      ],
+      "replacement": "Damage of Enemies Hitting you is Unlucky (Unlucky things are rolled twice and the worst result used)"
+    }
+  ],
+  "Void Battery": [
+    {
+      "original": [
+        "(50-65)% increased Global Critical Strike Chance"
+      ],
+      "replacement": "3% increased Area of Effect per Power Charge"
+    }
+  ],
+  "Voidbringer": [
+    {
+      "original": [
+        "(125-150)% increased Spell Critical Strike Chance"
+      ],
+      "replacement": "(10-15)% increased Chaos Damage for each Corrupted Item Equipped (Flasks and Jewels are not Equipped)"
+    }
+  ],
+  "Voll's Devotion": [
+    {
+      "original": [
+        "30% reduced Endurance Charge Duration"
+      ],
+      "replacement": "Lose all Power Charges on reaching Maximum Power Charges"
+    },
+    {
+      "original": [
+        "30% reduced Power Charge Duration"
+      ],
+      "replacement": "Gain a Power Charge every Second if you haven't lost Power Charges Recently"
+    }
+  ],
+  "Voll's Protector": [
+    {
+      "original": [
+        "50% reduced maximum Mana"
+      ],
+      "replacement": "(-17--13)% to Chaos Resistance"
+    }
+  ],
+  "Voll's Vision": [
+    {
+      "original": [
+        "(8-12)% increased Maximum Life if no Equipped Items are Corrupted"
+      ],
+      "replacement": "Gain (8-12)% of Maximum Life as Extra Maximum Energy Shield if no Equipped Items are Corrupted"
+    },
+    {
+      "original": [
+        "Regenerate 400 Life per second if no Equipped Items are Corrupted"
+      ],
+      "replacement": "(15-20)% of Life Regeneration also applies to Energy Shield if no Equipped Items are Corrupted"
+    }
+  ],
+  "Warped Timepiece": [
+    {
+      "original": [
+        "(10-15)% increased Movement Speed"
+      ],
+      "replacement": "(20-30)% increased Temporal Chains Curse Effect"
+    }
+  ],
+  "Warrior's Legacy": [
+    {
+      "original": [
+        "20% less Attack Speed"
+      ],
+      "replacement": "(40-50)% reduced maximum Life"
+    }
+  ],
+  "Windscream": [
+    {
+      "original": [
+        "50% increased Area of Effect of Hex Skills"
+      ],
+      "replacement": "You are Immune to Curses"
+    }
+  ],
+  "Witchbane": [
+    {
+      "original": [
+        "+(5-15) to Intelligence"
+      ],
+      "replacement": "Curse Skills have (10-15)% increased Skill Effect Duration"
+    },
+    {
+      "original": [
+        "When you Kill an Enemy Cursed with a Non-Aura Hex, become Immune to",
+        "Curses for remaining Hex Duration"
+      ],
+      "replacement": "Cursed Enemies you or your Minions Kill have a (10-15)% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage"
+    }
+  ],
+  "Wyrmsign": [
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 5 Concentrated Effect"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 5 Manaforged Arrows"
+    }
+  ],
+  "Xoph's Blood": [
+    {
+      "original": [
+        "+(20-40)% to Fire Resistance"
+      ],
+      "replacement": "(5-15)% of Physical Damage from Hits taken as Fire Damage"
+    },
+    {
+      "original": [
+        "Avatar of Fire"
+      ],
+      "replacement": "Elemental Overload (Skills that have dealt a Critical Strike in the past 8 seconds deal 40% more Elemental Damage with Hits and Ailments. Your Critical Strikes do not deal extra Damage. Ailments never count as being from Critical Strikes)"
+    }
+  ],
+  "Xoph's Heart": [
+    {
+      "original": [
+        "+(20-40)% to Fire Resistance"
+      ],
+      "replacement": "(5-15)% of Physical Damage from Hits taken as Fire Damage"
+    },
+    {
+      "original": [
+        "Nearby Enemies are Covered in Ash"
+      ],
+      "replacement": "Nearby Enemies are Debilitated (Enemies that are Debilitated have 20% less Movement Speed and deal 10% less damage)"
+    }
+  ],
+  "Xoph's Inception": [
+    {
+      "original": [
+        "Gain 20% of Physical Damage as Extra Fire Damage"
+      ],
+      "replacement": "Ignites you inflict deal Damage (20-40)% faster (They will deal the same total damage over a shorter duration)"
+    },
+    {
+      "original": [
+        "Projectiles Pierce all Burning Enemies"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 20 Returning Projectiles"
+    }
+  ],
+  "Xoph's Nurture": [
+    {
+      "original": [
+        "50% of Physical Damage Converted to Fire Damage"
+      ],
+      "replacement": "All Damage can Ignite"
+    },
+    {
+      "original": [
+        "Socketed Gems are Supported by Level 20 Ignite Proliferation"
+      ],
+      "replacement": "Socketed Gems are Supported by Level 30 Immolate"
+    }
+  ],
+  "Ylfeban's Trickery": [
+    {
+      "original": [
+        "Trigger Level 10 Shock Ground when Hit"
+      ],
+      "replacement": "Increases and Reductions to Spell Damage also apply to Attack Damage with Retaliation Skills at 200% of their value"
+    }
+  ],
+  "Zahndethus' Cassock": [
+    {
+      "original": [
+        "25% increased Light Radius"
+      ],
+      "replacement": "Create Profane Ground instead of Consecrated Ground (Hits against Enemies on Profane Ground have 100% increased Critical Strike Chance, and Curses have 10% increased Effect on them)"
+    }
+  ]
+}

@@ -48,6 +48,30 @@ export const ItemSeparator = ({
   />
 );
 
+// Marks the Foulborn portion of an annotated mod line (see
+// annotateFoulbornReplacements in src/_utils/utils.ts) for distinct-colour
+// rendering — control characters, so guaranteed never to collide with real
+// mod text. renderModLine below is what actually splits on these.
+export const FOULBORN_MARK_START = '\u0001';
+export const FOULBORN_MARK_END = '\u0002';
+
+// Renders a single mod line, colouring any Foulborn-marked portion (see
+// FOULBORN_MARK_START/END) in poeItem-foulborn instead of the surrounding
+// line's own colour. Lines without a marker render unchanged.
+export const renderModLine = (line: string): ReactNode => {
+  if (!line.includes(FOULBORN_MARK_START)) return line;
+
+  const [before, rest] = line.split(FOULBORN_MARK_START);
+  const [marked, after] = rest.split(FOULBORN_MARK_END);
+  return (
+    <>
+      {before}
+      <span className="text-poeItem-foulborn">{marked}</span>
+      {after}
+    </>
+  );
+};
+
 export const itemHeaderFontColor = (rarity: GGGItemRarity) =>
   ({
     normal: 'text-white',

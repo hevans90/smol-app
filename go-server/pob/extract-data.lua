@@ -371,6 +371,17 @@ io.stderr:write(string.format(
 	skippedCount
 ))
 
+-- Foulborn (3.27+) data is NOT sourced from here — PoB's own
+-- Data/ModFoulborn.lua has no field correlating a specific original mod
+-- with its specific replacement (verified: `group` matching only recovers
+-- which mods share a REPLACEMENT SLOT, not which original line each
+-- replaces — e.g. it can't distinguish "Alpha's Howl's own Reservation
+-- Efficiency mod becomes 32%" from an unrelated stale variant value also
+-- sharing that slot). That correlation is deterministic in-game but isn't
+-- present anywhere in PoB's data; see scripts/scrape-foulborn-mods.mjs,
+-- which scrapes it from poedb.tw/us/Foulborn instead (verified against
+-- this file's own unique-item-previews.json output).
+
 io.stdout:write(json.encode({
 	itemBases = data.itemBases,
 	uniqueBaseTypes = uniqueBaseTypes,

@@ -66,6 +66,10 @@ async function main() {
     `Wrote ${Object.keys(sortedUniqueItemPreviews).length} unique item previews to ${UNIQUE_ITEM_PREVIEWS_PATH}`,
   );
 
+  // Foulborn (3.27+) data is written separately by
+  // scripts/scrape-foulborn-mods.mjs — see extract-data.lua's comment for
+  // why it isn't sourced from the PoB dump.
+
   // Raw PoB base-type data — src/_utils/utils.ts's getSortedBaseItems()
   // consumes this directly (see POB_TYPE_TO_CATEGORY / getCategory there for
   // the mapping from PoB's own `type`+`tags` to this app's BaseTypeCategory,

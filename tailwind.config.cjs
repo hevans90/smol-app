@@ -36,6 +36,7 @@ module.exports = {
           enchant: '#b4b4ff',
           darkGrey: '#7f7f7f',
           corrupted: '#ff0000',
+          foulborn: '#cd2285',
 
           fire: '#ca2424',
           cold: '#4179b1',

@@ -66,8 +66,8 @@ export type RegularFulfillVerdict = {
   // the order's stored item_base_type — surfaced as a soft warning, not a
   // reason to say "not found", since the name match is the stronger signal.
   baseTypeMismatch?: boolean;
-  // order.type is 'other'/'transfiguredgem', or there's no usable identity
-  // to match against at all.
+  // order.type is 'base'/'gem'/'other', or there's no usable identity to
+  // match against at all.
   unverifiable?: boolean;
 };
 
@@ -81,9 +81,12 @@ export const matchRegularOrder = (
   },
 ): RegularFulfillVerdict => {
   if (order.type !== 'unique') {
-    // The only item_order_type_enum values are 'unique', 'other', and
-    // 'transfiguredgem' (hasura/seeds/default/1705593048567_item_order_type.sql)
-    // — the latter two have no reliable canonical identity to match on.
+    // item_order_type_enum's full value set is 'unique', 'base', 'gem', and
+    // 'other' (hasura/seeds/default/1705593048567_item_order_type.sql) —
+    // only uniques have a canonical identity (a real name) this can match a
+    // stash item against; the rest share a base type across many different
+    // items (base/gem) or are pure free text (other) with nothing reliable
+    // to match on.
     return { matched: false, unverifiable: true };
   }
 

@@ -26,7 +26,7 @@ export const orderBookTypeFiltersStore = persistentAtom<{
   {
     other: true,
     unique: true,
-    transfiguredgem: true,
+    gem: true,
     base: true
   },
   {

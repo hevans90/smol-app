@@ -6,9 +6,22 @@
   `getUniqueItemWikiInfo()` in `src/_utils/utils.ts`.
 
 - `unique-item-previews.json` — unique item name -> base type + implicit/
-  explicit mod text + corrupted flag. Same source/regeneration as
-  `unique-base-types.json` above. Consumed by `buildOrderItemPreview()` in
-  `src/_utils/utils.ts` to build the app-wide order-preview popover.
+  explicit mod text + corrupted flag + `levelReq`/`strReq`/`dexReq`/`intReq`
+  (only present when the unique's own requirement differs from its base
+  type's — e.g. Oriath's End needs level 56 despite its base (Bismuth
+  Flask) only needing 8; The Will of Uul-Netol needs level 42 vs. its base
+  (Organic Ring)'s 32). Parsed from PoB's raw data, which expresses this
+  two different ways depending on the unique — both needed handling, they
+  aren't interchangeable: a plain `LevelReq: N` line, or a `Requires Level
+  N[, X Str][, Y Dex][, Z Int]` line (sometimes `Requires Level: N` with a
+  colon; sometimes attributes with no level at all, e.g. `Requires 8 Str, 8
+  Dex`) — both of which the base-type-name/mod-text parsing above used to
+  just skip as metadata entirely. Coverage: 746/1304 uniques have a level
+  override, 215/194/241 have a str/dex/int override respectively. Falls
+  back to the base type's own `req` (`pob-item-bases.json`) when absent.
+  Same source/regeneration as `unique-base-types.json` above. Consumed by
+  `buildOrderItemPreview()` in `src/_utils/utils.ts` to build the app-wide
+  order-preview popover.
 
 - `unique-foulborn-mods.json` — unique item name -> its deterministic
   original-mod -> Foulborn-replacement pairs (3.27+: a real Foulborn item

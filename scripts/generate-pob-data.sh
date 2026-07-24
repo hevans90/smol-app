@@ -13,6 +13,12 @@
 #   - src/assets/bases/pob-item-bases.json (PoB's raw base-type data — sockets,
 #     tags, requirements, weapon/armour stats, influence compatibility — see
 #     getSortedBaseItems in src/_utils/utils.ts for how the app consumes it)
+#   - src/assets/gems/gems.json (every gem — regular, Vaal, transfigured —
+#     name/tags/variant-linkage/description, PLUS computed real per-level
+#     explicit stat lines and character-level/attribute requirement ranges
+#     (PoB's calc engine driven directly, no live build/character needed);
+#     see src/models/gems.ts. No icon or cost text exists in PoB for gems in
+#     readable form though)
 #   - public/item-preview/influences/*-symbol.png (influence badge icons —
 #     PoB bundles these itself for its own tooltip rendering; this is the
 #     canonical source, not the third-party repo they were first sourced

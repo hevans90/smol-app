@@ -1,6 +1,9 @@
 import { search as fuzzySearch } from 'fast-fuzzy';
 import iconsResponse from '../assets/bases/all-basetypes.json';
 import pobItemBasesResponse from '../assets/bases/pob-item-bases.json';
+import gemDetailsResponse from '../assets/gems/gem-details.json';
+import gemIconsResponse from '../assets/gems/gem-icons.json';
+import gemsResponse from '../assets/gems/gems.json';
 import stackablesResponse from '../assets/stackables/stackables.json';
 import uniqueBaseTypesResponse from '../assets/uniques/unique-base-types.json';
 import uniqueFoulbornModsResponse from '../assets/uniques/unique-foulborn-mods.json';
@@ -15,7 +18,12 @@ import {
   type UniqueItemPreview,
 } from '../models/base-types';
 import type { DDSItem } from '../models/dds-items';
-import type { GGGItem, GGGItemProperty } from '../models/ggg-responses';
+import type { PobGem } from '../models/gems';
+import type {
+  GGGItem,
+  GGGItemProperty,
+  GGGItemRequirement,
+} from '../models/ggg-responses';
 import { FOULBORN_MARK_END, FOULBORN_MARK_START } from './item-preview-utils';
 import { deriveUniqueNameCandidate } from './stash-matching';
 
@@ -297,33 +305,25 @@ export const searchUniquesByNameOrBase = (
     }));
 };
 
-export type StackableSearchResult = {
-  name: string;
-  category: string;
-  icon: string;
-};
-
-const stackableItems = stackablesResponse as StackableSearchResult[];
-
-// Currency/essences/fragments/etc only — NOT uniques, which are single-item
-// and served by the existing (searchUniquesByNameOrBase) order flow. Backs
-// the bulk order item picker.
-//
-// Item names here are multi-word ("Screaming Essence of Contempt"), and the
-// natural way to type-ahead them is one abbreviation per word ("scr cont").
-// fast-fuzzy's whole-string edit distance scores that query far from the
-// full name and misses it, so word matches are found first (every query
-// token must be a substring of some word in the name — order-independent,
-// so "cont scr" also matches), then padded with fast-fuzzy's typo-tolerant
-// full-string search for single-word/misspelled queries.
-export const searchStackablesByName = (
+// Shared two-stage name ranker, used by searchStackablesByName,
+// searchBaseTypesByName, and searchGemsByName: item names here are
+// multi-word ("Screaming Essence of Contempt", "Ice Nova of Frostbolts"),
+// and the natural way to type-ahead them is one abbreviation per word ("scr
+// cont"). fast-fuzzy's whole-string edit distance scores that query far
+// from the full name and misses it, so word matches are found first (every
+// query token must be a substring of some word in the name —
+// order-independent, so "cont scr" also matches), ranked by full-name-
+// prefix(0) > first-word-prefix(1) > other(2), then padded with fast-fuzzy's
+// typo-tolerant full-string search for single-word/misspelled queries.
+const rankByNameTokens = <T extends { name: string }>(
   query: string,
-  maxResults = 8,
-): StackableSearchResult[] => {
+  items: T[],
+  maxResults: number,
+): T[] => {
   const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
   if (tokens.length === 0) return [];
 
-  const rank = (item: StackableSearchResult) => {
+  const rank = (item: T) => {
     const lowerName = item.name.toLowerCase();
     if (lowerName.startsWith(query.toLowerCase())) return 0;
     const firstWord = lowerName.split(/\s+/)[0];
@@ -331,7 +331,7 @@ export const searchStackablesByName = (
     return 2;
   };
 
-  const wordMatches = stackableItems
+  const wordMatches = items
     .filter((item) => {
       const words = item.name.toLowerCase().split(/\s+/);
       return tokens.every((token) =>
@@ -344,7 +344,7 @@ export const searchStackablesByName = (
     return wordMatches.slice(0, maxResults);
   }
 
-  const fuzzyMatches = fuzzySearch(query, stackableItems, {
+  const fuzzyMatches = fuzzySearch(query, items, {
     keySelector: (item) => item.name,
     threshold: 0.7,
   });
@@ -358,6 +358,185 @@ export const searchStackablesByName = (
   }
 
   return wordMatches.slice(0, maxResults);
+};
+
+export type StackableSearchResult = {
+  name: string;
+  category: string;
+  icon: string;
+};
+
+const stackableItems = stackablesResponse as StackableSearchResult[];
+
+// Currency/essences/fragments/etc only — NOT uniques, which are single-item
+// and served by the existing (searchUniquesByNameOrBase) order flow. Backs
+// the bulk order item picker.
+export const searchStackablesByName = (
+  query: string,
+  maxResults = 8,
+): StackableSearchResult[] => rankByNameTokens(query, stackableItems, maxResults);
+
+export type BaseTypeSearchResult = {
+  name: string;
+  category: BaseTypeCategory;
+  icon: string;
+};
+
+// Flattened once from getSortedBaseItems()'s own category grouping/filtering
+// (Grafts/hidden/redundant-flask exclusion) — one source of truth for what
+// counts as an orderable base type, not a second filter to keep in sync.
+const flatBaseItems: BaseTypeSearchResult[] = Object.values(getSortedBaseItems())
+  .flat()
+  .map((item) => ({
+    name: item.Name,
+    category: item.ItemClassesName,
+    icon: item.IconPath,
+  }));
+
+export const searchBaseTypesByName = (
+  query: string,
+  maxResults = 6,
+): BaseTypeSearchResult[] => rankByNameTokens(query, flatBaseItems, maxResults);
+
+export type GemSearchResult = {
+  name: string;
+  transfigured: boolean;
+  vaal: boolean;
+  baseGemName?: string;
+  tagString: string;
+  icon: string;
+};
+
+// Shape of src/assets/gems/gem-details.json (scripts/scrape-gem-metadata.mjs)
+// — external, gem-type-level facts poedb has no equivalent for (resource
+// cost/multiplier, quality bonus text, instant cast). Never a specific
+// instance's actual current level/quality/cast time — there's no such
+// instance for an order preview to describe. Level requirement lives on
+// gems.json instead (levelReqMin/Max) — see PobGem's doc comment — since
+// PoB's own computed range supersedes what this file used to carry.
+type GemDetails = {
+  costResource?: string;
+  costRange?: string;
+  costMultiplier?: string;
+  qualityText?: string;
+  instant?: boolean;
+};
+
+const gemIconsByName = gemIconsResponse as Record<string, string>;
+const gemDetailsByName = gemDetailsResponse as Record<string, GemDetails>;
+const gemList: GemSearchResult[] = Object.values(gemsResponse as Record<string, PobGem>).map(
+  (gem) => {
+    // Vaal transfigured gems (e.g. "Vaal Absolution of Inspiring") have no
+    // icon in either scrape source's list pages — neither poegems.com nor
+    // poedb.tw lists these rows at all, unlike ordinary transfigured gems.
+    // Their base Vaal gem's icon (gem.baseGemName, e.g. "Vaal Absolution")
+    // is the same asset the real transfigured gem would use if it had one
+    // cataloged — the gem's own art doesn't change on transfiguration,
+    // only its stats — same reasoning poedb itself relies on for ordinary
+    // transfigured gems (see gem-icons.json's README entry).
+    const icon =
+      gemIconsByName[gem.name] ??
+      (gem.vaal && gem.transfigured && gem.baseGemName
+        ? gemIconsByName[gem.baseGemName]
+        : undefined) ??
+      '';
+    return {
+      name: gem.name,
+      transfigured: gem.transfigured,
+      vaal: gem.vaal,
+      baseGemName: gem.baseGemName,
+      tagString: gem.tagString,
+      icon,
+    };
+  },
+);
+
+export const searchGemsByName = (query: string, maxResults = 6): GemSearchResult[] =>
+  rankByNameTokens(query, gemList, maxResults);
+
+export type OrderSearchKind = 'unique' | 'base' | 'gem';
+
+export type OrderSearchResult = {
+  kind: OrderSearchKind;
+  name: string;
+  icon: string;
+  sublabel: string;
+  // resolved fields, carried straight through to the order insert on select —
+  // see orderSearchResultToPreviewRow in OrderForm.tsx.
+  itemBaseType?: string;
+  itemCategory?: string;
+  linkUrl?: string;
+  id: string;
+};
+
+// The unified quick-order search: uniques + base types + gems (incl.
+// transfigured), one merged, deduped, capped list. Each kind's own search
+// keeps its own relevance ranking (token-rank for base/gem, uniques' own
+// fuzzy-name search) — rather than fabricate one combined score across two
+// different scoring systems, results are interleaved by within-kind rank
+// with a small kind bias (uniques win ties, being the most commonly ordered
+// kind today). Foulborn support comes through for free: searchUniquesByNameOrBase
+// already emits synthetic "Foulborn X" results for a "foulborn "-prefixed query.
+export const searchAllOrderItems = (
+  query: string,
+  perTypeCap = 4,
+  totalCap = 12,
+): OrderSearchResult[] => {
+  const uniqueResults: OrderSearchResult[] = searchUniquesByNameOrBase(
+    query,
+    perTypeCap,
+  ).map((r) => {
+    const wiki = getUniqueItemWikiInfo(r.name);
+    return {
+      kind: 'unique',
+      name: r.name,
+      icon: r.icon,
+      sublabel: 'Unique',
+      itemBaseType: wiki?.baseItem,
+      linkUrl: wiki?.wikiLink,
+      id: `unique:${r.id}`,
+    };
+  });
+
+  const baseResults: OrderSearchResult[] = searchBaseTypesByName(query, perTypeCap).map(
+    (r) => ({
+      kind: 'base',
+      name: r.name,
+      icon: r.icon,
+      sublabel: r.category,
+      itemBaseType: r.name,
+      itemCategory: r.category,
+      id: `base:${r.name}`,
+    }),
+  );
+
+  const gemResults: OrderSearchResult[] = searchGemsByName(query, perTypeCap).map((r) => ({
+    kind: 'gem',
+    name: r.name,
+    icon: r.icon,
+    sublabel: r.transfigured ? 'Transfigured Gem' : r.vaal ? 'Vaal Gem' : 'Gem',
+    itemBaseType: r.name,
+    id: `gem:${r.name}`,
+  }));
+
+  const KIND_BIAS: Record<OrderSearchKind, number> = { unique: 0, gem: 1, base: 2 };
+  const withRank = [
+    ...uniqueResults.map((r, i) => ({ r, rank: i * 3 + KIND_BIAS.unique })),
+    ...gemResults.map((r, i) => ({ r, rank: i * 3 + KIND_BIAS.gem })),
+    ...baseResults.map((r, i) => ({ r, rank: i * 3 + KIND_BIAS.base })),
+  ].sort((a, b) => a.rank - b.rank);
+
+  const seen = new Set<string>();
+  const merged: OrderSearchResult[] = [];
+  for (const { r } of withRank) {
+    const key = `${r.kind}:${r.name}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(r);
+    if (merged.length >= totalCap) break;
+  }
+
+  return merged;
 };
 
 // Unique item name -> base type, extracted from Path of Building's own
@@ -410,6 +589,7 @@ const uniqueFoulbornModsByName = uniqueFoulbornModsResponse as Record<
   FoulbornPair[]
 >;
 const pobItemBases = pobItemBasesResponse as Record<string, PobItemBase>;
+const gemsByName = gemsResponse as Record<string, PobGem>;
 
 // Which mod(s) actually got swapped on a real Foulborn item is random, so
 // rather than guess, this shows every eligible mod line as-is (what a
@@ -679,14 +859,38 @@ const buildBaseTypeProperties = (
   return properties;
 };
 
+// Straight off PoB's own base-type data (base.req — level/str/dex/int, see
+// PobItemBase). `overrides` lets a unique substitute its own level and/or
+// attribute requirement (see UniqueItemPreview's levelReq/strReq/dexReq/
+// intReq) — confirmed many uniques DO override these (e.g. Oriath's End:
+// base Bismuth Flask needs level 8, the unique needs 56; The Will of
+// Uul-Netol: base Organic Ring needs level 32, the unique needs 42).
+const buildBaseTypeRequirements = (
+  base: PobItemBase,
+  overrides?: { level?: number; str?: number; dex?: number; int?: number },
+): GGGItemRequirement[] => {
+  const requirements: GGGItemRequirement[] = [];
+  const pushReq = (name: string, value: number | undefined) => {
+    if (value) {
+      requirements.push({ name, values: [[String(value), 0]], displayMode: 0, type: 0 });
+    }
+  };
+  pushReq('Level', overrides?.level ?? base.req?.level);
+  pushReq('Str', overrides?.str ?? base.req?.str);
+  pushReq('Dex', overrides?.dex ?? base.req?.dex);
+  pushReq('Int', overrides?.int ?? base.req?.int);
+  return requirements;
+};
+
 // Orders have no real per-instance item (no mods/sockets/rarity — just
 // description/link_url/item_base_type/item_category/type), so there's
 // nothing to show a live GGGItem-shaped tooltip for. This builds a
-// canonical, static stand-in instead — "what does this unique/base type
-// generally look like" — from the local PoB-derived datasets, good enough
-// to feed the same ItemDetail renderer the character sheet uses. Returns
-// null when there's nothing worth previewing (Other/Transfiguredgem orders,
-// or a unique/base name that doesn't resolve).
+// canonical, static stand-in instead — "what does this unique/base type/gem
+// generally look like" — from the local PoB-derived datasets, good enough to
+// feed the same ItemDetail renderer the character sheet uses. Returns null
+// when there's nothing worth previewing (Other orders, which are pure free
+// text with no catalog to resolve against, or a unique/base/gem name that
+// doesn't resolve).
 export const buildOrderItemPreview = (order: {
   type: string;
   description?: string | null;
@@ -729,6 +933,14 @@ export const buildOrderItemPreview = (order: {
       baseType: preview.baseType,
       typeLine: preview.baseType,
       properties: base ? buildBaseTypeProperties(base, mods) : undefined,
+      requirements: base
+        ? buildBaseTypeRequirements(base, {
+            level: preview.levelReq,
+            str: preview.strReq,
+            dex: preview.dexReq,
+            int: preview.intReq,
+          })
+        : undefined,
       implicitMods,
       explicitMods,
       corrupted: preview.corrupted,
@@ -745,11 +957,92 @@ export const buildOrderItemPreview = (order: {
       baseType: order.item_base_type,
       typeLine: order.item_base_type,
       properties: buildBaseTypeProperties(base),
+      requirements: buildBaseTypeRequirements(base),
       // ItemDetail renders each implicitMods entry as its own line (unlike
       // explicitMods, it doesn't split embedded "\n" itself) — pob-item-bases.json's
       // `implicit` is a single "\n"-joined string for multi-line implicits, so split
       // it here to match.
       implicitMods: base.implicit ? base.implicit.split('\n') : undefined,
+    } as GGGItem;
+  }
+
+  if (order.type === 'gem') {
+    const gemName = order.item_base_type || order.description || '';
+    const gem = gemsByName[gemName];
+    if (!gem) return null;
+    const details = gemDetailsByName[gemName];
+
+    // Matches the real tooltip's top section: the gem's own tag string as a
+    // plain (no ": ") first line, then its own level range (1 through its
+    // natural max — known directly from gems.json, unlike the character-
+    // level *requirement*, which also scales per gem-level but whose full
+    // range we don't have yet — see the Requirements comment below), then
+    // cost.
+    const properties: GGGItemProperty[] = [];
+    if (gem.tagString) properties.push({ name: gem.tagString, values: [], displayMode: 0, type: 0 });
+    const pushProp = (name: string, value: string) => {
+      properties.push({ name, values: [[value, 0]], displayMode: 0, type: 0 });
+    };
+    pushProp('Level', gem.naturalMaxLevel > 1 ? `1-${gem.naturalMaxLevel}` : '1');
+    if (details?.costResource && details.costRange) {
+      pushProp(`Cost (${details.costResource})`, details.costRange);
+    } else if (details?.costMultiplier) {
+      pushProp('Cost & Reservation Multiplier', details.costMultiplier);
+    }
+    if (details?.instant) pushProp('Cast Time', 'Instant');
+
+    // Real range, e.g. "Requires Level (31-70), (33-70) Str" — the
+    // character-level/attribute requirement scales up as the gem itself
+    // levels from 1 to its natural max, computed straight from PoB's own
+    // formula (gems.json's levelReqMin/Max, reqStrMin/Max, etc — see
+    // PobGem's doc comment).
+    const requirements: GGGItemRequirement[] = [];
+    const pushReq = (name: string, min: number | undefined, max: number | undefined) => {
+      if (!max) return;
+      const value = min === max ? String(min) : `(${min}-${max})`;
+      requirements.push({ name, values: [[value, 0]], displayMode: 0, type: 0 });
+    };
+    pushReq('Level', gem.levelReqMin, gem.levelReqMax);
+    pushReq('Str', gem.reqStrMin, gem.reqStrMax);
+    pushReq('Dex', gem.reqDexMin, gem.reqDexMax);
+    pushReq('Int', gem.reqIntMin, gem.reqIntMax);
+
+    return {
+      rarity: 'gem',
+      name: gem.name,
+      baseType: gem.name,
+      typeLine: gem.name,
+      properties,
+      requirements,
+      // Straight from PoB's own data (grantedEffect.description, confirmed
+      // to match the real game's secDescrText) — the plain-English "what
+      // this gem does" reminder text. For Vaal gems, folds in the non-Vaal
+      // effect they also grant while socketed but not yet used.
+      secDescrText: [
+        gem.description,
+        gem.secondaryDescription
+          ? `Also grants (until Vaal skill is used): ${gem.secondaryDescription}`
+          : undefined,
+      ]
+        .filter((line): line is string => !!line)
+        .join('\n'),
+      // Real per-level stat lines (e.g. "Supported Skills deal (20-34)%
+      // more Burning Damage"), computed straight from PoB's own calc
+      // engine — ranged across the gem's level 1-to-max span at 0%
+      // quality. See PobGem's own doc comment for how this is derived.
+      explicitMods: gem.explicitMods,
+      // The quality bonus's own effect description — kept separate from
+      // qualityText's number (which describes what the FULL 0-20% quality
+      // range grants, not this order's actual quality), rendered under its
+      // own "Additional Effects From Quality" header to match the real
+      // tooltip.
+      qualityMods: details?.qualityText ? [details.qualityText] : undefined,
+      implicitMods: [
+        gem.transfigured && gem.baseGemName
+          ? `Transfigured variant of ${gem.baseGemName}`
+          : undefined,
+        gem.vaal ? 'Vaal Gem' : undefined,
+      ].filter((line): line is string => !!line),
     } as GGGItem;
   }
 

@@ -30,6 +30,12 @@ interface PopoverOptions {
   onOpenChange?: (open: boolean) => void;
   openOnHover?: boolean;
   persistOnHoverContent?: boolean;
+  // By default, `flip` falls back to the perpendicular axis (top/bottom)
+  // when neither the requested side nor its opposite fit — which reads as
+  // "sometimes centers" for a popover meant to strictly stay left/right of
+  // its trigger (e.g. an item-hover tooltip next to a dropdown row). Set
+  // this to only ever flip to the opposite side, never top/bottom.
+  preventAxisFlip?: boolean;
 }
 
 const FloatingNodeContext = React.createContext<string | null>(null);
@@ -42,6 +48,7 @@ function usePopover({
   onOpenChange: setControlledOpen,
   openOnHover = false,
   persistOnHoverContent = false,
+  preventAxisFlip = false,
 }: PopoverOptions = {}) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(initialOpen);
   const [labelId, setLabelId] = React.useState<string | undefined>();
@@ -68,7 +75,7 @@ function usePopover({
       offset(floatOffset),
       flip({
         crossAxis: placement.includes('-'),
-        fallbackAxisSideDirection: 'end',
+        fallbackAxisSideDirection: preventAxisFlip ? 'none' : 'end',
         padding: 5,
       }),
       shift({ padding: 5 }),
@@ -127,6 +134,7 @@ function usePopover({
       open,
       setOpen,
       tree,
+      openOnHover,
       ...interactions,
       ...data,
       labelId,
@@ -140,6 +148,7 @@ function usePopover({
       open,
       setOpen,
       tree,
+      openOnHover,
       interactions,
       data,
       labelId,
@@ -239,6 +248,14 @@ export const PopoverContent = React.forwardRef<
         modal={false}
         initialFocus={initialFocusRef}
         returnFocus={true}
+        // Hover-triggered popovers (item-preview tooltips) are decorative —
+        // they have no focusable content and nothing to keyboard-navigate —
+        // so focus management should leave whatever's currently focused
+        // (e.g. a search input) alone rather than default to grabbing focus
+        // onto the floating element itself, which is what FloatingFocusManager
+        // does absent an explicit initialFocusRef. Click-opened popovers
+        // (dropdowns/menus) still get normal focus management.
+        disabled={context.openOnHover}
       >
         <div
           ref={ref}

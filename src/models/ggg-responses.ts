@@ -50,6 +50,16 @@ export interface GGGItem {
   craftedMods?: string[];
   implicitMods?: string[];
   explicitMods?: string[];
+  // Real gems' "what this does" reminder line, shown in the gem's own
+  // (teal) colour, distinct from implicitMods/explicitMods — GGG's own
+  // field name for this on socketed gem items.
+  secDescrText?: string;
+  // Not a GGG API field — synthetic, gem-preview-only: the quality bonus's
+  // effect description, rendered under its own "Additional Effects From
+  // Quality" header (see ItemDetail.tsx) rather than mixed into
+  // explicitMods, since it describes what quality grants in general, not
+  // this particular item's actual current stats.
+  qualityMods?: string[];
   flavourText?: string[];
   frameType: number;
   x: number;
@@ -122,7 +132,7 @@ export interface GGGItemProperty {
   type: number;
 }
 
-interface GGGItemRequirement {
+export interface GGGItemRequirement {
   name: string;
   values: [string, number][];
   displayMode: number;

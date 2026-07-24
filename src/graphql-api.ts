@@ -2116,8 +2116,8 @@ export enum Item_Order_Type_Constraint {
 
 export enum Item_Order_Type_Enum {
   Base = 'base',
+  Gem = 'gem',
   Other = 'other',
-  Transfiguredgem = 'transfiguredgem',
   Unique = 'unique'
 }
 

@@ -33,6 +33,7 @@ import { usePoEStash } from '../../../hooks/usePoEStash';
 import { matchRegularOrder } from '../../../_utils/stash-matching';
 import type { AggregatedStashItem } from '../../../models/ggg-stash';
 import { OrderItemPopover } from '../item-hovers/OrderItemPopover';
+import { ItemIcon } from '../ui/ItemIcon';
 import { Spinner } from '../ui/Spinner';
 import { StashScopeReauthPrompt } from './StashScopeReauthPrompt';
 
@@ -539,7 +540,7 @@ export const OrderBook = () => {
                           order={{ type, description, link_url, item_base_type }}
                         >
                           {icon_url ? (
-                            <img
+                            <ItemIcon
                               className="h-10 w-10 object-contain p-1 md:h-12 md:w-12"
                               src={icon_url}
                             />
@@ -693,80 +694,72 @@ export const OrderBook = () => {
       <Dialog open={updateModalOpen} onOpenChange={setUpdateModalOpen}>
         <DialogContent>
           <DialogHeading>Update Order</DialogHeading>
-          {orderTypes && (
-            <OrderForm
-              quickOrdersAvailable={false}
-              allowPriority={
-                (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
-              }
-              orderTypes={orderTypes}
-              data={updateModalState}
-              onSubmit={(data) => {
-                updateItemOrder({
-                  variables: {
-                    ...data,
-                    orderId: updateModalState?.orderId ?? '',
-                  },
-                });
-                setUpdateModalOpen(false);
-                exportBaseDataToSpreadsheet();
-              }}
-            />
-          )}
+          <OrderForm
+            quickOrdersAvailable={false}
+            allowPriority={
+              (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
+            }
+            data={updateModalState}
+            onSubmit={(data) => {
+              updateItemOrder({
+                variables: {
+                  ...data,
+                  orderId: updateModalState?.orderId ?? '',
+                },
+              });
+              setUpdateModalOpen(false);
+              exportBaseDataToSpreadsheet();
+            }}
+          />
         </DialogContent>
       </Dialog>
 
       <Dialog open={createModalOpen} onOpenChange={setCreateModalOpen}>
         <DialogContent className="w-[48rem] max-w-[95vw]">
           <DialogHeading>Create Order</DialogHeading>
-          {orderTypes && (
-            <OrderForm
-              allowPriority={
-                (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
-              }
-              existingPriorityCount={myUnfilfilledPriorityOrders?.length ?? 0}
-              isSubmitting={
-                createItemOrderLoading || createItemOrdersBulkLoading
-              }
-              priorityOrderLimit={priorityOrderLimit}
-              orderTypes={orderTypes}
-              onBulkSubmit={async (items) => {
-                const userId = userProfile?.id as string;
-                await createItemOrdersBulk({
-                  variables: {
-                    objects: items.map((item) => ({
-                      description: item.description ?? item.linkUrl ?? '',
-                      link_url: item.linkUrl ?? '',
-                      type: item.type ?? Item_Order_Type_Enum.Unique,
-                      user_id: userId,
-                      priority: item.priority ?? false,
-                      item_base_type: item.itemBaseType,
-                      item_category: item.itemCategory,
-                      icon_url: item.iconUrl,
-                    })),
-                  },
-                });
-                setCreateModalOpen(false);
-                exportBaseDataToSpreadsheet();
-              }}
-              onSubmit={(data) => {
-                createItemOrder({
-                  variables: {
-                    type: data.type ?? Item_Order_Type_Enum.Other,
-                    description: data.description as string,
-                    linkUrl: data.linkUrl ?? '',
-                    userId: userProfile?.id as string,
-                    priority: data.priority,
-                    itemBaseType: data?.itemBaseType,
-                    iconUrl: data?.iconUrl,
-                    itemCategory: data?.itemCategory,
-                  },
-                });
-                setCreateModalOpen(false);
-                exportBaseDataToSpreadsheet();
-              }}
-            />
-          )}
+          <OrderForm
+            allowPriority={
+              (myUnfilfilledPriorityOrders?.length ?? 0) < priorityOrderLimit
+            }
+            existingPriorityCount={myUnfilfilledPriorityOrders?.length ?? 0}
+            isSubmitting={createItemOrderLoading || createItemOrdersBulkLoading}
+            priorityOrderLimit={priorityOrderLimit}
+            onBulkSubmit={async (items) => {
+              const userId = userProfile?.id as string;
+              await createItemOrdersBulk({
+                variables: {
+                  objects: items.map((item) => ({
+                    description: item.description ?? item.linkUrl ?? '',
+                    link_url: item.linkUrl ?? '',
+                    type: item.type ?? Item_Order_Type_Enum.Unique,
+                    user_id: userId,
+                    priority: item.priority ?? false,
+                    item_base_type: item.itemBaseType,
+                    item_category: item.itemCategory,
+                    icon_url: item.iconUrl,
+                  })),
+                },
+              });
+              setCreateModalOpen(false);
+              exportBaseDataToSpreadsheet();
+            }}
+            onSubmit={(data) => {
+              createItemOrder({
+                variables: {
+                  type: data.type ?? Item_Order_Type_Enum.Other,
+                  description: data.description as string,
+                  linkUrl: data.linkUrl ?? '',
+                  userId: userProfile?.id as string,
+                  priority: data.priority,
+                  itemBaseType: data?.itemBaseType,
+                  iconUrl: data?.iconUrl,
+                  itemCategory: data?.itemCategory,
+                },
+              });
+              setCreateModalOpen(false);
+              exportBaseDataToSpreadsheet();
+            }}
+          />
         </DialogContent>
       </Dialog>
 
@@ -786,7 +779,7 @@ export const OrderBook = () => {
                     item_base_type: fulfillModalState.itemBaseType,
                   }}
                 >
-                  <img
+                  <ItemIcon
                     className="h-10 w-10 object-contain"
                     src={
                       fulfillModalState.iconUrl ||

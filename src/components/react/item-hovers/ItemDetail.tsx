@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { twMerge } from 'tailwind-merge';
 import {
+  formatRequirementsLine,
   getItemInfluenceIcons,
   itemHeaderBg,
   itemHeaderFontColor,
@@ -35,7 +36,7 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
     influenceIcons.length === 1 ? influenceIcons[0] : influenceIcons[1];
 
   return (
-    <div className="flex flex-col items-center bg-black pb-2 text-center font-fontinSmallcaps">
+    <div className="flex max-w-[40vw] flex-col items-center bg-black pb-2 text-center font-fontinSmallcaps">
       <div
         className={twMerge(
           'relative flex w-full flex-col items-center px-[1.875rem] text-[19px] text-primary-500 md:text-xl',
@@ -72,6 +73,24 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
             <StyledDefaultItemProperty key={property.name} input={property} />
           ))}
           <ItemSeparator rarity={rarity} className="my-[1px]" />
+        </div>
+      )}
+
+      {!!item.requirements?.length && (
+        <div className="flex flex-col items-center text-[15px] text-poeItem-darkGrey">
+          <span className="mx-2">{formatRequirementsLine(item.requirements)}</span>
+          <ItemSeparator rarity={rarity} className="my-[1px]" />
+        </div>
+      )}
+
+      {!!item.secDescrText && (
+        <div className="flex flex-col items-center text-[15px] leading-[18px] text-poeItem-gem">
+          {item.secDescrText.split('\n').map((line, i) => (
+            <span key={i} className="mx-2">
+              {line}
+            </span>
+          ))}
+          <ItemSeparator rarity={rarity} className="my-0.5" />
         </div>
       )}
 
@@ -115,6 +134,17 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
                   <br />
                 </Fragment>
               ))}
+            </span>
+          ))}
+        </div>
+      )}
+      {!!item.qualityMods?.length && (
+        <div className="flex flex-col items-center text-[15px] leading-[18px]">
+          <ItemSeparator rarity={rarity} className="my-0.5" />
+          <span className="mx-2 text-white">Additional Effects From 1-20% Quality:</span>
+          {item.qualityMods.map((mod) => (
+            <span key={mod} className="mx-2 text-poeItem-magic">
+              {mod}
             </span>
           ))}
         </div>

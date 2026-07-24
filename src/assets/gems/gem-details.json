@@ -1,0 +1,3530 @@
+{
+  "Absolution": {
+    "costResource": "Mana",
+    "costRange": "9-26",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Absolution of Inspiring": {
+    "costResource": "Mana",
+    "costRange": "9-26",
+    "qualityText": "Increases and Reductions to Minion Damage also apply to this Skill's Damage at (0-50)% of their value"
+  },
+  "Added Chaos Damage": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Chaos Damage"
+  },
+  "Added Cold Damage": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Cold Damage"
+  },
+  "Added Fire Damage": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Fire Damage"
+  },
+  "Added Lightning Damage": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Lightning Damage"
+  },
+  "Additional Accuracy": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills have (0-20)% increased Accuracy Rating"
+  },
+  "Advanced Traps": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Trap Damage"
+  },
+  "Alchemist's Mark": {
+    "costMultiplier": "16-33",
+    "qualityText": "(0-10)% increased Effect of Mark"
+  },
+  "Ambush": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "Exerted Attacks have +(0-10)% to Critical Strike Chance"
+  },
+  "Ancestral Call": {
+    "costMultiplier": "130%",
+    "qualityText": "Extra Targets for Supported Skills can be found (0-15)% further away"
+  },
+  "Ancestral Cry": {
+    "costResource": "Mana",
+    "costRange": "14-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Anger": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Animate Guardian": {
+    "costResource": "Mana",
+    "costRange": "11-20",
+    "qualityText": "Minions have (0-40)% increased Movement Speed"
+  },
+  "Animate Guardian of Smiting": {
+    "costResource": "Mana",
+    "costRange": "11-20",
+    "qualityText": "(0-40)% increased Minion Movement Speed"
+  },
+  "Animate Weapon": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "+(0-2) to Maximum Animated Weapons"
+  },
+  "Animate Weapon of Ranged Arms": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "Maximum +(0-2) Animated Weapons"
+  },
+  "Animate Weapon of Self Reflection": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "Maximum +(0-1) Animated Weapon"
+  },
+  "Annihilation": {
+    "costMultiplier": "120%",
+    "qualityText": "Killing Blows with Supported Skills cause Enemies to have a (0-5)% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element"
+  },
+  "Arc": {
+    "costResource": "Mana",
+    "costRange": "10-29",
+    "qualityText": "Chain +(0-1) Times"
+  },
+  "Arc of Oscillating": {
+    "costResource": "Mana",
+    "costRange": "10-29",
+    "qualityText": "Chains +(0-1) Times"
+  },
+  "Arc of Surging": {
+    "costResource": "Mana",
+    "costRange": "10-29",
+    "qualityText": "Beam Splits towards (0-2) additional targets"
+  },
+  "Arcane Cloak": {
+    "qualityText": "(0-20)% increased Buff Effect",
+    "instant": true
+  },
+  "Arcane Surge": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Arcanist Brand": {
+    "costResource": "Mana",
+    "costRange": "18-32",
+    "qualityText": "(0-10)% increased Activation frequency"
+  },
+  "Archmage": {
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Arctic Armour": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "(0-20)% increased Skill Effect Duration",
+    "instant": true
+  },
+  "Armageddon Brand": {
+    "costResource": "Mana",
+    "costRange": "12-22",
+    "qualityText": "Deals +(0-10)% more Damage with Hits against Branded Enemy"
+  },
+  "Armageddon Brand of Recall": {
+    "costResource": "Mana",
+    "costRange": "15-27",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Armageddon Brand of Volatility": {
+    "costResource": "Mana",
+    "costRange": "15-27",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Arrogance": {
+    "costMultiplier": "220-201%",
+    "qualityText": "Supported Skills have (0-5)% increased Aura effect"
+  },
+  "Arrow Nova": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Artillery Ballista": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Fires +(0-1) Arrow"
+  },
+  "Artillery Ballista of Cross Strafe": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Fires +(0-1) arrows"
+  },
+  "Artillery Ballista of Focus Fire": {
+    "costMultiplier": "9-13",
+    "qualityText": "Fires up to +(0-1) Arrows at different targets"
+  },
+  "Assassin's Mark": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "Cursed Enemies have a (0-5)% chance to grant a Power Charge when Hit"
+  },
+  "Autoexertion": {
+    "costMultiplier": "20%",
+    "qualityText": "Supported Skills have (0-10)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Automation": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills have (0-5)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Awakened Empower": {
+    "costMultiplier": "130%",
+    "qualityText": "This Gem gains (0-100)% increased Experience"
+  },
+  "Awakened Enhance": {
+    "costMultiplier": "120%",
+    "qualityText": "This Gem gains (0-100)% increased Experience"
+  },
+  "Awakened Enlighten": {
+    "costMultiplier": "100-88%",
+    "qualityText": "This Gem gains (0-100)% increased Experience"
+  },
+  "Ball Lightning": {
+    "costResource": "Mana",
+    "costRange": "15-29",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Ball Lightning of Orbiting": {
+    "costResource": "Mana",
+    "costRange": "14-24",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Ball Lightning of Static": {
+    "costResource": "Mana",
+    "costRange": "15-29",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Ballista Totem": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-10)% increased Totem Placement speed"
+  },
+  "Bane": {
+    "costResource": "Mana",
+    "costRange": "10-20",
+    "qualityText": "Applied Curses have (0-20)% increased Effect"
+  },
+  "Bane of Condemnation": {
+    "costResource": "Mana",
+    "costRange": "14-27",
+    "qualityText": "+(0-0.2) seconds to base duration"
+  },
+  "Barrage": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Fires +(0-1) Projectile"
+  },
+  "Barrage of Volley Fire": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "The first and final shots of the sequence fire (0-4) additional Projectiles simultaneously"
+  },
+  "Barrage Support": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Battlemage's Cry": {
+    "costResource": "Mana",
+    "costRange": "15-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Bear Trap": {
+    "costResource": "Mana",
+    "costRange": "6-23",
+    "qualityText": "+(0-1) seconds to Base duration"
+  },
+  "Bear Trap of Skewers": {
+    "costResource": "Mana",
+    "costRange": "6-23",
+    "qualityText": "(0-80)% increased Impale Effect"
+  },
+  "Behead": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-20)% increased Damage with Hits against Enemies that are on Low Life"
+  },
+  "Berserk": {
+    "costResource": "Mana",
+    "costRange": "10-16",
+    "qualityText": "(0-10)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Blade Blast": {
+    "costResource": "Mana",
+    "costRange": "6-16",
+    "qualityText": "+(0-0.1) metres to radius"
+  },
+  "Blade Blast of Dagger Detonation": {
+    "costResource": "Mana",
+    "costRange": "8-21",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Blade Blast of Unloading": {
+    "costResource": "Mana",
+    "costRange": "8-21",
+    "qualityText": "+(0-0.1) metres to radius"
+  },
+  "Blade Flurry": {
+    "costResource": "Mana",
+    "costRange": "5-6",
+    "qualityText": "(0-20)% more Damage while at max Stages"
+  },
+  "Blade Flurry of Incision": {
+    "costResource": "Mana",
+    "costRange": "5-6",
+    "qualityText": "+(0-40)% to Critical Strike Multiplier while at max Stages"
+  },
+  "Blade Trap": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "Trap lasts +(0-1) seconds¤¤Rotates +(0-1) times"
+  },
+  "Blade Trap of Greatswords": {
+    "costResource": "Mana",
+    "costRange": "13-25",
+    "qualityText": "+(0-0.5) seconds to base duration"
+  },
+  "Blade Trap of Laceration": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "Bleeding inflicted by this Skill deals Damage (0-10)% faster"
+  },
+  "Blade Vortex": {
+    "costResource": "Mana",
+    "costRange": "6-16",
+    "qualityText": "+(0-5)% increased Hit Rate for each blade"
+  },
+  "Blade Vortex of the Scythe": {
+    "costResource": "Mana",
+    "costRange": "14-36",
+    "qualityText": "+(0-0.3) metres to Radius"
+  },
+  "Bladefall": {
+    "costResource": "Mana",
+    "costRange": "12-23",
+    "qualityText": "+(0-1) Volley"
+  },
+  "Bladefall of Impaling": {
+    "costResource": "Mana",
+    "costRange": "12-23",
+    "qualityText": "(0-40)% increased Impale Effect"
+  },
+  "Bladefall of Trarthus": {
+    "costResource": "Mana per second",
+    "costRange": "5&#37",
+    "qualityText": "Base Volley radius +(0-0.3) metres",
+    "instant": true
+  },
+  "Bladefall of Volleys": {
+    "costResource": "Mana",
+    "costRange": "12-23",
+    "qualityText": "+(0-1) Volley"
+  },
+  "Bladestorm": {
+    "costResource": "Mana",
+    "costRange": "10-14",
+    "qualityText": "+(0-1) to Maximum number of Bladestorms at a time"
+  },
+  "Bladestorm of Uncertainty": {
+    "costResource": "Mana",
+    "costRange": "10-14",
+    "qualityText": "Maximum of (0-1) Bladestorms at a time"
+  },
+  "Blasphemy": {
+    "costMultiplier": "35%",
+    "qualityText": "(0-20)% increased Area of Effect of Supported Curse Skills"
+  },
+  "Blast Rain": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Fires +(0-1) Arrow"
+  },
+  "Blast Rain of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Fires +(0-1) Arrow"
+  },
+  "Blastchain Mine": {
+    "costMultiplier": "65%",
+    "qualityText": "(0-10)% increased Mine Damage"
+  },
+  "Blazing Salvo": {
+    "costResource": "Mana",
+    "costRange": "6-18",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Blessed Call": {
+    "costMultiplier": "115%",
+    "qualityText": "Supported Skills have (0-10)% increased Warcry Speed"
+  },
+  "Blight": {
+    "costResource": "Mana",
+    "costRange": "2-5",
+    "qualityText": "+(0.00-0.80) seconds to Base duration"
+  },
+  "Blight of Atrophy": {
+    "costResource": "Mana",
+    "costRange": "2-5",
+    "qualityText": "Base secondary duration is (0-1) seconds"
+  },
+  "Blight of Contagion": {
+    "costResource": "Mana",
+    "costRange": "2-5",
+    "qualityText": "+(0-1) seconds to base duration"
+  },
+  "Blind": {
+    "costMultiplier": "110%",
+    "qualityText": "(0-10)% increased Blind Effect"
+  },
+  "Blink Arrow": {
+    "costResource": "Mana",
+    "costRange": "14-20",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Blink Arrow of Bombarding Clones": {
+    "costResource": "Mana",
+    "costRange": "14-20",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Blink Arrow of Prismatic Clones": {
+    "costResource": "Mana",
+    "costRange": "14-20",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Block Chance Reduction": {
+    "qualityText": "Supported Skills have (0-5)% reduced Enemy Block Chance"
+  },
+  "Blood and Sand": {
+    "costResource": "Mana",
+    "costRange": "10%",
+    "qualityText": "(0-10)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Blood Rage": {
+    "costResource": "Life",
+    "costRange": "12-29",
+    "qualityText": "Grants (0-5)% increased Attack Speed",
+    "instant": true
+  },
+  "Bloodlust": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Damage against Bleeding Enemies"
+  },
+  "Bloodsoaked Banner": {
+    "costMultiplier": "1000%",
+    "qualityText": "Supported Skills have (0-10)% increased Area of Effect"
+  },
+  "Bloodthirst": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills Deal (0-20)% increased Damage while on Low Life"
+  },
+  "Bodyswap": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "+(0-6)% of your maximum Life as base Fire Damage"
+  },
+  "Bodyswap of Sacrifice": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "Explosion deals base Fire Damage equal to (0-5)% of the Minion's maximum Life"
+  },
+  "Bone Offering": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-10)% increased Effect of Offering"
+  },
+  "Bonechill": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Cold Damage"
+  },
+  "Boneshatter": {
+    "costResource": "Mana",
+    "costRange": "9-12",
+    "qualityText": "+(0-1)% more Damage per Trauma"
+  },
+  "Boneshatter of Carnage": {
+    "costResource": "Mana",
+    "costRange": "9-12",
+    "qualityText": "(0-20)% more Damage against Stunned Enemies"
+  },
+  "Boneshatter of Complex Trauma": {
+    "costResource": "Mana",
+    "costRange": "9-12",
+    "qualityText": "(0-5)% more Damage per Trauma"
+  },
+  "Bonespire": {
+    "costMultiplier": "130%",
+    "qualityText": "Creates (0-2) Bone Spires"
+  },
+  "Brand Recall": {
+    "costResource": "Mana",
+    "costRange": "7-16",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Brutality": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Physical Damage"
+  },
+  "Burning Arrow": {
+    "costResource": "Mana",
+    "costRange": "8-14",
+    "qualityText": "(0-20)% more Damage with Ignite"
+  },
+  "Burning Arrow of Vigour": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "(0-20)% more Damage with Ignite"
+  },
+  "Burning Damage": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Burning Damage"
+  },
+  "Cast On Critical Strike": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-20)% increased Attack Critical Strike Chance"
+  },
+  "Cast on Death": {
+    "qualityText": "Supported Skills have (0-60)% increased Area of Effect while Dead"
+  },
+  "Cast on Melee Kill": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Cast on Ward Break": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Cast when Damage Taken": {
+    "costMultiplier": "250%",
+    "qualityText": "Supported Skills require (0-10)% reduced amount of Damage taken to Trigger"
+  },
+  "Cast when Stunned": {
+    "qualityText": "(0-20)% chance to Trigger Supported Spells when you are Stunned, or Block a Stunning Hit"
+  },
+  "Cast while Channelling": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Channelling Skills deal (0-10)% increased Damage"
+  },
+  "Caustic Arrow": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Caustic Arrow of Poison": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Chain": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-10)% increased Chaining range"
+  },
+  "Chain Hook": {
+    "costResource": "Mana",
+    "costRange": "5-8",
+    "qualityText": "Gain +(0-1) Rage if this Skill Hits any Enemies"
+  },
+  "Chain Hook of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "5-8",
+    "qualityText": "Throw Chains at +(0-3) targets in range"
+  },
+  "Chance to Bleed": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Attacks deal (0-10)% increased Damage with Bleeding"
+  },
+  "Chance to Flee": {
+    "qualityText": "Supported Skills have (0-20)% chance to Cause Monsters to Flee"
+  },
+  "Chance to Poison": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage with Poison"
+  },
+  "Charged Dash": {
+    "costResource": "Mana",
+    "costRange": "5-6",
+    "qualityText": "Illusion moves at +(0-20)% of your Movement Speed"
+  },
+  "Charged Dash of Projection": {
+    "costResource": "Mana",
+    "costRange": "4-5",
+    "qualityText": "Illusion moves at +(0-20)% of your Movement Speed"
+  },
+  "Charged Mines": {
+    "costMultiplier": "140%",
+    "qualityText": "(0-10)% increased Mine Damage"
+  },
+  "Charged Traps": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Trap Damage"
+  },
+  "Clarity": {
+    "costResource": "Mana",
+    "costRange": "34-279",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Cleave": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "+(0-0.1) metres to radius per Nearby Enemy, up to a maximum of +1 metre"
+  },
+  "Cleave of Rage": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "Gain (0-1) Rage if this Skill Hits any Enemies"
+  },
+  "Close Combat": {
+    "costMultiplier": "140%",
+    "qualityText": "(0-10)% increased Damage with Hits to Close Range Enemies"
+  },
+  "Cluster Traps": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-20)% increased Trap Trigger Area of Effect"
+  },
+  "Cobra Lash": {
+    "costResource": "Mana",
+    "costRange": "5-8",
+    "qualityText": "Chains +(0-2) Times"
+  },
+  "Cold Penetration": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Cold Damage"
+  },
+  "Cold Snap": {
+    "costResource": "Mana",
+    "costRange": "11-28",
+    "qualityText": "(0-20)% more Effect of Chill"
+  },
+  "Cold Snap of Power": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "(0-20)% chance to gain a Power Charge on Critical Strike"
+  },
+  "Cold to Fire": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Cold Damage"
+  },
+  "Combustion": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Fire Damage"
+  },
+  "Companionship": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-20)% increased Minion maximum Life"
+  },
+  "Concentrated Effect": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Area Damage"
+  },
+  "Conductivity": {
+    "costResource": "Mana",
+    "costRange": "24-50",
+    "qualityText": "Shocks on Cursed enemies have (0-20)% increased Duration"
+  },
+  "Conflagration": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Explosion deals (0-30)% more Damage with Hits and Ailments"
+  },
+  "Congregation": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills have (0-10)% increased Minion Movement Speed"
+  },
+  "Consecrated Path": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Deal up to +(0-15)% more Damage with Hits to closer targets"
+  },
+  "Consecrated Path of Endurance": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Deals up to (0-15)% more Damage with Hits to closer targets"
+  },
+  "Contagion": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Contagion of Subsiding": {
+    "costResource": "Mana",
+    "costRange": "7-27",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Contagion of Transference": {
+    "costResource": "Mana",
+    "costRange": "9-32",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Controlled Blaze": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-10)% chance to Ignite"
+  },
+  "Controlled Destruction": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Conversion Trap": {
+    "costResource": "Mana",
+    "costRange": "6-23",
+    "qualityText": "+(0.00-4.00) seconds to Base duration"
+  },
+  "Convocation": {
+    "costResource": "Mana",
+    "costRange": "6-13",
+    "qualityText": "(0-20)% increased Skill Effect Duration¤¤(0-20)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Cooldown Recovery": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills have (0-5)% increased Cooldown Recovery Rate"
+  },
+  "Corrupting Cry": {
+    "costMultiplier": "1000%",
+    "qualityText": "Supported Skills have (0-10)% increased Area of Effect"
+  },
+  "Corrupting Fever": {
+    "costResource": "Life",
+    "costRange": "78-520",
+    "qualityText": "(0-20)% increased Skill Effect Duration",
+    "instant": true
+  },
+  "Crackling Lance": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "+(0-10)% more Damage with Hits and Ailments per Intensity"
+  },
+  "Crackling Lance of Branching": {
+    "costResource": "Mana",
+    "costRange": "16-31",
+    "qualityText": "(0-20)% more Area of Effect"
+  },
+  "Crackling Lance of Disintegration": {
+    "costResource": "Mana",
+    "costRange": "16-31",
+    "qualityText": "+(0-10)% to Maximum Effect of Shock"
+  },
+  "Creeping Frost": {
+    "costResource": "Mana",
+    "costRange": "7-20",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Creeping Frost of Floes": {
+    "costResource": "Mana",
+    "costRange": "7-20",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Cremation": {
+    "costResource": "Mana",
+    "costRange": "11-20",
+    "qualityText": "Fires Projectiles (0-15)% faster"
+  },
+  "Cremation of Exhuming": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "Fires Projectiles (0-15)% faster"
+  },
+  "Cremation of the Volcano": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "Maximum of +(0-2) Geysers at a time"
+  },
+  "Critical Strike Affliction": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have +(0-10)% Damage over Time Multiplier for Ailments from Critical Strikes"
+  },
+  "Cruelty": {
+    "costMultiplier": "140%",
+    "qualityText": "(0-5)% increased Effect of Cruelty granted by Supported Skills"
+  },
+  "Crushing Fist": {
+    "costResource": "Mana",
+    "costRange": "8-14",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Cull the Weak": {
+    "costMultiplier": "120%",
+    "qualityText": "Recover (0-2)% of Life when Supported Skills Cull an Enemy"
+  },
+  "Culling Strike": {
+    "costMultiplier": "110%",
+    "qualityText": "Recover (0-2)% of Life when Supported Skills Cull an Enemy"
+  },
+  "Cursed Ground": {
+    "costMultiplier": "140%",
+    "qualityText": "(0-10)% increased Area of Effect of Supported Curse Skills"
+  },
+  "Cyclone": {
+    "costResource": "Mana",
+    "costRange": "2-3",
+    "qualityText": "(0-5)% increased Area of Effect per 0.1 metre additional Melee Strike Range"
+  },
+  "Cyclone of Tumult": {
+    "costResource": "Mana",
+    "costRange": "4-5",
+    "qualityText": "(0-5)% more Attack Speed per Stage"
+  },
+  "Damage on Full Life": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage"
+  },
+  "Dash": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "(0-10)% increased Cooldown Recovery Rate"
+  },
+  "Deadly Ailments": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage over Time"
+  },
+  "Decay": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Chaos Damage"
+  },
+  "Decoy Totem": {
+    "costResource": "Mana",
+    "costRange": "9-35",
+    "qualityText": "(0-20)% more Totem Life"
+  },
+  "Defiance Banner": {
+    "costResource": "Mana",
+    "costRange": "15-19",
+    "qualityText": "(0-10)% increased effect of Aura",
+    "instant": true
+  },
+  "Desecrate": {
+    "costResource": "Mana",
+    "costRange": "11-26",
+    "qualityText": "(0-20)% increased Cast Speed"
+  },
+  "Despair": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-10)% increased Effect of Curse"
+  },
+  "Destructive Link": {
+    "costResource": "Mana per second",
+    "costRange": "15-32",
+    "qualityText": "+(0.00-1.50) seconds to Base duration"
+  },
+  "Determination": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Detonate Dead": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "(0-15)% chance to detonate an additional corpse"
+  },
+  "Detonate Dead of Chain Reaction": {
+    "costResource": "Mana",
+    "costRange": "7-27",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Detonate Dead of Scavenging": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "Explosion deals base Fire Damage equal to (0-5)% of the corpse's Maximum Life"
+  },
+  "Detonate Mines": {
+    "qualityText": "Mines have (0-20)% increased Detonation Speed",
+    "instant": true
+  },
+  "Devour": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-80)% increased Damage if you have Consumed a corpse Recently"
+  },
+  "Devouring Totem": {
+    "costResource": "Mana",
+    "costRange": "20-44",
+    "qualityText": "(0-20)% more Totem Life"
+  },
+  "Discharge": {
+    "costResource": "Mana",
+    "costRange": "13-25",
+    "qualityText": "(0-10)% chance to deal Damage without removing Charges"
+  },
+  "Discharge of Misery": {
+    "costResource": "Mana",
+    "costRange": "13-25",
+    "qualityText": "(0-10)% chance to deal Damage without removing Charges"
+  },
+  "Discipline": {
+    "costResource": "Mana",
+    "costRange": "35%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Divine Blast": {
+    "costResource": "Mana",
+    "costRange": "10",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Divine Ire": {
+    "costResource": "Mana",
+    "costRange": "3-5",
+    "qualityText": "(0-20)% increased beam width"
+  },
+  "Divine Ire of Disintegration": {
+    "costResource": "Mana",
+    "costRange": "4-6",
+    "qualityText": "(0-20)% increased beam width"
+  },
+  "Divine Ire of Holy Lightning": {
+    "costResource": "Mana",
+    "costRange": "3-5",
+    "qualityText": "Damages (0-4) nearby Enemies when you gain Stages"
+  },
+  "Divine Retribution": {
+    "costResource": "Mana",
+    "costRange": "9-23",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Divine Sentinel": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills have (0-20)% increased Minion maximum Life"
+  },
+  "Dominating Blow": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Dominating Blow of Inspiring": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Increases and Reductions to Minion Damage also apply to this Skill's Damage at (0-50)% of their value"
+  },
+  "Double Strike": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "(0-20)% chance to deal Double Damage to Bleeding Enemies"
+  },
+  "Double Strike of Impaling": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "(0-40)% increased Impale Effect"
+  },
+  "Double Strike of Momentum": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "(0-4)% more Attack Speed for each Stage"
+  },
+  "Dread Banner": {
+    "costResource": "Mana",
+    "costRange": "15-19",
+    "qualityText": "(0-10)% increased effect of Aura",
+    "instant": true
+  },
+  "Dual Strike": {
+    "costResource": "Mana",
+    "costRange": "8-14",
+    "qualityText": "+(0-30)% more Damage with Hits and Ailments against Enemies that are on Full Life"
+  },
+  "Dual Strike of Ambidexterity": {
+    "costResource": "Mana",
+    "costRange": "8-14",
+    "qualityText": "(0-20)% more Damage with Main Hand Weapon"
+  },
+  "Earthquake": {
+    "costResource": "Mana",
+    "costRange": "10-13",
+    "qualityText": "Aftershock deals +(0-30)% more Damage with Hits and Ailments"
+  },
+  "Earthquake of Amplification": {
+    "costResource": "Mana",
+    "costRange": "10-13",
+    "qualityText": "+(0-0.5) seconds to base duration"
+  },
+  "Earthshatter": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "Create +(0-1) fissure and provides +(0-3) Maximum Spikes"
+  },
+  "Earthshatter of Fragility": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "Maximum +(0-3) Spikes¤¤Creates (0-1) fissure"
+  },
+  "Earthshatter of Prominence": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "Shattering Spikes deal (0-20)% more damage"
+  },
+  "Eclipse": {
+    "costMultiplier": "100-94%",
+    "qualityText": "This Gem gains (0-100)% increased Experience"
+  },
+  "Efficacy": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage over Time"
+  },
+  "Eldritch Blasphemy": {
+    "costMultiplier": "35%",
+    "qualityText": "(0-20)% increased Area of Effect of Supported Curse Skills"
+  },
+  "Elemental Army": {
+    "costMultiplier": "120%",
+    "qualityText": "Minions from Supported Skills have +(0-2)% to all maximum Elemental Resistances"
+  },
+  "Elemental Damage with Attacks": {
+    "costMultiplier": "130%",
+    "qualityText": "(0-10)% increased Elemental Damage with Attack Skills"
+  },
+  "Elemental Focus": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Elemental Damage"
+  },
+  "Elemental Hit": {
+    "costResource": "Mana",
+    "costRange": "5-8",
+    "qualityText": "(0-5)% more Damage per Elemental Ailment on the Enemy"
+  },
+  "Elemental Hit of the Spectrum": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-5)% more Damage per Elemental Ailment on the Enemy"
+  },
+  "Elemental Penetration": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Elemental Damage"
+  },
+  "Elemental Proliferation": {
+    "costMultiplier": "110%",
+    "qualityText": "(0-10)% increased Duration of Elemental Ailments on Enemies"
+  },
+  "Elemental Weakness": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-20)% increased Duration of Elemental Ailments on Cursed Enemies"
+  },
+  "Empower": {
+    "costMultiplier": "130%",
+    "qualityText": "This Gem gains (0-100)% increased Experience"
+  },
+  "Endurance Charge on Melee Stun": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-20)% increased Stun Duration on Enemies"
+  },
+  "Enduring Cry": {
+    "costResource": "Mana",
+    "costRange": "13-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Energy Blade": {
+    "costResource": "Energy Shield",
+    "costRange": "136-624",
+    "qualityText": "Buff grants (0-10)% increased Attack Speed"
+  },
+  "Energy Leech": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-20)% increased Damage while Leeching Energy Shield"
+  },
+  "Enfeeble": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-20)% increased Curse Duration"
+  },
+  "Enhance": {
+    "costMultiplier": "120%",
+    "qualityText": "This Gem gains (0-100)% increased Experience"
+  },
+  "Enlighten": {
+    "costMultiplier": "100-92%",
+    "qualityText": "This Gem gains (0-100)% increased Experience"
+  },
+  "Ensnaring Arrow": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-20)% increased Debuff Effect"
+  },
+  "Essence Drain": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "Regenerate +(0.00-0.50)% of Debuff Damage as Life"
+  },
+  "Essence Drain of Desperation": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "+(0-0.4) seconds to base duration"
+  },
+  "Essence Drain of Wickedness": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "Regenerate (0-0.5)% of Debuff Damage as Life"
+  },
+  "Eternal Blessing": {
+    "qualityText": "Supported Skills have (0-5)% increased Aura effect"
+  },
+  "Ethereal Knives": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "(0-20)% more Projectile Speed"
+  },
+  "Ethereal Knives of Lingering Blades": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Ethereal Knives of the Massacre": {
+    "costResource": "Mana",
+    "costRange": "6-25",
+    "qualityText": "Fires +(0-3) Projectiles"
+  },
+  "Eviscerate": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Excommunicate": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Physical Damage"
+  },
+  "Exemplar": {
+    "costMultiplier": "120%",
+    "qualityText": "Minions from Supported Skills have (0-20)% increased Critical Strike Chance"
+  },
+  "Expert Retaliation": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0.5-10)% more Cooldown Recovery Rate"
+  },
+  "Explosive Arrow": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "+(0-2) Maximum Explosive Arrows stuck in an Enemy"
+  },
+  "Explosive Concoction": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "(0-15)% reduced Flask Charges used"
+  },
+  "Explosive Concoction of Destruction": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "(0-15)% reduced Flask Charges used"
+  },
+  "Explosive Trap": {
+    "costResource": "Mana",
+    "costRange": "6-20",
+    "qualityText": "+(0-2) smaller explosions"
+  },
+  "Explosive Trap of Magnitude": {
+    "costResource": "Mana",
+    "costRange": "8-28",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Explosive Trap of Shrapnel": {
+    "costResource": "Mana",
+    "costRange": "6-20",
+    "qualityText": "Causes (0-2) smaller explosions"
+  },
+  "Exsanguinate": {
+    "costResource": "Life",
+    "costRange": "16-46",
+    "qualityText": "+(0.00-1.50) seconds to Base duration"
+  },
+  "Exsanguinate of Transmission": {
+    "costResource": "Life",
+    "costRange": "16-46",
+    "qualityText": "+(0-2) seconds to base duration"
+  },
+  "Eye of Winter": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "Fire +(0-2) Shard Projectiles in a Spiral when Projectile ends"
+  },
+  "Eye of Winter of Finality": {
+    "costResource": "Mana",
+    "costRange": "16-30",
+    "qualityText": "Projectiles continuously gain Damage, up to (0-20)% more Damage by the time they dissipate"
+  },
+  "Eye of Winter of Transience": {
+    "costResource": "Mana",
+    "costRange": "13-23",
+    "qualityText": "Projectiles continuously gain Damage, up to (0-15)% more Damage by the time they dissipate"
+  },
+  "Faster Attacks": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills have (0-10)% increased Attack Speed"
+  },
+  "Faster Casting": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills have (0-10)% increased Cast Speed"
+  },
+  "Faster Projectiles": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-10)% increased Projectile Speed"
+  },
+  "Feeding Frenzy": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-10)% increased Minion Movement Speed"
+  },
+  "Fire Penetration": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Fire Damage"
+  },
+  "Fire Trap": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "(0-80)% increased Trap Trigger Area of Effect"
+  },
+  "Fire Trap of Blasting": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "(0-80)% increased Trap Trigger Area of Effect"
+  },
+  "Fireball": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Firestorm": {
+    "costResource": "Mana",
+    "costRange": "10-20",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Firestorm of Meteors": {
+    "costResource": "Mana",
+    "costRange": "10-20",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Firestorm of Pelting": {
+    "costResource": "Mana",
+    "costRange": "10-20",
+    "qualityText": "Maximum +(0-2) Firestorms at a time"
+  },
+  "Fissure": {
+    "costMultiplier": "140%",
+    "qualityText": "Creates (0-1) Fissure"
+  },
+  "Fist of War": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-10)% increased Area of Effect"
+  },
+  "Flame Dash": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "(0-10)% increased Cooldown Recovery Rate"
+  },
+  "Flame Dash of Return": {
+    "costResource": "Mana",
+    "costRange": "6-16",
+    "qualityText": "(0-20)% chance to Scorch Enemies"
+  },
+  "Flame Link": {
+    "costResource": "Mana per second",
+    "costRange": "15-32",
+    "qualityText": "+(0.00-1.50) seconds to Base duration"
+  },
+  "Flame Surge": {
+    "costResource": "Mana",
+    "costRange": "5-13",
+    "qualityText": "+(0-20)% more Damage with Hits against Burning enemies"
+  },
+  "Flame Surge of Combusting": {
+    "costResource": "Mana",
+    "costRange": "8-21",
+    "qualityText": "Burning ground deals +(0-15)% of Fire Damage per second of inflicted Ignite"
+  },
+  "Flame Wall": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "+(0-2) Maximum Flame Walls at a time"
+  },
+  "Flameblast": {
+    "costResource": "Mana",
+    "costRange": "3-6",
+    "qualityText": "+(0-1) maximum Stages"
+  },
+  "Flameblast of Celerity": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-40)% more Spell Damage for each stage"
+  },
+  "Flameblast of Contraction": {
+    "costResource": "Mana",
+    "costRange": "3-6",
+    "qualityText": "(0-1) maximum Stages"
+  },
+  "Flamethrower Trap": {
+    "costResource": "Mana",
+    "costRange": "13-25",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Flamethrower Trap of Stability": {
+    "costResource": "Mana",
+    "costRange": "10-22",
+    "qualityText": "Has +(0-1) Flame"
+  },
+  "Flamewood": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-10)% increased Totem Life"
+  },
+  "Flammability": {
+    "costResource": "Mana",
+    "costRange": "24-50",
+    "qualityText": "Ignite on Cursed enemies have (0-20)% increased Duration"
+  },
+  "Flesh and Stone": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "(0-10)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Flesh Offering": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-10)% increased Effect of Offering"
+  },
+  "Flicker Strike": {
+    "costResource": "Mana",
+    "costRange": "5-8",
+    "qualityText": "(0-10)% chance to gain a Frenzy Charge on Hit"
+  },
+  "Flicker Strike of Power": {
+    "costResource": "Mana",
+    "costRange": "5-8",
+    "qualityText": "(0-20)% chance to gain a Power Charge on Critical Strike"
+  },
+  "Focused Ballista": {
+    "costMultiplier": "140%",
+    "qualityText": "(0-10)% increased Totem Damage"
+  },
+  "Focused Channelling": {
+    "qualityText": "Supported Skills have (0-10)% increased Cast Speed"
+  },
+  "Forbidden Rite": {
+    "costResource": "Mana",
+    "costRange": "8-21",
+    "qualityText": "Fire extra Projectiles at up to +(0-2) surrounding Enemies"
+  },
+  "Forbidden Rite of Soul Sacrifice": {
+    "costResource": "Life",
+    "costRange": "18-45",
+    "qualityText": "Fires extra Projectiles at up to (0-2) surrounding Enemies"
+  },
+  "Fork": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Fortify": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-20)% increased Fortification Duration"
+  },
+  "Foulgrasp": {
+    "costMultiplier": "130%",
+    "qualityText": "Creates (0-2) additional Hands"
+  },
+  "Freezing Pulse": {
+    "costResource": "Mana",
+    "costRange": "5-21",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Frenzy": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-2)% more Attack Damage and Attack Speed per Frenzy Charge"
+  },
+  "Frenzy of Onslaught": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-2)% more Attack Damage per Frenzy Charge¤¤(0-2)% more Attack Speed per Frenzy Charge"
+  },
+  "Fresh Meat": {
+    "costMultiplier": "140%",
+    "qualityText": "Minions from Supported Skills have (0-20)% increased Critical Strike Chance"
+  },
+  "Frigid Bond": {
+    "costMultiplier": "140%",
+    "qualityText": "Damage and Chill Linger for a Base Duration of +(0-2) seconds"
+  },
+  "Frost Blades": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Fire +(0-2) Projectiles"
+  },
+  "Frost Blades of Katabasis": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-1) metre to Melee Strike Range"
+  },
+  "Frost Bomb": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Frost Bomb of Forthcoming": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "+(0-0.5) seconds to base duration"
+  },
+  "Frost Bomb of Instability": {
+    "costResource": "Mana",
+    "costRange": "7-24",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Frost Shield": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Effect of Cold Ailments"
+  },
+  "Frost Wall": {
+    "costResource": "Mana",
+    "costRange": "9-33",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Frostbite": {
+    "costResource": "Mana",
+    "costRange": "24-50",
+    "qualityText": "Freezes on Cursed enemies have (0-20)% increased Duration"
+  },
+  "Frostblink": {
+    "costResource": "Mana",
+    "costRange": "12-22",
+    "qualityText": "(0-10)% increased maximum travel distance",
+    "instant": true
+  },
+  "Frostblink of Wintry Blast": {
+    "costResource": "Mana",
+    "costRange": "12-30",
+    "qualityText": "(0-4)% more Damage with Hits per 5% Chill Effect on Enemy"
+  },
+  "Frostbolt": {
+    "costResource": "Mana",
+    "costRange": "6-25",
+    "qualityText": "(0-20)% increased Cold Damage"
+  },
+  "Frostmage": {
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Frozen Legion": {
+    "costMultiplier": "12-23",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Frozen Legion of Rallying": {
+    "costMultiplier": "12-23",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Galvanic Arrow": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Galvanic Arrow of Energy": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-0.4) metres to radius"
+  },
+  "Galvanic Arrow of Surging": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Galvanic Field": {
+    "costMultiplier": "11-23",
+    "qualityText": "Buff grants +(0-20)% chance to Shock enemies"
+  },
+  "Galvanic Field of Intensity": {
+    "costResource": "Mana",
+    "costRange": "11-23",
+    "qualityText": "Buff Grants (0-20)% chance to Shock enemies"
+  },
+  "General's Cry": {
+    "costResource": "Mana",
+    "costRange": "15-19",
+    "qualityText": "Maximum +(0-1) Summoned Mirage Warriors"
+  },
+  "Generosity": {
+    "qualityText": "Supported Skills have (0-40)% increased Aura Area of Effect"
+  },
+  "Glacial Cascade": {
+    "costResource": "Mana",
+    "costRange": "10-20",
+    "qualityText": "Final Burst deals +(0-50)% more Damage"
+  },
+  "Glacial Cascade of the Fissure": {
+    "costResource": "Mana",
+    "costRange": "10-20",
+    "qualityText": "Causes (0-2) Bursts"
+  },
+  "Glacial Hammer": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Every third successive strike Freezes enemies as though dealing (0-100)% more Damage"
+  },
+  "Glacial Hammer of Shattering": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-40)% to Critical Strike Multiplier"
+  },
+  "Glacial Shield Swipe": {
+    "costResource": "Mana",
+    "costRange": "7-11",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Gluttony": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Grace": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Greater Ancestral Call": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Damage"
+  },
+  "Greater Chain": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills have (0-10)% increased Chaining Range"
+  },
+  "Greater Devour": {
+    "costMultiplier": "130%",
+    "qualityText": "Consuming a Corpse with Supported Skills has (0-1)% chance to grant a Soul per Power"
+  },
+  "Greater Fork": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Greater Kinetic Instability": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Greater Multiple Projectiles": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Greater Multistrike": {
+    "costMultiplier": "160%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Damage"
+  },
+  "Greater Spell Cascade": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-10)% increased Area of Effect"
+  },
+  "Greater Spell Echo": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Greater Unleash": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Greater Volley": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-20)% increased Projectile Damage"
+  },
+  "Ground Slam": {
+    "costResource": "Mana",
+    "costRange": "6-11",
+    "qualityText": "+(0-20)% more Damage with Hits to closer targets"
+  },
+  "Ground Slam of Earthshaking": {
+    "costResource": "Mana",
+    "costRange": "8-14",
+    "qualityText": "Deals up to (0-20)% more Damage with Hits to closer targets"
+  },
+  "Guardian's Blessing": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills have (0-5)% increased Aura effect"
+  },
+  "Hallow": {
+    "costMultiplier": "110%",
+    "qualityText": "(0-10)% increased magnitude of Hallowing Flame inflicted by Supported Skills"
+  },
+  "Haste": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Hatred": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Heavy Strike": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "(0-20)% chance to deal Double Damage"
+  },
+  "Heavy Strike of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "(0-2)% chance to deal Double Damage per 10 Intelligence"
+  },
+  "Herald of Agony": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "+(0-5) to Maximum Virulence",
+    "instant": true
+  },
+  "Herald of Ash": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "Base Burning Damage is an additional (0-5)% of Overkill Damage",
+    "instant": true
+  },
+  "Herald of Ice": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "+(0-0.2) metres to radius",
+    "instant": true
+  },
+  "Herald of Purity": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Herald of Thunder": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "Storm Hits Enemies with (0-20)% increased Frequency",
+    "instant": true
+  },
+  "Hex Bloom": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-4)% increased Hex Transfer range"
+  },
+  "Hexblast": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "Hexblast has (0-10)% chance to not remove a Hex"
+  },
+  "Hexblast of Contradiction": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "Hexblast has (0-10)% chance to not remove a Hex"
+  },
+  "Hexblast of Havoc": {
+    "costResource": "Mana",
+    "costRange": "10-20",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Hexpass": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills have (0-10)% increased Curse Duration"
+  },
+  "Hextoad": {
+    "costMultiplier": "160%",
+    "qualityText": "(0-10)% increased Area of Effect of Supported Curse Skills"
+  },
+  "Hextouch": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-20)% increased Damage with Hits and Ailments per Curse on Enemy"
+  },
+  "High-Impact Mine": {
+    "costMultiplier": "65%",
+    "qualityText": "(0-10)% increased Mine Damage"
+  },
+  "Hiveborn": {
+    "costMultiplier": "130%",
+    "qualityText": "Maximum +(0-2) Hiveborn"
+  },
+  "Holy Flame Totem": {
+    "costResource": "Mana",
+    "costRange": "11-39",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Holy Flame Totem of Ire": {
+    "costResource": "Mana",
+    "costRange": "11-39",
+    "qualityText": "Quality now provides (0-40)% increased Consecrated Ground Area"
+  },
+  "Holy Hammers": {
+    "costResource": "Mana",
+    "costRange": "13",
+    "qualityText": "(0-20)% more Damage when expending a Power Charge"
+  },
+  "Holy Strike": {
+    "costResource": "Mana",
+    "costRange": "10",
+    "qualityText": "+(0-0.5) metres to Minion Melee Strike Range"
+  },
+  "Holy Sweep": {
+    "costResource": "Mana",
+    "costRange": "9-14",
+    "qualityText": "+(0-0.4) metres to radius"
+  },
+  "Hydrosphere": {
+    "costResource": "Mana",
+    "costRange": "12-20",
+    "qualityText": "(0-10)% increased Pulse Frequency"
+  },
+  "Hypothermia": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have +(0-20)% chance to Freeze Enemies which are Chilled"
+  },
+  "Ice Bite": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-2)% increased Damage per Frenzy Charge"
+  },
+  "Ice Crash": {
+    "costResource": "Mana",
+    "costRange": "10-14",
+    "qualityText": "(0-15)% of Physical Damage as Extra Cold Damage"
+  },
+  "Ice Crash of Cadence": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Gain (0-15)% of Physical Damage as Extra Cold Damage"
+  },
+  "Ice Nova": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Ice Nova of Deep Freeze": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Ice Nova of Frostbolts": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Ice Shot": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-80)% increased Area of Effect angle"
+  },
+  "Ice Shot of Penetration": {
+    "costMultiplier": "7-13",
+    "qualityText": "(0-80)% increased Area of Effect Angle"
+  },
+  "Ice Spear": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "Shards of ice in their second form have +(0-40)% to Critical Strike Multiplier"
+  },
+  "Ice Spear of Splitting": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "Projectiles Split towards (0-2) targets"
+  },
+  "Ice Trap": {
+    "costResource": "Mana",
+    "costRange": "13-22",
+    "qualityText": "(0-15)% Chance for Traps to Trigger an additional time"
+  },
+  "Ice Trap of Hollowness": {
+    "costResource": "Mana",
+    "costRange": "13-22",
+    "qualityText": "(0-15)% Chance for Trap to Trigger an additional time"
+  },
+  "Icicle Mine": {
+    "costResource": "Mana",
+    "costRange": "3-6",
+    "qualityText": "Fire +(0-2) Projectiles"
+  },
+  "Icicle Mine of Fanning": {
+    "costResource": "Mana",
+    "costRange": "3-6",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Icicle Mine of Sabotage": {
+    "costResource": "Mana",
+    "costRange": "3-6",
+    "qualityText": "(0-20)% increased effect of Aura"
+  },
+  "Ignite Proliferation": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Fire Damage"
+  },
+  "Immolate": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Fire Damage"
+  },
+  "Immortal Call": {
+    "costResource": "Mana",
+    "costRange": "21-36",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Impale": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Attacks have (0-10)% increased Impale Effect"
+  },
+  "Impending Doom": {
+    "costMultiplier": "130%",
+    "qualityText": "Curse Skills have (0-40)% reduced Skill Effect Duration"
+  },
+  "Incinerate": {
+    "costResource": "Mana",
+    "costRange": "2-4",
+    "qualityText": "+(0-2) to maximum Stages"
+  },
+  "Incinerate of Expanse": {
+    "costResource": "Mana",
+    "costRange": "3-5",
+    "qualityText": "Final Wave deals (0-150)% more Damage with Hits¤¤Final Wave deals  (0-80)% more Damage with Ignite"
+  },
+  "Incinerate of Venting": {
+    "costResource": "Mana",
+    "costRange": "2-4",
+    "qualityText": "+(0-3) to maximum Stages"
+  },
+  "Increased Area of Effect": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Area Damage"
+  },
+  "Increased Critical Damage": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have +(0-10)% to Critical Strike Multiplier"
+  },
+  "Increased Critical Strikes": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-20)% increased Critical Strike Chance"
+  },
+  "Infernal Blow": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Debuff deals +(0-10)% of Damage per Charge"
+  },
+  "Infernal Blow of Immolation": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Debuff deals (0-10)% of Damage per Charge"
+  },
+  "Infernal Cry": {
+    "costResource": "Mana",
+    "costRange": "15-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Infernal Legion": {
+    "costMultiplier": "120%",
+    "qualityText": "Minions from Supported Skills deal (0-10)% increased Damage"
+  },
+  "Infused Channelling": {
+    "costMultiplier": "130%",
+    "qualityText": "While Channelling a Supported Skill, take (0-2)% less Damage from Hits"
+  },
+  "Innervate": {
+    "costMultiplier": "120%",
+    "qualityText": "Innervation last +(0-2) seconds"
+  },
+  "Inspiration": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-5)% less Mana Cost"
+  },
+  "Intensify": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Area Damage"
+  },
+  "Intimidating Cry": {
+    "costResource": "Mana",
+    "costRange": "13-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Intuitive Link": {
+    "costResource": "Mana per second",
+    "costRange": "15-32",
+    "qualityText": "+(0.00-1.50) seconds to Base duration"
+  },
+  "Invention": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0—20)% increased Trap Duration¤¤Supported Skills have (0—20)% increased Mine Duration"
+  },
+  "Invert the Rules": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Elemental Damage"
+  },
+  "Iron Grip": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Iron Will": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Item Rarity": {
+    "qualityText": "(0-10)% increased Rarity of Items Dropped by Enemies Slain from Supported Skills"
+  },
+  "Kinetic Blast": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "Create (0-1) additional explosions"
+  },
+  "Kinetic Blast of Clustering": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "Create (0-1) additional explosions"
+  },
+  "Kinetic Bolt": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Increases and Reductions to Spell Damage to also apply to Attack Damage from this Skill at +(0-50)% of their value"
+  },
+  "Kinetic Bolt of Fragmentation": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Projectiles change direction (0-1) time"
+  },
+  "Kinetic Fusillade": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Projectiles deal (0-4)% more Damage per previous Projectile fired in sequence"
+  },
+  "Kinetic Fusillade of Detonation": {
+    "costResource": "Mana",
+    "costRange": "10",
+    "qualityText": "Projectiles deal (0-4)% more Damage per previous Projectile fired in sequence"
+  },
+  "Kinetic Instability": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Kinetic Rain": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Kinetic Rain of Impact": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Knockback": {
+    "qualityText": "Supported Skills have (0-10)% chance to Knock Enemies Back on hit"
+  },
+  "Lacerate": {
+    "costResource": "Mana",
+    "costRange": "10-17",
+    "qualityText": "(0-20)% increased Attack Speed if youve changed Stance Recently"
+  },
+  "Lacerate of Butchering": {
+    "costResource": "Mana",
+    "costRange": "16-25",
+    "qualityText": "+(0-0.5) metres to radius"
+  },
+  "Lacerate of Haemorrhage": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "+(0-40)% more Damage with Bleeding"
+  },
+  "Lancing Steel": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Fire +(0-1) Projectile"
+  },
+  "Lancing Steel of Spraying": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Leap Slam": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-40)% increased Stun Duration against Enemies that are on Full Life"
+  },
+  "Leap Slam of Groundbreaking": {
+    "costResource": "Mana",
+    "costRange": "9-14",
+    "qualityText": "(0-40)% increased Stun Duration against Enemies that are on Full Life"
+  },
+  "Less Duration": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-10)% less Skill Effect Duration"
+  },
+  "Lethal Dose": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage with Poison"
+  },
+  "Life Gain on Hit": {
+    "costMultiplier": "130%",
+    "qualityText": "(0-10) Life gained per Enemy Hit with Supported Attacks"
+  },
+  "Life Leech": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage while Leeching Life"
+  },
+  "Lifetap": {
+    "costMultiplier": "300%",
+    "qualityText": "Lifetap last +(0-2) seconds"
+  },
+  "Lightning Arrow": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Hit up to +(0-2) additional enemies near the target"
+  },
+  "Lightning Arrow of Electrocution": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Arrows deal Damage final target (0-1) additional time after sticking in"
+  },
+  "Lightning Conduit": {
+    "costMultiplier": "8-20",
+    "qualityText": "+(0-4)% more Damage with Hits per 5% Shock Effect on Enemy"
+  },
+  "Lightning Conduit of the Heavens": {
+    "costResource": "Mana",
+    "costRange": "15-29",
+    "qualityText": "Hits up to (0-4) Enemies"
+  },
+  "Lightning Penetration": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Lightning Damage"
+  },
+  "Lightning Spire Trap": {
+    "costResource": "Mana",
+    "costRange": "13-25",
+    "qualityText": "Strike +(0-1) additional Area"
+  },
+  "Lightning Spire Trap of Overloading": {
+    "costResource": "Mana",
+    "costRange": "25-48",
+    "qualityText": "Strikes (0-2) Areas"
+  },
+  "Lightning Spire Trap of Zapping": {
+    "costResource": "Mana",
+    "costRange": "13-22",
+    "qualityText": "(0-15)% Chance for Trap to Trigger an additional time"
+  },
+  "Lightning Strike": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Fire +(0-1) Projectile"
+  },
+  "Lightning Strike of Arcing": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Chains +(0-2) Times"
+  },
+  "Lightning Tendrils": {
+    "costResource": "Mana",
+    "costRange": "1-6",
+    "qualityText": "+(0-40)% to Critical Strike Multiplier"
+  },
+  "Lightning Tendrils of Eccentricity": {
+    "costResource": "Mana",
+    "costRange": "1-6",
+    "qualityText": "+(0-40)% to Critical Strike Multiplier"
+  },
+  "Lightning Tendrils of Escalation": {
+    "costResource": "Mana",
+    "costRange": "1-9",
+    "qualityText": "+(0-10)% to Maximum Effect of Shock"
+  },
+  "Lightning Trap": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "(0-15)% Chance for Traps to Trigger an additional time"
+  },
+  "Lightning Trap of Sparking": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "(0-15)% Chance for Trap to Trigger an additional time"
+  },
+  "Lightning Warp": {
+    "costResource": "Mana",
+    "costRange": "11-33",
+    "qualityText": "(0-20)% increased Cast Speed"
+  },
+  "Living Lightning": {
+    "costMultiplier": "120%",
+    "qualityText": "Living Lightning Minions Attack +(0-2) times before dissipating"
+  },
+  "Locus Mine": {
+    "costMultiplier": "50%",
+    "qualityText": "Supported Skills have (0-10)% increased Mine Throwing Speed"
+  },
+  "Machinations": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Chaos Damage"
+  },
+  "Maim": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-20)% increased Effect of Maim"
+  },
+  "Malevolence": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Mana Leech": {
+    "qualityText": "Supported Skills deal (0-10)% increased Damage while Leeching Mana"
+  },
+  "Manabond": {
+    "costResource": "Mana",
+    "costRange": "5%",
+    "qualityText": "Deal base Lightning Damage equal to +(0-10)% of missing Unreserved Mana"
+  },
+  "Manaforged Arrows": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills have (0-10)% increased Cooldown Recovery Rate"
+  },
+  "Mark On Hit": {
+    "costMultiplier": "200%",
+    "qualityText": "(0-5)% increased Effect of Marks from Supported Skills"
+  },
+  "Meat Shield": {
+    "costMultiplier": "120%",
+    "qualityText": "Minions from Supported Skills take (0-5)% less Damage"
+  },
+  "Melee Physical Damage": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Physical Damage"
+  },
+  "Melee Splash": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-10)% increased Area of Effect"
+  },
+  "Minefield": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-5)% increased Mine Throwing Speed"
+  },
+  "Minion Damage": {
+    "costMultiplier": "140%",
+    "qualityText": "Minions from Supported Skills deal (0-10)% increased Damage"
+  },
+  "Minion Life": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-20)% increased Minion maximum Life"
+  },
+  "Minion Speed": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-10)% increased Minion Movement Speed"
+  },
+  "Mirage Archer": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Mirror Arrow": {
+    "costResource": "Mana",
+    "costRange": "14-20",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Mirror Arrow of Bombarding Clones": {
+    "costResource": "Mana",
+    "costRange": "14-20",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Mirror Arrow of Prismatic Clones": {
+    "costResource": "Mana",
+    "costRange": "14-20",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Molten Shell": {
+    "costResource": "Mana",
+    "costRange": "8-12",
+    "qualityText": "(0-20)% increased Skill Effect Duration",
+    "instant": true
+  },
+  "Molten Strike": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Projectiles deal (0-10)% more Damage with Hits and Ailments"
+  },
+  "Molten Strike of the Zenith": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "Every fifth Attack, Projectiles deal (0-200)% more Damage with Hits and Ailments"
+  },
+  "Momentum": {
+    "costMultiplier": "110%",
+    "qualityText": "Swiftness lasts +(0-0.5) seconds"
+  },
+  "More Duration": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-10)% more Skill Effect Duration"
+  },
+  "Multiple Projectiles": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Multiple Totems": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-20)% increased Totem Placement speed"
+  },
+  "Multiple Traps": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-20)% increased Trap Trigger Area of Effect"
+  },
+  "Multistrike": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Damage"
+  },
+  "Nightblade": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-20)% increased Critical Strike Chance"
+  },
+  "Orb of Storms": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "Beams to Split towards 0-2 additional targets"
+  },
+  "Orb of Storms of Squalls": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "Beams to Split towards 0-2 additional targets"
+  },
+  "Overcharge": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-20)% increased Shock Duration on Enemies"
+  },
+  "Overexertion": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Attacks deal (0-10)% more Damage if Exerted"
+  },
+  "Overheat": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Overloaded Intensity": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Pacifism": {
+    "qualityText": "Supported Skills have (0-10)% chance to cause Monsters to Flee on Hit"
+  },
+  "Penance Brand": {
+    "costResource": "Mana",
+    "costRange": "15-27",
+    "qualityText": "+(0-15)% more Damage with Hits against Branded Enemies"
+  },
+  "Penance Brand of Conduction": {
+    "costResource": "Mana",
+    "costRange": "15-27",
+    "qualityText": "Deals (0-30)% more Damage with Hits against Branded Enemy"
+  },
+  "Penance Brand of Dissipation": {
+    "costResource": "Mana",
+    "costRange": "15-27",
+    "qualityText": "Deals (0-15)% more Damage with Hits against Branded Enemy"
+  },
+  "Perforate": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "Creates +(0-2) Spikes"
+  },
+  "Perforate of Bloodshed": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "(0-20)% more Damage with Bleeding"
+  },
+  "Perforate of Duality": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "(0-5)% more Damage while in Blood Stance¤¤(0-20)% more Area of Effect while in Sand Stance"
+  },
+  "Pestilent Strike": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-20)% more Poison Duration"
+  },
+  "Petrified Blood": {
+    "costResource": "Mana",
+    "costRange": "35%",
+    "qualityText": "(-5-0)% of Life loss prevented is lost over 4 seconds",
+    "instant": true
+  },
+  "Phase Run": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "Buff grants (0-10)% increased Movement Speed",
+    "instant": true
+  },
+  "Physical to Lightning": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Physical Damage"
+  },
+  "Pierce": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Pinpoint": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Plague Bearer": {
+    "costResource": "Mana",
+    "costRange": "6-13",
+    "qualityText": "Deals damage based on an additional +(0-4)% of Plague Value",
+    "instant": true
+  },
+  "Poacher's Mark": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "Cursed Enemies have a (0-5)% chance to grant a Frenzy Charge when Hit"
+  },
+  "Point Blank": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Poisonous Concoction": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "(0-20)% chance to inflict Withered for 2 seconds on Hit"
+  },
+  "Poisonous Concoction of Bouncing": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-20)% chance to inflict Withered for 2 seconds on Hit"
+  },
+  "Portal": {
+    "qualityText": "(0-60)% increased Cast Speed"
+  },
+  "Power Charge On Critical": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills have (0-10)% chance to gain a Power Charge on Critical Strike"
+  },
+  "Power Siphon": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "+(0-10)% to Critical Strike Multiplier per Power Charge"
+  },
+  "Power Siphon of the Archmage": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Deals Added Lightning Damage equal to (0-3)% of maximum Mana"
+  },
+  "Precision": {
+    "costResource": "Mana",
+    "costRange": "22-186",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Predator": {
+    "costMultiplier": "130%",
+    "qualityText": "Minions from Supported Skills deal (0-10)% increased Damage"
+  },
+  "Pride": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Prismatic Burst": {
+    "costMultiplier": "130%",
+    "qualityText": "(0-20)% increased Elemental Damage"
+  },
+  "Protective Link": {
+    "costResource": "Mana per second",
+    "costRange": "15-32",
+    "qualityText": "+(0.00-1.50) seconds to Base duration"
+  },
+  "Pulverise": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-10)% increased Area of Effect"
+  },
+  "Puncture": {
+    "costResource": "Mana",
+    "costRange": "8-14",
+    "qualityText": "+(0-20)% more Damage with Bleeding"
+  },
+  "Puncture of Shanking": {
+    "costResource": "Mana",
+    "costRange": "8-14",
+    "qualityText": "+(0-20)% more Damage with Bleeding"
+  },
+  "Punishment": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "Cursed Enemies are Debilitated for +(0.00-1.00) Seconds when they Hit"
+  },
+  "Purifying Flame": {
+    "costResource": "Mana",
+    "costRange": "6-25",
+    "qualityText": "+(0-0.2) metres to radius¤¤+(0-0.3) metres to radius of Consecrated Ground"
+  },
+  "Purifying Flame of Revelations": {
+    "costResource": "Mana",
+    "costRange": "5-20",
+    "qualityText": "Shockwave deals (0-30)% more Damage"
+  },
+  "Purity of Elements": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "You and nearby allies to gain +(0-5)% to all Elemental Resistances",
+    "instant": true
+  },
+  "Purity of Fire": {
+    "costResource": "Mana",
+    "costRange": "35%",
+    "qualityText": "You and nearby allies to gain (0-10)% additional Fire Resistance",
+    "instant": true
+  },
+  "Purity of Ice": {
+    "costResource": "Mana",
+    "costRange": "35%",
+    "qualityText": "You and nearby allies to gain (0-10)% additional Cold Resistance",
+    "instant": true
+  },
+  "Purity of Lightning": {
+    "costResource": "Mana",
+    "costRange": "35%",
+    "qualityText": "You and nearby allies to gain (0-10)% additional Lightning Resistance",
+    "instant": true
+  },
+  "Pyre": {
+    "costMultiplier": "130%",
+    "qualityText": "Creates (0-1) Ashen Pillar"
+  },
+  "Pyroclast Mine": {
+    "costResource": "Mana",
+    "costRange": "4-6",
+    "qualityText": "Fire +(0-1) Projectile"
+  },
+  "Pyroclast Mine of Sabotage": {
+    "costResource": "Mana",
+    "costRange": "4-6",
+    "qualityText": "Fires +(0-1) Projectile"
+  },
+  "Rage": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Rage Vortex": {
+    "costResource": "Life",
+    "costRange": "25-46",
+    "qualityText": "Sacrifice +(0-5)% of Rage to create a Ragestorm"
+  },
+  "Rage Vortex of Berserking": {
+    "costResource": "Life",
+    "costRange": "25-46",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Rain of Arrows": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Fires +(0-4) Arrows"
+  },
+  "Rain of Arrows of Artillery": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Fires +(0-4) Arrows"
+  },
+  "Rain of Arrows of Saturation": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Fires +(0-8) Arrows"
+  },
+  "Raise Spectre": {
+    "costResource": "Mana",
+    "costRange": "15-28",
+    "qualityText": "Minions have +(0-20)% to all Elemental Resistances"
+  },
+  "Raise Spectre of Transience": {
+    "costResource": "Mana",
+    "costRange": "11-20",
+    "qualityText": "Maximum +(0-1) Raised Spectre"
+  },
+  "Raise Zombie": {
+    "costResource": "Mana",
+    "costRange": "9-28",
+    "qualityText": "+(0-1) to Maximum Raised Zombies"
+  },
+  "Raise Zombie of Falling": {
+    "costResource": "Mana",
+    "costRange": "6-24",
+    "qualityText": "Minions have (0-15)% chance to deal Double Damage"
+  },
+  "Raise Zombie of Slamming": {
+    "costResource": "Mana",
+    "costRange": "9-28",
+    "qualityText": "Maximum +(0-1) Raised Zombie"
+  },
+  "Rallying Cry": {
+    "costResource": "Mana",
+    "costRange": "15-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Reap": {
+    "costResource": "Life",
+    "costRange": "25-46",
+    "qualityText": "+(0-5)% more Damage per Blood Charge"
+  },
+  "Reave": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-2) to maximum Stages"
+  },
+  "Reave of Refraction": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-2) to maximum Stages"
+  },
+  "Rejuvenation Totem": {
+    "costResource": "Mana",
+    "costRange": "9-32",
+    "qualityText": "(0-20)% more Totem Life"
+  },
+  "Returning Projectiles": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills have (0-10)% increased Projectile Speed"
+  },
+  "Righteous Fire": {
+    "qualityText": "+(0-0.3) metres to radius",
+    "instant": true
+  },
+  "Righteous Fire of Arcane Devotion": {
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Rolling Magma": {
+    "costResource": "Mana",
+    "costRange": "5-18",
+    "qualityText": "Chain +(0-2) Times"
+  },
+  "Rupture": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-20)% increased Critical Strike Chance"
+  },
+  "Ruthless": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Sacred Wisps": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Attack Damage"
+  },
+  "Sacrifice": {
+    "qualityText": "Supported Skills deal (0-10)% increased Chaos Damage"
+  },
+  "Sadism": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage over Time"
+  },
+  "Scorching Ray": {
+    "costResource": "Mana",
+    "costRange": "2-5",
+    "qualityText": "Fire Exposure applies (0 to -5)% to Fire Resistance"
+  },
+  "Scorching Ray of Immolation": {
+    "costResource": "Mana",
+    "costRange": "2-5",
+    "qualityText": "Additional Debuff stages add (100-104)% of Damage"
+  },
+  "Scornful Herald": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have +(0-10)% to Critical Strike Multiplier"
+  },
+  "Scourge Arrow": {
+    "costResource": "Mana",
+    "costRange": "4-5",
+    "qualityText": "Each Spore Pod to fire +(0-1) Thorn Arrow"
+  },
+  "Scourge Arrow of Menace": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "Each Spore Pod fires (0-1) Thorn Arrows"
+  },
+  "Searing Bond": {
+    "costResource": "Mana",
+    "costRange": "18-51",
+    "qualityText": "+(0-2) to maximum number of Summoned Totems"
+  },
+  "Searing Bond of Detonation": {
+    "costResource": "Mana",
+    "costRange": "18-51",
+    "qualityText": "+(0-2) to maximum number of Summoned Totems"
+  },
+  "Second Wind": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills have (0-5)% increased Cooldown Recovery Rate"
+  },
+  "Seismic Cry": {
+    "costResource": "Mana",
+    "costRange": "14-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Seismic Trap": {
+    "costResource": "Mana",
+    "costRange": "13-25",
+    "qualityText": "Release +(0-1) wave"
+  },
+  "Seismic Trap of Swells": {
+    "costResource": "Mana",
+    "costRange": "13-22",
+    "qualityText": "Releases (0-1) waves"
+  },
+  "Shattering Steel": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "(0-40)% increased Impale Effect"
+  },
+  "Shattering Steel of Ammunition": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "(0-40)% increased Impale Effect"
+  },
+  "Shield Charge": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-20)% increased Movement Speed"
+  },
+  "Shield Crush": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "+(0-10)% more Damage with Hits to closer targets"
+  },
+  "Shield Crush of the Chieftain": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "Central wave has (0-40)% more Area of Effect"
+  },
+  "Shield of Light": {
+    "costResource": "Mana",
+    "costRange": "11",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Shock Nova": {
+    "costResource": "Mana",
+    "costRange": "15-29",
+    "qualityText": "+(0-10)% to Maximum Effect of Shock"
+  },
+  "Shock Nova of Procession": {
+    "costResource": "Mana",
+    "costRange": "15-29",
+    "qualityText": "+(0-10)% to Maximum Effect of Shock"
+  },
+  "Shockwave": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Damage"
+  },
+  "Shockwave Totem": {
+    "costResource": "Mana",
+    "costRange": "21-39",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Shockwave Totem of Authority": {
+    "costResource": "Mana",
+    "costRange": "21-39",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Shrapnel Ballista": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Shrapnel Ballista of Steel": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Siege Ballista": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "(0-5)% increased Attack Speed per maximum Totem"
+  },
+  "Siege Ballista of Splintering": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "Projectiles have (0-40)% chance for an additional Projectile when Forking"
+  },
+  "Siege Ballista of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "(0-20)% more Projectile Damage"
+  },
+  "Sigil of Power": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Enemies in Area deal +(0-4)% less Damage while at maximum Stages"
+  },
+  "Siphoning Trap": {
+    "costResource": "Mana",
+    "costRange": "7-24",
+    "qualityText": "Applies beams to the closest +(0-4) Enemies"
+  },
+  "Siphoning Trap of Pain": {
+    "costResource": "Mana",
+    "costRange": "7-24",
+    "qualityText": "Applies beams to the closest +(0-4) Enemies"
+  },
+  "Slower Projectiles": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Smite": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "(0-10)% more Area Damage"
+  },
+  "Smite of Divine Judgement": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "Lightning strikes targets within +(0-2) metres"
+  },
+  "Smoke Mine": {
+    "costResource": "Mana",
+    "costRange": "6-13",
+    "qualityText": "Buff grants (0-20)% increased Movement Speed"
+  },
+  "Snipe": {
+    "costResource": "Mana",
+    "costRange": "4-6¤¤50%",
+    "qualityText": "+(0-1) Maximum Stage"
+  },
+  "Sniper's Mark": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "Cursed enemies take (0-5)% increased Damage from Projectile Hits"
+  },
+  "Somatic Shell": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "Base radius is +(0-0.3) metres"
+  },
+  "Soul Link": {
+    "costResource": "Mana per second",
+    "costRange": "15-32",
+    "qualityText": "+(0.00-1.50) seconds to Base duration"
+  },
+  "Soulrend": {
+    "costResource": "Mana",
+    "costRange": "12-22",
+    "qualityText": "+(0.00-0.20) seconds to Base duration"
+  },
+  "Soulrend of Reaping": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Soulrend of the Spiral": {
+    "costResource": "Mana",
+    "costRange": "34-64",
+    "qualityText": "+(0-0.2) seconds to base duration"
+  },
+  "Spark": {
+    "costResource": "Mana",
+    "costRange": "6-26",
+    "qualityText": "Fire +(0-2) Projectiles"
+  },
+  "Spark of the Nova": {
+    "costResource": "Mana",
+    "costRange": "8-31",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Spark of Unpredictability": {
+    "costResource": "Mana",
+    "costRange": "6-26",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Spectral Helix": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "Projectiles that have Pierced deal (0-20)% more Damage"
+  },
+  "Spectral Helix of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "6-9",
+    "qualityText": "Projectiles that have Pierced deal (0-20)% more Damage"
+  },
+  "Spectral Shield Throw": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Fire 0-2 additional Projectiles"
+  },
+  "Spectral Shield Throw of Shattering": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-20)% more Projectile Speed"
+  },
+  "Spectral Shield Throw of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "9-12",
+    "qualityText": "(0-20)% more Projectile Speed"
+  },
+  "Spectral Throw": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Projectiles that have Pierced deal (0-20)% more Damage"
+  },
+  "Spectral Throw of Materialising": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Projectiles that have Pierced deal (0-20)% more Damage"
+  },
+  "Spectral Throw of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Projectiles that have Pierced deal (0-20)% more Damage"
+  },
+  "Spell Cascade": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-10)% increased Area of Effect"
+  },
+  "Spell Echo": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Spell Totem": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills have (0-10)% increased Totem Placement speed"
+  },
+  "Spellblade": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Spellslinger": {
+    "costMultiplier": "20%",
+    "qualityText": "Supported Skills have Added Spell Damage equal to +(0-20)% of Damage of Equipped Wand¤¤If two Wands are Equipped, each contributes half as much Added Damage",
+    "instant": true
+  },
+  "Spirit Offering": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-10)% increased Effect of Offering"
+  },
+  "Split Arrow": {
+    "costResource": "Mana",
+    "costRange": "5-9",
+    "qualityText": "Fire +(0-4) Arrows"
+  },
+  "Split Arrow of Splitting": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Projectiles Split towards (0-2) targets"
+  },
+  "Splitting Steel": {
+    "costResource": "Mana",
+    "costRange": "6-11",
+    "qualityText": "(0-40)% increased Impale Effect"
+  },
+  "Splitting Steel of Ammunition": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-40)% increased Impale Effect"
+  },
+  "Static Strike": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-20)% increased Beam frequency"
+  },
+  "Static Strike of Gathering Lightning": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-2) to Maximum Gathering Lightning"
+  },
+  "Steelskin": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "(0-10)% increased Cooldown Recovery Rate",
+    "instant": true
+  },
+  "Storm Brand": {
+    "costResource": "Mana",
+    "costRange": "8-21",
+    "qualityText": "Send +(0-1) beam to an Enemy"
+  },
+  "Storm Brand of Indecision": {
+    "costResource": "Mana",
+    "costRange": "8-21",
+    "qualityText": "Deals (0-15)% more Damage with Hits against Branded Enemy"
+  },
+  "Storm Burst": {
+    "costResource": "Mana",
+    "costRange": "2-4",
+    "qualityText": "+(0.00-0.40) seconds to Base duration"
+  },
+  "Storm Burst of Repulsion": {
+    "costResource": "Mana",
+    "costRange": "2-4",
+    "qualityText": "+(0.00-0.40) seconds to Base duration"
+  },
+  "Storm Call": {
+    "costResource": "Mana",
+    "costRange": "8-20",
+    "qualityText": "(0-15)% chance for Lightning to Strike the Marker when Cast"
+  },
+  "Storm Call of Trarthus": {
+    "costResource": "Life",
+    "costRange": "14-37",
+    "qualityText": "Base secondary duration +(0-1) second"
+  },
+  "Storm Rain": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Each Arrow can fire +(0-1) Beam"
+  },
+  "Storm Rain of the Conduit": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Each Arrow can fire +(0-2) Beams"
+  },
+  "Storm Rain of the Fence": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Each Arrow can fire +(0-4) Beams"
+  },
+  "Stormbind": {
+    "costResource": "Mana",
+    "costRange": "4-6",
+    "qualityText": "Runes have +(0-10)% more Area of Effect for each time they have been Improved"
+  },
+  "Stormbind of Teleportation": {
+    "costResource": "Mana",
+    "costRange": "4-6",
+    "qualityText": "Runes have (0-10)% more Area of Effect for each time they have been Improved"
+  },
+  "Stormblast Mine": {
+    "costResource": "Mana",
+    "costRange": "2-6",
+    "qualityText": "Each Mine to apply +(0-1)% increased Damage Taken to Enemies near it, up to a maximum of 150%"
+  },
+  "Stun": {
+    "qualityText": "Supported Skills have (0-10)% chance to double Stun Duration"
+  },
+  "Summon Carrion Golem": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Buff Effect"
+  },
+  "Summon Carrion Golem of Hordes": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Carrion Golem of Scavenging": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions Regenerate (0-3)% of Life per second"
+  },
+  "Summon Chaos Golem": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Buff Effect"
+  },
+  "Summon Chaos Golem of Hordes": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Chaos Golem of the Maelstrom": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions to have (0-20)% increased Effect of Withered"
+  },
+  "Summon Flame Golem": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Buff Effect"
+  },
+  "Summon Flame Golem of Hordes": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Flame Golem of the Meteor": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Holy Relic": {
+    "costResource": "Mana",
+    "costRange": "11-28",
+    "qualityText": "(0-40)% increased Buff Effect"
+  },
+  "Summon Holy Relic of Conviction": {
+    "costResource": "Mana",
+    "costRange": "11-28",
+    "qualityText": "Minions have (0-20)% increased Cooldown Recovery Rate"
+  },
+  "Summon Ice Golem": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Buff Effect"
+  },
+  "Summon Ice Golem of Hordes": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Ice Golem of Shattering": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Lightning Golem": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Buff Effect"
+  },
+  "Summon Lightning Golem of Hordes": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Phantasm": {
+    "costMultiplier": "120%",
+    "qualityText": "(0-10)% chance to Summon a Phantasm when Supported Skills, or Non-Phantasm Minions from Supported Skills, deal a Killing Blow"
+  },
+  "Summon Raging Spirit": {
+    "costResource": "Mana",
+    "costRange": "4-16",
+    "qualityText": "(0-30)% chance to summon an extra Minion"
+  },
+  "Summon Raging Spirit of Enormity": {
+    "costResource": "Mana",
+    "costRange": "7-26",
+    "qualityText": "(0-10)% more Minion Movement Speed"
+  },
+  "Summon Reaper": {
+    "costResource": "Mana",
+    "costRange": "15-28",
+    "qualityText": "Minions Attacks have (0-20)% chance to inflict Bleeding"
+  },
+  "Summon Reaper of Eviscerating": {
+    "costResource": "Mana",
+    "costRange": "19-35",
+    "qualityText": "Minions to have (0-20)% chance to Aggravate Bleeding on targets they Hit with Attacks"
+  },
+  "Summon Reaper of Revenants": {
+    "costResource": "Mana",
+    "costRange": "15-28",
+    "qualityText": "(0-40)% increased Minion Movement Speed"
+  },
+  "Summon Skeletons": {
+    "costResource": "Mana",
+    "costRange": "5-16",
+    "qualityText": "+(0-1) to Maximum Summoned Skeletons"
+  },
+  "Summon Skeletons of Archers": {
+    "costResource": "Mana",
+    "costRange": "5-16",
+    "qualityText": "Maximum +(0-1) Summoned Skeleton"
+  },
+  "Summon Skeletons of Mages": {
+    "costResource": "Mana",
+    "costRange": "5-16",
+    "qualityText": "Maximum +(0-1) Summoned Skeleton"
+  },
+  "Summon Skitterbots": {
+    "costResource": "Mana",
+    "costRange": "35%",
+    "qualityText": "(0-40)% increased Minion Movement Speed",
+    "instant": true
+  },
+  "Summon Stone Golem": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Buff Effect"
+  },
+  "Summon Stone Golem of Hordes": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Summon Stone Golem of Safeguarding": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Buff Effect"
+  },
+  "Sunder": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "Wave gains +(0-0.1) metres to radius with each Area in the Sequence"
+  },
+  "Sunder of Earthbreaking": {
+    "costResource": "Mana",
+    "costRange": "7-11",
+    "qualityText": "Wave Damages (0-2) Areas"
+  },
+  "Sunder of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "8-13",
+    "qualityText": "Wave gains +(0-0.1) metres to radius for each previous Area"
+  },
+  "Swift Affliction": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage over Time"
+  },
+  "Swift Assembly": {
+    "costMultiplier": "110%",
+    "qualityText": "Supported Skills have (0-5)% increased Mine Throwing Speed and Trap Throwing Speed"
+  },
+  "Swiftbrand": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills have (0-5)% more Activation frequency"
+  },
+  "Swordstorm": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Tectonic Slam": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "+(0-30)% Fissure branching chance"
+  },
+  "Tectonic Slam of Cataclysm": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "+(0-5)% more Damage per Endurance Charge removed"
+  },
+  "Tempest Shield": {
+    "costResource": "Mana",
+    "costRange": "25%",
+    "qualityText": "(0-40)% chance to Shock enemies",
+    "instant": true
+  },
+  "Temporal Chains": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-20)% increased Curse Duration"
+  },
+  "Temporal Rift": {
+    "costResource": "Mana",
+    "costRange": "10%",
+    "qualityText": "Buff causes Debuffs on you to expire (0-20)% faster"
+  },
+  "Thunderstorm": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Tornado": {
+    "costResource": "Mana",
+    "costRange": "15-25",
+    "qualityText": "(0-20)% increased Movement Speed"
+  },
+  "Tornado of Elemental Turbulence": {
+    "costMultiplier": "15-25",
+    "qualityText": "(0-20)% increased Movement Speed"
+  },
+  "Tornado Shot": {
+    "costResource": "Mana",
+    "costRange": "9-13",
+    "qualityText": "(0-40)% increased Projectile Speed"
+  },
+  "Tornado Shot of Cloudburst": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "Fires +(0-4) Arrows"
+  },
+  "Toxic Rain": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0.00-0.20) seconds to Base duration"
+  },
+  "Toxic Rain of Sporeburst": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "Fires +(0-2) Arrows"
+  },
+  "Toxic Rain of Withering": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-0.1) seconds to base duration"
+  },
+  "Transfusion": {
+    "costMultiplier": "150-190%",
+    "qualityText": "Supported Skills have (0-10)% increased Life Cost"
+  },
+  "Trap": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Trap Damage"
+  },
+  "Trap and Mine Damage": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage"
+  },
+  "Trauma": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills have (0-10)% reduced Enemy Stun Threshold"
+  },
+  "Trinity": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Elemental Damage"
+  },
+  "Unbound Ailments": {
+    "costMultiplier": "120%",
+    "qualityText": "(0-10)% increased Duration of Ailments inflicted with Supported Skills"
+  },
+  "Unearth": {
+    "costResource": "Mana",
+    "costRange": "4-10",
+    "qualityText": "Corpses Spawned have (0-20)% increased Maximum Life"
+  },
+  "Unholy Trinity": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage"
+  },
+  "Unleash": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Urgent Orders": {
+    "costMultiplier": "200%",
+    "qualityText": "Supported Skills have (0-10)% increased Warcry Speed"
+  },
+  "Vaal Absolution": {
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Vaal Animate Weapon": {
+    "qualityText": "+(0-2) to Maximum Animated Weapons"
+  },
+  "Vaal Arc": {
+    "qualityText": "Chains +(0-1) Times"
+  },
+  "Vaal Arctic Armour": {
+    "qualityText": "(0-20)% increased Skill Effect Duration",
+    "instant": true
+  },
+  "Vaal Blade Flurry": {
+    "qualityText": "(0-20)% more Damage while at max Stages"
+  },
+  "Vaal Blade Vortex": {
+    "qualityText": "+(0-5)% increased Hit Rate for each blade"
+  },
+  "Vaal Blight": {
+    "qualityText": "+(0.00-0.80) seconds to Base duration"
+  },
+  "Vaal Breach": {
+    "qualityText": "(0-60)% increased Cast Speed"
+  },
+  "Vaal Burning Arrow": {
+    "qualityText": "(0-20)% more Damage with Ignite"
+  },
+  "Vaal Caustic Arrow": {
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Vaal Clarity": {
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Vaal Cleave": {
+    "qualityText": "+(0-0.1) metres to radius per Nearby Enemy, up to a maximum of +1 metre"
+  },
+  "Vaal Cold Snap": {
+    "qualityText": "(0-20)% more Effect of Chill"
+  },
+  "Vaal Cyclone": {
+    "qualityText": "(0-5)% increased Area of Effect per 0.1 metre additional Melee Strike Range"
+  },
+  "Vaal Detonate Dead": {
+    "qualityText": "(0-30)% chance to detonate an additional corpse"
+  },
+  "Vaal Discipline": {
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Vaal Domination": {
+    "qualityText": "Minions have (0-40)% increased Cooldown Recovery Rate"
+  },
+  "Vaal Double Strike": {
+    "qualityText": "(0-20)% chance to deal Double Damage to Bleeding Enemies"
+  },
+  "Vaal Earthquake": {
+    "qualityText": "Aftershock deals +(0-30)% more Damage with Hits and Ailments"
+  },
+  "Vaal Fireball": {
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Vaal Firestorm": {
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Vaal Flameblast": {
+    "qualityText": "(0-20)% increased Damage"
+  },
+  "Vaal Flicker Strike": {
+    "qualityText": "(0-10)% chance to gain a Frenzy Charge on Hit"
+  },
+  "Vaal Glacial Hammer": {
+    "qualityText": "(0-40)% increased Duration of Cold Ailments"
+  },
+  "Vaal Grace": {
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Vaal Ground Slam": {
+    "qualityText": "+(0-20)% more Damage with Hits to closer targets"
+  },
+  "Vaal Haste": {
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Vaal Ice Nova": {
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Vaal Ice Shot": {
+    "qualityText": "(0-60)% increased Area of Effect angle"
+  },
+  "Vaal Impurity of Fire": {
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Vaal Impurity of Ice": {
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Vaal Impurity of Lightning": {
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Vaal Lightning Arrow": {
+    "qualityText": "Hit up to +(0-2) additional enemies near the target"
+  },
+  "Vaal Lightning Strike": {
+    "qualityText": "Fires +(0-1) Projectile"
+  },
+  "Vaal Lightning Trap": {
+    "qualityText": "Shocked Ground causes (0-5)% increased Damage taken"
+  },
+  "Vaal Molten Shell": {
+    "qualityText": "(0-10)% more Damage with Hits and Ailments",
+    "instant": true
+  },
+  "Vaal Molten Strike": {
+    "qualityText": "(0-20)% increased Fire Damage"
+  },
+  "Vaal Power Siphon": {
+    "qualityText": "+(0-10)% to Critical Strike Multiplier per Power Charge"
+  },
+  "Vaal Rain of Arrows": {
+    "qualityText": "Fires +(0-4) Arrows"
+  },
+  "Vaal Reap": {
+    "qualityText": "+(0-5)% more Damage per Blood Charge"
+  },
+  "Vaal Reave": {
+    "qualityText": "+(0-2) to maximum Stages"
+  },
+  "Vaal Rejuvenation Totem": {
+    "qualityText": "(0-20)% more Totem Life"
+  },
+  "Vaal Righteous Fire": {
+    "qualityText": "+(0-0.3) metres to radius",
+    "instant": true
+  },
+  "Vaal Sacrifice": {
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
+  "Vaal Smite": {
+    "qualityText": "(0-10)% more Area Damage"
+  },
+  "Vaal Spark": {
+    "qualityText": "Fire +(0-2) Projectiles"
+  },
+  "Vaal Spectral Throw": {
+    "qualityText": "Projectiles that have Pierced deal (0-20)% more Damage"
+  },
+  "Vaal Storm Call": {
+    "qualityText": "+(0-1) second to base duration"
+  },
+  "Vaal Summon Skeletons": {
+    "qualityText": "+(0-1) to Maximum Summoned Skeletons"
+  },
+  "Vaal Temptation": {
+    "qualityText": "Supported Skills deal (0-10)% increased Damage"
+  },
+  "Vaal Venom Gyre": {
+    "qualityText": "(0-20)% increased Poison Duration"
+  },
+  "Vaal Volcanic Fissure": {
+    "qualityText": "Fires +(0-2) Projectiles"
+  },
+  "Vampiric Link": {
+    "costResource": "Mana per second",
+    "costRange": "15-32",
+    "qualityText": "+(0.00-1.50) seconds to Base duration"
+  },
+  "Vengeful Cry": {
+    "costResource": "Mana",
+    "costRange": "15-19",
+    "qualityText": "(0-40)% increased Cooldown Recovery Rate"
+  },
+  "Venom Gyre": {
+    "costResource": "Mana",
+    "costRange": "5-8",
+    "qualityText": "Maximum +(0-10) caught Projectiles"
+  },
+  "Vicious Projectiles": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Physical Damage"
+  },
+  "Vigilant Strike": {
+    "costResource": "Mana",
+    "costRange": "7-12",
+    "qualityText": "(0-4)% more Attack Damage per Endurance Charge"
+  },
+  "Vile Toxins": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage with Poison"
+  },
+  "Viper Strike": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0.00-1.00) seconds to Base duration"
+  },
+  "Viper Strike of the Mamba": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "+(0-40)% more Damage with Poison"
+  },
+  "Vitality": {
+    "costResource": "Mana",
+    "costRange": "28-233",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Void Manipulation": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Chaos Damage"
+  },
+  "Void Shockwave": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Damage"
+  },
+  "Void Sphere": {
+    "costResource": "Mana",
+    "costRange": "30-54",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "Void Sphere of Rending": {
+    "costResource": "Mana",
+    "costRange": "14-26",
+    "qualityText": "+(0-0.5) seconds to base duration"
+  },
+  "Voidstorm": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Area Damage"
+  },
+  "Volatile Dead": {
+    "costResource": "Mana",
+    "costRange": "9-26",
+    "qualityText": "(0-40)% increased Orb Movement Speed"
+  },
+  "Volatile Dead of Confinement": {
+    "costResource": "Mana",
+    "costRange": "9-26",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Volatile Dead of Seething": {
+    "costResource": "Mana",
+    "costRange": "9-26",
+    "qualityText": "(0-40)% increased Orb Movement Speed"
+  },
+  "Volatility": {
+    "costMultiplier": "140%",
+    "qualityText": "Supported Skills deal (0-10)% increased Damage"
+  },
+  "Volcanic Fissure": {
+    "costMultiplier": "8-13",
+    "qualityText": "Fire +(0-2) Projectiles"
+  },
+  "Volcanic Fissure of Snaking": {
+    "costMultiplier": "9-14",
+    "qualityText": "Fissure erupts (0-1) additional times"
+  },
+  "Volley": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Voltaxic Burst": {
+    "costResource": "Mana",
+    "costRange": "5-13",
+    "qualityText": "+(0-1)% more Damage with Hits and Ailments for each Cast of this Spell currently waiting"
+  },
+  "Vortex": {
+    "costResource": "Mana",
+    "costRange": "10-19",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Vortex of Projection": {
+    "costResource": "Mana",
+    "costRange": "10-19",
+    "qualityText": "+(0-0.2) metres to radius"
+  },
+  "Vulnerability": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-10)% chance to Aggravate Bleeding"
+  },
+  "Wall of Force": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "(0-20)% increased Cooldown Recovery Rate"
+  },
+  "War Banner": {
+    "costResource": "Mana",
+    "costRange": "13-19",
+    "qualityText": "(0-10)% increased effect of Aura",
+    "instant": true
+  },
+  "Warlord's Mark": {
+    "costResource": "Mana",
+    "costRange": "16-33",
+    "qualityText": "Cursed Enemies have a (0-5)% chance to grant an Endurance Charge when Hit"
+  },
+  "Wave of Conviction": {
+    "costResource": "Mana",
+    "costRange": "10-26",
+    "qualityText": "Damage Penetrates (0-15)% of Enemy Elemental Resistances"
+  },
+  "Wave of Conviction of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "10-26",
+    "qualityText": "Damage Penetrates (0-15)% of Enemy Elemental Resistances"
+  },
+  "Whirling Blades": {
+    "costResource": "Mana",
+    "costRange": "6-10",
+    "qualityText": "(0-10)% increased Attack Speed"
+  },
+  "Wild Strike": {
+    "costResource": "Mana",
+    "costRange": "7-10",
+    "qualityText": "(0-20)% chance to Freeze, Shock and Ignite"
+  },
+  "Wild Strike of Extremes": {
+    "costResource": "Mana",
+    "costRange": "14-28",
+    "qualityText": "(0-20)% chance to Freeze, Shock and Ignite"
+  },
+  "Windburst": {
+    "costMultiplier": "120%",
+    "qualityText": "Supported Skills deal (0-10)% increased Projectile Damage"
+  },
+  "Winter Orb": {
+    "costResource": "Mana",
+    "costRange": "2-4",
+    "qualityText": "+(0-2) Maximum Stages"
+  },
+  "Wintertide Brand": {
+    "costResource": "Mana",
+    "costRange": "6-16",
+    "qualityText": "Debuff deals +(0-5)% more Damage per Stage"
+  },
+  "Wither": {
+    "costResource": "Mana",
+    "costRange": "3-9",
+    "qualityText": "(0-20)% increased Skill Effect Duration"
+  },
+  "Withering Step": {
+    "costResource": "Mana",
+    "costRange": "8-23",
+    "qualityText": "Inflict +(0-2) Withered Debuffs the first time each Enemy enters the Area",
+    "instant": true
+  },
+  "Withering Touch": {
+    "costMultiplier": "130%",
+    "qualityText": "Supported Skills deal (0-10)% increased Chaos Damage"
+  },
+  "Wrath": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  },
+  "Zealotry": {
+    "costResource": "Mana",
+    "costRange": "50%",
+    "qualityText": "(0-40)% increased Area of Effect",
+    "instant": true
+  }
+}

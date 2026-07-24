@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
 
 import { IconTrash } from '@tabler/icons-react';
@@ -6,23 +6,16 @@ import {
   decodeAndParsePob,
   extractUniqueItemNamesFromPob,
 } from '../../../_utils/pob-decode';
-import {
-  getUniqueItemWikiInfo,
-  searchUniquesByNameOrBase,
-  type UniqueSearchResult,
-} from '../../../_utils/utils';
+import { getUniqueItemWikiInfo, searchUniquesByNameOrBase } from '../../../_utils/utils';
 import {
   Item_Order_Type_Enum,
-  type OrderTypesQuery,
   type UpdateUserItemOrderMutationVariables,
 } from '../../../graphql-api';
-import type { BaseTypeCategory } from '../../../models/base-types';
 import { OrderItemPopover } from '../item-hovers/OrderItemPopover';
 import { Button } from '../ui/Button';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
+import { ItemIcon } from '../ui/ItemIcon';
 import { Spinner } from '../ui/Spinner';
-import { Toggle } from '../ui/Toggle';
-import { BaseItemPicker } from './BaseItemPicker';
+import { OrderSearchPicker, type PickedOrderItem } from './OrderSearchPicker';
 
 export type OrderFormInputs = Pick<
   UpdateUserItemOrderMutationVariables,
@@ -36,27 +29,60 @@ export type OrderFormInputs = Pick<
 >;
 
 export type PreviewRow = {
+  kind: PickedOrderItem['kind'];
+  type: Item_Order_Type_Enum;
   name: string;
   icon: string;
   id: string;
   description: string;
   priority: boolean;
+  itemBaseType?: string;
+  itemCategory?: string;
+  linkUrl?: string;
 };
 
 type FormValues = OrderFormInputs & { previews: PreviewRow[] };
 
-function uniqueSearchResultToPreviewRow(r: UniqueSearchResult): PreviewRow {
+const KIND_TO_ENUM: Record<PickedOrderItem['kind'], Item_Order_Type_Enum> = {
+  unique: Item_Order_Type_Enum.Unique,
+  base: Item_Order_Type_Enum.Base,
+  gem: Item_Order_Type_Enum.Gem,
+  other: Item_Order_Type_Enum.Other,
+};
+
+function pickedOrderItemToPreviewRow(item: PickedOrderItem): PreviewRow {
   return {
-    name: r.name,
-    icon: r.icon,
-    id: r.id,
-    description: r.name,
+    kind: item.kind,
+    type: KIND_TO_ENUM[item.kind],
+    name: item.name,
+    icon: item.icon,
+    id: item.id,
+    description: item.name,
     priority: false,
+    itemBaseType: item.itemBaseType,
+    itemCategory: item.itemCategory,
+    linkUrl: item.linkUrl,
+  };
+}
+
+// Path of Building exports only ever reference uniques by name — resolves
+// straight through searchUniquesByNameOrBase + getUniqueItemWikiInfo
+// (matching the same resolution searchAllOrderItems does for its own
+// unique results), rather than going through the general multi-kind search.
+function uniqueNameToPickedItem(name: string, icon: string): PickedOrderItem {
+  const wiki = getUniqueItemWikiInfo(name);
+  return {
+    kind: 'unique',
+    name,
+    icon,
+    sublabel: 'Unique',
+    itemBaseType: wiki?.baseItem,
+    linkUrl: wiki?.wikiLink,
+    id: `unique:${name}`,
   };
 }
 
 export const OrderForm = ({
-  orderTypes,
   data,
   onSubmit,
   onBulkSubmit,
@@ -66,8 +92,11 @@ export const OrderForm = ({
   existingPriorityCount = 0,
   isSubmitting = false,
 }: {
+  // Historically gated the Quick/Custom-order toggle; now this is the only
+  // flow, so it just distinguishes the create-with-search-and-list form
+  // (true) from the single-order edit form used by the Update dialog
+  // (false) — an existing order's type/base item doesn't change on edit.
   quickOrdersAvailable?: boolean;
-  orderTypes: OrderTypesQuery;
   data?: OrderFormInputs;
   onSubmit: SubmitHandler<OrderFormInputs>;
   onBulkSubmit?: (items: OrderFormInputs[]) => void | Promise<void>;
@@ -77,33 +106,29 @@ export const OrderForm = ({
   isSubmitting?: boolean;
 }) => {
   const {
-    watch,
     register,
     control,
     handleSubmit,
     getValues,
-    setValue,
+    watch,
     setError,
     clearErrors,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
       priority: data?.priority ?? false,
+      description: data?.description ?? '',
+      linkUrl: data?.linkUrl ?? '',
+      type: data?.type,
+      itemBaseType: data?.itemBaseType ?? '',
+      itemCategory: data?.itemCategory ?? '',
+      iconUrl: data?.iconUrl ?? '',
       previews: [],
     },
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: 'previews' });
 
-  const [quickOrder, setQuickOrder] = useState(quickOrdersAvailable);
-
-  const [quickSearchResults, setquickSearchResults] =
-    useState<UniqueSearchResult[]>();
-
-  const quickSearchInputRef = useRef<HTMLInputElement>(null);
-
-  const [validatingItem, setValidatingItem] = useState(false);
-  const [itemIsValid, setItemIsValid] = useState(false);
   const [pobImporting, setPobImporting] = useState(false);
   const [pobError, setPobError] = useState<string | null>(null);
   const [pobImportResult, setPobImportResult] = useState<
@@ -111,11 +136,6 @@ export const OrderForm = ({
   >(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const type = useMemo(() => watch('type') ?? data?.type, [watch('type')]);
-  const linkUrl = useMemo(
-    () => watch('linkUrl') ?? data?.linkUrl,
-    [watch('linkUrl')],
-  );
   const previews = watch('previews') ?? [];
 
   const remainingPrioritySlots = Math.max(
@@ -126,84 +146,10 @@ export const OrderForm = ({
   const priorityLimitReached =
     remainingPrioritySlots <= 0 || priorityCheckedInForm >= remainingPrioritySlots;
 
-  // Persist quick/non-quick selection in localStorage
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('smol.quickOrder');
-      if (saved !== null) {
-        const savedValue = saved === 'true';
-        setQuickOrder(quickOrdersAvailable ? savedValue : false);
-      } else {
-        setQuickOrder(!!quickOrdersAvailable);
-      }
-    } catch {}
-  }, [quickOrdersAvailable]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('smol.quickOrder', String(quickOrder));
-    } catch {}
-  }, [quickOrder]);
-
-  const validateWikiLink = (linkUrl?: string | null) =>
-    !linkUrl || linkUrl?.startsWith('https://www.poewiki.net/');
-
-  const getBaseItemInfoFromWikiLink = async () => {
-    const valid = validateWikiLink(linkUrl);
-
-    if (
-      type === Item_Order_Type_Enum.Transfiguredgem ||
-      type === Item_Order_Type_Enum.Other
-    ) {
-      return;
-    }
-
-    if (!valid) {
-      setItemIsValid(valid);
-      return;
-    }
-
-    const name = linkUrl?.split('/').pop();
-    if (name) {
-      setValidatingItem(true);
-      try {
-        const response = await fetch(
-          `${window.location.origin}/api/get-item-info?name=${name}`,
-        );
-        const data = (await response.json()) as {
-          baseItem: string;
-          category: BaseTypeCategory;
-          errorMessage?: string;
-        };
-        if (!response.ok) {
-          throw new Error(data?.errorMessage);
-        }
-        if (data) {
-          setValue('itemBaseType', data.baseItem);
-          setValue('itemCategory', data.category);
-          setValidatingItem(false);
-          setItemIsValid(true);
-        }
-      } catch (e) {
-        setValidatingItem(false);
-        setItemIsValid(false);
-
-        console.error(e);
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (linkUrl) {
-      getBaseItemInfoFromWikiLink();
-    } else {
-      setItemIsValid(true);
-    }
-  }, [linkUrl]);
-
-  const addPreviewRow = (row: PreviewRow) => {
+  const addPreviewRow = (item: PickedOrderItem) => {
+    const row = pickedOrderItemToPreviewRow(item);
     const existing = getValues('previews');
-    if (existing.some((p) => p.name === row.name)) return;
+    if (existing.some((p) => p.kind === row.kind && p.name === row.name)) return;
     append(row);
   };
 
@@ -220,7 +166,7 @@ export const OrderForm = ({
         const results = searchUniquesByNameOrBase(name, 1);
         const match = results[0];
         if (match) {
-          addPreviewRow(uniqueSearchResultToPreviewRow(match));
+          addPreviewRow(uniqueNameToPickedItem(match.name, match.icon));
           added.push({ name: match.name, icon: match.icon });
         }
       }
@@ -234,7 +180,7 @@ export const OrderForm = ({
   };
 
   const handleFormSubmit = async (formData: FormValues) => {
-    if (quickOrder && onBulkSubmit) {
+    if (quickOrdersAvailable && onBulkSubmit) {
       const list = formData.previews ?? [];
       if (list.length === 0) {
         setError('root', { message: 'Add at least one item to the list.' });
@@ -249,19 +195,15 @@ export const OrderForm = ({
       clearErrors('root');
       setSubmitting(true);
       try {
-        const resolved: OrderFormInputs[] = [];
-        for (const row of list) {
-          const wikiResult = getUniqueItemWikiInfo(row.name);
-          resolved.push({
-            description: row.description || row.name,
-            linkUrl: wikiResult?.wikiLink ?? '',
-            type: Item_Order_Type_Enum.Unique,
-            priority: row.priority,
-            itemBaseType: wikiResult?.baseItem ?? '',
-            iconUrl: row.icon,
-            itemCategory: '',
-          });
-        }
+        const resolved: OrderFormInputs[] = list.map((row) => ({
+          description: row.description || row.name,
+          type: row.type,
+          linkUrl: row.linkUrl ?? '',
+          itemBaseType: row.itemBaseType ?? '',
+          itemCategory: row.itemCategory ?? '',
+          iconUrl: row.icon,
+          priority: row.priority,
+        }));
         await onBulkSubmit(resolved);
       } finally {
         setSubmitting(false);
@@ -269,7 +211,7 @@ export const OrderForm = ({
       return;
     }
 
-    if (quickOrder && !onBulkSubmit) {
+    if (quickOrdersAvailable && !onBulkSubmit) {
       return;
     }
 
@@ -280,33 +222,16 @@ export const OrderForm = ({
   const updateOrderPrioDisable =
     data && !allowPriority && !getValues('priority');
 
-  const isCreateWithBulk = !data && quickOrder && !!onBulkSubmit;
+  const isCreateWithBulk = !data && quickOrdersAvailable && !!onBulkSubmit;
   const submitDisabled =
-    (isSubmitting || submitting) ||
-    validatingItem ||
-    (!validatingItem && !itemIsValid && !quickOrder) ||
-    (isCreateWithBulk && previews.length === 0);
+    (isSubmitting || submitting) || (isCreateWithBulk && previews.length === 0);
 
   return (
     <form
-      className={`relative flex flex-col gap-2 ${quickOrder && isCreateWithBulk ? 'w-full min-w-0 max-w-[48rem]' : 'min-w-72'}`}
+      className={`relative flex flex-col gap-2 ${isCreateWithBulk ? 'w-full min-w-0 max-w-[48rem]' : 'min-w-72'}`}
       onSubmit={handleSubmit(handleFormSubmit)}
     >
-      <div className="absolute -top-9 right-0">
-        <Toggle
-          value={quickOrder}
-          onChange={() => {
-            setValue('description', null);
-            if (!quickOrder) {
-              quickSearchInputRef?.current?.focus();
-            }
-            setQuickOrder(!quickOrder);
-          }}
-          label={quickOrder ? 'Quick Order' : 'Custom Order'}
-        />
-      </div>
-
-      {quickOrdersAvailable && quickOrder ? (
+      {quickOrdersAvailable ? (
         <div
           className={
             isCreateWithBulk
@@ -314,67 +239,9 @@ export const OrderForm = ({
               : ''
           }
         >
-          {/* Column 1: inputs + submit at bottom */}
+          {/* Column 1: search + PoB import + submit at bottom */}
           <div className="flex flex-col gap-3">
-            <Popover
-              placement="bottom-start"
-              open={!!quickSearchResults?.length}
-            >
-              <PopoverTrigger asChild>
-                <input
-                  placeholder="Search for unique items and add to list"
-                  ref={quickSearchInputRef}
-                  autoFocus
-                  className="w-full border border-primary-800 bg-gray-900 px-3 py-2"
-                  onChange={(e) =>
-                    setquickSearchResults(
-                      searchUniquesByNameOrBase(e.target.value),
-                    )
-                  }
-                />
-              </PopoverTrigger>
-
-              <PopoverContent
-                className="rounded-sm border-[1px] border-primary-800 bg-gray-900 outline-none focus:ring-0"
-                initialFocusRef={quickSearchInputRef}
-              >
-                {quickSearchResults?.map((result) => (
-                  <OrderItemPopover
-                    key={result.id}
-                    order={{ type: 'unique', description: result.name }}
-                    placement="right"
-                  >
-                    <div
-                      tabIndex={0}
-                      role="button"
-                      onClick={() => {
-                        addPreviewRow(uniqueSearchResultToPreviewRow(result));
-                        setquickSearchResults([]);
-                        if (quickSearchInputRef.current)
-                          quickSearchInputRef.current.value = '';
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          addPreviewRow(uniqueSearchResultToPreviewRow(result));
-                          setquickSearchResults([]);
-                          if (quickSearchInputRef.current)
-                            quickSearchInputRef.current.value = '';
-                        }
-                      }}
-                      className="flex cursor-pointer items-center gap-2 p-2 hover:bg-gray-800 focus:bg-gray-700"
-                    >
-                      <img
-                        className="h-10 w-10 object-contain"
-                        src={result.icon}
-                        alt=""
-                      />
-                      <span>{result.name}</span>
-                    </div>
-                  </OrderItemPopover>
-                ))}
-              </PopoverContent>
-            </Popover>
+            <OrderSearchPicker onSelect={addPreviewRow} />
 
             {isCreateWithBulk && (
               <>
@@ -454,17 +321,10 @@ export const OrderForm = ({
                         <Spinner />
                         Submitting…
                       </>
-                    ) : validatingItem ? (
-                      <>
-                        Validating...
-                        <Spinner />
-                      </>
-                    ) : itemIsValid || quickOrder ? (
-                      previews.length > 0
-                        ? `Submit ${previews.length} order(s)`
-                        : 'Submit'
+                    ) : previews.length > 0 ? (
+                      `Submit ${previews.length} order(s)`
                     ) : (
-                      <span className="text-red-500">Invalid Wiki link</span>
+                      'Submit'
                     )}
                   </Button>
                 </div>
@@ -493,13 +353,17 @@ export const OrderForm = ({
                     className="flex items-center gap-2 rounded border border-primary-800/50 bg-gray-900/50 p-2"
                   >
                     <OrderItemPopover
-                      order={{ type: 'unique', description: previews[index]?.name ?? '' }}
+                      order={{
+                        type: previews[index]?.kind ?? 'unique',
+                        description: previews[index]?.name ?? '',
+                        item_base_type: previews[index]?.itemBaseType,
+                        link_url: previews[index]?.linkUrl,
+                      }}
                       placement="right"
                     >
-                      <img
+                      <ItemIcon
                         className="h-10 w-10 shrink-0 object-contain"
                         src={previews[index]?.icon}
-                        alt=""
                       />
                     </OrderItemPopover>
                     <div className="min-w-0 flex-1">
@@ -537,6 +401,10 @@ export const OrderForm = ({
           )}
         </div>
       ) : (
+        // Single-order edit form (Update dialog) — an existing order's
+        // type/base item/category/icon don't change on edit, so those ride
+        // through unchanged via useForm's defaultValues above; only
+        // description/link/priority are user-editable here.
         <>
           <div className="mb-2 flex flex-col">
             <label className="mb-1">Description</label>
@@ -551,72 +419,12 @@ export const OrderForm = ({
               </span>
             )}
           </div>
-          <div className="mb-2 flex flex-col">
-            <label className="mb-1">Type</label>
-            <div className="flex w-1/2 gap-2">
-              <select
-                value={type ?? ''}
-                className="w-[15rem] grow"
-                {...register('type', { required: true })}
-              >
-                <option value="">Select type</option>
-                {orderTypes.item_order_type.map(({ value }) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                ))}
-              </select>
-              {type ? (
-                <img
-                  className="h-10 w-10 p-1 md:h-12 md:w-12"
-                  src={`/order-types/${type}.webp`}
-                  alt=""
-                />
-              ) : (
-                <div className="h-10 w-10 p-1 md:h-12 md:w-12" />
-              )}
-            </div>
-            {errors.type && (
-              <span className="mt-1 text-red-400">
-                Your order requires a type
-              </span>
-            )}
-          </div>
-
-          {type === Item_Order_Type_Enum.Base ? (
-            <BaseItemPicker
-              value={
-                data
-                  ? {
-                      name: data.itemBaseType as string,
-                      category: data.itemCategory as string,
-                      iconUrl: data.iconUrl as string,
-                    }
-                  : undefined
-              }
-              onBasePicked={({ name, iconUrl, category }) => {
-                setValue('itemBaseType', name);
-                setValue('iconUrl', iconUrl);
-                setValue('itemCategory', category);
-              }}
-            />
-          ) : null}
 
           <div className="mb-2 flex flex-col">
             <div className="flex justify-between">
               <label className="mb-1">Wiki link (optional)</label>
             </div>
-            <input
-              defaultValue={data?.linkUrl ?? ''}
-              {...register('linkUrl', { validate: validateWikiLink })}
-            />
-
-            {errors.linkUrl && (
-              <span className="mt-1 text-red-400">
-                Links must begin with{' '}
-                <span className="text-primary-500">https://poewiki.net</span>
-              </span>
-            )}
+            <input defaultValue={data?.linkUrl ?? ''} {...register('linkUrl')} />
           </div>
         </>
       )}
@@ -642,7 +450,7 @@ export const OrderForm = ({
         </div>
       )}
 
-      {!(quickOrder && isCreateWithBulk) && (
+      {!(quickOrdersAvailable && isCreateWithBulk) && (
         <Button
           className="flex h-12 w-full items-center justify-center gap-4 p-2 text-primary-500"
           type="submit"
@@ -653,15 +461,8 @@ export const OrderForm = ({
               <Spinner />
               Submitting…
             </>
-          ) : validatingItem ? (
-            <>
-              Validating...
-              <Spinner />
-            </>
-          ) : itemIsValid || quickOrder ? (
-            'Submit'
           ) : (
-            <span className="text-red-500">Invalid Wiki link</span>
+            'Submit'
           )}
         </Button>
       )}

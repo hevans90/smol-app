@@ -16717,13 +16717,13 @@
             "deprecationReason": null
           },
           {
-            "name": "other",
+            "name": "gem",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "transfiguredgem",
+            "name": "other",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null

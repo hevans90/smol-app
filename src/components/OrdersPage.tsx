@@ -1,20 +1,10 @@
 import { useEffect, useState } from 'react';
-import { sortedBaseItemsStore } from '../_state/base-items';
 import GraphQLAppWrapper from '../_utils/GraphQLAppWrapper';
-import type { SortedBaseTypes } from '../models/base-types';
 import { BulkOrderBook } from './react/graphql-provided/BulkOrderBook';
 import { OrderBook } from './react/graphql-provided/OrderBook';
 import { type OrdersView, OrdersViewSwitcher } from './react/OrdersViewSwitcher';
 
-export const OrdersPage = ({
-  hasuraUri,
-  sortedBaseItems,
-}: {
-  hasuraUri: string;
-  sortedBaseItems: SortedBaseTypes;
-}) => {
-  sortedBaseItemsStore.set(sortedBaseItems);
-
+export const OrdersPage = ({ hasuraUri }: { hasuraUri: string }) => {
   // client:only island — window is always available here
   const [view, setView] = useState<OrdersView>(() =>
     new URLSearchParams(window.location.search).get('view') === 'bulk'

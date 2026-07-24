@@ -3,7 +3,8 @@
 //
 // Not meant to be run directly — see generate-pob-data.sh.
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const UNIQUE_BASE_TYPES_PATH = fileURLToPath(
@@ -15,6 +16,7 @@ const UNIQUE_ITEM_PREVIEWS_PATH = fileURLToPath(
 const POB_ITEM_BASES_PATH = fileURLToPath(
   new URL('../src/assets/bases/pob-item-bases.json', import.meta.url),
 );
+const GEMS_PATH = fileURLToPath(new URL('../src/assets/gems/gems.json', import.meta.url));
 
 // dkjson (the Lua JSON encoder extract-data.lua uses) encodes an empty Lua
 // table `{}` the same whether it originated as an array or a map, so a
@@ -85,6 +87,17 @@ async function main() {
   console.log(
     `Wrote ${Object.keys(sortedItemBases).length} item bases to ${POB_ITEM_BASES_PATH}`,
   );
+
+  // Every gem (regular, Vaal, transfigured) — src/models/gems.ts's PobGem.
+  // No icon, level/cost/quality-bonus, or skill-effect/mod text exists in
+  // PoB for gems; see the gem-icons/gem-details assets
+  // (scripts/scrape-gem-metadata.mjs) for those, sourced separately.
+  const sortedGems = Object.fromEntries(
+    Object.entries(raw.gems).sort(([a], [b]) => a.localeCompare(b)),
+  );
+  await mkdir(dirname(GEMS_PATH), { recursive: true });
+  await writeFile(GEMS_PATH, JSON.stringify(sortedGems, null, 2) + '\n', 'utf-8');
+  console.log(`Wrote ${Object.keys(sortedGems).length} gems to ${GEMS_PATH}`);
 }
 
 main().catch((err) => {

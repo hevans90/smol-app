@@ -103,4 +103,18 @@ export type UniqueItemPreview = {
   implicitMods: string[];
   explicitMods: string[];
   corrupted?: boolean;
+  // A unique's own level/attribute requirement, when it differs from its
+  // base type's — e.g. Oriath's End: base Bismuth Flask requires level 8,
+  // the unique itself requires 56; The Will of Uul-Netol: base Organic Ring
+  // requires level 32, the unique requires 42. Parsed from PoB's raw
+  // "LevelReq: N" / "Requires Level N[, X Str][, Y Dex][, Z Int]" lines —
+  // 746/1304 uniques have a levelReq override, 215/194/241 have a
+  // str/dex/intReq override respectively (some uniques have attribute
+  // overrides with NO level override, e.g. "Requires 8 Str, 8 Dex"). Falls
+  // back to the base type's own req.level/str/dex/int (PobItemBase) when
+  // absent.
+  levelReq?: number;
+  strReq?: number;
+  dexReq?: number;
+  intReq?: number;
 };

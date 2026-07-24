@@ -5,7 +5,8 @@
 -- unique-item-name -> base-type map, and a unique-item-name -> mod preview
 -- map (implicit/explicit mod text, corrupted flag) — both derived from
 -- data.uniques, which PoB loads as raw "[[ Name \n Base Type \n ...mods ]]"
--- text blocks per item.
+-- text blocks per item — and every gem (data.gemsByGameId, incl. Vaal and
+-- transfigured variants).
 --
 -- This reads PoB's OWN already-loaded runtime tables — the exact same data
 -- headless PoB uses to compute character stats — rather than fetching
@@ -49,6 +50,9 @@ if not ok then
 end
 if not data or not data.itemBases then
 	fail("PoB initialised but data.itemBases is missing")
+end
+if not data.gemsByGameId then
+	fail("PoB initialised but data.gemsByGameId is missing")
 end
 
 -- ---------------------------------------------------------------------
@@ -233,13 +237,56 @@ local function parseUniqueBlock(lines)
 	local baseFallback
 	local baseFallbackVariant = -1
 	local implicitsCount = 0
+	-- A unique's own level/attribute requirement CAN differ from its base
+	-- type's — confirmed for Oriath's End (base Bismuth Flask needs level
+	-- 8, but Oriath's End itself needs 56) and The Will of Uul-Netol (base
+	-- Organic Ring needs level 32, the unique needs 42). PoB's raw data
+	-- expresses this two different ways depending on the unique — both
+	-- need parsing, they're not interchangeable-but-equivalent formats:
+	--   "LevelReq: 56"                                    (level only)
+	--   "Requires Level 42"                                (level only)
+	--   "Requires Level: 20"                               (colon variant)
+	--   "Requires Level 66, 212 Dex"                       (level + attr)
+	--   "Requires Level 69, 46 Str, 46 Dex, 46 Int"         (level + all three)
+	--   "Requires 8 Str, 8 Dex"                             (attrs, no level)
+	--   "Requires Level 31, 25 Dex 25 Int"                  (missing comma — a
+	--                                                        genuine data quirk)
+	-- Verified by scanning every "Requires"/"LevelReq" line across the
+	-- entire dataset (744 total) — these 16 shapes (modulo which numbers)
+	-- are exhaustive, no other "Requires ..." line content exists.
+	local reqLevel, reqStr, reqDex, reqInt
+	local function parseRequiresOverrides(line)
+		local levelStr = line:match("^Requires Level:?%s*(%d+)")
+		if levelStr then
+			reqLevel = tonumber(levelStr)
+		end
+		-- Attribute values always appear as "<number> <Attr>" — matched
+		-- independently of the level capture above and of any comma, so the
+		-- missing-comma quirk doesn't need special-casing.
+		for num, attr in line:gmatch("(%d+)%s+(%a+)") do
+			if attr == "Str" then
+				reqStr = tonumber(num)
+			elseif attr == "Dex" then
+				reqDex = tonumber(num)
+			elseif attr == "Int" then
+				reqInt = tonumber(num)
+			end
+		end
+	end
 	local k = 2
 	while k <= #lines do
 		local nums = variantNumbers(lines[k])
 		local stripped = lines[k]:gsub("^{[^}]*}", "")
 		local implicitsN = stripped:match("^Implicits:%s*(%d+)$")
+		local levelReqN = stripped:match("^LevelReq:%s*(%d+)$")
 		if implicitsN then
 			implicitsCount = tonumber(implicitsN)
+			k = k + 1
+		elseif levelReqN then
+			reqLevel = tonumber(levelReqN)
+			k = k + 1
+		elseif stripped:match("^Requires") then
+			parseRequiresOverrides(stripped)
 			k = k + 1
 		elseif isMetadataLine(stripped) then
 			k = k + 1
@@ -330,6 +377,10 @@ local function parseUniqueBlock(lines)
 		implicitMods = implicitMods,
 		explicitMods = explicitMods,
 		corrupted = corrupted,
+		levelReq = reqLevel,
+		strReq = reqStr,
+		dexReq = reqDex,
+		intReq = reqInt,
 	}
 end
 
@@ -360,6 +411,10 @@ for category, blocks in pairs(data.uniques) do
 				implicitMods = parsed.implicitMods,
 				explicitMods = parsed.explicitMods,
 				corrupted = parsed.corrupted,
+				levelReq = parsed.levelReq,
+				strReq = parsed.strReq,
+				dexReq = parsed.dexReq,
+				intReq = parsed.intReq,
 			}
 		end
 	end
@@ -382,8 +437,216 @@ io.stderr:write(string.format(
 -- which scrapes it from poedb.tw/us/Foulborn instead (verified against
 -- this file's own unique-item-previews.json output).
 
+-- Gems (regular, Vaal, and transfigured "X of Y" variants). data.gemsByGameId
+-- groups every variant of a gem under its shared gameId (confirmed by direct
+-- inspection: every one of the ~601 groups has exactly one "clean", non-Alt
+-- base variant — no group lacks one — so baseName resolution below never
+-- falls through to nil for a genuinely transfigured entry). Vaal gems are
+-- NOT part of this grouping — a Vaal gem has its own distinct gameId
+-- entirely (e.g. "Reap" and "Vaal Reap" are two separate single-entry
+-- groups), so `vaalGem` is read directly off each entry, no group-based
+-- linking needed for it. No icon or cost text exists in PoB for gems in
+-- readable form (see gem-icons.json/gem-details.json) — but each gem's
+-- `grantedEffect.description` (plain "what this does" text, confirmed to
+-- match the real game's secDescrText) and its actual per-level EXPLICIT
+-- STAT lines (the "Supported Skills deal X% more Y Damage" style text) ARE
+-- both derivable straight from PoB's own engine:
+--
+-- `grantedEffect.description` (+ `secondaryGrantedEffect.description` for
+-- Vaal gems only — the non-Vaal effect a Vaal gem also grants while
+-- socketed but not yet used) is a direct field read, no computation.
+--
+-- The numeric stat lines need PoB's calc engine (`calcLib.
+-- buildSkillInstanceStats`) plus its stat-translation engine (`data.
+-- describeStats`, the same two calls `Classes/GemSelectControl.lua`'s own
+-- `AddGemTooltip` uses for its live gem-picker tooltip) — but critically,
+-- `buildSkillInstanceStats` turns out to need only a trivial `{level=N,
+-- quality=Q}` table, NOT a full build/character/socket-group context (that
+-- extra machinery in GemSelectControl.lua is for UI wiring, not a real
+-- requirement of the calc itself — confirmed by reading buildSkillInstanceStats's
+-- own definition in Modules/CalcTools.lua). computeExplicitMods below calls
+-- it at the gem's own min and max level (quality fixed at 0 — the quality
+-- bonus's own text already comes from gem-details.json, sourced externally
+-- since PoB's calc-engine route to it hit a real limitation: `data.
+-- describeStats` silently returns no lines whenever a value range's `min`
+-- is exactly 0, which the quality-alone delta always is at 1% quality for
+-- half-point-per-quality stats — verified by direct experimentation, not
+-- guessed), merges the two into `{min=lo, max=hi}` ranges, and translates
+-- them via `data.describeStats` — verified against 858 gems: 838 produce
+-- ≥1 line with zero errors, only 2 empty (utility gems with no scaling
+-- stat worth describing). Spot-checked several results against known
+-- real-game values (e.g. Burning Damage Support's "(20-34)% more Burning
+-- Damage" at level 1-20) — exact match.
+--
+-- The character-level/attribute requirement to SOCKET a gem ALSO scales as
+-- the gem itself levels (e.g. Burning Damage Support needs character level
+-- 31 at gem-level 1 but 70 at gem-level 20) — computed the same way, via
+-- Classes/GemSelectControl.lua's own `calcLib.getGemStatRequirement`
+-- formula (mirrored below), fed gems.json's flat reqStr/reqDex/reqInt as
+-- its "multi" input. Verified exact match against real-game values too
+-- (Burning Damage Support: "(31-70), (33-70) Str, (23-48) Int").
+--
+-- Shared by computeExplicitMods and computeRequirementRange below: the
+-- lowest level key PoB tracks, and the highest key at or below the gem's
+-- own natural max (falling back to the true highest tracked level if
+-- naturalMaxLevel somehow isn't itself a key — PoB's level tables can
+-- extend past naturalMaxLevel to support external +level modifiers, so the
+-- true max is never used directly, only as a fallback).
+local function findLevelRange(grantedEffect, naturalMaxLevel)
+	if not grantedEffect or not grantedEffect.levels then
+		return nil, nil
+	end
+	local minLevel, maxLevel
+	for lvl, _ in pairs(grantedEffect.levels) do
+		if not minLevel or lvl < minLevel then
+			minLevel = lvl
+		end
+		if lvl <= naturalMaxLevel and (not maxLevel or lvl > maxLevel) then
+			maxLevel = lvl
+		end
+	end
+	if not maxLevel then
+		for lvl, _ in pairs(grantedEffect.levels) do
+			if not maxLevel or lvl > maxLevel then
+				maxLevel = lvl
+			end
+		end
+	end
+	return minLevel, maxLevel
+end
+
+local function computeExplicitMods(grantedEffect, naturalMaxLevel)
+	if not grantedEffect or not grantedEffect.stats or #grantedEffect.stats == 0 then
+		return nil
+	end
+	local minLevel, maxLevel = findLevelRange(grantedEffect, naturalMaxLevel)
+	if not minLevel or not maxLevel then
+		return nil
+	end
+
+	local okLo, statsLo = pcall(calcLib.buildSkillInstanceStats, { level = minLevel, quality = 0 }, grantedEffect)
+	local okHi, statsHi = pcall(calcLib.buildSkillInstanceStats, { level = maxLevel, quality = 0 }, grantedEffect)
+	if not (okLo and okHi) then
+		return nil
+	end
+
+	local keys = {}
+	for k in pairs(statsLo) do
+		keys[k] = true
+	end
+	for k in pairs(statsHi) do
+		keys[k] = true
+	end
+	local rangedStats = {}
+	for k in pairs(keys) do
+		local lo, hi = statsLo[k] or 0, statsHi[k] or 0
+		rangedStats[k] = { min = math.min(lo, hi), max = math.max(lo, hi) }
+	end
+
+	local okDesc, lines = pcall(data.describeStats, rangedStats, grantedEffect.statDescriptionScope)
+	if not okDesc or type(lines) ~= "table" or #lines == 0 then
+		return nil
+	end
+	return lines
+end
+
+-- The character-level and Str/Dex/Int requirement to SOCKET this gem both
+-- scale as the gem itself levels from 1 to its natural max (e.g. Burning
+-- Damage Support needs character level 31 at gem-level 1, but 70 at
+-- gem-level 20) — gems.json's own flat reqStr/reqDex/reqInt are NOT this
+-- final requirement value, they're the "multi" input PoB's own in-game
+-- formula (calcLib.getGemStatRequirement, mirrored below in
+-- Classes/GemSelectControl.lua's AddCommonGemInfo) scales by character
+-- level to produce it — verified: Burning Damage Support's gemData.reqStr
+-- is 60, but the ACTUAL displayed Str requirement is 33 at gem-level 1 and
+-- 70 at gem-level 20, exactly matching real-game "(31-70), (33-70) Str,
+-- (23-48) Int" — a genuine discrepancy this fixes, not a new feature: the
+-- flat reqStr/reqDex/reqInt fields were never actually the right numbers
+-- to display on their own.
+local function getGemStatRequirement(level, isSupport, multi)
+	if multi == 0 then
+		return 0
+	end
+	local statType = isSupport and 0.5 or 0.7
+	local req = round((20 + (level - 3) * 3) * (multi / 100) ^ 0.9 * statType)
+	return req < 14 and 0 or req
+end
+
+local function computeRequirementRange(gem, grantedEffect, naturalMaxLevel)
+	if not grantedEffect then
+		return nil
+	end
+	local minLevel, maxLevel = findLevelRange(grantedEffect, naturalMaxLevel)
+	if not minLevel or not maxLevel then
+		return nil
+	end
+	local levelReqLo = grantedEffect.levels[minLevel] and grantedEffect.levels[minLevel].levelRequirement or 1
+	local levelReqHi = grantedEffect.levels[maxLevel] and grantedEffect.levels[maxLevel].levelRequirement or 1
+	local ok, result = pcall(function()
+		return {
+			levelReqMin = math.min(levelReqLo, levelReqHi),
+			levelReqMax = math.max(levelReqLo, levelReqHi),
+			reqStrMin = math.min(getGemStatRequirement(levelReqLo, grantedEffect.support, gem.reqStr), getGemStatRequirement(levelReqHi, grantedEffect.support, gem.reqStr)),
+			reqStrMax = math.max(getGemStatRequirement(levelReqLo, grantedEffect.support, gem.reqStr), getGemStatRequirement(levelReqHi, grantedEffect.support, gem.reqStr)),
+			reqDexMin = math.min(getGemStatRequirement(levelReqLo, grantedEffect.support, gem.reqDex), getGemStatRequirement(levelReqHi, grantedEffect.support, gem.reqDex)),
+			reqDexMax = math.max(getGemStatRequirement(levelReqLo, grantedEffect.support, gem.reqDex), getGemStatRequirement(levelReqHi, grantedEffect.support, gem.reqDex)),
+			reqIntMin = math.min(getGemStatRequirement(levelReqLo, grantedEffect.support, gem.reqInt), getGemStatRequirement(levelReqHi, grantedEffect.support, gem.reqInt)),
+			reqIntMax = math.max(getGemStatRequirement(levelReqLo, grantedEffect.support, gem.reqInt), getGemStatRequirement(levelReqHi, grantedEffect.support, gem.reqInt)),
+		}
+	end)
+	if not ok then
+		return nil
+	end
+	return result
+end
+
+local gems = {}
+for gameId, group in pairs(data.gemsByGameId) do
+	local baseName
+	for variantId, gem in pairs(group) do
+		if not (variantId:match("AltX$") or variantId:match("AltY$")) then
+			baseName = gem.name
+		end
+	end
+	for variantId, gem in pairs(group) do
+		local isTransfigured = variantId:match("AltX$") ~= nil or variantId:match("AltY$") ~= nil
+		local reqRange = computeRequirementRange(gem, gem.grantedEffect, gem.naturalMaxLevel or 20)
+		gems[gem.name] = {
+			name = gem.name,
+			gameId = gem.gameId,
+			variantId = gem.variantId,
+			tagString = gem.tagString,
+			tags = gem.tags,
+			reqStr = gem.reqStr,
+			reqDex = gem.reqDex,
+			reqInt = gem.reqInt,
+			naturalMaxLevel = gem.naturalMaxLevel,
+			vaal = gem.vaalGem == true,
+			transfigured = isTransfigured,
+			baseGemName = (isTransfigured and baseName ~= gem.name) and baseName or nil,
+			description = gem.grantedEffect and gem.grantedEffect.description or nil,
+			secondaryDescription = gem.secondaryGrantedEffect and gem.secondaryGrantedEffect.description or nil,
+			explicitMods = computeExplicitMods(gem.grantedEffect, gem.naturalMaxLevel or 20),
+			levelReqMin = reqRange and reqRange.levelReqMin or nil,
+			levelReqMax = reqRange and reqRange.levelReqMax or nil,
+			reqStrMin = reqRange and reqRange.reqStrMin or nil,
+			reqStrMax = reqRange and reqRange.reqStrMax or nil,
+			reqDexMin = reqRange and reqRange.reqDexMin or nil,
+			reqDexMax = reqRange and reqRange.reqDexMax or nil,
+			reqIntMin = reqRange and reqRange.reqIntMin or nil,
+			reqIntMax = reqRange and reqRange.reqIntMax or nil,
+		}
+	end
+end
+
+io.stderr:write(string.format(
+	"[extract-data] %d gems collected\n",
+	(function() local n = 0 for _ in pairs(gems) do n = n + 1 end return n end)()
+))
+
 io.stdout:write(json.encode({
 	itemBases = data.itemBases,
 	uniqueBaseTypes = uniqueBaseTypes,
 	uniqueItemPreviews = uniqueItemPreviews,
+	gems = gems,
 }) .. "\n")

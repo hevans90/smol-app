@@ -5,6 +5,7 @@ import {
   type GGGItem,
   type GGGItemProperty,
   type GGGItemRarity,
+  type GGGItemRequirement,
   type GGGSocketedItem,
 } from '../models/ggg-responses';
 
@@ -130,23 +131,28 @@ export const StyledDefaultItemProperty = ({
 
     return <div className="leading-[17.5px]">{parts}</div>;
   } else {
-    let elements: ReactNode;
-
-    if (values.length) {
-      const displayValueColorMap: Record<number, string> = {
-        0: 'text-white',
-        1: 'text-poeItem-magic',
-        4: 'text-poeItem-fire',
-        5: 'text-poeItem-cold',
-        6: 'text-poeItem-lightning',
-      };
-
-      elements = values.map((value, i) => (
-        <span key={i} className={displayValueColorMap[value[1]]}>
-          {value[0]}{' '}
-        </span>
-      ));
+    // A property with no values (e.g. a gem's own tag string, "Fire,
+    // Support") is a plain standalone line in the real game's tooltip — no
+    // trailing "name: " label, just the text itself.
+    if (!values.length) {
+      return (
+        <span className="leading-[17.5px] text-poeItem-darkGrey">{name}</span>
+      );
     }
+
+    const displayValueColorMap: Record<number, string> = {
+      0: 'text-white',
+      1: 'text-poeItem-magic',
+      4: 'text-poeItem-fire',
+      5: 'text-poeItem-cold',
+      6: 'text-poeItem-lightning',
+    };
+
+    const elements = values.map((value, i) => (
+      <span key={i} className={displayValueColorMap[value[1]]}>
+        {value[0]}{' '}
+      </span>
+    ));
 
     return (
       <span className="leading-[17.5px]">
@@ -155,4 +161,22 @@ export const StyledDefaultItemProperty = ({
       </span>
     );
   }
+};
+
+// Real gem tooltips show all requirement attributes as one combined line —
+// "Requires Level X, Y Str, Z Dex, W Int" — rather than each on its own row
+// the way `properties` render. `values[0][0]` is used since requirements
+// only ever carry a single value per attribute (no {0}/{1} placeholder
+// formatting like some properties use).
+export const formatRequirementsLine = (
+  requirements: GGGItemRequirement[],
+): string => {
+  const parts = requirements
+    .map((req) => {
+      const value = req.values[0]?.[0];
+      if (!value) return null;
+      return req.name === 'Level' ? `Level ${value}` : `${value} ${req.name}`;
+    })
+    .filter((part): part is string => !!part);
+  return parts.length ? `Requires ${parts.join(', ')}` : '';
 };

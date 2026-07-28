@@ -15,7 +15,7 @@ FROM debian:bookworm
 # power the character stats sweep (the extract-stats.lua driver script is
 # embedded in the Go binary).
 # Keep POB_VERSION in sync with headless-pob/Dockerfile; bump each league.
-ARG POB_VERSION=v2.65.0
+ARG POB_VERSION=v2.66.2
 COPY pob/_tools/inflate-lut.c /tmp/inflate-lut.c
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates zlib1g gcc libc6-dev make git zlib1g-dev \

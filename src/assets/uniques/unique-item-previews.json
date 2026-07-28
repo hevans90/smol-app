@@ -19,13 +19,13 @@
     "baseType": "Goat's Horn",
     "corrupted": false,
     "explicitMods": [
-      "(40-60)% increased Global Critical Strike Chance",
+      "(80-120)% increased Global Critical Strike Chance",
       "Gain 10 Life per Ignited Enemy Killed",
       "25% reduced Ignite Duration on Enemies"
     ],
     "implicitMods": [
       "Adds (1-2) to (3-4) Fire Damage to Spells and Attacks",
-      "(20-30)% increased Fire Damage",
+      "+(30-50)% to Damage over Time Multiplier for Ignite from Critical Strikes",
       "Adds (4-6) to (8-12) Fire Damage to Spells"
     ]
   },
@@ -124,7 +124,7 @@
       "100% increased Duration of Lightning Ailments"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "40% increased Strength Requirement",
       "+(80-120) to Intelligence"
     ],
@@ -142,7 +142,7 @@
       "Damage Penetrates 20% Lightning Resistance"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "40% increased Strength Requirement",
       "+(80-120) to Intelligence"
     ],
@@ -160,7 +160,7 @@
       "Damage Penetrates 20% Lightning Resistance"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "40% increased Strength Requirement",
       "+(80-120) to Intelligence"
     ],
@@ -178,7 +178,7 @@
       "Damage Penetrates 20% Lightning Resistance"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "40% increased Strength Requirement",
       "+(80-120) to Intelligence"
     ],
@@ -948,11 +948,12 @@
     "explicitMods": [
       "Queen's Demand can Trigger Level 20 Flames of Judgement",
       "Queen's Demand can Trigger Level 20 Storm of Judgement",
+      "(100-300)% increased Spell Critical Strike Chance",
       "Cannot be Stunned",
       "Damage cannot be Reflected"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "Grants Level 20 Queen's Demand Skill"
     ],
     "intReq": 113,
@@ -1485,17 +1486,17 @@
     "levelReq": 58
   },
   "Blightwell": {
-    "baseType": "Clutching Talisman",
-    "corrupted": true,
+    "baseType": "Shield Crab Talisman",
+    "corrupted": false,
     "explicitMods": [
-      "+(20-30) to maximum Energy Shield",
       "+(15-30)% to Fire Resistance",
       "+(15-30)% to Lightning Resistance",
+      "(15-30)% increased Flask Effect Duration",
       "50% slower start of Energy Shield Recharge during any Flask Effect",
       "(150-200)% increased Energy Shield Recharge Rate during any Flask Effect"
     ],
     "implicitMods": [
-      "(15-25)% increased Global Defences"
+      "+(50-100) to maximum Energy Shield"
     ],
     "levelReq": 28
   },
@@ -1787,9 +1788,9 @@
     "corrupted": false,
     "explicitMods": [
       "(260-310)% increased Physical Damage",
-      "(80-100)% increased Chaos Damage",
-      "10% increased Area of Effect",
-      "Chaos Skills have 40% increased Skill Effect Duration"
+      "(80-120)% increased Chaos Damage",
+      "(10-20)% increased Area of Effect",
+      "Chaos Skills have (40-80)% increased Skill Effect Duration"
     ],
     "implicitMods": [
       "32% increased Elemental Damage"
@@ -1926,7 +1927,7 @@
     "baseType": "Timeless Jewel",
     "corrupted": false,
     "explicitMods": [
-      "Denoted service of (500-8000) dekhara in the akhara of Nasima",
+      "Denoted service of (500-8000) dekhara in the akhara of Balbala",
       "Passives in radius are Conquered by the Maraketh",
       "Historic"
     ],
@@ -2097,10 +2098,10 @@
     "corrupted": false,
     "explicitMods": [
       "(60-90)% increased Unveiled Modifier magnitudes",
-      "+(70-91)% to Physical Damage over Time Multiplier"
+      "+(44-48)% to Physical Damage over Time Multiplier"
     ],
     "implicitMods": [
-      "+22% Chance to Block Attack Damage while wielding a Staff"
+      "+22% Chance to Block Attack Damage"
     ],
     "intReq": 85,
     "levelReq": 68,
@@ -2110,15 +2111,15 @@
     "baseType": "Ezomyte Staff",
     "corrupted": false,
     "explicitMods": [
-      "2% increased Cast Speed per Power Charge",
-      "+2 to Level of all Chaos Spell Skill Gems",
-      "Gain a Power Charge after Spending a total of 200 Mana",
-      "Regenerate 2 Mana per Second per Power Charge"
+      "+1 to Maximum Power Charges",
+      "5% increased Cast Speed per Power Charge",
+      "Regenerate 5 Mana per Second per Power Charge",
+      "Gain a Power Charge after Spending a total of 200 Mana"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "+(40-55)% to Chaos Damage over Time Multiplier",
-      "(20-30)% increased Chaos Damage"
+      "+2 to Level of all Chaos Spell Skill Gems"
     ],
     "intReq": 113,
     "levelReq": 60,
@@ -2198,7 +2199,7 @@
     "corrupted": false,
     "explicitMods": [
       "(70-100)% increased Spell Damage",
-      "(15-20)% increased Cast Speed",
+      "(20-40)% increased Cast Speed",
       "0.5% of Spell Damage Leeched as Life if Equipped Shield has at least 30% Chance to Block",
       "+1 to Maximum Energy Shield per 5 Armour on Equipped Shield",
       "+5 to Armour per 5 Evasion Rating on Equipped Shield",
@@ -2704,7 +2705,7 @@
       "Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded Enemies"
     ],
     "implicitMods": [
-      "(29-33)% increased Spell Damage"
+      "(30-34)% increased Spell Damage"
     ],
     "levelReq": 63
   },
@@ -2913,9 +2914,9 @@
     "baseType": "Magistrate Crown",
     "corrupted": false,
     "explicitMods": [
-      "+(4-6)% Chance to Block Spell Damage",
       "(140-180)% increased Armour and Energy Shield",
       "(4-7)% increased maximum Life",
+      "+(4-6)% Chance to Block Spell Damage",
       "Cannot lose Crab Barriers if you have lost Crab Barriers Recently",
       "+3% Chance to Block Attack Damage while you have at least 5 Crab Barriers",
       "+5% Chance to Block Attack Damage while you have at least 10 Crab Barriers"
@@ -2992,7 +2993,7 @@
       "-30% to Fire Resistance",
       "(0.4-0.8)% of Attack Damage Leeched as Life",
       "(0.2-0.4)% of Attack Damage Leeched as Mana",
-      "Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value"
+      "Attacks have 150% Arcane Might"
     ],
     "implicitMods": [],
     "intReq": 154,
@@ -3497,10 +3498,10 @@
     "baseType": "Sage's Robe",
     "corrupted": false,
     "explicitMods": [
-      "Gems can be Socketed in this Item ignoring Socket Colour",
       "Gems Socketed in Red Sockets have +2 to Level",
-      "Gems Socketed in Green Sockets have +30% to Quality",
+      "Gems Socketed in Green Sockets have +20% to Quality",
       "Gems Socketed in Blue Sockets gain 100% increased Experience",
+      "Gems Socketed always have the Quality bonus from Socket Colour",
       "Has no Attribute Requirements"
     ],
     "implicitMods": []
@@ -3511,15 +3512,15 @@
     "explicitMods": [
       "+1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped",
       "25% chance to gain a Siphoning Charge when you use a Skill",
-      "Adds (12-14) to (15-16) Physical Damage to Attacks and Spells per Siphoning Charge",
+      "Adds (20-23) to (26-30) Physical Damage to Attacks and Spells per Siphoning Charge",
       "Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge",
-      "1% additional Physical Damage Reduction from Hits per Siphoning Charge",
+      "2% additional Physical Damage Reduction from Hits per Siphoning Charge",
       "0.2% of Damage Leeched as Life per Siphoning Charge",
       "Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently",
       "Battlemage"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "Adds (220-240) to (270-300) Physical Damage"
     ],
     "intReq": 113,
@@ -3764,14 +3765,15 @@
     "strReq": 113
   },
   "Doryani's Delusion": {
-    "baseType": "Sorcerer Boots",
+    "baseType": "Warlock Boots",
     "corrupted": false,
     "explicitMods": [
-      "Grants Level 25 Purity of Lightning Skill",
+      "Grants Level 30 Purity of Lightning Skill",
       "Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks",
-      "(150-180)% increased Energy Shield",
-      "+(60-70) to maximum Life",
-      "30% increased Movement Speed"
+      "(0-200)% increased Energy Shield",
+      "+(0-100) to maximum Life",
+      "(0-40)% increased Movement Speed",
+      "Corrupted"
     ],
     "implicitMods": [],
     "intReq": 120,
@@ -3935,12 +3937,11 @@
     "explicitMods": [
       "Gain (10-20)% of Elemental Damage as Extra Chaos Damage",
       "+1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage",
-      "+60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently",
-      "(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently"
+      "+60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
-      "+10% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
+      "+(20-30)% Chance to Block Attack Damage while wielding a Staff",
       "(60-80)% increased Spell Critical Strike Chance"
     ],
     "intReq": 113,
@@ -4000,7 +4001,7 @@
       "18% increased effect of Non-Curse Auras from your Skills"
     ],
     "implicitMods": [
-      "+20% Chance to Block Attack Damage while wielding a Staff",
+      "+20% Chance to Block Attack Damage",
       "18% increased Cast Speed"
     ]
   },
@@ -4176,9 +4177,9 @@
     "corrupted": false,
     "explicitMods": [
       "(30-40)% increased Fire Damage",
-      "(5-10)% increased Cast Speed",
+      "(10-20)% increased Cast Speed",
       "10% chance to Ignite",
-      "40% less Burning Damage",
+      "35% less Burning Damage",
       "You can inflict an additional Ignite on each Enemy"
     ],
     "implicitMods": [
@@ -4485,8 +4486,8 @@
     "corrupted": false,
     "explicitMods": [],
     "implicitMods": [
-      "+(24-36)% to Damage over Time Multiplier",
-      "Implicit Modifier magnitudes are doubled"
+      "+(12-18)% to Damage over Time Multiplier",
+      "(50-100)% increased Enchantment Modifier magnitudes"
     ],
     "levelReq": 52
   },
@@ -4650,7 +4651,7 @@
     "explicitMods": [
       "+(20-40) to Intelligence",
       "Curse Skills have (8-12)% increased Cast Speed",
-      "Non-Aura Hexes expire upon reaching (180-220)% of base Effect",
+      "Non-Aura Hexes expire upon reaching 200% of base Effect",
       "Non-Aura Hexes gain 20% increased Effect per second"
     ],
     "implicitMods": [
@@ -4683,7 +4684,7 @@
       "30% increased Mana Regeneration Rate per Raised Spectre"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "+2 to Level of Socketed Minion Gems",
       "Minions deal (60-80)% increased Damage"
     ],
@@ -4699,7 +4700,7 @@
       "(10-20)% increased maximum Mana"
     ],
     "implicitMods": [
-      "+20% Chance to Block Spell Damage while wielding a Staff",
+      "+20% Chance to Block Spell Damage",
       "Socketed Gems are Supported by Level 8 Trap",
       "(40-50)% increased Global Damage"
     ]
@@ -5819,8 +5820,8 @@
     "explicitMods": [
       "Socketed Gems are Supported by Level 30 Rage",
       "(120-150)% increased Armour",
-      "(10-25)% reduced Rage Cost of Skills",
       "Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls",
+      "(20-40)% increased Rage Cost Efficiency",
       "You cannot gain Rage during Soul Gain Prevention"
     ],
     "implicitMods": [],
@@ -5934,7 +5935,7 @@
       "10% chance to gain a Power Charge if you Knock an Enemy Back with Melee Damage"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "+6% Chance to Block Attack Damage while wielding a Staff",
       "Adds (135-145) to (160-175) Physical Damage",
       "(12-16)% increased Attack Speed"
@@ -6041,7 +6042,7 @@
       "Adds 1 to 30 Lightning Damage to Spells and Attacks",
       "(100-150)% increased Armour and Energy Shield",
       "(10-20)% increased Rarity of Items found",
-      "(10-20)% reduced Mana Cost of Skills"
+      "(30-50)% increased Mana Cost Efficiency"
     ],
     "implicitMods": [],
     "intReq": 16,
@@ -6057,7 +6058,7 @@
       "(15-25)% increased Attack Speed",
       "+(400-500) to Accuracy Rating",
       "4% increased Movement Speed per Frenzy Charge",
-      "2% chance to Avoid Elemental Damage from Hits per Frenzy Charge",
+      "2% chance to Avoid Damage of each Element from Hits per Frenzy Charge",
       "12 to 14 Added Cold Damage per Frenzy Charge",
       "0.5% of Attack Damage Leeched as Life per Frenzy Charge",
       "200 Cold Damage taken per second per Frenzy Charge while moving"
@@ -6360,6 +6361,7 @@
       "Passive Skills in radius of Arrow Dancing can be allocated without being connected to your tree",
       "Passive Skills in radius of Arsenal of Vengeance can be allocated without being connected to your tree",
       "Passive Skills in radius of Avatar of Fire can be allocated without being connected to your tree",
+      "Passive Skills in radius of Bitter Frost can be allocated without being connected to your tree",
       "Passive Skills in radius of Blood Magic can be allocated without being connected to your tree",
       "Passive Skills in radius of Bloodsoaked Blade can be allocated without being connected to your tree",
       "Passive Skills in radius of Call to Arms can be allocated without being connected to your tree",
@@ -6389,6 +6391,7 @@
       "Passive Skills in radius of Point Blank can be allocated without being connected to your tree",
       "Passive Skills in radius of Precise Technique can be allocated without being connected to your tree",
       "Passive Skills in radius of Resolute Technique can be allocated without being connected to your tree",
+      "Passive Skills in radius of Roiling Tempest can be allocated without being connected to your tree",
       "Passive Skills in radius of Runebinder can be allocated without being connected to your tree",
       "Passive Skills in radius of Solipsism can be allocated without being connected to your tree",
       "Passive Skills in radius of Supreme Ego can be allocated without being connected to your tree",
@@ -6397,6 +6400,7 @@
       "Passive Skills in radius of Unwavering Stance can be allocated without being connected to your tree",
       "Passive Skills in radius of Vaal Pact can be allocated without being connected to your tree",
       "Passive Skills in radius of Versatile Combatant can be allocated without being connected to your tree",
+      "Passive Skills in radius of Voracious Flame can be allocated without being connected to your tree",
       "Passive Skills in radius of Wicked Ward can be allocated without being connected to your tree",
       "Passive Skills in radius of Wind Dancer can be allocated without being connected to your tree",
       "Passive Skills in radius of Zealot's Oath can be allocated without being connected to your tree"
@@ -6708,11 +6712,11 @@
       "(-17-17)% reduced maximum Life",
       "+(-1-1) to Level of all Spell Skill Gems",
       "31% increased Cost of Skills",
-      "1 to (31-53) Spell Lightning Damage per 10 Intelligence",
+      "Adds 1 to (24-35) Lightning Damage to Spells per 10 Intelligence",
       "Blood Magic"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff"
+      "+25% Chance to Block Spell Damage"
     ],
     "levelReq": 66,
     "strReq": 113
@@ -6853,8 +6857,8 @@
     "baseType": "Titan Greaves",
     "corrupted": false,
     "explicitMods": [
-      "Cannot be Knocked Back",
       "+(150-200) to maximum Life",
+      "Cannot be Knocked Back",
       "Action Speed cannot be modified to below Base Value",
       "Unwavering Stance"
     ],
@@ -7291,7 +7295,7 @@
       "Eldritch Battery"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff"
+      "+25% Chance to Block Attack Damage"
     ],
     "intReq": 113,
     "levelReq": 68,
@@ -7462,7 +7466,7 @@
       "20% increased Stun and Block Recovery",
       "+(160-180) to maximum Life",
       "5% reduced Movement Speed",
-      "-25 Physical Damage taken from Projectile Attacks",
+      "-150 Physical Damage taken from Projectile Attacks",
       "+5% Chance to Block"
     ],
     "implicitMods": [
@@ -7961,15 +7965,14 @@
     "baseType": "Highborn Staff",
     "corrupted": false,
     "explicitMods": [
-      "100% increased Fire Damage",
       "Adds (315-360) to (450-540) Fire Damage",
       "Damage Penetrates 15% of Fire Resistance if you have Blocked Recently",
       "Immune to Freeze and Chill while Ignited",
       "Battlemage"
     ],
     "implicitMods": [
-      "+22% Chance to Block Spell Damage while wielding a Staff",
-      "+(12-16)% Chance to Block Attack Damage while wielding a Staff"
+      "+(20-25)% Chance to Block Attack Damage while wielding a Staff",
+      "100% increased Fire Damage"
     ],
     "intReq": 89,
     "levelReq": 52,
@@ -8028,7 +8031,7 @@
       "Intelligence provides no inherent bonus to Maximum Mana",
       "+1 to Maximum Life per 2 Intelligence",
       "Cannot gain Energy Shield",
-      "Regenerate 1% of Life per second per 500 Maximum Energy Shield",
+      "Regenerate 1% of Life per second per 500 Player Maximum Energy Shield",
       "Your Energy Shield starts at zero"
     ],
     "implicitMods": [],
@@ -8045,7 +8048,7 @@
       "Nearby Allies have 1% Chance to Block Attack Damage per 100 Strength you have",
       "Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have",
       "Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have",
-      "2% increased Mana Reservation Efficiency of Skills per 250 total Attributes"
+      "3% increased Mana Reservation Efficiency of Skills per 250 total Attributes"
     ],
     "implicitMods": [],
     "intReq": 64,
@@ -8087,7 +8090,7 @@
     "explicitMods": [
       "Grants Level 20 Death Wish Skill",
       "+(45-65) to maximum Life",
-      "(20-30)% reduced Mana Cost of Minion Skills",
+      "(40-60)% increased Mana Cost Efficiency of Minion Skills",
       "Minions are Aggressive"
     ],
     "implicitMods": [
@@ -8269,7 +8272,7 @@
     "baseType": "Timeless Jewel",
     "corrupted": false,
     "explicitMods": [
-      "3% increased Defences from Equipped Shield per 10 Devotion",
+      "3% increased Mana Cost Efficiency per 10 Devotion",
       "Passives in radius are Conquered by the Templars",
       "Historic"
     ],
@@ -8333,7 +8336,7 @@
       "(10-20)% increased maximum Mana"
     ],
     "implicitMods": [
-      "+20% Chance to Block Spell Damage while wielding a Staff",
+      "+20% Chance to Block Spell Damage",
       "Socketed Gems are Supported by Level 16 Trap"
     ],
     "levelReq": 32
@@ -8345,7 +8348,7 @@
       "(120-150)% increased Evasion Rating",
       "10% increased Movement Speed",
       "+(10-20)% to Fire and Cold Resistances",
-      "+(8-15)% chance to Avoid Elemental Damage from Hits while Phasing",
+      "+(8-15)% chance to Avoid Damage of each Element from Hits while Phasing",
       "You are at Maximum Chance to Block Attack Damage if you have not Blocked Recently",
       "You have Phasing if you have Blocked Recently"
     ],
@@ -8520,7 +8523,7 @@
     "corrupted": false,
     "explicitMods": [
       "Skills fire (2-3) additional Projectiles",
-      "(10-20)% increased Projectile Speed",
+      "(10-50)% increased Projectile Speed",
       "(30-50)% increased Projectile Damage",
       "Projectiles cannot continue after colliding with targets"
     ],
@@ -8566,17 +8569,15 @@
     "implicitMods": []
   },
   "Natural Hierarchy": {
-    "baseType": "Rotfeather Talisman",
-    "corrupted": true,
+    "baseType": "Rhex Talisman",
+    "corrupted": false,
     "explicitMods": [
-      "(10-15)% increased Global Physical Damage",
-      "(25-30)% increased Fire Damage",
-      "(20-25)% increased Cold Damage",
-      "(15-20)% increased Lightning Damage",
-      "(30-35)% increased Chaos Damage"
+      "Gain (15-20)% of Lightning Damage as Extra Cold Damage",
+      "Gain (20-25)% of Cold Damage as Extra Fire Damage",
+      "Gain (25-30)% of Fire Damage as Extra Chaos Damage"
     ],
     "implicitMods": [
-      "(25-35)% increased Damage"
+      "Gain (10-15)% of Physical Damage as Extra Lightning Damage"
     ],
     "levelReq": 44
   },
@@ -8586,7 +8587,7 @@
     "explicitMods": [
       "(60-120)% increased Implicit Modifier magnitudes",
       "(15-20)% increased Cast Speed",
-      "(5-10)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%"
+      "(6-8)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%"
     ],
     "implicitMods": [
       "40% increased Elemental Damage"
@@ -8661,6 +8662,7 @@
     "explicitMods": [
       "+(15-25) to Strength",
       "Adds (20-25) to (30-35) Fire Damage to Spells and Attacks",
+      "+(400-600) to Armour",
       "15% increased Ignite Duration on Enemies",
       "10% chance to Ignite",
       "Recover (20-30) Life when you Ignite an Enemy"
@@ -9177,7 +9179,7 @@
       "16% increased Physical Weapon Damage per 10 Strength"
     ],
     "implicitMods": [
-      "+20% Chance to Block Attack Damage while wielding a Staff",
+      "+20% Chance to Block Attack Damage",
       "1% increased Area of Effect per 20 Intelligence",
       "1% increased Attack Speed per 10 Dexterity"
     ],
@@ -9214,7 +9216,7 @@
     "corrupted": false,
     "explicitMods": [],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "Socketed Gems are Supported by Level 1 Greater Spell Echo",
       "(120-160)% increased Spell Damage",
       "(50-100)% increased maximum Mana"
@@ -9290,7 +9292,8 @@
       "+(30-60) to maximum Mana",
       "Regenerate (3-6) Mana per second",
       "-(8-4) to Total Mana Cost of Skills",
-      "8% of Damage taken Recouped as Mana"
+      "8% of Damage taken Recouped as Mana",
+      "(20-30)% increased Mana Cost Efficiency"
     ],
     "implicitMods": [
       "+(20-30) to maximum Mana"
@@ -9391,10 +9394,10 @@
     "corrupted": false,
     "explicitMods": [
       "Adds (60-70) to (71-80) Physical Damage",
-      "25% increased Global Physical Damage with Weapons per Red Socket",
-      "12% increased Global Attack Speed per Green Socket",
-      "0.4% of Physical Attack Damage Leeched as Mana per Blue Socket",
-      "+0.2 metres to Melee Strike Range per White Socket"
+      "(25-35)% increased Global Physical Damage per Red Socket",
+      "(10-14)% increased Global Attack Speed per Green Socket",
+      "(0.6-0.8)% of Physical Attack Damage Leeched as Mana per Blue Socket",
+      "+(0.2-0.3) metres to Melee Strike Range per White Socket"
     ],
     "implicitMods": [
       "40% increased Global Accuracy Rating",
@@ -9760,12 +9763,12 @@
     "baseType": "Titanium Spirit Shield",
     "corrupted": false,
     "explicitMods": [
-      "+(10-15)% Chance to Block Spell Damage",
       "(120-160)% increased Energy Shield",
       "10% increased maximum Life",
+      "+(10-15)% Chance to Block Spell Damage",
       "Sacrifice 10% of your Life when you Use or Trigger a Spell Skill",
-      "5% increased Spell Critical Strike Chance per 100 Player Maximum Life",
-      "5% increased Spell Damage per 100 Player Maximum Life"
+      "3% increased Spell Critical Strike Chance per 100 Player Maximum Life",
+      "3% increased Spell Damage per 100 Player Maximum Life"
     ],
     "implicitMods": []
   },
@@ -9838,9 +9841,9 @@
       "(30-50)% increased Elemental Damage"
     ],
     "implicitMods": [
-      "+20% Chance to Block Attack Damage while wielding a Staff",
-      "+1 to Level of Socketed Fire Gems",
-      "+1 to Level of Socketed Cold Gems"
+      "+20% Chance to Block Attack Damage",
+      "+2 to Level of Socketed Fire Gems",
+      "+2 to Level of Socketed Cold Gems"
     ],
     "intReq": 35,
     "levelReq": 40,
@@ -9856,9 +9859,9 @@
       "(30-50)% increased Elemental Damage"
     ],
     "implicitMods": [
-      "+20% Chance to Block Attack Damage while wielding a Staff",
-      "+1 to Level of Socketed Fire Gems",
-      "+1 to Level of Socketed Cold Gems"
+      "+20% Chance to Block Attack Damage",
+      "+2 to Level of Socketed Fire Gems",
+      "+2 to Level of Socketed Cold Gems"
     ],
     "intReq": 35,
     "levelReq": 18,
@@ -9911,8 +9914,8 @@
     "baseType": "Cobalt Jewel",
     "corrupted": false,
     "explicitMods": [
-      "+(2-6)% Chance to Block Spell Damage",
       "+(2-6)% Chance to Block Attack Damage",
+      "+(2-6)% Chance to Block Spell Damage",
       "Hits have (140-200)% increased Critical Strike Chance against you"
     ],
     "implicitMods": []
@@ -10264,13 +10267,13 @@
     "baseType": "Gnarled Branch",
     "corrupted": false,
     "explicitMods": [
-      "100% increased Fire Damage",
+      "(100-200)% increased Fire Damage",
       "(5-10)% increased Attack Speed",
       "Curse Enemies with Flammability on Block",
       "Reflects (22-44) Fire Damage to Attackers on Block"
     ],
     "implicitMods": [
-      "+20% Chance to Block Spell Damage while wielding a Staff",
+      "+20% Chance to Block Spell Damage",
       "+12% Chance to Block Attack Damage while wielding a Staff"
     ]
   },
@@ -10398,7 +10401,7 @@
     "baseType": "Maelstrom Staff",
     "corrupted": false,
     "explicitMods": [
-      "+10% Chance to Block Attack Damage while wielding a Staff",
+      "+(20-30)% Chance to Block Attack Damage while wielding a Staff",
       "(40-50)% increased Critical Strike Chance",
       "Gain (10-20)% of Elemental Damage as Extra Chaos Damage",
       "+1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage",
@@ -10406,7 +10409,7 @@
       "(120-150)% increased Elemental Damage if you've dealt a Critical Strike Recently"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff"
+      "+25% Chance to Block Attack Damage"
     ],
     "intReq": 113,
     "levelReq": 64,
@@ -10434,10 +10437,10 @@
     "corrupted": false,
     "explicitMods": [
       "(30-40)% increased Fire Damage",
-      "(5-10)% increased Cast Speed",
+      "(10-20)% increased Cast Speed",
       "90% reduced Ignite Duration on Enemies",
       "10% chance to Ignite",
-      "Ignites you inflict deal Damage (35-45)% faster"
+      "Ignites you inflict deal Damage (40-60)% faster"
     ],
     "implicitMods": [
       "+(20-30)% to Fire Resistance"
@@ -10479,7 +10482,7 @@
       "(10-20)% increased maximum Mana"
     ],
     "implicitMods": [
-      "+20% Chance to Block Spell Damage while wielding a Staff",
+      "+20% Chance to Block Spell Damage",
       "Socketed Gems are Supported by Level 1 Multiple Totems"
     ]
   },
@@ -11049,8 +11052,8 @@
     "baseType": "Cobalt Jewel",
     "corrupted": false,
     "explicitMods": [
-      "+(2-6)% Chance to Block Spell Damage",
       "+(2-6)% Chance to Block Attack Damage",
+      "+(2-6)% Chance to Block Spell Damage",
       "+10% chance to be Frozen, Shocked and Ignited"
     ],
     "implicitMods": []
@@ -11259,7 +11262,7 @@
     "explicitMods": [
       "+(80-100) to maximum Life",
       "You can Cast an additional Brand",
-      "20% increased Critical Strike Chance per Brand",
+      "30% increased Critical Strike Chance per Brand",
       "40% increased Brand Damage",
       "Blood Magic"
     ],
@@ -11273,7 +11276,7 @@
     "explicitMods": [
       "Lose all Power Charges on reaching Maximum Power Charges",
       "Gain a Frenzy Charge on reaching Maximum Power Charges",
-      "(15-20)% increased Cold Damage per Frenzy Charge",
+      "(20-30)% increased Cold Damage per Frenzy Charge",
       "50% chance to gain a Power Charge when you Hit a Frozen Enemy",
       "Take 500 Cold Damage on reaching Maximum Power Charges"
     ],
@@ -11519,17 +11522,22 @@
   },
   "Rigwald's Curse": {
     "baseType": "Wereclaw Talisman",
-    "corrupted": true,
+    "corrupted": false,
     "explicitMods": [
+      " Wolf Alpha Talisman",
+      "League: Talisman Standard",
+      "Variant: Pre 2.2.0",
+      "Variant: Pre 3.29.0",
+      "Variant: Current",
+      "Talisman Tier: 2",
+      "Requires Level 28",
+      "Implicits: 2",
+      "+(5-10)% to Unarmed Melee Attack Critical Strike Chance",
       "Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills",
       "Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills",
       "Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills"
     ],
-    "implicitMods": [
-      "+(24-36)% to Global Critical Strike Multiplier",
-      "+7% to Unarmed Melee Attack Critical Strike Chance"
-    ],
-    "levelReq": 28
+    "implicitMods": []
   },
   "Rigwald's Hunt": {
     "baseType": "General's Brigandine",
@@ -11934,13 +11942,12 @@
     "baseType": "Gladius",
     "corrupted": false,
     "explicitMods": [
-      "(15-25)% increased Critical Strike Chance",
-      "0.3% of Physical Attack Damage Leeched as Life per Red Socket",
-      "+10% to Global Critical Strike Multiplier per Green Socket",
-      "0.3% of Physical Attack Damage Leeched as Mana per Blue Socket",
-      "8% increased Global Defences per White Socket",
-      "(60-80)% increased Global Critical Strike Chance when in Main Hand",
-      "+8% Chance to Block Attack Damage when in Off Hand"
+      "(30-50)% increased Critical Strike Chance",
+      "(8-12)% increased Area of Effect per Red Socket",
+      "+(10-15)% to Global Critical Strike Multiplier per Green Socket",
+      "(20-30)% increased Global Critical Strike Chance per Blue Socket",
+      "(6-8)% increased Global Defences per Empty Socket",
+      "+(10-15)% Chance to Block Attack Damage when in Off Hand"
     ],
     "implicitMods": [
       "40% increased Global Accuracy Rating",
@@ -12015,6 +12022,24 @@
       "+(25-40) to maximum Life"
     ],
     "levelReq": 56
+  },
+  "Seablister": {
+    "baseType": "Spiny Round Shield",
+    "corrupted": false,
+    "dexReq": 85,
+    "explicitMods": [
+      "Grants Level 20 Savage Barnacle",
+      "+99 to Armour",
+      "+99 to Evasion Rating",
+      "101% increased Armour and Evasion",
+      "+3% to Maximum Cold Resistance",
+      "+33% to Cold Resistance"
+    ],
+    "implicitMods": [
+      "60% increased Block Recovery"
+    ],
+    "levelReq": 62,
+    "strReq": 85
   },
   "Seething Fury": {
     "baseType": "Viridian Jewel",
@@ -12157,7 +12182,7 @@
       "(20-30)% increased Global Critical Strike Chance",
       "+(20-30)% to Global Critical Strike Multiplier",
       "(100-130)% increased Evasion and Energy Shield",
-      "0.2% of Physical Attack Damage Leeched as Mana",
+      "0.2% of Attack Damage Leeched as Mana",
       "Creates a Smoke Cloud on Rampage",
       "Gain Unholy Might for 3 seconds on Rampage",
       "Rampage"
@@ -12298,17 +12323,16 @@
     "baseType": "Tornado Wand",
     "corrupted": false,
     "explicitMods": [
-      "Adds (26-35) to (95-105) Lightning Damage to Spells",
       "+(6-10)% to Critical Strike Multiplier per Power Charge",
-      "+0.3% Critical Strike Chance per Power Charge",
+      "+0.3% to Critical Strike Chance per Power Charge",
       "+2% Chance to Block Spell Damage per Power Charge",
-      "Adds 3 to 9 Lightning Damage to Spells per Power Charge",
-      "200 Lightning Damage taken per second per Power Charge if",
+      "Adds 3 to (15-25) Lightning Damage to Spells per Power Charge",
+      "300 Lightning Damage taken per second per Power Charge if",
       "your Skills have dealt a Critical Strike Recently"
     ],
     "implicitMods": [
       "Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks",
-      "(30-40)% increased Spell Damage"
+      "+1 to Maximum Power Charges"
     ]
   },
   "Shiversting": {
@@ -12347,10 +12371,8 @@
       "Adds (8-15) to (20-28) Fire Damage to Attacks",
       "(10-20)% reduced Rarity of Items found",
       "(20-30)% increased Elemental Damage with Attack Skills",
-      "Left ring slot: 100% of Elemental Hit Damage from you and",
-      "your Minions cannot be Reflected",
-      "Right ring slot: 100% of Physical Hit Damage from you and",
-      "your Minions cannot be Reflected"
+      "Left ring slot: you and your Minions prevent +100% of Reflected Elemental Damage",
+      "Right ring slot: you and your Minions prevent +100% of Reflected Physical Damage"
     ],
     "implicitMods": [
       "+(20-30) to maximum Life"
@@ -12461,9 +12483,9 @@
     "corrupted": false,
     "explicitMods": [
       "(14-18)% increased Cast Speed",
-      "(6-8)% reduced Mana Cost of Skills",
       "Nearby Enemies are Hindered, with 25% reduced Movement Speed",
-      "100% increased Damage with Hits and Ailments against Hindered Enemies"
+      "100% increased Damage with Hits and Ailments against Hindered Enemies",
+      "(15-25)% increased Mana Cost Efficiency"
     ],
     "implicitMods": [
       "30% increased Elemental Damage",
@@ -12495,7 +12517,7 @@
       "20% increased Light Radius"
     ],
     "implicitMods": [
-      "+22% Chance to Block Attack Damage while wielding a Staff",
+      "+22% Chance to Block Attack Damage",
       "Socketed Gems fire 4 additional Projectiles",
       "Socketed Gems fire Projectiles in a circle"
     ],
@@ -12880,7 +12902,7 @@
       "If you Consumed a corpse Recently, you and nearby Allies Regenerate 5% of Life per second"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "Trigger Level 25 Summon Phantasm Skill when you Consume a corpse",
       "(100-140)% increased Spell Damage"
     ],
@@ -12953,6 +12975,23 @@
       "Gain (10-15)% of Physical Damage as Extra Chaos Damage"
     ],
     "levelReq": 55
+  },
+  "Spinesnatch": {
+    "baseType": "Fleshripper",
+    "corrupted": false,
+    "dexReq": 84,
+    "explicitMods": [
+      "Has 6 Abyssal Sockets",
+      "11% increased Attack Speed per socketed Searching Eye Jewel",
+      "31% increased Critical Strike Chance per socketed Hypnotic Eye Jewel",
+      "29% increased Physical Damage per socketed Murderous Eye Jewel",
+      "Minions have 27% chance to Impale on Attack Hit per socketed Ghastly Eye Jewel"
+    ],
+    "implicitMods": [
+      "50% increased Critical Strike Chance"
+    ],
+    "levelReq": 70,
+    "strReq": 156
   },
   "Spire of Stone": {
     "baseType": "Crimson Jewel",
@@ -13133,8 +13172,8 @@
     "baseType": "Carnal Armour",
     "corrupted": false,
     "explicitMods": [
+      "(80-100)% increased Implicit Modifier magnitudes",
       "(140-160)% increased Evasion and Energy Shield",
-      "+(80-100) to maximum Life",
       "Temporal Rift has no Reservation",
       "(80-100)% of Damage taken Recouped as Life",
       "Debuffs on you expire (80-100)% faster"
@@ -13263,6 +13302,17 @@
     "intReq": 45,
     "levelReq": 58
   },
+  "Stormblood": {
+    "baseType": "Topaz Flask",
+    "corrupted": false,
+    "explicitMods": [
+      "35% chance to gain a Flask Charge when you deal a Critical Strike",
+      "All Damage from Critical Strike can apply Lightning Ailments during effect",
+      "50% reduced Duration"
+    ],
+    "implicitMods": [],
+    "levelReq": 36
+  },
   "Stormcharger": {
     "baseType": "Plated Greaves",
     "corrupted": false,
@@ -13282,7 +13332,7 @@
       "(40-45)% increased Mana Regeneration Rate",
       "+(20-30)% to Fire and Lightning Resistances",
       "(8-12)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%",
-      "Adds (1-3) to (62-70) Lightning Damage to Hits against Ignited Enemies",
+      "Adds (1-3) to (125-145) Lightning Damage to Hits against Ignited Enemies",
       "Your Lightning Damage can Ignite"
     ],
     "implicitMods": [
@@ -13357,6 +13407,22 @@
       "Aura Skills other than Zealotry are Disabled"
     ],
     "implicitMods": []
+  },
+  "Subsume the Source": {
+    "baseType": "Faithful Helmet",
+    "corrupted": false,
+    "explicitMods": [
+      "176% increased Explicit Modifier magnitudes",
+      "Has (4-0) Abyssal Sockets",
+      "[0-4 consumed abyssal jewel modifiers]",
+      "Socketed Rare Abyssal Jewels will be Consumed",
+      "One modifier from Consumed Jewels will be retained",
+      "Cannot have non-Abyssal sockets"
+    ],
+    "implicitMods": [],
+    "intReq": 101,
+    "levelReq": 73,
+    "strReq": 101
   },
   "Sudden Dawn": {
     "baseType": "Steel Circlet",
@@ -13563,15 +13629,15 @@
     "baseType": "Maelstrom Staff",
     "corrupted": false,
     "explicitMods": [
-      "(10-20)% increased Cast Speed",
-      "+2 to Level of all Cold Spell Skill Gems",
-      "8% chance to Freeze",
-      "Enemies Frozen by you take 20% increased Damage"
+      "+(2-4) to Level of all Cold Spell Skill Gems",
+      "(25-50)% chance to Freeze",
+      "Enemies Frozen by you take 20% increased Damage",
+      "Bitter Frost"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
-      "(50-60)% increased Spell Damage",
-      "(40-50)% increased Cold Damage"
+      "+25% Chance to Block Attack Damage",
+      "(80-140)% increased Cold Damage",
+      "(10-20)% increased Cast Speed"
     ],
     "intReq": 113,
     "levelReq": 64,
@@ -13623,14 +13689,16 @@
     "baseType": "Moonstone Ring",
     "corrupted": false,
     "explicitMods": [
-      "50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an",
-      "Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown",
       "(30-40)% increased Spell Damage",
-      "+(15-25) to maximum Energy Shield",
+      "+(60-80) to maximum Energy Shield",
       "+(60-80) to maximum Mana",
-      "(5-10)% chance to Freeze, Shock and Ignite"
+      "(5-10)% chance to Freeze, Shock and Ignite",
+      "Spells cause you to gain Energy Shield equal to their Upfront",
+      "Cost every third time you Pay it"
     ],
-    "implicitMods": []
+    "implicitMods": [
+      "+(15-25) to maximum Energy Shield"
+    ]
   },
   "Tawhoa's Felling": {
     "baseType": "Piledriver",
@@ -13769,7 +13837,7 @@
       "Deal Triple Damage with Elemental Skills"
     ],
     "implicitMods": [
-      "+22% Chance to Block Spell Damage while wielding a Staff",
+      "+22% Chance to Block Spell Damage",
       "(60-70)% reduced Elemental Resistances"
     ],
     "intReq": 78,
@@ -13996,7 +14064,7 @@
       "Curse Enemies with Vulnerability on Block"
     ],
     "implicitMods": [
-      "+20% Chance to Block Spell Damage while wielding a Staff",
+      "+20% Chance to Block Spell Damage",
       "+12% Chance to Block Attack Damage while wielding a Staff",
       "100% increased Physical Damage"
     ]
@@ -14109,7 +14177,7 @@
       "Spells deal added Chaos Damage equal to (15-20)% of your maximum Life"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "Socketed Gems are Supported by Level 1 Lifetap"
     ],
     "intReq": 99,
@@ -14287,10 +14355,10 @@
     "corrupted": false,
     "explicitMods": [
       "10% Global chance to Blind Enemies on hit",
-      "Cannot be Blinded",
       "Enemies Blinded by you have Malediction",
       "+(1-2) Maximum Energy Shield per Level",
-      "+(1-2) Maximum Mana per Level"
+      "+(1-2) Maximum Mana per Level",
+      "Unaffected by Blind"
     ],
     "implicitMods": [
       "22% increased Elemental Damage",
@@ -14420,7 +14488,7 @@
       "(30-40)% increased Critical Strike Chance"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "Socketed Gems are supported by Level 1 Chance to Bleed"
     ],
     "intReq": 113,
@@ -14639,7 +14707,7 @@
       "Gain (30-40)% of Physical Damage as Extra Damage of a random Element while you are Ignited"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "(140-180)% increased Physical Damage"
     ],
     "intReq": 113,
@@ -14658,7 +14726,7 @@
       "Crucible Passive Skill Tree is removed if this Modifier is removed"
     ],
     "implicitMods": [
-      "+22% Chance to Block Attack Damage while wielding a Staff",
+      "+22% Chance to Block Attack Damage",
       "Has 1 Socket"
     ]
   },
@@ -14803,12 +14871,13 @@
     "corrupted": false,
     "explicitMods": [
       "(20-30)% increased Attack Speed",
-      "+(1-4)% to all maximum Resistances"
+      "+(1-5)% to all maximum Resistances",
+      "Implicit Modifier magnitudes are doubled"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "Has no Sockets",
-      "(250-300)% increased Global Damage"
+      "(300-400)% increased Global Damage"
     ],
     "intReq": 113,
     "levelReq": 68,
@@ -14820,7 +14889,7 @@
     "dexReq": 37,
     "explicitMods": [
       "(30-50)% increased Fire Damage",
-      "Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life",
+      "Attacks with this Weapon have Added Fire Damage equal to (6-10)% of Player's Maximum Life",
       "Each Rage also grants +2% to Fire Damage Over Time Multiplier",
       "Nearby Enemies have Fire Exposure while at maximum Rage",
       "+(-5-5) to Maximum Rage"
@@ -14854,8 +14923,8 @@
       "+(30-45) to maximum Energy Shield",
       "+(60-80) to maximum Life",
       "+(30-40)% to Cold Resistance",
-      "75% increased Effect of Shrine Buffs on you",
-      "50% increased Duration of Shrine Effects on you"
+      "(25-50)% increased Effect of Shrine Buffs on you",
+      "(25-50)% increased Duration of Shrine Effects on you"
     ],
     "implicitMods": [],
     "intReq": 44,
@@ -15230,9 +15299,9 @@
     "corrupted": false,
     "explicitMods": [
       "(5-10)% increased Attack and Cast Speed",
-      "+100 to Maximum Life per Red Socket",
-      "+100 to Maximum Mana per Green Socket",
-      "+100 to Maximum Energy Shield per Blue Socket",
+      "+(100-200) to Maximum Life per Red Socket",
+      "+(100-200) to Maximum Mana per Green Socket",
+      "+(100-200) to Maximum Energy Shield per Blue Socket",
       "60% increased Item Rarity per White Socket"
     ],
     "implicitMods": [
@@ -15570,11 +15639,12 @@
     "baseType": "Lathi",
     "corrupted": false,
     "explicitMods": [
-      "10% increased Cast Speed",
-      "+2 to Level of all Fire Spell Skill Gems"
+      "(20-40)% increased Cast Speed",
+      "+2 to Level of all Fire Spell Skill Gems",
+      "Voracious Flame"
     ],
     "implicitMods": [
-      "+25% Chance to Block Attack Damage while wielding a Staff",
+      "+25% Chance to Block Attack Damage",
       "+(40-60)% to Fire Damage over Time Multiplier",
       "(70-90)% increased Fire Damage"
     ]
@@ -15698,7 +15768,7 @@
       "50% chance to Shock Chilled Enemies"
     ],
     "implicitMods": [
-      "+20% Chance to Block Spell Damage while wielding a Staff",
+      "+20% Chance to Block Spell Damage",
       "(80-100)% increased Physical Damage",
       "Adds (25-35) to (45-60) Cold Damage"
     ],
@@ -15719,7 +15789,7 @@
       "(30-40)% chance to Shock Attackers for 4 seconds on Block"
     ],
     "implicitMods": [
-      "+20% Chance to Block Spell Damage while wielding a Staff",
+      "+20% Chance to Block Spell Damage",
       "+15% Chance to Block Attack Damage while wielding a Staff"
     ],
     "intReq": 51,
@@ -15995,7 +16065,7 @@
       "+40 to maximum Life for each Empty Red Socket on any Equipped Item",
       "+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item",
       "+40 to maximum Mana for each Empty Blue Socket on any Equipped Item",
-      "+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item"
+      "+12% to all Elemental Resistances for each Empty White Socket on any Equipped Item"
     ],
     "implicitMods": [
       "(12-20)% increased Rarity of Items found"
@@ -16022,7 +16092,7 @@
     "dexReq": 79,
     "explicitMods": [
       "+1 to Level of Socketed Gems",
-      "Socketed Gems have 50% reduced Mana Cost",
+      "Socketed Gems have 50% less Mana Cost",
       "(245-280)% increased Evasion and Energy Shield",
       "+(30-40) to maximum Energy Shield",
       "+(24-30)% to Chaos Resistance",
@@ -16082,7 +16152,7 @@
       "1% increased Spell Damage per 10 Intelligence"
     ],
     "implicitMods": [
-      "+20% Chance to Block Attack Damage while wielding a Staff",
+      "+20% Chance to Block Attack Damage",
       "+1 to Level of Socketed Support Gems",
       "Grants Level 1 Icestorm Skill"
     ],
@@ -16173,7 +16243,7 @@
       "Non-Critical Strikes deal no Damage"
     ],
     "implicitMods": [
-      "+22% Chance to Block Attack Damage while wielding a Staff",
+      "+22% Chance to Block Attack Damage",
       "(700-800)% increased Physical Damage"
     ]
   },
@@ -16209,7 +16279,7 @@
       "(30-40)% increased Critical Strike Chance"
     ],
     "implicitMods": [
-      "+25% Chance to Block Spell Damage while wielding a Staff",
+      "+25% Chance to Block Spell Damage",
       "Socketed Gems are supported by Level 1 Chance to Bleed"
     ],
     "intReq": 113,
@@ -16363,8 +16433,8 @@
     "explicitMods": [
       "+40 to Intelligence",
       "Adds (70-80) to (340-375) Physical Damage",
-      "10% increased Physical Damage per Endurance Charge",
-      "(20-30)% reduced Enemy Stun Threshold with this Weapon"
+      "(20-30)% reduced Enemy Stun Threshold with this Weapon",
+      "50% chance to gain a Brine Charge instead of an Endurance Charge"
     ],
     "implicitMods": [
       "10% increased Strength",
@@ -16529,7 +16599,7 @@
       "Mines can be Detonated an additional time"
     ],
     "implicitMods": [
-      "+22% Chance to Block Attack Damage while wielding a Staff",
+      "+22% Chance to Block Attack Damage",
       "+2 to Level of Socketed Spell Gems",
       "Socketed Gems are Supported by Level 10 Blastchain Mine"
     ],
@@ -16542,10 +16612,10 @@
     "corrupted": false,
     "explicitMods": [
       "(80-120)% increased Armour and Energy Shield",
-      "Minions convert 25% of Physical Damage to Fire Damage per Red Socket",
-      "Minions convert 25% of Physical Damage to Cold Damage per Green Socket",
-      "Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket",
-      "Minions convert 25% of Physical Damage to Chaos Damage per White Socket",
+      "Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem",
+      "Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem",
+      "Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem",
+      "Minions convert 25% of Physical Damage to Chaos Damage per Empty Socket",
       "Minions have (5-10)% chance to Freeze, Shock and Ignite"
     ],
     "implicitMods": [],
@@ -16598,7 +16668,7 @@
       "40% increased Totem Damage",
       "+(80-100) to maximum Life",
       "+1 to maximum number of Summoned Totems",
-      "+300 Armour per Summoned Totem",
+      "+500 Armour per Summoned Totem",
       "Blood Magic"
     ],
     "implicitMods": [
@@ -16911,7 +16981,7 @@
     "explicitMods": [
       "40% increased Damage with Hits against Shocked Enemies",
       "20% increased Lightning Damage",
-      "+(20-40) to maximum Mana",
+      "+(100-150) to maximum Mana",
       "1% of Damage Leeched as Life against Shocked Enemies",
       "25% chance to Shock"
     ],
@@ -17247,13 +17317,13 @@
     "explicitMods": [
       "(10-20)% increased Cast Speed",
       "(50-65)% increased Global Critical Strike Chance",
-      "+(40-50) to maximum Mana",
+      "+(100-120) to maximum Mana",
       "+1 to Maximum Power Charges",
-      "25% increased Spell Damage per Power Charge"
+      "(10-15)% increased Spell Damage per Power Charge"
     ],
     "implicitMods": [
       "(36-40)% increased Spell Damage",
-      "80% reduced Spell Damage"
+      "50% reduced Spell Damage"
     ]
   },
   "Voidbringer": {
@@ -17280,20 +17350,19 @@
     "levelReq": 45
   },
   "Voidfletcher": {
-    "baseType": "Primal Arrow Quiver",
+    "baseType": "Ornate Quiver",
     "corrupted": false,
     "explicitMods": [
+      "Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows with a Non-Triggered Skill",
       "Adds (30-40) to (80-100) Cold Damage to Attacks",
       "+(80-120) to maximum Energy Shield",
       "+(20-30)% to Cold Resistance",
-      "Gain (20-40) Mana per Enemy Killed",
-      "30% increased Projectile Speed",
       "5 Maximum Void Charges",
-      "Gain a Void Charge every 0.5 seconds"
+      "Gain a Void Charge every second"
     ],
     "implicitMods": [
-      "(20-30)% increased Elemental Damage with Attack Skills",
-      "Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows with a Non-Triggered Skill"
+      "Has 1 Socket",
+      "Has 2 Sockets"
     ],
     "levelReq": 64
   },
@@ -17483,7 +17552,7 @@
       "+2000 Armour while you do not have Avatar of Fire"
     ],
     "implicitMods": [
-      "40% increased Global Critical Strike Chance"
+      "(50-55)% increased Global Critical Strike Chance"
     ],
     "intReq": 149,
     "levelReq": 68
@@ -17677,7 +17746,7 @@
       "+(30-40)% chance to Suppress Spell Damage while your Off Hand is empty"
     ],
     "implicitMods": [
-      "30% increased Global Critical Strike Chance"
+      "(40-45)% increased Global Critical Strike Chance"
     ],
     "intReq": 131,
     "levelReq": 66
@@ -18004,7 +18073,7 @@
       "Brand Skills have (50-100)% increased Duration"
     ],
     "implicitMods": [
-      "+22% Chance to Block Spell Damage while wielding a Staff",
+      "+22% Chance to Block Spell Damage",
       "Grants Level 20 Brandsurge Skill"
     ],
     "intReq": 89,
@@ -18107,9 +18176,9 @@
       "Socketed Gems are Supported by Level 5 Concentrated Effect",
       "(120-160)% increased Armour and Evasion",
       "+(50-70) to maximum Life",
-      "4% reduced Mana Cost per Endurance Charge",
       "Gain Rampage while at Maximum Endurance Charges",
-      "Lose all Endurance Charges when Rampage ends"
+      "Lose all Endurance Charges when Rampage ends",
+      "10% increased Mana Cost Efficiency per Endurance Charge"
     ],
     "implicitMods": [],
     "levelReq": 49,
@@ -18200,6 +18269,7 @@
       "(80-120)% increased Damage with Vaal Skills",
       "(6-8)% reduced Soul Gain Prevention Duration",
       "Gain an Endurance Charge, Frenzy Charge, and Power Charge when you use a Vaal Skill",
+      "+(1-2) to Level of all Vaal Skill Gems",
       "Shepherd of Souls"
     ],
     "implicitMods": [

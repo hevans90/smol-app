@@ -159,6 +159,35 @@ if not build then
 end
 installJewelSupport()
 
+-- POB_VERSION v2.66.x rewrote ImportTab's import functions (the "Add PoB 2
+-- Oauth API import" rework) to take a plain Lua table shaped like what
+-- PoB's own OAuth/site import flow builds, instead of decoding a raw JSON
+-- string themselves — confirmed by reading ImportTab.lua's own
+-- DownloadItems/DownloadPassiveTree functions (the pre-OAuth "site" import
+-- path, which hits the exact same character-window/get-items and
+-- get-passive-skills endpoints we do): ImportItemsAndSkills now reads
+-- charData.equipment (not charData.items) for the item array, and
+-- ImportPassiveTreeAndJewels now reads charData.passives (the WHOLE
+-- decoded get-passive-skills response, nested) and charData.jewels (that
+-- same response's own .items array — those are the socketed jewels) —
+-- both also read charData.class/league/level/name directly. Passing the
+-- old shapes (raw JSON strings, or a flat passives object) now fails with
+-- "attempt to call method 'gmatch' (a nil value)" or a bad copyTable
+-- argument deep in ImportTab.lua, not a clear "wrong shape" error.
+local passivesData = json.decode(passivesJSON)
+if not passivesData then
+	fail("could not parse passives JSON")
+end
+
+local function baseCharFields()
+	return {
+		name = itemsData.character.name,
+		class = itemsData.character.class,
+		league = itemsData.character.league,
+		level = itemsData.character.level,
+	}
+end
+
 progress("loading character")
 -- Same steps as HeadlessWrapper's loadBuildFromJSON, except lastLeague is set
 -- first: ImportPassiveTreeAndJewels otherwise dereferences the GUI league
@@ -166,8 +195,15 @@ progress("loading character")
 local ok, err = pcall(function()
 	newBuild()
 	build.importTab.lastLeague = itemsData.character.league or "Standard"
-	local charData = build.importTab:ImportItemsAndSkills(itemsJSON)
-	build.importTab:ImportPassiveTreeAndJewels(passivesJSON, charData)
+
+	local itemsCharData = baseCharFields()
+	itemsCharData.equipment = itemsData.items
+	build.importTab:ImportItemsAndSkills(itemsCharData, false, false, false)
+
+	local passivesCharData = baseCharFields()
+	passivesCharData.passives = passivesData
+	passivesCharData.jewels = passivesData.items
+	build.importTab:ImportPassiveTreeAndJewels(passivesCharData, false)
 end)
 if not ok then
 	fail("failed to load character: " .. tostring(err))

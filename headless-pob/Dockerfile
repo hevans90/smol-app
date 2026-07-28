@@ -6,7 +6,7 @@ RUN apk add --no-cache luajit git zlib
 
 # Pin to a PoB release matching the current game version; bump each league
 # and re-verify stat key names with extract-stats.lua --dump.
-ARG POB_VERSION=v2.65.0
+ARG POB_VERSION=v2.66.2
 RUN git clone --depth 1 --branch ${POB_VERSION} https://github.com/PathOfBuildingCommunity/PathOfBuilding.git /app
 
 # PoB requires the lua-utf8 native module; lua-zlib provides a runtime

@@ -6,6 +6,7 @@ import {
   itemHeaderBg,
   itemHeaderFontColor,
   ItemSeparator,
+  normalizeModText,
   renderModLine,
   StyledDefaultItemProperty,
 } from '../../../_utils/item-preview-utils';
@@ -96,9 +97,9 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
 
       {!!item.enchantMods?.length && (
         <div className="flex flex-col items-center text-[15px] leading-[18px] text-poeItem-enchant">
-          {item.enchantMods.map((enchant) => (
-            <span key={enchant} className="mx-2">
-              {enchant}
+          {item.enchantMods.map((enchant, i) => (
+            <span key={i} className="mx-2">
+              {normalizeModText(enchant)}
             </span>
           ))}
           <ItemSeparator rarity={rarity} className="my-0.5" />
@@ -116,24 +117,26 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
       )}
       {!!item.fracturedMods?.length && (
         <div className="flex flex-col text-[15px] leading-[18px] text-primary-800">
-          {item.fracturedMods.map((mod) => (
-            <span key={mod} className="mx-2">
-              {mod}
+          {item.fracturedMods.map((mod, i) => (
+            <span key={i} className="mx-2">
+              {normalizeModText(mod)}
             </span>
           ))}
         </div>
       )}
       {!!item.explicitMods?.length && (
         <div className="flex flex-col text-[15px] leading-[18px] text-poeItem-magic">
-          {item.explicitMods.map((mod) => (
-            <span key={mod} className="mx-2">
+          {item.explicitMods.map((mod, modIndex) => (
+            <span key={modIndex} className="mx-2">
               {' '}
-              {mod.split('\n').map((line, index) => (
-                <Fragment key={index}>
-                  {renderModLine(line)}
-                  <br />
-                </Fragment>
-              ))}
+              {normalizeModText(mod)
+                .split('\n')
+                .map((line, index) => (
+                  <Fragment key={index}>
+                    {renderModLine(line)}
+                    <br />
+                  </Fragment>
+                ))}
             </span>
           ))}
         </div>
@@ -151,9 +154,9 @@ export const ItemDetail = ({ item }: { item: GGGItem | GGGSocketedItem }) => {
       )}
       {!!item.craftedMods?.length && (
         <div className="flex flex-col text-[15px] leading-[18px] text-poeItem-enchant">
-          {item.craftedMods.map((mod) => (
-            <span key={mod} className="mx-2">
-              {mod}
+          {item.craftedMods.map((mod, i) => (
+            <span key={i} className="mx-2">
+              {normalizeModText(mod)}
             </span>
           ))}
         </div>

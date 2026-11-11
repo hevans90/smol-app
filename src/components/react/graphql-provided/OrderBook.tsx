@@ -80,7 +80,10 @@ export const OrderBook = () => {
 
   const { data: orderTypes } = useQuery<OrderTypesQuery>(OrderTypesDocument);
 
-  const { id: myDiscordId } = useStore(discordStore);
+  // Fallback only — the linked Discord id normally comes from the user row
+  // (see myDiscordId below), which doesn't depend on this browser's storage.
+  const { id: storedDiscordId } = useStore(discordStore);
+  const myUserId = localStorage.getItem('hasura_user_id')?.trim();
   const fuzzyQuery = useStore(orderBookFuzzySearchStore);
   const showInactive = useStore(orderBookShowInactiveStore);
   const showFulfilled = useStore(orderBookShowFulfilledStore);
@@ -149,7 +152,7 @@ export const OrderBook = () => {
     () =>
       orders?.user_item_order?.filter(
         (order) =>
-          order.user.discord_user_id === myDiscordId &&
+          order.user.id === myUserId &&
           order.priority &&
           !order?.fulfilled_by_user,
       ),
@@ -157,6 +160,7 @@ export const OrderBook = () => {
   );
 
   const { data: userProfile, loading: userLoading } = useMyHasuraUser();
+  const myDiscordId = userProfile?.discord_user_id || storedDiscordId;
 
   const [createItemOrder, { loading: createItemOrderLoading }] = useMutation<
     InsertUserItemOrderMutation,
@@ -473,7 +477,7 @@ export const OrderBook = () => {
                 const guild = 'Smol Groop Found';
                 const inSmolGuild = true; // hardcode for now because guilds bugged from poe api
                 const myUserIsInSmolGuild = true; // hardcode for now because guilds bugged from poe api
-                const isMe = user.discord_user_id === myDiscordId;
+                const isMe = user.id === myUserId;
                 const orderFulfilled = !!fulfilled_by_user;
                 const stashVerdict =
                   !isMe && stashChecked && stashItems

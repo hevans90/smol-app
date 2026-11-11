@@ -1,169 +1,146 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import { addSeconds } from 'date-fns';
-
-import fetch, { Response } from 'node-fetch';
-
-import invariant from 'tiny-invariant';
-
 import { sign } from 'jsonwebtoken';
-
-type GGGOauthResponse = {
-  auth_code: string;
-  poe_verifier: string;
-  poe_state: string;
-};
+import fetch from 'node-fetch';
+import { hasuraUrl } from '../lib/require-user';
 
 type GGGAccessTokenResponse = {
-  access_token: string;
-  expires_in: number;
-  expiry?: string;
-  token_type: string;
-  scope: string;
-  username: string;
-  sub: string;
-  refresh_token: string;
+  access_token?: string;
+  expires_in?: number;
+  username?: string;
+  sub?: string;
+  error?: string;
+  error_description?: string;
 };
 
-type HasuraUser = {
-  id: string;
-  poe_name: string | null;
-  poe_user_id: string | null;
-  discord_name: string | null;
-  discord_user_id: string | null;
-  admin: boolean;
-};
+type HasuraUser = { id: string; admin: boolean };
 
 type HasuraUpsertUserResponse = {
-  data: { insert_user: { returning: HasuraUser[] } };
+  data?: { insert_user: { returning: HasuraUser[] } };
+  errors?: unknown;
 } | null;
 
+const json = (statusCode: number, body: Record<string, unknown>) => ({
+  statusCode,
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(body),
+});
+
+/**
+ * Second half of the PoE OAuth flow: exchanges the authorization code for a
+ * PoE token, upserts the user, and mints the hasura JWT. Called by
+ * verify.astro, which reads `error` on any non-200 to tell the member what
+ * went wrong.
+ *
+ * Never log the request or the token response here — they contain the client
+ * secret and the member's tokens.
+ */
 export const handler: Handler = async (event: HandlerEvent) => {
-  invariant(event.queryStringParameters);
+  if (event.httpMethod !== 'POST') {
+    return json(405, { error: 'method_not_allowed' });
+  }
 
-  // local hasura (docker compose) has no TLS
-  const hasuraURL = (process.env.HASURA_GRAPHQL_URI as string).startsWith(
-    'localhost'
-  )
-    ? `http://${process.env.HASURA_GRAPHQL_URI}`
-    : `https://${process.env.HASURA_GRAPHQL_URI}`;
-  const headers = {
-    'Content-Type': 'application/json',
-    'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET as string,
-  };
-
-  const { auth_code, poe_verifier, poe_state } =
-    event.queryStringParameters as GGGOauthResponse;
-
-  const data = {
-    client_id: 'smolapp',
-    client_secret: process.env.POE_CLIENT_SECRET as string,
-    grant_type: 'authorization_code',
-    code: auth_code,
-    redirect_uri: 'https://smol-app.netlify.app/api/auth',
-    scope: 'account:profile account:stashes',
-    code_verifier: poe_verifier,
-  };
-
-  console.log('logging in with', data);
-
-  let response: Response | undefined;
-  let responseData: GGGAccessTokenResponse | undefined;
-
+  let auth_code: string | undefined;
+  let poe_verifier: string | undefined;
   try {
-    response = await fetch('https://www.pathofexile.com/oauth/token', {
+    ({ auth_code, poe_verifier } = JSON.parse(event.body ?? '{}'));
+  } catch {
+    // falls through to the missing-parameter response
+  }
+  if (!auth_code || !poe_verifier) {
+    return json(400, { error: 'missing_code' });
+  }
+
+  let tokenData: GGGAccessTokenResponse;
+  try {
+    const response = await fetch('https://www.pathofexile.com/oauth/token', {
       method: 'POST',
       headers: {
         'User-Agent': 'OAuth smolapp/1.0 (contact: hevans9000@gmail.com)',
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: new URLSearchParams(data),
+      body: new URLSearchParams({
+        client_id: 'smolapp',
+        client_secret: process.env.POE_CLIENT_SECRET as string,
+        grant_type: 'authorization_code',
+        code: auth_code,
+        redirect_uri: 'https://smol-app.netlify.app/api/auth',
+        scope: 'account:profile account:stashes',
+        code_verifier: poe_verifier,
+      }),
     });
-    console.log('Got response from GGG:', response);
-    console.log('HEADERS:', response.headers);
-    console.log('STATUS:', response.status);
-    console.log('STATUS_TEXT:', response.statusText);
+    tokenData = (await response.json()) as GGGAccessTokenResponse;
+
+    if (!response.ok || !tokenData.access_token || !tokenData.sub) {
+      console.error('PoE token exchange rejected', {
+        status: response.status,
+        error: tokenData.error,
+        error_description: tokenData.error_description,
+      });
+      return json(401, { error: 'poe_rejected' });
+    }
   } catch (e) {
-    console.error(`Something went wrong`, e);
+    console.error('PoE token exchange failed', e);
+    return json(502, { error: 'poe_unreachable' });
   }
 
-  let upsertedHasuraUser: HasuraUser | undefined = undefined;
-
-  if (!response) {
-    throw new Error('No response from GGG API');
-  }
+  let user: HasuraUser | undefined;
   try {
-    responseData = (await response.json()) as GGGAccessTokenResponse;
-    console.log('Logged in via GGG OAuth', responseData);
-  } catch (e) {
-    console.error('Something went wrong parsing your login', e);
-  }
-  if (!responseData) {
-    throw new Error('Invalid response from GGG API');
-  }
-
-  try {
-    const hasuraResponse = await fetch(hasuraURL, {
+    const hasuraResponse = await fetch(hasuraUrl(), {
       method: 'POST',
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET as string,
+      },
       body: JSON.stringify({
         query: `
         mutation UpsertUserPoeDetails($poeName: String!, $poeUserId: String!) {
           insert_user(objects: {poe_name: $poeName, poe_user_id: $poeUserId}, on_conflict: {constraint: user_poe_user_id_key, update_columns: poe_name}) {
             returning {
               id
-              discord_user_id
-              discord_name
-              poe_name
-              poe_user_id
               admin
             }
           }
         }
       `,
-        variables: {
-          poeName: responseData.username,
-          poeUserId: responseData.sub,
-        },
+        variables: { poeName: tokenData.username, poeUserId: tokenData.sub },
       }),
     });
-    upsertedHasuraUser = (
-      (await hasuraResponse.json()) as HasuraUpsertUserResponse
-    )?.data.insert_user.returning[0];
-    console.log('Upserted POE user details to Hasura', upsertedHasuraUser);
+    const result = (await hasuraResponse.json()) as HasuraUpsertUserResponse;
+    user = result?.data?.insert_user.returning[0];
+    if (!user) console.error('User upsert returned no row', result?.errors);
   } catch (e) {
-    console.error(e);
+    console.error('User upsert failed', e);
   }
-
-  responseData.expiry = addSeconds(
-    new Date(),
-    responseData.expires_in
-  ).toISOString();
+  // without a user row the JWT would carry no user id, and every request
+  // made with it would fail in confusing ways — refuse instead
+  if (!user) return json(502, { error: 'user_save_failed' });
 
   // admins are assigned via the user.admin column (managed from the
   // frontend admin section); they get the hasura dev role
-  const dev = upsertedHasuraUser?.admin === true;
+  const dev = user.admin === true;
 
-  // now generate a new JWT for use with hasura
   const hasuraToken = sign(
     {
-      poeUserId: responseData.sub,
-      hasuraUserId: upsertedHasuraUser?.id,
+      poeUserId: tokenData.sub,
+      hasuraUserId: user.id,
       'https://hasura.io/jwt/claims': {
         'x-hasura-default-role': dev ? 'dev' : 'user',
         'x-hasura-allowed-roles': dev ? ['dev', 'user'] : ['user'],
-        'x-hasura-user-id': upsertedHasuraUser?.id,
+        'x-hasura-user-id': user.id,
       },
     },
     process.env.JWT_SECRET as string,
-    { algorithm: 'HS256' }
+    { algorithm: 'HS256' },
   );
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      ...responseData,
-      hasuraToken,
-      hasuraUserId: upsertedHasuraUser?.id,
-    }),
-  };
+  // only what the browser needs — the PoE refresh token stays server-side
+  // (and is simply dropped, since nothing here refreshes)
+  return json(200, {
+    access_token: tokenData.access_token,
+    expiry: addSeconds(new Date(), tokenData.expires_in ?? 0).toISOString(),
+    username: tokenData.username,
+    hasuraToken,
+    hasuraUserId: user.id,
+  });
 };

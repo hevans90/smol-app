@@ -11,6 +11,10 @@ interface Props {
 const { title, authPrompt } = Astro.props;
 
 import Auth from '../components/auth/Auth.astro';
+
+// Bump to force every browser to drop its stored session and preferences
+// (e.g. after changing what a login stores).
+const version = 'settlers_1.0.2';
 ---
 
 <!doctype html>
@@ -30,6 +34,17 @@ import Auth from '../components/auth/Auth.astro';
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
+    <script is:inline define:vars={{ version }}>
+      // Runs on every page, before any island reads localStorage. A browser
+      // with no stored version is new (or predates this check): it has
+      // nothing stale to clear, so it is only stamped — wiping there would
+      // sign out someone who logged in without ever visiting the home page.
+      {
+        const stored = localStorage.getItem('version');
+        if (stored !== null && stored !== version) localStorage.clear();
+        if (stored !== version) localStorage.setItem('version', version);
+      }
+    </script>
   </head>
   <body
     class="max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-7xl 2xl:max-w-[90rem] sm:m-auto h-screen"

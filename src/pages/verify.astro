@@ -1,47 +1,92 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const code = Astro.url.searchParams.get('code')! || '';
-const state = Astro.url.searchParams.get('state')! || '';
-const error = Astro.url.searchParams.get('error')! || '';
+const code = Astro.url.searchParams.get('code') || '';
+const state = Astro.url.searchParams.get('state') || '';
+const error = Astro.url.searchParams.get('error') || '';
 
 const { BASE_HREF } = import.meta.env;
 ---
 
 <Layout title="Smol app" authPrompt={false}>
   <main class="h-full flex flex-col justify-center items-center">
-    <p class="my-8 text-2xl">Verifying your login... patience exile.</p>
+    <p id="verify-status" class="my-8 text-2xl">
+      Verifying your login... patience exile.
+    </p>
+    <a id="verify-retry" href="/" hidden>Back to the app</a>
   </main>
 </Layout>
 
-<script define:vars={{ code, state, BASE_HREF, error }}>
-  const poe_verifier = localStorage.getItem('poe_verifier');
-  const poe_state = localStorage.getItem('poe_state');
-
-  const params = new URLSearchParams({
-    auth_code: code,
-    poe_verifier,
-    poe_state,
-  });
-
-  const redirectToLoginResult = async () => {
-    const result = await fetch(`${BASE_HREF}/api/verify?${params.toString()}`);
-    const { access_token, expiry, username, hasuraUserId, hasuraToken } =
-      await result.json();
-
-    const resultParams = new URLSearchParams({
-      // we can get more properties from the GGG login here but we don't need them
-      access_token,
-      expiry,
-      username,
-
-      // login information for hasura
-      hasuraUserId,
-      hasuraToken,
-    });
-
-    window.location.href = `${BASE_HREF}/login-result?${resultParams.toString()}`;
+<script define:vars={{ code, state, error, BASE_HREF }}>
+  // Completes the PoE login in one step: exchange the code via /api/verify,
+  // store the session, and go back to where the member started. Tokens are
+  // never put in a URL.
+  const fail = (message) => {
+    const status = document.getElementById('verify-status');
+    status.textContent = message;
+    status.classList.add('text-red-400');
+    document.getElementById('verify-retry').hidden = false;
   };
 
-  redirectToLoginResult();
+  const failureMessages = {
+    poe_rejected: 'Path of Exile rejected this sign-in. Try again.',
+    poe_unreachable: 'Could not reach Path of Exile. Try again shortly.',
+    user_save_failed: 'Could not save your account. Try again shortly.',
+  };
+
+  const verifier = localStorage.getItem('poe_verifier');
+  const expectedState = localStorage.getItem('poe_state');
+  // single use, whatever happens next
+  localStorage.removeItem('poe_verifier');
+  localStorage.removeItem('poe_state');
+
+  const completeLogin = async () => {
+    if (error) {
+      return fail(
+        error === 'access_denied'
+          ? 'Path of Exile sign-in was cancelled.'
+          : 'Path of Exile sign-in failed.',
+      );
+    }
+    if (!code || !verifier) {
+      return fail('This sign-in link has expired.');
+    }
+    // the state we sent must come back unchanged, otherwise this callback
+    // was not started from this browser
+    if (!expectedState || state !== expectedState) {
+      return fail('This sign-in could not be verified.');
+    }
+
+    let result;
+    try {
+      const response = await fetch('/api/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ auth_code: code, poe_verifier: verifier }),
+      });
+      result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.hasuraToken || !result.hasuraUserId) {
+        return fail(failureMessages[result.error] ?? 'Sign-in failed.');
+      }
+    } catch {
+      return fail('Sign-in failed. Check your connection and try again.');
+    }
+
+    localStorage.setItem('poe_token', result.access_token);
+    localStorage.setItem('poe_username', result.username);
+    localStorage.setItem('poe_expiry', result.expiry);
+    localStorage.setItem('hasura_user_id', result.hasuraUserId);
+    localStorage.setItem('hasura_token', result.hasuraToken);
+
+    // Back to the page the login was started from (set by startPoEReauth),
+    // e.g. a shared /order-book?view=bulk link. Same-origin paths only.
+    const returnTo = localStorage.getItem('poe_return_to');
+    localStorage.removeItem('poe_return_to');
+    window.location.href =
+      returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')
+        ? returnTo
+        : BASE_HREF || '/';
+  };
+
+  completeLogin();
 </script>

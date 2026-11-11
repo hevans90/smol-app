@@ -54,7 +54,7 @@ const generateUrlParams = async () => {
 // an account:profile token. Rather than forcing everyone to re-login, the
 // stash-check feature calls this lazily (only once someone actually tries to
 // use it) to grab a fresh token with both scopes, then bounces back to
-// wherever they were via poe_return_to (see login-result.astro).
+// wherever they were via poe_return_to (see verify.astro).
 export const startPoEReauth = async (returnTo?: string) => {
   localStorage.setItem(
     'poe_return_to',

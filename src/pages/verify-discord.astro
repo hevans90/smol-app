@@ -1,30 +1,53 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const user_data = Astro.url.searchParams.get('user_data')! || '';
-const token = Astro.url.searchParams.get('token')! || '';
-const expiry = Astro.url.searchParams.get('expiry')! || '';
+const user_data = Astro.url.searchParams.get('user_data') || '';
+const error = Astro.url.searchParams.get('error') || '';
 
 const { BASE_HREF } = import.meta.env;
 ---
 
 <Layout title="Smol app" authPrompt={false}>
   <main class="h-[80vh] flex flex-col justify-center items-center">
-    <p class="my-8 text-2xl">Verifying your discord login... patience exile.</p>
+    <p id="verify-status" class="my-8 text-2xl">
+      Verifying your discord login... patience exile.
+    </p>
+    <a id="verify-retry" href="/" hidden>Back to the app</a>
   </main>
 </Layout>
 
-<script define:vars={{ token, user_data, expiry, BASE_HREF }}>
-  localStorage.setItem('discord_token', token);
-  localStorage.setItem('discord_userdata', user_data);
-  localStorage.setItem('discord_expiry', expiry);
+<script define:vars={{ user_data, error, BASE_HREF }}>
+  // the link cookie set by the auth modal has done its job
+  document.cookie = 'smol_link_token=; path=/; max-age=0';
 
-  // Go back to the page the member connected Discord from (set by the auth
-  // modal), e.g. a shared /order-book?view=bulk link. Same-origin paths only.
-  const returnTo = localStorage.getItem('discord_return_to');
-  localStorage.removeItem('discord_return_to');
-  window.location.href =
-    returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')
-      ? returnTo
-      : BASE_HREF;
+  const failureMessages = {
+    cancelled: 'Discord sign-in was cancelled.',
+    not_signed_in: 'Sign in with Path of Exile first, then connect Discord.',
+    discord_rejected: 'Discord rejected this sign-in. Try again.',
+    discord_unreachable: 'Could not reach Discord. Try again shortly.',
+    link_not_saved: 'Could not save your Discord link. Try again shortly.',
+  };
+
+  let discordUser;
+  try {
+    discordUser = JSON.parse(user_data);
+  } catch {}
+
+  if (error || !discordUser?.id) {
+    const status = document.getElementById('verify-status');
+    status.textContent = failureMessages[error] ?? 'Discord sign-in failed.';
+    status.classList.add('text-red-400');
+    document.getElementById('verify-retry').hidden = false;
+  } else {
+    localStorage.setItem('discord_userdata', user_data);
+
+    // Go back to the page the member connected Discord from (set by the auth
+    // modal), e.g. a shared /order-book?view=bulk link. Same-origin paths only.
+    const returnTo = localStorage.getItem('discord_return_to');
+    localStorage.removeItem('discord_return_to');
+    window.location.href =
+      returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')
+        ? returnTo
+        : BASE_HREF || '/';
+  }
 </script>

@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 import { discordStore } from '../../../_state/discord.state';
 import { poeStore } from '../../../_state/poe.state';
 
-type StoredDiscordUser = { id: string; avatar: string; global_name: string };
+type StoredDiscordUser = {
+  id: string;
+  // null for members on Discord's default avatar
+  avatar: string | null;
+  global_name: string;
+};
 
 // The Discord identity saved by verify-discord.astro. Returns undefined when
 // nothing usable is stored (never linked, logged out, or a failed OAuth round
@@ -65,12 +70,15 @@ const DiscordAuth = ({
         <div className="flex h-12 items-center gap-2 bg-discord-500 p-2">
           <img src="/discord-logo.svg" className="h-7" />
 
-          <img
-            className="rounded-full"
-            src={`https://cdn.discordapp.com/avatars/${userData?.id}/${userData?.avatar}.png`}
-            height="40"
-            width="40"
-          />
+          {userData.avatar && (
+            <img
+              className="rounded-full"
+              src={`https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`}
+              height="40"
+              width="40"
+              alt=""
+            />
+          )}
         </div>
         <div className="hidden grow text-primary-500 md:block">
           {userData?.global_name}

@@ -134,7 +134,7 @@ export const AuthModal = ({
                 disabled={redirecting}
                 onClick={() => {
                   setRedirecting(true);
-                  // returns to this page afterwards (see login-result.astro)
+                  // returns to this page afterwards (see verify.astro)
                   void startPoEReauth(currentPage());
                 }}
                 className="whitespace-nowrap px-3 py-2 leading-5 text-primary-500"
@@ -157,10 +157,17 @@ export const AuthModal = ({
             {discordDone ? null : poeDone ? (
               <a
                 href={discordOauthUrl}
-                onClick={() =>
+                onClick={() => {
                   // read back by verify-discord.astro
-                  localStorage.setItem('discord_return_to', currentPage())
-                }
+                  localStorage.setItem('discord_return_to', currentPage());
+                  // Tells /api/discord-auth which account to link: a browser
+                  // redirect can't send an Authorization header, so the
+                  // hasura JWT rides along in a cookie that lives just long
+                  // enough for the round trip.
+                  const secure =
+                    window.location.protocol === 'https:' ? '; Secure' : '';
+                  document.cookie = `smol_link_token=${loginState?.hasuraAccessToken}; path=/; max-age=600; SameSite=Lax${secure}`;
+                }}
                 className="flex items-center gap-2 whitespace-nowrap rounded-md bg-discord-500 px-3 py-2 leading-5 text-white no-underline hover:bg-discord-400 hover:text-white"
               >
                 <img src="/discord-logo.svg" alt="" className="h-5 w-5" />

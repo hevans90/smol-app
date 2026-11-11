@@ -9,29 +9,28 @@ import (
 	"net/url"
 	"os"
 	"strings"
-
-	"github.com/fatih/color"
 )
 
 type TokenResponse struct {
 	AccessToken string `json:"access_token"`
-	ExpiresIn   string `json:"expires_in"`
 	TokenType   string `json:"token_type"`
 	Username    string `json:"username"`
 	Sub         string `json:"sub"`
 	Scope       string `json:"scope"`
 }
 
-func GetToken() TokenResponse {
+// GetToken fetches a service token with the app's client credentials.
+//
+// Every failure is returned, never panicked: GGG being briefly unreachable,
+// rate-limiting us, or answering with an HTML error page must cost one sweep,
+// not the whole process.
+func GetToken() (TokenResponse, error) {
 	var tokenResponse TokenResponse
 
 	clientSecret := os.Getenv("POE_CLIENT_SECRET")
 	if clientSecret == "" {
-		msg := "no poe client secret found"
-		panic(errors.New(msg))
+		return tokenResponse, errors.New("POE_CLIENT_SECRET is not set")
 	}
-
-	client := &http.Client{}
 
 	form := url.Values{
 		"client_id":     {"smolapp"},
@@ -40,40 +39,32 @@ func GetToken() TokenResponse {
 		"scope":         {"service:leagues service:leagues:ladder service:psapi"},
 	}
 
-	req, err := http.NewRequest("POST", "https://www.pathofexile.com/oauth/token", strings.NewReader(form.Encode()))
+	req, err := http.NewRequest("POST", oauthTokenURL, strings.NewReader(form.Encode()))
 	if err != nil {
-		panic(err)
+		return tokenResponse, err
 	}
-	req.Header.Set("User-Agent", "OAuth smolapp/1.0 (contact: hevans9000@gmail.com)")
+	req.Header.Set("User-Agent", userAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	resp, err := client.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
-		panic(err)
+		return tokenResponse, fmt.Errorf("token request failed: %w", err)
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		panic(err)
+		return tokenResponse, fmt.Errorf("reading token response: %w", err)
+	}
+	if resp.StatusCode != http.StatusOK {
+		return tokenResponse, fmt.Errorf("token request returned status %d", resp.StatusCode)
+	}
+	if err := json.Unmarshal(body, &tokenResponse); err != nil {
+		return tokenResponse, fmt.Errorf("decoding token response: %w", err)
+	}
+	if tokenResponse.AccessToken == "" {
+		return tokenResponse, errors.New("token response had no access token")
 	}
 
-	err2 := json.Unmarshal(body, &tokenResponse)
-	if err2 != nil {
-		fmt.Printf("There was an error decoding the json. err = %s", err2)
-		panic(err2)
-	}
-
-	_, err3 := json.MarshalIndent(tokenResponse, "", "    ") // 4 spaces for indentation
-	if err3 != nil {
-		fmt.Println("Error marshaling JSON:", err3)
-		os.Exit(1)
-	}
-
-	green := color.New(color.FgGreen)
-
-	fmt.Print("POE API: ")
-	green.Print("connected succesfully\n\n")
-
-	return tokenResponse
+	return tokenResponse, nil
 }

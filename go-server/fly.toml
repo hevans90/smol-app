@@ -27,6 +27,14 @@ swap_size_mb = 512
   min_machines_running = 1
   processes = ['app']
 
+# Fly's default is to restart a crashed machine at most 10 times and then
+# leave it stopped until an HTTP request happens to wake it. This server's
+# job is a background sweep that nothing requests, so it must always come
+# back on its own.
+[[restart]]
+  policy = 'always'
+  processes = ['app']
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'

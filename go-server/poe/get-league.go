@@ -3,10 +3,9 @@ package poe
 import (
 	"encoding/json"
 	"fmt"
-	"html"
 	"io"
-	"log"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -65,40 +64,37 @@ type LeagueResponse struct {
 	Ladder Ladder `json:"ladder"`
 }
 
-func GetLeague(tokenResponse TokenResponse, leagueName string) LeagueResponse {
+// GetLeague fetches a league and its ladder. Like GetToken, it returns every
+// failure instead of panicking, so a bad response from GGG skips one sweep
+// rather than crashing the server.
+func GetLeague(tokenResponse TokenResponse, leagueName string) (LeagueResponse, error) {
 	var leagueResponse LeagueResponse
 
-	bearer := fmt.Sprintf("bearer %v", tokenResponse.AccessToken)
+	leagueUrl := fmt.Sprintf("%s/league/%s/ladder?limit=500", apiBaseURL, url.PathEscape(leagueName))
 
-	leaguesUrl := fmt.Sprintf("https://api.pathofexile.com/league/%v/ladder?limit=500", html.EscapeString(leagueName))
-
-	req, httpReqConstructErr := http.NewRequest("GET", leaguesUrl, nil)
-
-	if httpReqConstructErr != nil {
-		log.Println("Error constructing HTTP request:", httpReqConstructErr)
-	}
-
-	req.Header.Set("Authorization", bearer)
-	req.Header.Set("User-Agent", "OAuth smolapp/1.0 (contact: hevans9000@gmail.com)")
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-
+	req, err := http.NewRequest("GET", leagueUrl, nil)
 	if err != nil {
-		log.Println("Error on response:", err)
+		return leagueResponse, err
+	}
+	req.Header.Set("Authorization", "Bearer "+tokenResponse.AccessToken)
+	req.Header.Set("User-Agent", userAgent)
+
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return leagueResponse, fmt.Errorf("ladder request failed: %w", err)
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Println("Error while reading the response bytes:", err)
+		return leagueResponse, fmt.Errorf("reading ladder response: %w", err)
+	}
+	if resp.StatusCode != http.StatusOK {
+		return leagueResponse, fmt.Errorf("ladder request returned status %d", resp.StatusCode)
+	}
+	if err := json.Unmarshal(body, &leagueResponse); err != nil {
+		return leagueResponse, fmt.Errorf("decoding ladder response: %w", err)
 	}
 
-	err2 := json.Unmarshal(body, &leagueResponse)
-	if err2 != nil {
-		fmt.Printf("There was an error decoding the json: %s", err2)
-		panic(err2)
-	}
-
-	return leagueResponse
+	return leagueResponse, nil
 }

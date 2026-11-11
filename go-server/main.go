@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"runtime/debug"
 	"sync"
 	"time"
 
@@ -116,8 +117,19 @@ func configuredLeague(ctx context.Context, queries *smoldata.Queries) string {
 // (Hasura exposes that table to the frontend). Returns how many were saved.
 func computeCharacterStats(ctx context.Context, queries *smoldata.Queries, runner *pob.Runner, green, red *color.Color) int {
 	leagueName := configuredLeague(ctx, queries)
-	tokenResponse := poe.GetToken()
-	leagueResponse := poe.GetLeague(tokenResponse, leagueName)
+
+	// A failure here (GGG down, rate-limited, bad response) just skips this
+	// sweep; the loop in main tries again after statsInterval.
+	tokenResponse, err := poe.GetToken()
+	if err != nil {
+		red.Printf("Skipping stats sweep, could not get a PoE token: %v\n", err)
+		return 0
+	}
+	leagueResponse, err := poe.GetLeague(tokenResponse, leagueName)
+	if err != nil {
+		red.Printf("Skipping stats sweep, could not fetch the ladder for %s: %v\n", leagueName, err)
+		return 0
+	}
 
 	fetch := func(get func(string, string) (json.RawMessage, error), account, character string) (json.RawMessage, bool) {
 		payload, err := get(account, character)
@@ -191,6 +203,19 @@ func computeCharacterStats(ctx context.Context, queries *smoldata.Queries, runne
 	return saved
 }
 
+// runSweepSafely runs one stats sweep and turns a panic anywhere inside it
+// into a logged error. The sweep handles untrusted input end to end (GGG
+// responses, PoB output), and Fly only restarts a crashed machine 10 times
+// before leaving it stopped — one bad payload must never take the server down.
+func runSweepSafely(ctx context.Context, queries *smoldata.Queries, runner *pob.Runner, green, red *color.Color) (saved int) {
+	defer func() {
+		if r := recover(); r != nil {
+			red.Printf("Stats sweep panicked, will retry next interval: %v\n%s\n", r, debug.Stack())
+		}
+	}()
+	return computeCharacterStats(ctx, queries, runner, green, red)
+}
+
 func main() {
 	green := color.New(color.FgGreen)
 	red := color.New(color.FgRed)
@@ -254,7 +279,7 @@ func main() {
 				sweepMu.Unlock()
 
 				started := time.Now()
-				saved := computeCharacterStats(sweepCtx, queries, statsRunner, green, red)
+				saved := runSweepSafely(sweepCtx, queries, statsRunner, green, red)
 				if sweepCtx.Err() != nil {
 					green.Printf("PoB sweep aborted after %v (league changed mid-sweep; %d characters saved before abort)\n", time.Since(started).Round(time.Second), saved)
 				} else {

@@ -38,10 +38,9 @@ func getCharacterWindow(endpoint, accountName, characterName string) (json.RawMe
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("User-Agent", "OAuth smolapp/1.0 (contact: hevans9000@gmail.com)")
+	req.Header.Set("User-Agent", userAgent)
 
-	client := &http.Client{Timeout: 30 * time.Second}
-	resp, err := client.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}

@@ -2426,6 +2426,78 @@ export type League_Max_Fields = {
   url?: Maybe<Scalars['String']['output']>;
 };
 
+/** columns and relationships of "league_member" */
+export type League_Member = {
+  __typename?: 'league_member';
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** aggregated selection of "league_member" */
+export type League_Member_Aggregate = {
+  __typename?: 'league_member_aggregate';
+  aggregate?: Maybe<League_Member_Aggregate_Fields>;
+  nodes: Array<League_Member>;
+};
+
+/** aggregate fields of "league_member" */
+export type League_Member_Aggregate_Fields = {
+  __typename?: 'league_member_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<League_Member_Max_Fields>;
+  min?: Maybe<League_Member_Min_Fields>;
+};
+
+
+/** aggregate fields of "league_member" */
+export type League_Member_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<League_Member_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "league_member". All fields are combined with a logical 'AND'. */
+export type League_Member_Bool_Exp = {
+  _and?: InputMaybe<Array<League_Member_Bool_Exp>>;
+  _not?: InputMaybe<League_Member_Bool_Exp>;
+  _or?: InputMaybe<Array<League_Member_Bool_Exp>>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type League_Member_Max_Fields = {
+  __typename?: 'league_member_max_fields';
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** aggregate min on columns */
+export type League_Member_Min_Fields = {
+  __typename?: 'league_member_min_fields';
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** Ordering options when selecting data from "league_member". */
+export type League_Member_Order_By = {
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "league_member" */
+export enum League_Member_Select_Column {
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** Streaming cursor of the table "league_member" */
+export type League_Member_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: League_Member_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type League_Member_Stream_Cursor_Value_Input = {
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
 /** aggregate min on columns */
 export type League_Min_Fields = {
   __typename?: 'league_min_fields';
@@ -3740,6 +3812,10 @@ export type Query_Root = {
   league_category_aggregate: League_Category_Aggregate;
   /** fetch data from the table: "league_category" using primary key columns */
   league_category_by_pk?: Maybe<League_Category>;
+  /** fetch data from the table: "league_member" */
+  league_member: Array<League_Member>;
+  /** fetch aggregated fields from the table: "league_member" */
+  league_member_aggregate: League_Member_Aggregate;
   /** fetch data from the table: "league_rules" */
   league_rules: Array<League_Rules>;
   /** fetch aggregated fields from the table: "league_rules" */
@@ -3957,6 +4033,24 @@ export type Query_RootLeague_Category_By_PkArgs = {
 };
 
 
+export type Query_RootLeague_MemberArgs = {
+  distinct_on?: InputMaybe<Array<League_Member_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Member_Order_By>>;
+  where?: InputMaybe<League_Member_Bool_Exp>;
+};
+
+
+export type Query_RootLeague_Member_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<League_Member_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Member_Order_By>>;
+  where?: InputMaybe<League_Member_Bool_Exp>;
+};
+
+
 export type Query_RootLeague_RulesArgs = {
   distinct_on?: InputMaybe<Array<League_Rules_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4135,6 +4229,12 @@ export type Subscription_Root = {
   league_category_by_pk?: Maybe<League_Category>;
   /** fetch data from the table in a streaming manner: "league_category" */
   league_category_stream: Array<League_Category>;
+  /** fetch data from the table: "league_member" */
+  league_member: Array<League_Member>;
+  /** fetch aggregated fields from the table: "league_member" */
+  league_member_aggregate: League_Member_Aggregate;
+  /** fetch data from the table in a streaming manner: "league_member" */
+  league_member_stream: Array<League_Member>;
   /** fetch data from the table: "league_rules" */
   league_rules: Array<League_Rules>;
   /** fetch aggregated fields from the table: "league_rules" */
@@ -4410,6 +4510,31 @@ export type Subscription_RootLeague_Category_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<League_Category_Stream_Cursor_Input>>;
   where?: InputMaybe<League_Category_Bool_Exp>;
+};
+
+
+export type Subscription_RootLeague_MemberArgs = {
+  distinct_on?: InputMaybe<Array<League_Member_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Member_Order_By>>;
+  where?: InputMaybe<League_Member_Bool_Exp>;
+};
+
+
+export type Subscription_RootLeague_Member_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<League_Member_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<League_Member_Order_By>>;
+  where?: InputMaybe<League_Member_Bool_Exp>;
+};
+
+
+export type Subscription_RootLeague_Member_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<League_Member_Stream_Cursor_Input>>;
+  where?: InputMaybe<League_Member_Bool_Exp>;
 };
 
 
@@ -5508,6 +5633,13 @@ export type LeagueQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LeagueQuery = { __typename?: 'query_root', app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, league?: { __typename?: 'league', url?: string | null, start_at: string, register_at: string, realm: string, id: string, end_at: string, delve_event: boolean, description?: string | null, category_id?: string | null } | null } | null };
 
+export type MyLeagueMembershipSubscriptionVariables = Exact<{
+  userId: Scalars['uuid']['input'];
+}>;
+
+
+export type MyLeagueMembershipSubscription = { __typename?: 'subscription_root', league_member: Array<{ __typename?: 'league_member', user_id?: string | null }> };
+
 export type LeaguesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5927,6 +6059,14 @@ export const LeagueDocument = gql`
 }
     `;
 export type LeagueQueryResult = Apollo.QueryResult<LeagueQuery, LeagueQueryVariables>;
+export const MyLeagueMembershipDocument = gql`
+    subscription MyLeagueMembership($userId: uuid!) {
+  league_member(where: {user_id: {_eq: $userId}}) {
+    user_id
+  }
+}
+    `;
+export type MyLeagueMembershipSubscriptionResult = Apollo.SubscriptionResult<MyLeagueMembershipSubscription>;
 export const LeaguesDocument = gql`
     query Leagues {
   league_type {

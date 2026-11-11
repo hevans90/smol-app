@@ -15,6 +15,13 @@ insert_permissions:
         _and:
           - user_id:
               _eq: X-Hasura-User-Id
+          - _exists:
+              _table:
+                name: league_member
+                schema: public
+              _where:
+                user_id:
+                  _eq: X-Hasura-User-Id
           - bulk_order:
               _and:
                 - cancelled_at:
@@ -34,6 +41,13 @@ insert_permissions:
         _and:
           - user_id:
               _eq: X-Hasura-User-Id
+          - _exists:
+              _table:
+                name: league_member
+                schema: public
+              _where:
+                user_id:
+                  _eq: X-Hasura-User-Id
           - bulk_order:
               _and:
                 - cancelled_at:

@@ -1,0 +1,8 @@
+# league_member is a view: one row per user whose PoE account owns a
+# character on the ladder of the admin-configured league. Order writes are
+# gated on it in the Hasura permissions.
+subscription MyLeagueMembership($userId: uuid!) {
+  league_member(where: { user_id: { _eq: $userId } }) {
+    user_id
+  }
+}

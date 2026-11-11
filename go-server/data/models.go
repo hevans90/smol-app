@@ -187,6 +187,10 @@ type LeagueCategory struct {
 	Current bool
 }
 
+type LeagueMember struct {
+	UserID uuid.UUID
+}
+
 type LeagueRule struct {
 	ID          string
 	Name        string

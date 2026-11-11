@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import GraphQLAppWrapper from '../_utils/GraphQLAppWrapper';
 import { BulkOrderBook } from './react/graphql-provided/BulkOrderBook';
+import { LeagueMembershipNotice } from './react/graphql-provided/LeagueMembershipNotice';
 import { OrderBook } from './react/graphql-provided/OrderBook';
 import { type OrdersView, OrdersViewSwitcher } from './react/OrdersViewSwitcher';
 
@@ -29,6 +30,7 @@ export const OrdersPage = ({ hasuraUri }: { hasuraUri: string }) => {
   return (
     <GraphQLAppWrapper uri={hasuraUri}>
       <OrdersViewSwitcher active={view} />
+      <LeagueMembershipNotice />
       {view === 'bulk' ? <BulkOrderBook /> : <OrderBook />}
     </GraphQLAppWrapper>
   );

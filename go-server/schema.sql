@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict ei5B6puyjkrBfh9j2o7wWCPW9ojJG9zWEo1LON5KVYlUDRXEvNAP8ijQp4y1S0W
+\restrict xtcsFBKcEkYyz3abOC82jzPUWbVEiiVynUDttZDfFXjhUUwQh8gukggCJbrLtYK
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -419,6 +419,33 @@ CREATE TABLE public.league_category (
 
 
 --
+-- Name: user; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."user" (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    discord_user_id text,
+    discord_name text,
+    poe_user_id text,
+    poe_name text,
+    discord_avatar text,
+    guild text,
+    admin boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: league_member; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.league_member AS
+ SELECT DISTINCT u.id AS user_id
+   FROM ((public."user" u
+     JOIN public."character" c ON ((lower(c.poe_account_name) = lower(u.poe_name))))
+     JOIN public.app_config a ON ((a.league_name = c.league)));
+
+
+--
 -- Name: league_rules; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -436,22 +463,6 @@ CREATE TABLE public.league_rules (
 
 CREATE TABLE public.league_type (
     value text NOT NULL
-);
-
-
---
--- Name: user; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."user" (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    discord_user_id text,
-    discord_name text,
-    poe_user_id text,
-    poe_name text,
-    discord_avatar text,
-    guild text,
-    admin boolean DEFAULT false NOT NULL
 );
 
 
@@ -921,5 +932,5 @@ ALTER TABLE ONLY public.user_league_mechanic
 -- PostgreSQL database dump complete
 --
 
-\unrestrict ei5B6puyjkrBfh9j2o7wWCPW9ojJG9zWEo1LON5KVYlUDRXEvNAP8ijQp4y1S0W
+\unrestrict xtcsFBKcEkYyz3abOC82jzPUWbVEiiVynUDttZDfFXjhUUwQh8gukggCJbrLtYK
 

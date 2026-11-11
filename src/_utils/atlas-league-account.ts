@@ -7,7 +7,39 @@ export type AtlasTree = {
   hashes: number[];
   /** the tree currently selected in game, when GGG's response says so */
   active?: boolean;
+  /**
+   * When a sync last saw this tree's nodes differ from the sync before
+   * (ISO time). Absent until a change has been witnessed. The most recently
+   * edited tree is our best guess at the one in use.
+   */
+  changed_at?: string;
 };
+
+const sameHashes = (a: number[], b: number[]) => {
+  if (a.length !== b.length) return false;
+  const seen = new Set(a);
+  return b.every((hash) => seen.has(hash));
+};
+
+/**
+ * Stamps freshly fetched trees with changed_at by comparing each with the
+ * tree in the same position of the previous snapshot. With no previous
+ * snapshot nothing is stamped: a first sight is not a change.
+ */
+export const stampTreeChanges = (
+  trees: AtlasTree[],
+  previous: AtlasTree[] | undefined,
+  now: string,
+): AtlasTree[] =>
+  trees.map((tree, index) => {
+    if (!previous) return tree;
+    const before = previous[index];
+    const changed = before
+      ? !sameHashes(before.hashes ?? [], tree.hashes)
+      : tree.hashes.length > 0;
+    const changed_at = changed ? now : before?.changed_at;
+    return changed_at ? { ...tree, changed_at } : tree;
+  });
 
 // The tree export new syncs are stamped with. Bump when a new league's
 // export has been generated (and add its loader in atlas.ts).

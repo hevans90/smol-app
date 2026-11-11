@@ -499,6 +499,7 @@ export type Atlas_Snapshot = {
   fetched_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
   league: Scalars['String']['output'];
+  pinned_tree?: Maybe<Scalars['Int']['output']>;
   raw_trees: Scalars['jsonb']['output'];
   tree_version: Scalars['String']['output'];
   trees: Scalars['jsonb']['output'];
@@ -540,9 +541,17 @@ export type Atlas_Snapshot_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "atlas_snapshot" */
 export type Atlas_Snapshot_Aggregate_Fields = {
   __typename?: 'atlas_snapshot_aggregate_fields';
+  avg?: Maybe<Atlas_Snapshot_Avg_Fields>;
   count: Scalars['Int']['output'];
   max?: Maybe<Atlas_Snapshot_Max_Fields>;
   min?: Maybe<Atlas_Snapshot_Min_Fields>;
+  stddev?: Maybe<Atlas_Snapshot_Stddev_Fields>;
+  stddev_pop?: Maybe<Atlas_Snapshot_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Atlas_Snapshot_Stddev_Samp_Fields>;
+  sum?: Maybe<Atlas_Snapshot_Sum_Fields>;
+  var_pop?: Maybe<Atlas_Snapshot_Var_Pop_Fields>;
+  var_samp?: Maybe<Atlas_Snapshot_Var_Samp_Fields>;
+  variance?: Maybe<Atlas_Snapshot_Variance_Fields>;
 };
 
 
@@ -554,9 +563,17 @@ export type Atlas_Snapshot_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "atlas_snapshot" */
 export type Atlas_Snapshot_Aggregate_Order_By = {
+  avg?: InputMaybe<Atlas_Snapshot_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Atlas_Snapshot_Max_Order_By>;
   min?: InputMaybe<Atlas_Snapshot_Min_Order_By>;
+  stddev?: InputMaybe<Atlas_Snapshot_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Atlas_Snapshot_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Atlas_Snapshot_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Atlas_Snapshot_Sum_Order_By>;
+  var_pop?: InputMaybe<Atlas_Snapshot_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Atlas_Snapshot_Var_Samp_Order_By>;
+  variance?: InputMaybe<Atlas_Snapshot_Variance_Order_By>;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
@@ -572,6 +589,17 @@ export type Atlas_Snapshot_Arr_Rel_Insert_Input = {
   on_conflict?: InputMaybe<Atlas_Snapshot_On_Conflict>;
 };
 
+/** aggregate avg on columns */
+export type Atlas_Snapshot_Avg_Fields = {
+  __typename?: 'atlas_snapshot_avg_fields';
+  pinned_tree?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Avg_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "atlas_snapshot". All fields are combined with a logical 'AND'. */
 export type Atlas_Snapshot_Bool_Exp = {
   _and?: InputMaybe<Array<Atlas_Snapshot_Bool_Exp>>;
@@ -580,6 +608,7 @@ export type Atlas_Snapshot_Bool_Exp = {
   fetched_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   league?: InputMaybe<String_Comparison_Exp>;
+  pinned_tree?: InputMaybe<Int_Comparison_Exp>;
   raw_trees?: InputMaybe<Jsonb_Comparison_Exp>;
   tree_version?: InputMaybe<String_Comparison_Exp>;
   trees?: InputMaybe<Jsonb_Comparison_Exp>;
@@ -613,11 +642,17 @@ export type Atlas_Snapshot_Delete_Key_Input = {
   trees?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** input type for incrementing numeric columns in table "atlas_snapshot" */
+export type Atlas_Snapshot_Inc_Input = {
+  pinned_tree?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** input type for inserting data into table "atlas_snapshot" */
 export type Atlas_Snapshot_Insert_Input = {
   fetched_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   league?: InputMaybe<Scalars['String']['input']>;
+  pinned_tree?: InputMaybe<Scalars['Int']['input']>;
   raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
   tree_version?: InputMaybe<Scalars['String']['input']>;
   trees?: InputMaybe<Scalars['jsonb']['input']>;
@@ -631,6 +666,7 @@ export type Atlas_Snapshot_Max_Fields = {
   fetched_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   league?: Maybe<Scalars['String']['output']>;
+  pinned_tree?: Maybe<Scalars['Int']['output']>;
   tree_version?: Maybe<Scalars['String']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -640,6 +676,7 @@ export type Atlas_Snapshot_Max_Order_By = {
   fetched_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   league?: InputMaybe<Order_By>;
+  pinned_tree?: InputMaybe<Order_By>;
   tree_version?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -650,6 +687,7 @@ export type Atlas_Snapshot_Min_Fields = {
   fetched_at?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   league?: Maybe<Scalars['String']['output']>;
+  pinned_tree?: Maybe<Scalars['Int']['output']>;
   tree_version?: Maybe<Scalars['String']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
 };
@@ -659,6 +697,7 @@ export type Atlas_Snapshot_Min_Order_By = {
   fetched_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   league?: InputMaybe<Order_By>;
+  pinned_tree?: InputMaybe<Order_By>;
   tree_version?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -684,6 +723,7 @@ export type Atlas_Snapshot_Order_By = {
   fetched_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   league?: InputMaybe<Order_By>;
+  pinned_tree?: InputMaybe<Order_By>;
   raw_trees?: InputMaybe<Order_By>;
   tree_version?: InputMaybe<Order_By>;
   trees?: InputMaybe<Order_By>;
@@ -711,6 +751,8 @@ export enum Atlas_Snapshot_Select_Column {
   /** column name */
   League = 'league',
   /** column name */
+  PinnedTree = 'pinned_tree',
+  /** column name */
   RawTrees = 'raw_trees',
   /** column name */
   TreeVersion = 'tree_version',
@@ -725,10 +767,44 @@ export type Atlas_Snapshot_Set_Input = {
   fetched_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   league?: InputMaybe<Scalars['String']['input']>;
+  pinned_tree?: InputMaybe<Scalars['Int']['input']>;
   raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
   tree_version?: InputMaybe<Scalars['String']['input']>;
   trees?: InputMaybe<Scalars['jsonb']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Atlas_Snapshot_Stddev_Fields = {
+  __typename?: 'atlas_snapshot_stddev_fields';
+  pinned_tree?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Stddev_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Atlas_Snapshot_Stddev_Pop_Fields = {
+  __typename?: 'atlas_snapshot_stddev_pop_fields';
+  pinned_tree?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Stddev_Pop_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Atlas_Snapshot_Stddev_Samp_Fields = {
+  __typename?: 'atlas_snapshot_stddev_samp_fields';
+  pinned_tree?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Stddev_Samp_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "atlas_snapshot" */
@@ -744,10 +820,22 @@ export type Atlas_Snapshot_Stream_Cursor_Value_Input = {
   fetched_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   league?: InputMaybe<Scalars['String']['input']>;
+  pinned_tree?: InputMaybe<Scalars['Int']['input']>;
   raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
   tree_version?: InputMaybe<Scalars['String']['input']>;
   trees?: InputMaybe<Scalars['jsonb']['input']>;
   user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Atlas_Snapshot_Sum_Fields = {
+  __typename?: 'atlas_snapshot_sum_fields';
+  pinned_tree?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Sum_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "atlas_snapshot" */
@@ -758,6 +846,8 @@ export enum Atlas_Snapshot_Update_Column {
   Id = 'id',
   /** column name */
   League = 'league',
+  /** column name */
+  PinnedTree = 'pinned_tree',
   /** column name */
   RawTrees = 'raw_trees',
   /** column name */
@@ -777,12 +867,47 @@ export type Atlas_Snapshot_Updates = {
   _delete_elem?: InputMaybe<Atlas_Snapshot_Delete_Elem_Input>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
   _delete_key?: InputMaybe<Atlas_Snapshot_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Atlas_Snapshot_Inc_Input>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
   _prepend?: InputMaybe<Atlas_Snapshot_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Atlas_Snapshot_Set_Input>;
   /** filter the rows which have to be updated */
   where: Atlas_Snapshot_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Atlas_Snapshot_Var_Pop_Fields = {
+  __typename?: 'atlas_snapshot_var_pop_fields';
+  pinned_tree?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Var_Pop_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Atlas_Snapshot_Var_Samp_Fields = {
+  __typename?: 'atlas_snapshot_var_samp_fields';
+  pinned_tree?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Var_Samp_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Atlas_Snapshot_Variance_Fields = {
+  __typename?: 'atlas_snapshot_variance_fields';
+  pinned_tree?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Variance_Order_By = {
+  pinned_tree?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
@@ -4125,6 +4250,7 @@ export type Mutation_RootUpdate_Atlas_SnapshotArgs = {
   _delete_at_path?: InputMaybe<Atlas_Snapshot_Delete_At_Path_Input>;
   _delete_elem?: InputMaybe<Atlas_Snapshot_Delete_Elem_Input>;
   _delete_key?: InputMaybe<Atlas_Snapshot_Delete_Key_Input>;
+  _inc?: InputMaybe<Atlas_Snapshot_Inc_Input>;
   _prepend?: InputMaybe<Atlas_Snapshot_Prepend_Input>;
   _set?: InputMaybe<Atlas_Snapshot_Set_Input>;
   where: Atlas_Snapshot_Bool_Exp;
@@ -4137,6 +4263,7 @@ export type Mutation_RootUpdate_Atlas_Snapshot_By_PkArgs = {
   _delete_at_path?: InputMaybe<Atlas_Snapshot_Delete_At_Path_Input>;
   _delete_elem?: InputMaybe<Atlas_Snapshot_Delete_Elem_Input>;
   _delete_key?: InputMaybe<Atlas_Snapshot_Delete_Key_Input>;
+  _inc?: InputMaybe<Atlas_Snapshot_Inc_Input>;
   _prepend?: InputMaybe<Atlas_Snapshot_Prepend_Input>;
   _set?: InputMaybe<Atlas_Snapshot_Set_Input>;
   pk_columns: Atlas_Snapshot_Pk_Columns_Input;
@@ -6376,7 +6503,7 @@ export type AtlasSnapshotsSubscriptionVariables = Exact<{
 }>;
 
 
-export type AtlasSnapshotsSubscription = { __typename?: 'subscription_root', atlas_snapshot: Array<{ __typename?: 'atlas_snapshot', id: string, user_id: string, tree_version: string, trees: any, fetched_at: string }> };
+export type AtlasSnapshotsSubscription = { __typename?: 'subscription_root', atlas_snapshot: Array<{ __typename?: 'atlas_snapshot', id: string, user_id: string, tree_version: string, trees: any, pinned_tree?: number | null, fetched_at: string }> };
 
 export type MyAtlasConnectionSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
@@ -6674,6 +6801,7 @@ export const AtlasSnapshotsDocument = gql`
     user_id
     tree_version
     trees
+    pinned_tree
     fetched_at
   }
 }

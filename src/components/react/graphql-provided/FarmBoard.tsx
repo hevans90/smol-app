@@ -94,6 +94,7 @@ export const FarmBoard = () => {
     connection,
     syncNow,
     disconnect,
+    pinTree,
     busy,
     error: actionError,
   } = useAtlasConnection();
@@ -144,7 +145,8 @@ export const FarmBoard = () => {
         continue;
       }
       const trees: FarmTree[] = (snapshot.trees as AtlasTree[])
-        .map((tree) => ({
+        .map((tree, index) => ({
+          index,
           tree,
           summary: summariseTree(tree, data),
           hashes: new Set(tree.hashes),
@@ -153,8 +155,24 @@ export const FarmBoard = () => {
         .sort((a, b) => b.summary.allocated - a.summary.allocated);
       if (!trees.length) continue;
 
-      const activeIndex = trees.findIndex(({ tree }) => tree.active);
-      const mainIndex = Math.max(activeIndex, 0);
+      const pinned = trees.findIndex(({ index }) => index === snapshot.pinned_tree);
+      const flagged = trees.findIndex(({ tree }) => tree.active);
+      const edited = trees.reduce(
+        (latest, { tree }, index) =>
+          tree.changed_at &&
+          (latest < 0 || tree.changed_at > (trees[latest].tree.changed_at ?? ''))
+            ? index
+            : latest,
+        -1,
+      );
+      const [mainIndex, mainSource]: [number, FarmMember['mainSource']] =
+        pinned >= 0
+          ? [pinned, 'pinned']
+          : flagged >= 0
+            ? [flagged, 'selected']
+            : edited >= 0
+              ? [edited, 'edited']
+              : [0, 'points'];
       const main = trees[mainIndex];
       built.push({
         user,
@@ -162,7 +180,7 @@ export const FarmBoard = () => {
         data,
         trees,
         mainIndex,
-        mainKnown: activeIndex >= 0,
+        mainSource,
         hashes: main.hashes,
         strategy: new Set(strategyOf(main.summary).map(({ key }) => key)),
       });
@@ -329,6 +347,7 @@ export const FarmBoard = () => {
             key={member.user.id}
             member={member}
             isMe={member.user.id === myUserId}
+            onPin={pinTree}
             onOpen={(tree) =>
               setOpen({ kind: 'member', userId: member.user.id, tree })
             }

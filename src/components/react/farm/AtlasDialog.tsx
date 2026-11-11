@@ -4,7 +4,7 @@ import { strategyOf, type AtlasData } from '../../../_utils/atlas';
 import { TREE_COLOURS } from '../../../_utils/atlas-geometry';
 import { AtlasTreeExplorer } from '../atlas/AtlasTree';
 import { Dialog, DialogContent, DialogHeading } from '../ui/Dialog';
-import { MechanicBar } from './MechanicBar';
+import { MechanicRow, notableCount } from './Mechanic';
 import type { FarmMember } from './types';
 
 const Shell = ({
@@ -87,20 +87,11 @@ export const MemberAtlasDialog = ({
   }, [hashes, data]);
 
   const strategy = strategyOf(summary);
-  const sections = [
-    ...summary.mechanics.map((mechanic) => ({
-      ...mechanic,
-      value: `${Math.round(mechanic.share * 100)}%`,
-      fraction: mechanic.share,
-      minor: !strategy.includes(mechanic),
-    })),
-    ...summary.generic.map((mechanic) => ({
-      ...mechanic,
-      value: `${mechanic.weight}`,
-      fraction: 0,
-      minor: true,
-    })),
-  ];
+  // what the tree is built around first, then the dabbles and upkeep, dimmed
+  const sections = [...summary.mechanics, ...summary.generic].map((mechanic) => ({
+    ...mechanic,
+    minor: !strategy.includes(mechanic),
+  }));
 
   return (
     <Shell
@@ -147,11 +138,10 @@ export const MemberAtlasDialog = ({
               className={section.minor ? 'opacity-70' : undefined}
               onMouseEnter={() => setHighlight(byMechanic.all.get(section.key))}
             >
-              <MechanicBar
+              <MechanicRow
                 mechanic={section.key}
                 label={section.label}
-                fraction={section.fraction}
-                value={section.value}
+                note={notableCount(section.highlights)}
               >
                 <ul className="m-0 mt-1 list-none pl-8 text-xs">
                   {(byMechanic.groups.get(section.key) ?? []).map((node) => (
@@ -170,7 +160,7 @@ export const MemberAtlasDialog = ({
                     </li>
                   ))}
                 </ul>
-              </MechanicBar>
+              </MechanicRow>
             </div>
           ))}
         </div>

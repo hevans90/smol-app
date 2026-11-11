@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict Xr6oqEZ2UWJ6p6LhET8Me0o9Lc0Z5H3977qXhO9KhgxdAgiGZeYEmK7Te9ehGFd
+\restrict H85ANkGtpYJIhExlzDgdOb7LhavTlTmXxO1vD83Rcz8aABCwz3rKdxpTRCOh0tw
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -332,6 +332,7 @@ CREATE TABLE public.atlas_snapshot (
     trees jsonb NOT NULL,
     raw_trees jsonb NOT NULL,
     fetched_at timestamp with time zone DEFAULT now() NOT NULL,
+    pinned_tree integer,
     CONSTRAINT atlas_snapshot_trees_is_array CHECK ((jsonb_typeof(trees) = 'array'::text))
 );
 
@@ -841,7 +842,7 @@ CREATE INDEX idx_poe_name ON public."user" USING btree (poe_name);
 -- Name: atlas_snapshot atlas_snapshot_touch_fetched_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER atlas_snapshot_touch_fetched_at BEFORE INSERT OR UPDATE ON public.atlas_snapshot FOR EACH ROW EXECUTE FUNCTION public.atlas_snapshot_touch_fetched_at();
+CREATE TRIGGER atlas_snapshot_touch_fetched_at BEFORE INSERT OR UPDATE OF trees, raw_trees, tree_version ON public.atlas_snapshot FOR EACH ROW EXECUTE FUNCTION public.atlas_snapshot_touch_fetched_at();
 
 
 --
@@ -1024,5 +1025,5 @@ ALTER TABLE ONLY public.user_league_mechanic
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Xr6oqEZ2UWJ6p6LhET8Me0o9Lc0Z5H3977qXhO9KhgxdAgiGZeYEmK7Te9ehGFd
+\unrestrict H85ANkGtpYJIhExlzDgdOb7LhavTlTmXxO1vD83Rcz8aABCwz3rKdxpTRCOh0tw
 

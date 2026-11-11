@@ -4,6 +4,7 @@ subscription AtlasSnapshots($league: String!) {
     user_id
     tree_version
     trees
+    pinned_tree
     fetched_at
   }
 }

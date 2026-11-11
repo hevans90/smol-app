@@ -4,20 +4,33 @@ import { twMerge } from 'tailwind-merge';
 import { strategyOf } from '../../../_utils/atlas';
 import { TREE_COLOURS } from '../../../_utils/atlas-geometry';
 import { AtlasTreeThumb, type ThumbLayer } from '../atlas/AtlasTree';
-import { MechanicBar } from './MechanicBar';
+import { MechanicRow, notableCount } from './Mechanic';
 import type { FarmMember } from './types';
 
 // Mechanic rows shown before the rest collapse into "+n more".
 const MAX_ROWS = 5;
 
+// Why a tree is the member's main one (see FarmMember.mainSource).
+const MAIN_REASON: Record<FarmMember['mainSource'], string> = {
+  pinned: 'Main tree: pinned by the member',
+  selected: 'Main tree: selected in game',
+  edited: 'Main tree: the most recently edited',
+  points: 'Main tree: the one with the most points',
+};
+const PIN_BUTTON =
+  'bg-transparent px-1 text-xs text-primary-800 underline hover:bg-transparent hover:text-primary-300';
+
 export const MemberCard = ({
   member,
   isMe,
   onOpen,
+  onPin,
 }: {
   member: FarmMember;
   isMe: boolean;
   onOpen: (treeIndex: number) => void;
+  /** pins a tree (by its position in the snapshot) as main, or null to unpin */
+  onPin: (tree: number | null) => void;
 }) => {
   const { user, data } = member;
   const [treeIndex, setTreeIndex] = useState(member.mainIndex);
@@ -109,12 +122,11 @@ export const MemberCard = ({
           )}
           {rows.map((mechanic) => (
             <div key={mechanic.key} onMouseEnter={() => setHovered(mechanic.key)}>
-              <MechanicBar
+              <MechanicRow
                 compact
                 mechanic={mechanic.key}
                 label={mechanic.label}
-                fraction={mechanic.share}
-                value={`${Math.round(mechanic.share * 100)}%`}
+                note={notableCount(mechanic.highlights)}
                 title={mechanic.highlights.join('\n')}
                 active={hovered === mechanic.key}
               />
@@ -125,7 +137,7 @@ export const MemberCard = ({
               className="text-xs text-primary-800"
               title={summary.mechanics
                 .slice(rows.length)
-                .map(({ label, share }) => `${label} ${Math.round(share * 100)}%`)
+                .map(({ label }) => label)
                 .join('\n')}
             >
               +{more} more
@@ -149,13 +161,14 @@ export const MemberCard = ({
       )}
 
       {member.trees.length > 1 && (
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap items-center gap-1">
           {member.trees.map(({ tree, summary: each }, index) => (
             <button
               key={index}
               type="button"
               aria-pressed={index === treeIndex}
               onClick={() => setTreeIndex(index)}
+              title={index === member.mainIndex ? MAIN_REASON[member.mainSource] : undefined}
               className={twMerge(
                 'rounded border px-2 py-0.5 text-xs',
                 index === treeIndex
@@ -164,9 +177,25 @@ export const MemberCard = ({
               )}
             >
               {tree.name} · {each.allocated}
-              {member.mainKnown && index === member.mainIndex && ' · selected'}
+              {index === member.mainIndex && ' · main'}
             </button>
           ))}
+          {isMe &&
+            (member.mainSource === 'pinned' && treeIndex === member.mainIndex ? (
+              <button type="button" onClick={() => onPin(null)} className={PIN_BUTTON}>
+                Unpin
+              </button>
+            ) : (
+              treeIndex !== member.mainIndex && (
+                <button
+                  type="button"
+                  onClick={() => onPin(member.trees[treeIndex].index)}
+                  className={PIN_BUTTON}
+                >
+                  Set as main
+                </button>
+              )
+            ))}
         </div>
       )}
     </article>

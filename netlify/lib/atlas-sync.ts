@@ -1,7 +1,9 @@
 import {
   CURRENT_ATLAS_VERSION,
   parseLeagueAccount,
+  stampTreeChanges,
   unexpectedLeagueAccountKeys,
+  type AtlasTree,
 } from '../../src/_utils/atlas-league-account';
 import {
   POE_ATLAS_SCOPES,
@@ -218,7 +220,20 @@ export const syncConnection = async (
     if (unexpected.length) {
       console.log('league-account has undocumented fields:', unexpected.join(', '));
     }
-    const { trees, rawTrees } = parseLeagueAccount(body);
+    const { trees: fetched, rawTrees } = parseLeagueAccount(body);
+
+    // which tree changed since last time is how the Farm page guesses the
+    // one in use, so carry that forward from the previous snapshot
+    const now = new Date().toISOString();
+    const { atlas_snapshot: previous } = await hasuraAdmin<{
+      atlas_snapshot: { trees: AtlasTree[] }[];
+    }>(
+      `query PreviousAtlas($userId: uuid!, $league: String!) {
+        atlas_snapshot(where: { user_id: { _eq: $userId }, league: { _eq: $league } }) { trees }
+      }`,
+      { userId, league },
+    );
+    const trees = stampTreeChanges(fetched, previous[0]?.trees, now);
     await hasuraAdmin(
       `mutation SaveAtlasSnapshot($snapshot: atlas_snapshot_insert_input!, $userId: uuid!, $now: timestamptz!) {
         insert_atlas_snapshot_one(
@@ -235,7 +250,7 @@ export const syncConnection = async (
       }`,
       {
         userId,
-        now: new Date().toISOString(),
+        now,
         snapshot: {
           user_id: userId,
           league,
@@ -315,4 +330,24 @@ export const removeConnection = async (userId: string) => {
     }`,
     { userId },
   );
+};
+
+/**
+ * A member overruling the guess at which of their trees is in use: `tree` is
+ * its position in the snapshot's trees, or null to go back to the guess.
+ * Returns false when they have no snapshot for the league to pin on.
+ */
+export const pinTree = async (userId: string, league: string, tree: number | null) => {
+  const { update_atlas_snapshot } = await hasuraAdmin<{
+    update_atlas_snapshot: { affected_rows: number };
+  }>(
+    `mutation PinAtlasTree($userId: uuid!, $league: String!, $tree: Int) {
+      update_atlas_snapshot(
+        where: { user_id: { _eq: $userId }, league: { _eq: $league } }
+        _set: { pinned_tree: $tree }
+      ) { affected_rows }
+    }`,
+    { userId, league, tree },
+  );
+  return update_atlas_snapshot.affected_rows > 0;
 };

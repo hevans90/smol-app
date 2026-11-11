@@ -1,38 +1,28 @@
 import { useMemo, useState, type FocusEvent, type MouseEvent, type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { STRATEGY_SHARE_THRESHOLD, strategyOf, type AtlasData } from '../../../_utils/atlas';
+import { strategyOf, type AtlasData, type MechanicInvestment } from '../../../_utils/atlas';
 import { TREE_COLOURS } from '../../../_utils/atlas-geometry';
 import { AtlasTreeThumb, type ThumbLayer } from '../atlas/AtlasTree';
 import { HeatLegend, heatColour, type GuildHeat } from './AtlasDialog';
-import { MechanicIcon } from './MechanicBar';
+import { MechanicIcon } from './Mechanic';
 import { MemberAvatar, memberName } from './MemberAvatar';
 import type { FarmMember } from './types';
 
-// How much of a member's tree a mechanic takes, in four steps of one hue
-// (brighter = more). The first step is below the strategy threshold: a dabble.
-const SHARE_STEPS = [
-  { from: 0, label: `under ${STRATEGY_SHARE_THRESHOLD * 100}%` },
-  { from: STRATEGY_SHARE_THRESHOLD, label: `${STRATEGY_SHARE_THRESHOLD * 100}%` },
-  { from: 0.25, label: '25%' },
-  { from: 0.4, label: '40%+' },
-];
-const shareColour = (share: number) => {
-  let step = 0;
-  SHARE_STEPS.forEach(({ from }, index) => {
-    if (share >= from) step = index;
-  });
-  return TREE_COLOURS.heat[step];
-};
-const percent = (share: number) => `${Math.round(share * 100)}%`;
-
 type Hover = { left: number; top?: number; bottom?: number; content: ReactNode };
 
+type Farmer = {
+  member: FarmMember;
+  /** this mechanic's part of the member's main tree */
+  investment: MechanicInvestment;
+  /** the other mechanics that tree is built around */
+  also: MechanicInvestment[];
+};
+
 /**
- * The guild at a glance. A grid of mechanics (rows) against members
- * (columns): a filled cell means that member's tree invests in that
- * mechanic, brighter for a bigger share; hovering a cell or a member says
- * exactly what. Rows filter the cards below, columns open the member's tree.
- * Beside it, everyone's tree overlaid as a heat map.
+ * The guild at a glance: a tile per mechanic with the faces of everyone
+ * whose tree is built around it, most invested first. Hovering a face says
+ * what they took; clicking it opens their tree; clicking the tile filters
+ * the cards below. Beside it, everyone's tree overlaid as a heat map.
  *
  * Each member counts once, by their main tree.
  */
@@ -63,8 +53,8 @@ export const GuildOverview = ({
       const rect = event.currentTarget.getBoundingClientRect();
       setHover({
         // kept on screen: the card is 18rem wide
-        left: Math.min(rect.left, window.innerWidth - 304),
-        // below the target, or above it in the lower half of the screen
+        left: Math.max(Math.min(rect.left, window.innerWidth - 304), 8),
+        // below the face, or above it in the lower half of the screen
         ...(rect.top > window.innerHeight / 2
           ? { bottom: window.innerHeight - rect.top + 8 }
           : { top: rect.bottom + 8 }),
@@ -73,22 +63,18 @@ export const GuildOverview = ({
     };
   const hide = () => setHover(undefined);
 
-  const { rows, uncovered } = useMemo(() => {
+  const { tiles, uncovered } = useMemo(() => {
     const label = (mechanic: string) => data.mechanics[mechanic] ?? mechanic;
-    // mechanic -> member id -> that mechanic's slice of their main tree
-    const byMechanic = new Map<
-      string,
-      Map<string, FarmMember['trees'][number]['summary']['mechanics'][number]>
-    >();
-    const farmers = new Map<string, number>();
+    const farmers = new Map<string, Farmer[]>();
     for (const member of members) {
-      const { summary } = member.trees[member.mainIndex];
-      for (const mechanic of summary.mechanics) {
-        if (!byMechanic.has(mechanic.key)) byMechanic.set(mechanic.key, new Map());
-        byMechanic.get(mechanic.key)!.set(member.user.id, mechanic);
-      }
-      for (const mechanic of member.strategy) {
-        farmers.set(mechanic, (farmers.get(mechanic) ?? 0) + 1);
+      const strategy = strategyOf(member.trees[member.mainIndex].summary);
+      for (const investment of strategy) {
+        if (!farmers.has(investment.key)) farmers.set(investment.key, []);
+        farmers.get(investment.key)!.push({
+          member,
+          investment,
+          also: strategy.filter((other) => other !== investment),
+        });
       }
     }
 
@@ -98,16 +84,15 @@ export const GuildOverview = ({
     ].filter((mechanic) => !generic.has(mechanic));
 
     return {
-      // only mechanics someone actually builds around get a row; dabbles in
-      // them still show as dim cells
-      rows: [...farmers]
-        .map(([mechanic, count]) => ({
+      tiles: [...farmers]
+        .map(([mechanic, list]) => ({
           mechanic,
-          count,
           label: label(mechanic),
-          cells: byMechanic.get(mechanic) ?? new Map(),
+          farmers: list.sort((a, b) => b.investment.weight - a.investment.weight),
         }))
-        .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)),
+        .sort(
+          (a, b) => b.farmers.length - a.farmers.length || a.label.localeCompare(b.label),
+        ),
       uncovered: farmable
         .filter((mechanic) => !farmers.has(mechanic))
         .map((mechanic) => ({ mechanic, label: label(mechanic) }))
@@ -129,31 +114,36 @@ export const GuildOverview = ({
       .map((colour) => ({ colour, hashes: byColour.get(colour)! }));
   }, [heat]);
 
-  const memberCard = (member: FarmMember) => {
-    const { tree, summary } = member.trees[member.mainIndex];
-    const strategy = strategyOf(summary);
-    return (
-      <>
-        <div className="flex items-center gap-2">
-          <MemberAvatar user={member.user} className="h-6 w-6" />
-          <span className="truncate text-primary-400">{memberName(member.user)}</span>
+  const farmerCard = (label: string, { member, investment, also }: Farmer) => (
+    <>
+      <div className="flex items-center gap-2">
+        <MemberAvatar user={member.user} className="h-6 w-6" />
+        <span className="truncate text-primary-400">{memberName(member.user)}</span>
+      </div>
+      <div className="mb-1 mt-2 text-xs text-primary-800">{label}</div>
+      {investment.highlights.length === 0 && (
+        <div className="text-xs text-primary-800">Small passives only</div>
+      )}
+      {investment.highlights.map((name) => (
+        <div key={name} className="truncate text-primary-500">
+          {name}
         </div>
-        <div className="mb-2 mt-1 text-xs text-primary-800">
-          {tree.name} · {summary.allocated} points
-        </div>
-        {strategy.length === 0 && (
-          <div className="text-primary-800">No mechanic stands out</div>
-        )}
-        {strategy.map((mechanic) => (
-          <div key={mechanic.key} className="flex items-center gap-2 py-0.5">
-            <MechanicIcon mechanic={mechanic.key} className="h-5 w-5" />
-            <span className="flex-1 truncate text-primary-500">{mechanic.label}</span>
-            <span className="tabular-nums text-primary-800">{percent(mechanic.share)}</span>
+      ))}
+      {also.length > 0 && (
+        <>
+          <div className="mb-1 mt-3 text-xs text-primary-800">Also farms</div>
+          <div className="flex flex-wrap gap-x-3 gap-y-1">
+            {also.map((other) => (
+              <span key={other.key} className="flex items-center gap-1 text-primary-500">
+                <MechanicIcon mechanic={other.key} className="h-4 w-4 text-[10px]" />
+                {other.label}
+              </span>
+            ))}
           </div>
-        ))}
-      </>
-    );
-  };
+        </>
+      )}
+    </>
+  );
 
   return (
     <section className="grid gap-6 rounded border border-gray-800 bg-gray-900 p-4 xl:grid-cols-[1fr_18rem]">
@@ -171,121 +161,60 @@ export const GuildOverview = ({
           )}
         </div>
 
-        <div className="overflow-x-auto pb-1" onMouseLeave={hide}>
-          <table className="border-separate border-spacing-0.5">
-            <thead>
-              <tr>
-                <td />
-                {members.map((member) => (
-                  <th key={member.user.id} className="p-0 pb-1 font-normal">
+        <div
+          className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5"
+          onMouseLeave={hide}
+        >
+          {tiles.map(({ mechanic, label, farmers }) => {
+            const active = selected.includes(mechanic);
+            return (
+              <div
+                key={mechanic}
+                className={twMerge(
+                  'flex flex-col gap-2 rounded border bg-gray-950 p-2',
+                  active ? 'border-primary-500' : 'border-gray-800',
+                )}
+              >
+                <button
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => onToggle(mechanic)}
+                  onMouseEnter={hide}
+                  title={active ? 'Show everyone' : `Show only ${label} farmers`}
+                  className="flex items-center gap-2 rounded bg-transparent p-0 text-left hover:bg-transparent"
+                >
+                  <MechanicIcon mechanic={mechanic} className="h-7 w-7" />
+                  <span
+                    className={twMerge(
+                      'min-w-0 flex-1 truncate',
+                      active ? 'text-primary-300' : 'text-primary-500',
+                    )}
+                  >
+                    {label}
+                  </span>
+                  <span className="text-sm tabular-nums text-primary-800">
+                    {farmers.length}
+                  </span>
+                </button>
+                <div className="flex flex-wrap gap-1">
+                  {farmers.map((farmer) => (
                     <button
+                      key={farmer.member.user.id}
                       type="button"
-                      aria-label={`Open ${memberName(member.user)}'s atlas tree`}
-                      onClick={() => onOpenMember(member)}
-                      onMouseEnter={show(memberCard(member))}
-                      onFocus={show(memberCard(member))}
+                      aria-label={`${memberName(farmer.member.user)} farms ${label}: open their atlas tree`}
+                      onClick={() => onOpenMember(farmer.member)}
+                      onMouseEnter={show(farmerCard(label, farmer))}
+                      onFocus={show(farmerCard(label, farmer))}
                       onBlur={hide}
-                      className="block rounded-full bg-transparent p-0 hover:bg-transparent hover:ring-2 hover:ring-primary-800"
+                      className="rounded-full bg-transparent p-0 hover:bg-transparent hover:ring-2 hover:ring-primary-500"
                     >
-                      <MemberAvatar user={member.user} className="h-7 w-7" />
+                      <MemberAvatar user={farmer.member.user} className="h-7 w-7" />
                     </button>
-                  </th>
-                ))}
-                <td />
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map(({ mechanic, label, count, cells }) => {
-                const active = selected.includes(mechanic);
-                return (
-                  <tr key={mechanic}>
-                    <th className="p-0 pr-2 text-left font-normal">
-                      <button
-                        type="button"
-                        aria-pressed={active}
-                        onClick={() => onToggle(mechanic)}
-                        onMouseEnter={hide}
-                        className={twMerge(
-                          'flex w-full items-center gap-2 whitespace-nowrap rounded border bg-transparent px-1.5 py-0.5 text-sm hover:bg-gray-800',
-                          active
-                            ? 'border-primary-500 bg-gray-800 text-primary-300'
-                            : 'border-transparent text-primary-500',
-                        )}
-                      >
-                        <MechanicIcon mechanic={mechanic} className="h-5 w-5" />
-                        {label}
-                      </button>
-                    </th>
-                    {members.map((member) => {
-                      const cell = cells.get(member.user.id);
-                      if (!cell) {
-                        return (
-                          <td key={member.user.id} className="p-0" onMouseEnter={hide}>
-                            <div className="h-7 w-7 rounded-sm bg-gray-950" />
-                          </td>
-                        );
-                      }
-                      const detail = (
-                        <>
-                          <div className="flex items-center gap-2">
-                            <MemberAvatar user={member.user} className="h-6 w-6" />
-                            <span className="truncate text-primary-400">
-                              {memberName(member.user)}
-                            </span>
-                          </div>
-                          <div className="mb-2 mt-1 flex items-center gap-2">
-                            <MechanicIcon mechanic={mechanic} className="h-5 w-5" />
-                            <span className="flex-1 text-primary-500">{label}</span>
-                            <span className="tabular-nums text-primary-800">
-                              {percent(cell.share)} of tree
-                            </span>
-                          </div>
-                          {cell.highlights.map((name: string) => (
-                            <div key={name} className="truncate text-xs text-primary-800">
-                              {name}
-                            </div>
-                          ))}
-                        </>
-                      );
-                      return (
-                        <td key={member.user.id} className="p-0">
-                          <button
-                            type="button"
-                            aria-label={`${memberName(member.user)}: ${label} ${percent(cell.share)}`}
-                            onClick={() => onOpenMember(member)}
-                            onMouseEnter={show(detail)}
-                            onFocus={show(detail)}
-                            onBlur={hide}
-                            className="block h-7 w-7 rounded-sm p-0 hover:ring-2 hover:ring-primary-300"
-                            style={{ backgroundColor: shareColour(cell.share) }}
-                          />
-                        </td>
-                      );
-                    })}
-                    <td
-                      className="pl-2 text-right text-xs tabular-nums text-primary-800"
-                      title={`${count} of ${members.length} members build around ${label}`}
-                    >
-                      {count}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-primary-800">
-          <span>Share of tree</span>
-          {SHARE_STEPS.map(({ label }, index) => (
-            <span key={label} className="flex items-center gap-1">
-              <span
-                className="h-3 w-3 rounded-sm"
-                style={{ backgroundColor: TREE_COLOURS.heat[index] }}
-              />
-              {label}
-            </span>
-          ))}
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {uncovered.length > 0 && (
@@ -330,7 +259,7 @@ export const GuildOverview = ({
         <div
           role="tooltip"
           className="pointer-events-none fixed z-40 w-72 rounded border border-primary-900 bg-gray-950 p-3 text-sm shadow-lg"
-          style={{ left: Math.max(hover.left, 8), top: hover.top, bottom: hover.bottom }}
+          style={{ left: hover.left, top: hover.top, bottom: hover.bottom }}
         >
           {hover.content}
         </div>

@@ -12,6 +12,7 @@ select_permissions:
         - fetched_at
         - id
         - league
+        - pinned_tree
         - tree_version
         - trees
         - user_id
@@ -23,6 +24,7 @@ select_permissions:
         - fetched_at
         - id
         - league
+        - pinned_tree
         - tree_version
         - trees
         - user_id

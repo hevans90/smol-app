@@ -37,6 +37,7 @@ type AtlasSnapshot struct {
 	Trees       json.RawMessage
 	RawTrees    json.RawMessage
 	FetchedAt   time.Time
+	PinnedTree  sql.NullInt32
 }
 
 type BulkOrder struct {

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 // Builds src/assets/atlas/atlas-<version>.json from GGG's official atlas tree
 // export (https://github.com/grindinggear/atlastree-export): a slim lookup of
-// every atlas passive with the farming mechanic it belongs to. The Farm page
-// uses it to turn a member's allocated node hashes into a strategy.
+// every atlas passive with the farming mechanic it belongs to, plus where it
+// sits on the tree. The Farm page uses it to turn a member's allocated node
+// hashes into a strategy and to draw their tree.
 //
 //   node scripts/generate-atlas-data.mjs            # latest tag
 //   node scripts/generate-atlas-data.mjs 3.30.0     # a specific tag/branch
@@ -226,6 +227,70 @@ export const classifyAtlas = (data) => {
   return { nodes, report };
 };
 
+// Angles (degrees, clockwise from 12 o'clock) of each slot on an orbit. The
+// 16- and 40-slot orbits are not evenly spaced; these tables are the same
+// ones the passive tree uses.
+const ORBIT_ANGLES_16 = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+const ORBIT_ANGLES_40 = [
+  0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110, 120, 130, 135, 140, 150, 160, 170,
+  180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 310, 315, 320, 330, 340, 350,
+];
+const orbitAngle = (slots, index) =>
+  ((slots === 16 ? ORBIT_ANGLES_16[index]
+    : slots === 40 ? ORBIT_ANGLES_40[index]
+    : (360 / slots) * index) * Math.PI) / 180;
+
+/**
+ * Where every node sits and how they connect, for drawing the tree.
+ *   positions: { hash: [x, y] }
+ *   edges: [[fromHash, toHash, arcRadius, sweep]] - arcRadius 0 is a straight
+ *          line; otherwise the two nodes share an orbit and the connection
+ *          follows it (sweep is the SVG arc sweep-flag).
+ * Masteries (cluster artwork, not allocatable) and the links between paired
+ * gateways are left out.
+ */
+export const layoutAtlas = (data) => {
+  const { skillsPerOrbit, orbitRadii } = data.constants;
+  const placed = new Map();
+  for (const node of Object.values(data.nodes)) {
+    const group = data.groups?.[node.group];
+    if (!group || node.isMastery || node.orbit === undefined) continue;
+    const radius = orbitRadii[node.orbit];
+    const angle = orbitAngle(skillsPerOrbit[node.orbit], node.orbitIndex ?? 0);
+    placed.set(String(node.skill), {
+      node,
+      angle,
+      x: Math.round(group.x + radius * Math.sin(angle)),
+      y: Math.round(group.y - radius * Math.cos(angle)),
+    });
+  }
+
+  const edges = [];
+  for (const [id, from] of placed) {
+    for (const outId of from.node.out ?? []) {
+      const to = placed.get(String(outId));
+      if (!to || (from.node.isWormhole && to.node.isWormhole)) continue;
+      const sameOrbit =
+        from.node.group === to.node.group && from.node.orbit === to.node.orbit;
+      if (!sameOrbit || !orbitRadii[from.node.orbit]) {
+        edges.push([Number(id), Number(outId), 0, 0]);
+        continue;
+      }
+      // follow the orbit the short way round
+      const turn = (to.angle - from.angle + 2 * Math.PI) % (2 * Math.PI);
+      edges.push([Number(id), Number(outId), orbitRadii[from.node.orbit], turn < Math.PI ? 1 : 0]);
+    }
+  }
+
+  const xs = [...placed.values()].map(({ x }) => x);
+  const ys = [...placed.values()].map(({ y }) => y);
+  return {
+    positions: Object.fromEntries([...placed].map(([id, { x, y }]) => [id, [x, y]])),
+    edges,
+    bounds: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)],
+  };
+};
+
 const fetchJson = async (url) => {
   const response = await fetch(url, { headers: { 'User-Agent': 'smol-app-atlas-data' } });
   if (!response.ok) throw new Error(`${response.status} from ${url}`);
@@ -251,6 +316,12 @@ const main = async () => {
   }
 
   const { nodes, report } = classifyAtlas(data);
+  const { positions, edges, bounds } = layoutAtlas(data);
+  for (const [id, [x, y]] of Object.entries(positions)) {
+    if (nodes[id]) Object.assign(nodes[id], { x, y });
+    // the unnamed node every tree grows from: not a passive, but drawn
+    else nodes[id] = { name: 'Atlas start', kind: 'start', mechanic: 'general', stats: [], x, y };
+  }
   const used = new Set(Object.values(nodes).map((node) => node.mechanic));
   const output = {
     version,
@@ -258,6 +329,8 @@ const main = async () => {
     mechanics: MECHANIC_LABELS,
     generic: [...GENERIC_MECHANICS].filter((key) => used.has(key)),
     nodes,
+    bounds,
+    edges,
   };
 
   const outFile = path.join(

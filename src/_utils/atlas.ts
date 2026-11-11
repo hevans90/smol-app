@@ -4,14 +4,27 @@
 // node -> mechanic lookup is generated per tree version by
 // scripts/generate-atlas-data.mjs from GGG's official export.
 
-export type AtlasNodeKind = 'small' | 'notable' | 'keystone' | 'mastery' | 'gateway';
+// 'start' is the unnamed root every tree grows from: drawn, never allocated
+export type AtlasNodeKind =
+  | 'small'
+  | 'notable'
+  | 'keystone'
+  | 'mastery'
+  | 'gateway'
+  | 'start';
 
 export type AtlasNode = {
   name: string;
   kind: AtlasNodeKind;
   mechanic: string;
   stats: string[];
+  /** position on the tree; absent for masteries, which aren't drawn */
+  x?: number;
+  y?: number;
 };
+
+/** [fromHash, toHash, arcRadius (0 = straight line), SVG sweep-flag] */
+export type AtlasEdge = [number, number, number, number];
 
 export type AtlasData = {
   version: string;
@@ -21,7 +34,18 @@ export type AtlasData = {
   /** mechanic keys that aren't something you farm (map sustain, bosses...) */
   generic: string[];
   nodes: Record<string, AtlasNode>;
+  /** [minX, minY, maxX, maxY] of the node positions */
+  bounds: [number, number, number, number];
+  edges: AtlasEdge[];
 };
+
+// Mechanics with artwork in public/league-icons.
+export const MECHANICS_WITH_ICON = new Set([
+  'abyss', 'altar_eater', 'altar_exarch', 'bestiary', 'betrayal', 'beyond',
+  'blight', 'breach', 'delirium', 'delve', 'essence', 'expedition',
+  'harbinger', 'harvest', 'heist', 'incursion', 'labyrinth', 'legion',
+  'ritual', 'sanctum', 'settlers_of_kalguur', 'ultimatum',
+]);
 
 export {
   CURRENT_ATLAS_VERSION,
@@ -131,3 +155,15 @@ export const STRATEGY_SHARE_THRESHOLD = 0.12;
 /** The mechanics a tree is actually built around, heaviest first. */
 export const strategyOf = (summary: TreeSummary): MechanicInvestment[] =>
   summary.mechanics.filter(({ share }) => share >= STRATEGY_SHARE_THRESHOLD);
+
+/** Every hash allocated in any of a member's trees. */
+export const allocatedHashes = (trees: AtlasTree[]): Set<number> =>
+  new Set(trees.flatMap((tree) => tree.hashes));
+
+/** How alike two atlases are: shared nodes over all nodes either took, 0-1. */
+export const atlasSimilarity = (a: Set<number>, b: Set<number>): number => {
+  if (!a.size || !b.size) return 0;
+  let shared = 0;
+  for (const hash of a) if (b.has(hash)) shared++;
+  return shared / (a.size + b.size - shared);
+};

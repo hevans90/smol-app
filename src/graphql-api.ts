@@ -6464,11 +6464,6 @@ export type MyLeagueMembershipSubscriptionVariables = Exact<{
 
 export type MyLeagueMembershipSubscription = { __typename?: 'subscription_root', league_member: Array<{ __typename?: 'league_member', user_id?: string | null }> };
 
-export type LeaguesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LeaguesQuery = { __typename?: 'query_root', league_type: Array<{ __typename?: 'league_type', value: string }> };
-
 export type OrderTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6534,39 +6529,24 @@ export type DeleteUserItemOrderMutationVariables = Exact<{
 
 export type DeleteUserItemOrderMutation = { __typename?: 'mutation_root', delete_user_item_order_by_pk?: { __typename?: 'user_item_order', id: string, description?: string | null, link_url?: string | null, user_id: string } | null };
 
-export type InsertUserLeagueMechanicMutationVariables = Exact<{
-  mechanic: League_Type_Enum;
-  userId: Scalars['uuid']['input'];
-}>;
-
-
-export type InsertUserLeagueMechanicMutation = { __typename?: 'mutation_root', insert_user_league_mechanic_one?: { __typename?: 'user_league_mechanic', mechanic: League_Type_Enum, user_id: string, id: string } | null };
-
-export type DeleteUserLeagueMechanicMutationVariables = Exact<{
-  mechanicId: Scalars['uuid']['input'];
-}>;
-
-
-export type DeleteUserLeagueMechanicMutation = { __typename?: 'mutation_root', delete_user_league_mechanic_by_pk?: { __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum, user_id: string } | null };
-
-export type UserFieldsFragment = { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> };
+export type UserFieldsFragment = { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'query_root', user: Array<{ __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> }> };
+export type UsersQuery = { __typename?: 'query_root', user: Array<{ __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }> };
 
 export type UserByIdQueryVariables = Exact<{
   id: Scalars['uuid']['input'];
 }>;
 
 
-export type UserByIdQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> } | null };
+export type UserByIdQuery = { __typename?: 'query_root', user_by_pk?: { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null } | null };
 
 export type UsersSubSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersSubSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null, user_league_mechanics: Array<{ __typename?: 'user_league_mechanic', id: string, mechanic: League_Type_Enum }> }> };
+export type UsersSubSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }> };
 
 export type SetMyGuildMutationVariables = Exact<{
   userId: Scalars['uuid']['input'];
@@ -6594,10 +6574,6 @@ export const UserFieldsFragmentDoc = gql`
   discord_name
   discord_avatar
   discord_user_id
-  user_league_mechanics {
-    id
-    mechanic
-  }
 }
     `;
 export const MyAdminFlagDocument = gql`
@@ -6914,14 +6890,6 @@ export const MyLeagueMembershipDocument = gql`
 }
     `;
 export type MyLeagueMembershipSubscriptionResult = Apollo.SubscriptionResult<MyLeagueMembershipSubscription>;
-export const LeaguesDocument = gql`
-    query Leagues {
-  league_type {
-    value
-  }
-}
-    `;
-export type LeaguesQueryResult = Apollo.QueryResult<LeaguesQuery, LeaguesQueryVariables>;
 export const OrderTypesDocument = gql`
     query OrderTypes {
   item_order_type {
@@ -7060,30 +7028,6 @@ export const DeleteUserItemOrderDocument = gql`
 export type DeleteUserItemOrderMutationFn = Apollo.MutationFunction<DeleteUserItemOrderMutation, DeleteUserItemOrderMutationVariables>;
 export type DeleteUserItemOrderMutationResult = Apollo.MutationResult<DeleteUserItemOrderMutation>;
 export type DeleteUserItemOrderMutationOptions = Apollo.BaseMutationOptions<DeleteUserItemOrderMutation, DeleteUserItemOrderMutationVariables>;
-export const InsertUserLeagueMechanicDocument = gql`
-    mutation InsertUserLeagueMechanic($mechanic: league_type_enum!, $userId: uuid!) {
-  insert_user_league_mechanic_one(object: {mechanic: $mechanic, user_id: $userId}) {
-    mechanic
-    user_id
-    id
-  }
-}
-    `;
-export type InsertUserLeagueMechanicMutationFn = Apollo.MutationFunction<InsertUserLeagueMechanicMutation, InsertUserLeagueMechanicMutationVariables>;
-export type InsertUserLeagueMechanicMutationResult = Apollo.MutationResult<InsertUserLeagueMechanicMutation>;
-export type InsertUserLeagueMechanicMutationOptions = Apollo.BaseMutationOptions<InsertUserLeagueMechanicMutation, InsertUserLeagueMechanicMutationVariables>;
-export const DeleteUserLeagueMechanicDocument = gql`
-    mutation DeleteUserLeagueMechanic($mechanicId: uuid!) {
-  delete_user_league_mechanic_by_pk(id: $mechanicId) {
-    id
-    mechanic
-    user_id
-  }
-}
-    `;
-export type DeleteUserLeagueMechanicMutationFn = Apollo.MutationFunction<DeleteUserLeagueMechanicMutation, DeleteUserLeagueMechanicMutationVariables>;
-export type DeleteUserLeagueMechanicMutationResult = Apollo.MutationResult<DeleteUserLeagueMechanicMutation>;
-export type DeleteUserLeagueMechanicMutationOptions = Apollo.BaseMutationOptions<DeleteUserLeagueMechanicMutation, DeleteUserLeagueMechanicMutationVariables>;
 export const UsersDocument = gql`
     query Users {
   user(order_by: {discord_name: asc}) {

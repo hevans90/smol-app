@@ -6,10 +6,6 @@ fragment UserFields on user {
   discord_name
   discord_avatar
   discord_user_id
-  user_league_mechanics {
-    id
-    mechanic
-  }
 }
 
 query Users {

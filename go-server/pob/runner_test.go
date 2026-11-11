@@ -100,3 +100,22 @@ func TestComputeErrorPayload(t *testing.T) {
 	}
 	t.Logf("got expected error: %v", err)
 }
+
+func TestErrorLinePrefersTheLuaError(t *testing.T) {
+	// what a broken LuaJIT build actually printed in production
+	stderr := "luajit: HeadlessWrapper.lua:1: unexpected symbol near '#'\nstack traceback:\n\t[C]: in function 'dofile'\n\t/tmp/extract-stats.lua:156: in main chunk\n\t[C]: at 0x55555555d370\n"
+	got := errorLine([]byte(stderr))
+	want := "luajit: HeadlessWrapper.lua:1: unexpected symbol near '#'"
+	if got != want {
+		t.Fatalf("got %q, want %q", got, want)
+	}
+}
+
+func TestErrorLineFallsBackToLastLine(t *testing.T) {
+	if got := errorLine([]byte("Uniques loaded\nRares loaded\nKilled\n")); got != "Killed" {
+		t.Fatalf("got %q", got)
+	}
+	if got := errorLine(nil); got != "" {
+		t.Fatalf("got %q for empty stderr", got)
+	}
+}

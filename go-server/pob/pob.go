@@ -197,7 +197,7 @@ func (r *Runner) Compute(ctx context.Context, characterName string, items, passi
 	var stats Stats
 	if err := json.Unmarshal(stdout.Bytes(), &stats); err != nil {
 		if runErr != nil {
-			return nil, fmt.Errorf("pob process failed: %w (stderr: %s)", runErr, lastLine(stderr.Bytes()))
+			return nil, fmt.Errorf("pob process failed: %w (stderr: %s)", runErr, errorLine(stderr.Bytes()))
 		}
 		return nil, fmt.Errorf("pob printed invalid JSON: %w", err)
 	}
@@ -205,17 +205,24 @@ func (r *Runner) Compute(ctx context.Context, characterName string, items, passi
 		return nil, fmt.Errorf("pob: %s", stats.Error)
 	}
 	if runErr != nil {
-		return nil, fmt.Errorf("pob process failed: %w (stderr: %s)", runErr, lastLine(stderr.Bytes()))
+		return nil, fmt.Errorf("pob process failed: %w (stderr: %s)", runErr, errorLine(stderr.Bytes()))
 	}
 	return &stats, nil
 }
 
-func lastLine(output []byte) string {
+// errorLine picks the most useful line of PoB's stderr for a log message.
+// An uncaught Lua error prints "luajit: <file>:<line>: <message>" followed
+// by a stack traceback, so the last line is only the bottom of the traceback
+// ("[C]: at 0x...") — logging that alone hid a total outage for hours. Prefer
+// the "luajit:" line; fall back to the last line for anything else.
+func errorLine(output []byte) string {
 	lines := strings.Split(strings.TrimSpace(string(output)), "\n")
-	if len(lines) == 0 {
-		return ""
+	for i := len(lines) - 1; i >= 0; i-- {
+		if strings.HasPrefix(strings.TrimSpace(lines[i]), "luajit:") {
+			return strings.TrimSpace(lines[i])
+		}
 	}
-	return lines[len(lines)-1]
+	return strings.TrimSpace(lines[len(lines)-1])
 }
 
 // clkTck is USER_HZ, the unit /proc/stat and /proc/[pid]/stat report CPU time

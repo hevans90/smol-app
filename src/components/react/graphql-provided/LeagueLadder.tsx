@@ -21,7 +21,7 @@ export const LeagueLadder = () => {
   const { data: leagueInfo } = useQuery<LeagueQuery>(LeagueDocument);
 
   // the admin-configured league; its `league` relationship is null until the
-  // go-server's first ladder sync after a league change
+  // scheduled ladder sync's first run after a league change
   const config = leagueInfo?.app_config_by_pk;
   const leagueName = config?.league_name;
   const league = config?.league;

@@ -12,7 +12,6 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/sqlc-dev/pqtype v0.3.0
 	pob v0.0.0-00010101000000-000000000000
-	poe v0.0.0-00010101000000-000000000000
 )
 
 require (

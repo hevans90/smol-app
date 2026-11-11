@@ -11,7 +11,7 @@ import {
  * guilds) and mirrors what Hasura enforces: non-members can read everything
  * but cannot create, edit, fulfil or contribute to orders.
  *
- * A subscription, so it flips on its own once the go-server's next ladder
+ * A subscription, so it flips on its own once the next scheduled ladder
  * sync (every 5 minutes) picks up a newly created character.
  *
  * Must be rendered inside an ApolloProvider.

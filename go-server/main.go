@@ -26,13 +26,25 @@ import (
 // active league from the frontend admin section at runtime.
 const defaultLeagueName = "SDRT Smol Djinn Rescue Team (PL78726)"
 
+// This server only computes PoB character stats. The ladder itself (the
+// league and character tables) is written by the scheduled Netlify function
+// netlify/functions/sync-ladder.ts every 5 minutes — deliberately the single
+// writer, so league membership never depends on this process staying up.
+// character_stats rows reference character rows, so a character that has
+// only just appeared on the ladder cannot be saved until that sync has
+// stored it; it is simply picked up by the next sweep.
 const (
-	// Character stats are computed much less often than the 5-minute ladder
-	// poll: the sweep makes 2 character-window requests per public character,
-	// and GGG rate-limits those per IP.
+	// The sweep makes 2 character-window requests per public character, and
+	// GGG rate-limits those per IP, so it runs far less often than the
+	// ladder sync.
 	statsInterval = 30 * time.Minute
-	// Offset the first sweep from the 5-minute ladder ticks.
+	// Short pause after boot before the first sweep.
 	statsInitialDelay = 150 * time.Second
+	// After an admin switches league, wait for the ladder sync (every 5
+	// minutes) to have stored the new league's characters before sweeping
+	// them; starting immediately would fail every stats insert on the
+	// missing character rows.
+	leagueChangeSettleDelay = 6 * time.Minute
 	// Pause after every character-window request (~40 requests/minute).
 	characterWindowDelay = 1500 * time.Millisecond
 	// PoB itself only needs single-digit seconds of actual CPU time per
@@ -97,27 +109,6 @@ func configuredLeague(ctx context.Context, queries *smoldata.Queries) string {
 		return defaultLeagueName
 	}
 	return league
-}
-
-func saveCharacters(ctx context.Context, db *sql.DB, queries *smoldata.Queries, green, red *color.Color) {
-	leagueName := configuredLeague(ctx, queries)
-	tokenResponse := poe.GetToken()
-	leagueResponse := poe.GetLeague(tokenResponse, leagueName)
-
-	leagueId, err := smoldata.InsertLeague(ctx, queries, leagueResponse.League)
-	if err != nil {
-		red.Printf("Could not save league: %v\n", err)
-	} else {
-		green.Printf("League %s saved successfully\n", leagueId)
-	}
-
-	leagueCharacters := smoldata.MapLadderToCharacters(leagueResponse.Ladder)
-	numberInserted, err := smoldata.InsertCharacters(db, leagueCharacters, leagueName)
-	if err != nil {
-		red.Printf("Could not save characters: %v\n", err)
-	} else {
-		green.Printf("%v characters saved successfully\n", numberInserted)
-	}
 }
 
 // computeCharacterStats walks the current ladder, runs every public character
@@ -222,9 +213,6 @@ func main() {
 	queries := smoldata.New(db)
 	ctx := context.Background()
 
-	// Run initial character save immediately
-	saveCharacters(ctx, db, queries, green, red)
-
 	configChanges := listenForConfigChanges(red)
 	statsKick := make(chan struct{}, 1)
 
@@ -239,41 +227,18 @@ func main() {
 		cancelCurrentSweep()
 	}
 
-	// Start periodic saving and countdown logging
+	// React to league changes: stop sweeping the old league at once, then
+	// start on the new one after the ladder sync has had time to store it.
 	go func() {
-		saveInterval := 5 * time.Minute
-		countdownInterval := 30 * time.Second
-		timeUntilNextSave := saveInterval
-
-		log.Printf("Next character save in %v...", timeUntilNextSave) // ✅ Initial log
-
-		countdownTicker := time.NewTicker(countdownInterval)
-		saveTicker := time.NewTicker(saveInterval)
-		defer countdownTicker.Stop()
-		defer saveTicker.Stop()
-
-		for {
-			select {
-			case <-countdownTicker.C:
-				timeUntilNextSave -= countdownInterval
-				if timeUntilNextSave > 0 {
-					log.Printf("Next character save in %v...", timeUntilNextSave)
-				}
-			case <-saveTicker.C:
-				saveCharacters(ctx, db, queries, green, red)
-				timeUntilNextSave = saveInterval
-				log.Printf("Next character save in %v...", timeUntilNextSave) // ✅ Reset log after saving
-			case league := <-configChanges:
-				green.Printf("League changed to %s, resyncing now\n", league)
-				saveCharacters(ctx, db, queries, green, red)
-				saveTicker.Reset(saveInterval)
-				timeUntilNextSave = saveInterval
-				abortSweepInProgress()
+		for league := range configChanges {
+			green.Printf("League changed to %s, stats sweep restarts in %v\n", league, leagueChangeSettleDelay)
+			abortSweepInProgress()
+			time.AfterFunc(leagueChangeSettleDelay, func() {
 				select {
 				case statsKick <- struct{}{}:
-				default:
+				default: // a restart is already pending
 				}
-			}
+			})
 		}
 	}()
 
@@ -300,7 +265,7 @@ func main() {
 				select {
 				case <-time.After(statsInterval):
 				case <-statsKick:
-					green.Printf("League changed, starting stats sweep now\n")
+					green.Printf("League changed, starting stats sweep for the new league\n")
 				}
 			}
 		}()

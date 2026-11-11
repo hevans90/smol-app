@@ -2,6 +2,7 @@ import type { Handler, HandlerEvent } from '@netlify/functions';
 import { addSeconds } from 'date-fns';
 import { sign } from 'jsonwebtoken';
 import fetch from 'node-fetch';
+import { POE_USER_AGENT } from '../lib/poe';
 import { hasuraUrl } from '../lib/require-user';
 
 type GGGAccessTokenResponse = {
@@ -56,7 +57,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     const response = await fetch('https://www.pathofexile.com/oauth/token', {
       method: 'POST',
       headers: {
-        'User-Agent': 'OAuth smolapp/1.0 (contact: hevans9000@gmail.com)',
+        'User-Agent': POE_USER_AGENT,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({

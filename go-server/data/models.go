@@ -248,9 +248,3 @@ type UserItemOrder struct {
 	IconUrl      sql.NullString
 	ItemCategory sql.NullString
 }
-
-type UserLeagueMechanic struct {
-	ID       uuid.UUID
-	Mechanic string
-	UserID   uuid.UUID
-}

@@ -13,4 +13,3 @@
 - "!include public_league_type.yaml"
 - "!include public_user.yaml"
 - "!include public_user_item_order.yaml"
-- "!include public_user_league_mechanic.yaml"

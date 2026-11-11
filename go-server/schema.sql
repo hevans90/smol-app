@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict H85ANkGtpYJIhExlzDgdOb7LhavTlTmXxO1vD83Rcz8aABCwz3rKdxpTRCOh0tw
+\restrict jp4rRPCXdieNATdefocOKvCTWFbauNhNdEpCdnegCdnzWU36PMcGNQjqAIJIK51
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -533,17 +533,6 @@ CREATE TABLE public.user_item_order (
 
 
 --
--- Name: user_league_mechanic; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.user_league_mechanic (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    mechanic text NOT NULL,
-    user_id uuid NOT NULL
-);
-
-
---
 -- Name: hdb_action_log hdb_action_log_pkey; Type: CONSTRAINT; Schema: hdb_catalog; Owner: -
 --
 
@@ -733,22 +722,6 @@ ALTER TABLE ONLY public."user"
 
 ALTER TABLE ONLY public.user_item_order
     ADD CONSTRAINT user_item_order_pkey PRIMARY KEY (id);
-
-
---
--- Name: user_league_mechanic user_league_mechanic_mechanic_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.user_league_mechanic
-    ADD CONSTRAINT user_league_mechanic_mechanic_user_id_key UNIQUE (mechanic, user_id);
-
-
---
--- Name: user_league_mechanic user_league_mechanic_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.user_league_mechanic
-    ADD CONSTRAINT user_league_mechanic_pkey PRIMARY KEY (id);
 
 
 --
@@ -1006,24 +979,8 @@ ALTER TABLE ONLY public.user_item_order
 
 
 --
--- Name: user_league_mechanic user_league_mechanic_mechanic_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.user_league_mechanic
-    ADD CONSTRAINT user_league_mechanic_mechanic_fkey FOREIGN KEY (mechanic) REFERENCES public.league_type(value) ON UPDATE RESTRICT ON DELETE RESTRICT;
-
-
---
--- Name: user_league_mechanic user_league_mechanic_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.user_league_mechanic
-    ADD CONSTRAINT user_league_mechanic_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE RESTRICT ON DELETE CASCADE;
-
-
---
 -- PostgreSQL database dump complete
 --
 
-\unrestrict H85ANkGtpYJIhExlzDgdOb7LhavTlTmXxO1vD83Rcz8aABCwz3rKdxpTRCOh0tw
+\unrestrict jp4rRPCXdieNATdefocOKvCTWFbauNhNdEpCdnegCdnzWU36PMcGNQjqAIJIK51
 

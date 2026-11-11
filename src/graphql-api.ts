@@ -3453,40 +3453,6 @@ export enum League_Type_Constraint {
   LeagueTypePkey = 'league_type_pkey'
 }
 
-export enum League_Type_Enum {
-  Abyss = 'abyss',
-  AltarEater = 'altar_eater',
-  AltarExarch = 'altar_exarch',
-  Bestiary = 'bestiary',
-  Betrayal = 'betrayal',
-  Beyond = 'beyond',
-  Blight = 'blight',
-  Breach = 'breach',
-  Delirium = 'delirium',
-  Delve = 'delve',
-  Essence = 'essence',
-  Expedition = 'expedition',
-  Harbinger = 'harbinger',
-  Harvest = 'harvest',
-  Heist = 'heist',
-  Incursion = 'incursion',
-  Labyrinth = 'labyrinth',
-  Legion = 'legion',
-  Ritual = 'ritual',
-  Sanctum = 'sanctum',
-  SettlersOfKalguur = 'settlers_of_kalguur',
-  Ultimatum = 'ultimatum'
-}
-
-/** Boolean expression to compare columns of type "league_type_enum". All fields are combined with logical 'AND'. */
-export type League_Type_Enum_Comparison_Exp = {
-  _eq?: InputMaybe<League_Type_Enum>;
-  _in?: InputMaybe<Array<League_Type_Enum>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _neq?: InputMaybe<League_Type_Enum>;
-  _nin?: InputMaybe<Array<League_Type_Enum>>;
-};
-
 /** input type for inserting data into table "league_type" */
 export type League_Type_Insert_Input = {
   value?: InputMaybe<Scalars['String']['input']>;
@@ -3655,10 +3621,6 @@ export type Mutation_Root = {
   delete_user_item_order?: Maybe<User_Item_Order_Mutation_Response>;
   /** delete single row from the table: "user_item_order" */
   delete_user_item_order_by_pk?: Maybe<User_Item_Order>;
-  /** delete data from the table: "user_league_mechanic" */
-  delete_user_league_mechanic?: Maybe<User_League_Mechanic_Mutation_Response>;
-  /** delete single row from the table: "user_league_mechanic" */
-  delete_user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
   /** insert data into the table: "app_config" */
   insert_app_config?: Maybe<App_Config_Mutation_Response>;
   /** insert a single row into the table: "app_config" */
@@ -3713,10 +3675,6 @@ export type Mutation_Root = {
   insert_user_item_order?: Maybe<User_Item_Order_Mutation_Response>;
   /** insert a single row into the table: "user_item_order" */
   insert_user_item_order_one?: Maybe<User_Item_Order>;
-  /** insert data into the table: "user_league_mechanic" */
-  insert_user_league_mechanic?: Maybe<User_League_Mechanic_Mutation_Response>;
-  /** insert a single row into the table: "user_league_mechanic" */
-  insert_user_league_mechanic_one?: Maybe<User_League_Mechanic>;
   /** insert a single row into the table: "user" */
   insert_user_one?: Maybe<User>;
   /** update data of the table: "app_config" */
@@ -3801,12 +3759,6 @@ export type Mutation_Root = {
   update_user_item_order_by_pk?: Maybe<User_Item_Order>;
   /** update multiples rows of table: "user_item_order" */
   update_user_item_order_many?: Maybe<Array<Maybe<User_Item_Order_Mutation_Response>>>;
-  /** update data of the table: "user_league_mechanic" */
-  update_user_league_mechanic?: Maybe<User_League_Mechanic_Mutation_Response>;
-  /** update single row of the table: "user_league_mechanic" */
-  update_user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
-  /** update multiples rows of table: "user_league_mechanic" */
-  update_user_league_mechanic_many?: Maybe<Array<Maybe<User_League_Mechanic_Mutation_Response>>>;
   /** update multiples rows of table: "user" */
   update_user_many?: Maybe<Array<Maybe<User_Mutation_Response>>>;
 };
@@ -3976,18 +3928,6 @@ export type Mutation_RootDelete_User_Item_OrderArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_User_Item_Order_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_User_League_MechanicArgs = {
-  where: User_League_Mechanic_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDelete_User_League_Mechanic_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -4178,20 +4118,6 @@ export type Mutation_RootInsert_User_Item_OrderArgs = {
 export type Mutation_RootInsert_User_Item_Order_OneArgs = {
   object: User_Item_Order_Insert_Input;
   on_conflict?: InputMaybe<User_Item_Order_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_User_League_MechanicArgs = {
-  objects: Array<User_League_Mechanic_Insert_Input>;
-  on_conflict?: InputMaybe<User_League_Mechanic_On_Conflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsert_User_League_Mechanic_OneArgs = {
-  object: User_League_Mechanic_Insert_Input;
-  on_conflict?: InputMaybe<User_League_Mechanic_On_Conflict>;
 };
 
 
@@ -4499,26 +4425,6 @@ export type Mutation_RootUpdate_User_Item_Order_ManyArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_League_MechanicArgs = {
-  _set?: InputMaybe<User_League_Mechanic_Set_Input>;
-  where: User_League_Mechanic_Bool_Exp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_User_League_Mechanic_By_PkArgs = {
-  _set?: InputMaybe<User_League_Mechanic_Set_Input>;
-  pk_columns: User_League_Mechanic_Pk_Columns_Input;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdate_User_League_Mechanic_ManyArgs = {
-  updates: Array<User_League_Mechanic_Updates>;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdate_User_ManyArgs = {
   updates: Array<User_Updates>;
 };
@@ -4629,12 +4535,6 @@ export type Query_Root = {
   user_item_order_aggregate: User_Item_Order_Aggregate;
   /** fetch data from the table: "user_item_order" using primary key columns */
   user_item_order_by_pk?: Maybe<User_Item_Order>;
-  /** fetch data from the table: "user_league_mechanic" */
-  user_league_mechanic: Array<User_League_Mechanic>;
-  /** fetch aggregated fields from the table: "user_league_mechanic" */
-  user_league_mechanic_aggregate: User_League_Mechanic_Aggregate;
-  /** fetch data from the table: "user_league_mechanic" using primary key columns */
-  user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
 };
 
 
@@ -4977,29 +4877,6 @@ export type Query_RootUser_Item_Order_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
-
-export type Query_RootUser_League_MechanicArgs = {
-  distinct_on?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_League_Mechanic_Order_By>>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
-
-export type Query_RootUser_League_Mechanic_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_League_Mechanic_Order_By>>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
-
-export type Query_RootUser_League_Mechanic_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "app_config" */
@@ -5118,14 +4995,6 @@ export type Subscription_Root = {
   user_item_order_by_pk?: Maybe<User_Item_Order>;
   /** fetch data from the table in a streaming manner: "user_item_order" */
   user_item_order_stream: Array<User_Item_Order>;
-  /** fetch data from the table: "user_league_mechanic" */
-  user_league_mechanic: Array<User_League_Mechanic>;
-  /** fetch aggregated fields from the table: "user_league_mechanic" */
-  user_league_mechanic_aggregate: User_League_Mechanic_Aggregate;
-  /** fetch data from the table: "user_league_mechanic" using primary key columns */
-  user_league_mechanic_by_pk?: Maybe<User_League_Mechanic>;
-  /** fetch data from the table in a streaming manner: "user_league_mechanic" */
-  user_league_mechanic_stream: Array<User_League_Mechanic>;
   /** fetch data from the table in a streaming manner: "user" */
   user_stream: Array<User>;
 };
@@ -5569,36 +5438,6 @@ export type Subscription_RootUser_Item_Order_StreamArgs = {
 };
 
 
-export type Subscription_RootUser_League_MechanicArgs = {
-  distinct_on?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_League_Mechanic_Order_By>>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
-
-export type Subscription_RootUser_League_Mechanic_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_League_Mechanic_Order_By>>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
-
-export type Subscription_RootUser_League_Mechanic_By_PkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootUser_League_Mechanic_StreamArgs = {
-  batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<User_League_Mechanic_Stream_Cursor_Input>>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
-
 export type Subscription_RootUser_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<User_Stream_Cursor_Input>>;
@@ -5637,10 +5476,6 @@ export type User = {
   user_item_orders: Array<User_Item_Order>;
   /** An aggregate relationship */
   user_item_orders_aggregate: User_Item_Order_Aggregate;
-  /** An array relationship */
-  user_league_mechanics: Array<User_League_Mechanic>;
-  /** An aggregate relationship */
-  user_league_mechanics_aggregate: User_League_Mechanic_Aggregate;
 };
 
 
@@ -5683,26 +5518,6 @@ export type UserUser_Item_Orders_AggregateArgs = {
   where?: InputMaybe<User_Item_Order_Bool_Exp>;
 };
 
-
-/** columns and relationships of "user" */
-export type UserUser_League_MechanicsArgs = {
-  distinct_on?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_League_Mechanic_Order_By>>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
-
-/** columns and relationships of "user" */
-export type UserUser_League_Mechanics_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_League_Mechanic_Order_By>>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
 /** aggregated selection of "user" */
 export type User_Aggregate = {
   __typename?: 'user_aggregate';
@@ -5742,8 +5557,6 @@ export type User_Bool_Exp = {
   poe_user_id?: InputMaybe<String_Comparison_Exp>;
   user_item_orders?: InputMaybe<User_Item_Order_Bool_Exp>;
   user_item_orders_aggregate?: InputMaybe<User_Item_Order_Aggregate_Bool_Exp>;
-  user_league_mechanics?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-  user_league_mechanics_aggregate?: InputMaybe<User_League_Mechanic_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "user" */
@@ -5770,7 +5583,6 @@ export type User_Insert_Input = {
   poe_name?: InputMaybe<Scalars['String']['input']>;
   poe_user_id?: InputMaybe<Scalars['String']['input']>;
   user_item_orders?: InputMaybe<User_Item_Order_Arr_Rel_Insert_Input>;
-  user_league_mechanics?: InputMaybe<User_League_Mechanic_Arr_Rel_Insert_Input>;
 };
 
 /** Item orders by specific users */
@@ -6114,189 +5926,6 @@ export type User_Item_Order_Updates = {
   where: User_Item_Order_Bool_Exp;
 };
 
-/** League mechanics that a given user is focussing on */
-export type User_League_Mechanic = {
-  __typename?: 'user_league_mechanic';
-  id: Scalars['uuid']['output'];
-  mechanic: League_Type_Enum;
-  user_id: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "user_league_mechanic" */
-export type User_League_Mechanic_Aggregate = {
-  __typename?: 'user_league_mechanic_aggregate';
-  aggregate?: Maybe<User_League_Mechanic_Aggregate_Fields>;
-  nodes: Array<User_League_Mechanic>;
-};
-
-export type User_League_Mechanic_Aggregate_Bool_Exp = {
-  count?: InputMaybe<User_League_Mechanic_Aggregate_Bool_Exp_Count>;
-};
-
-export type User_League_Mechanic_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** aggregate fields of "user_league_mechanic" */
-export type User_League_Mechanic_Aggregate_Fields = {
-  __typename?: 'user_league_mechanic_aggregate_fields';
-  count: Scalars['Int']['output'];
-  max?: Maybe<User_League_Mechanic_Max_Fields>;
-  min?: Maybe<User_League_Mechanic_Min_Fields>;
-};
-
-
-/** aggregate fields of "user_league_mechanic" */
-export type User_League_Mechanic_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<User_League_Mechanic_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "user_league_mechanic" */
-export type User_League_Mechanic_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<User_League_Mechanic_Max_Order_By>;
-  min?: InputMaybe<User_League_Mechanic_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "user_league_mechanic" */
-export type User_League_Mechanic_Arr_Rel_Insert_Input = {
-  data: Array<User_League_Mechanic_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<User_League_Mechanic_On_Conflict>;
-};
-
-/** Boolean expression to filter rows from the table "user_league_mechanic". All fields are combined with a logical 'AND'. */
-export type User_League_Mechanic_Bool_Exp = {
-  _and?: InputMaybe<Array<User_League_Mechanic_Bool_Exp>>;
-  _not?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-  _or?: InputMaybe<Array<User_League_Mechanic_Bool_Exp>>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  mechanic?: InputMaybe<League_Type_Enum_Comparison_Exp>;
-  user_id?: InputMaybe<Uuid_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "user_league_mechanic" */
-export enum User_League_Mechanic_Constraint {
-  /** unique or primary key constraint on columns "mechanic", "user_id" */
-  UserLeagueMechanicMechanicUserIdKey = 'user_league_mechanic_mechanic_user_id_key',
-  /** unique or primary key constraint on columns "id" */
-  UserLeagueMechanicPkey = 'user_league_mechanic_pkey'
-}
-
-/** input type for inserting data into table "user_league_mechanic" */
-export type User_League_Mechanic_Insert_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  mechanic?: InputMaybe<League_Type_Enum>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type User_League_Mechanic_Max_Fields = {
-  __typename?: 'user_league_mechanic_max_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "user_league_mechanic" */
-export type User_League_Mechanic_Max_Order_By = {
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** aggregate min on columns */
-export type User_League_Mechanic_Min_Fields = {
-  __typename?: 'user_league_mechanic_min_fields';
-  id?: Maybe<Scalars['uuid']['output']>;
-  user_id?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "user_league_mechanic" */
-export type User_League_Mechanic_Min_Order_By = {
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** response of any mutation on the table "user_league_mechanic" */
-export type User_League_Mechanic_Mutation_Response = {
-  __typename?: 'user_league_mechanic_mutation_response';
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<User_League_Mechanic>;
-};
-
-/** on_conflict condition type for table "user_league_mechanic" */
-export type User_League_Mechanic_On_Conflict = {
-  constraint: User_League_Mechanic_Constraint;
-  update_columns?: Array<User_League_Mechanic_Update_Column>;
-  where?: InputMaybe<User_League_Mechanic_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "user_league_mechanic". */
-export type User_League_Mechanic_Order_By = {
-  id?: InputMaybe<Order_By>;
-  mechanic?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: user_league_mechanic */
-export type User_League_Mechanic_Pk_Columns_Input = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "user_league_mechanic" */
-export enum User_League_Mechanic_Select_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Mechanic = 'mechanic',
-  /** column name */
-  UserId = 'user_id'
-}
-
-/** input type for updating data in table "user_league_mechanic" */
-export type User_League_Mechanic_Set_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  mechanic?: InputMaybe<League_Type_Enum>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** Streaming cursor of the table "user_league_mechanic" */
-export type User_League_Mechanic_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: User_League_Mechanic_Stream_Cursor_Value_Input;
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type User_League_Mechanic_Stream_Cursor_Value_Input = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  mechanic?: InputMaybe<League_Type_Enum>;
-  user_id?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** update columns of table "user_league_mechanic" */
-export enum User_League_Mechanic_Update_Column {
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Mechanic = 'mechanic',
-  /** column name */
-  UserId = 'user_id'
-}
-
-export type User_League_Mechanic_Updates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<User_League_Mechanic_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: User_League_Mechanic_Bool_Exp;
-};
-
 /** aggregate max on columns */
 export type User_Max_Fields = {
   __typename?: 'user_max_fields';
@@ -6356,7 +5985,6 @@ export type User_Order_By = {
   poe_name?: InputMaybe<Order_By>;
   poe_user_id?: InputMaybe<Order_By>;
   user_item_orders_aggregate?: InputMaybe<User_Item_Order_Aggregate_Order_By>;
-  user_league_mechanics_aggregate?: InputMaybe<User_League_Mechanic_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: user */

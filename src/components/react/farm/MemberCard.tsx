@@ -1,3 +1,4 @@
+import { IconPinFilled } from '@tabler/icons-react';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -17,8 +18,6 @@ const MAIN_REASON: Record<FarmMember['mainSource'], string> = {
   edited: 'Main tree: the most recently edited',
   points: 'Main tree: the one with the most points',
 };
-const PIN_BUTTON =
-  'bg-transparent px-1 text-xs text-primary-800 underline hover:bg-transparent hover:text-primary-300';
 
 export const MemberCard = ({
   member,
@@ -29,7 +28,7 @@ export const MemberCard = ({
   member: FarmMember;
   isMe: boolean;
   onOpen: (treeIndex: number) => void;
-  /** pins a tree (by its position in the snapshot) as main, or null to unpin */
+  /** own card only: pins a tree (by its position in the snapshot) as main, or null to unpin */
   onPin: (tree: number | null) => void;
 }) => {
   const { user, data } = member;
@@ -162,40 +161,42 @@ export const MemberCard = ({
 
       {member.trees.length > 1 && (
         <div className="flex flex-wrap items-center gap-1">
-          {member.trees.map(({ tree, summary: each }, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-pressed={index === treeIndex}
-              onClick={() => setTreeIndex(index)}
-              title={index === member.mainIndex ? MAIN_REASON[member.mainSource] : undefined}
-              className={twMerge(
-                'rounded border px-2 py-0.5 text-xs',
-                index === treeIndex
-                  ? 'border-primary-500 bg-gray-800 text-primary-300'
-                  : 'border-primary-900 bg-transparent text-primary-800 hover:border-primary-800',
-              )}
-            >
-              {tree.name} · {each.allocated}
-              {index === member.mainIndex && ' · main'}
-            </button>
-          ))}
-          {isMe &&
-            (member.mainSource === 'pinned' && treeIndex === member.mainIndex ? (
-              <button type="button" onClick={() => onPin(null)} className={PIN_BUTTON}>
-                Unpin
+          {member.trees.map(({ tree, summary: each, index: position }, index) => {
+            const isMain = index === member.mainIndex;
+            const isPinned = isMain && member.mainSource === 'pinned';
+            return (
+              <button
+                key={index}
+                type="button"
+                aria-pressed={index === treeIndex}
+                onClick={() => {
+                  setTreeIndex(index);
+                  // on your own card, picking a tree also makes it your
+                  // main one; picking your pinned tree again lets go of it
+                  if (isMe) onPin(isPinned ? null : position);
+                }}
+                title={
+                  !isMe
+                    ? isMain
+                      ? MAIN_REASON[member.mainSource]
+                      : undefined
+                    : isPinned
+                      ? 'Your main tree. Click to unpin'
+                      : 'Click to make this your main tree'
+                }
+                className={twMerge(
+                  'flex items-center gap-1 rounded border px-2 py-0.5 text-xs',
+                  index === treeIndex
+                    ? 'border-primary-500 bg-gray-800 text-primary-300'
+                    : 'border-primary-900 bg-transparent text-primary-800 hover:border-primary-800',
+                )}
+              >
+                {isPinned && <IconPinFilled size={12} aria-hidden />}
+                {tree.name} · {each.allocated}
+                {isMain && ' · main'}
               </button>
-            ) : (
-              treeIndex !== member.mainIndex && (
-                <button
-                  type="button"
-                  onClick={() => onPin(member.trees[treeIndex].index)}
-                  className={PIN_BUTTON}
-                >
-                  Set as main
-                </button>
-              )
-            ))}
+            );
+          })}
         </div>
       )}
     </article>

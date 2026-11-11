@@ -296,6 +296,7 @@ export const OrderBook = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('hasura_token') ?? ''}`,
       },
       body: JSON.stringify({
         discordUserId,

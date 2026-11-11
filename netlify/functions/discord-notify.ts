@@ -1,6 +1,11 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import fetch from 'node-fetch';
 import invariant from 'tiny-invariant';
+import {
+  getAuthenticatedUserId,
+  unauthorized,
+  userMentionsOnly,
+} from '../lib/require-user';
 
 type DiscordEmbed = {
   title?: string;
@@ -21,6 +26,7 @@ type RequestBody = {
 // order messages carry rich embeds and sometimes ping nobody (announcements)
 // or multiple people (cancellations).
 export const handler: Handler = async (event: HandlerEvent) => {
+  if (!getAuthenticatedUserId(event)) return unauthorized;
   invariant(event.body);
 
   const { content, embeds } = JSON.parse(event.body) as RequestBody;
@@ -35,6 +41,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
         content,
         embeds,
         username: 'smol-bot',
+        allowed_mentions: userMentionsOnly,
       }),
     });
   } catch (e) {

@@ -1,6 +1,11 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import fetch from 'node-fetch';
 import invariant from 'tiny-invariant';
+import {
+  getAuthenticatedUserId,
+  unauthorized,
+  userMentionsOnly,
+} from '../lib/require-user';
 
 type QueryParams = {
   discordUserId: string;
@@ -8,6 +13,7 @@ type QueryParams = {
 };
 
 export const handler: Handler = async (event: HandlerEvent) => {
+  if (!getAuthenticatedUserId(event)) return unauthorized;
   invariant(event.body);
 
   const { discordUserId, message } = JSON.parse(
@@ -25,6 +31,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       body: JSON.stringify({
         content: messageToSend,
         username: 'smol-bot',
+        allowed_mentions: userMentionsOnly,
       }),
     });
   } catch (e) {

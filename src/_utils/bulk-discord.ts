@@ -352,7 +352,10 @@ export const notifyBulkDiscord = async (payload: BulkDiscordPayload) => {
   try {
     await fetch(`${window.location.origin}/api/discord-notify`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('hasura_token') ?? ''}`,
+      },
       body: JSON.stringify(payload),
     });
   } catch (e) {

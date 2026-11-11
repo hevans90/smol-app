@@ -16,6 +16,7 @@ export type Scalars = {
   Float: { input: number; output: number; }
   bigint: { input: any; output: any; }
   float8: { input: number; output: number; }
+  jsonb: { input: any; output: any; }
   timestamptz: { input: string; output: string; }
   uuid: { input: string; output: string; }
 };
@@ -291,6 +292,497 @@ export type App_Config_Var_Samp_Fields = {
 export type App_Config_Variance_Fields = {
   __typename?: 'app_config_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** columns and relationships of "atlas_connection" */
+export type Atlas_Connection = {
+  __typename?: 'atlas_connection';
+  access_expires_at: Scalars['timestamptz']['output'];
+  connected_at: Scalars['timestamptz']['output'];
+  encrypted_access_token: Scalars['String']['output'];
+  encrypted_refresh_token?: Maybe<Scalars['String']['output']>;
+  last_error?: Maybe<Scalars['String']['output']>;
+  last_synced_at?: Maybe<Scalars['timestamptz']['output']>;
+  /** An object relationship */
+  user: User;
+  user_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "atlas_connection" */
+export type Atlas_Connection_Aggregate = {
+  __typename?: 'atlas_connection_aggregate';
+  aggregate?: Maybe<Atlas_Connection_Aggregate_Fields>;
+  nodes: Array<Atlas_Connection>;
+};
+
+/** aggregate fields of "atlas_connection" */
+export type Atlas_Connection_Aggregate_Fields = {
+  __typename?: 'atlas_connection_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Atlas_Connection_Max_Fields>;
+  min?: Maybe<Atlas_Connection_Min_Fields>;
+};
+
+
+/** aggregate fields of "atlas_connection" */
+export type Atlas_Connection_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Atlas_Connection_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "atlas_connection". All fields are combined with a logical 'AND'. */
+export type Atlas_Connection_Bool_Exp = {
+  _and?: InputMaybe<Array<Atlas_Connection_Bool_Exp>>;
+  _not?: InputMaybe<Atlas_Connection_Bool_Exp>;
+  _or?: InputMaybe<Array<Atlas_Connection_Bool_Exp>>;
+  access_expires_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  connected_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  encrypted_access_token?: InputMaybe<String_Comparison_Exp>;
+  encrypted_refresh_token?: InputMaybe<String_Comparison_Exp>;
+  last_error?: InputMaybe<String_Comparison_Exp>;
+  last_synced_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user?: InputMaybe<User_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "atlas_connection" */
+export enum Atlas_Connection_Constraint {
+  /** unique or primary key constraint on columns "user_id" */
+  AtlasConnectionPkey = 'atlas_connection_pkey'
+}
+
+/** input type for inserting data into table "atlas_connection" */
+export type Atlas_Connection_Insert_Input = {
+  access_expires_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  connected_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  encrypted_access_token?: InputMaybe<Scalars['String']['input']>;
+  encrypted_refresh_token?: InputMaybe<Scalars['String']['input']>;
+  last_error?: InputMaybe<Scalars['String']['input']>;
+  last_synced_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Atlas_Connection_Max_Fields = {
+  __typename?: 'atlas_connection_max_fields';
+  access_expires_at?: Maybe<Scalars['timestamptz']['output']>;
+  connected_at?: Maybe<Scalars['timestamptz']['output']>;
+  encrypted_access_token?: Maybe<Scalars['String']['output']>;
+  encrypted_refresh_token?: Maybe<Scalars['String']['output']>;
+  last_error?: Maybe<Scalars['String']['output']>;
+  last_synced_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** aggregate min on columns */
+export type Atlas_Connection_Min_Fields = {
+  __typename?: 'atlas_connection_min_fields';
+  access_expires_at?: Maybe<Scalars['timestamptz']['output']>;
+  connected_at?: Maybe<Scalars['timestamptz']['output']>;
+  encrypted_access_token?: Maybe<Scalars['String']['output']>;
+  encrypted_refresh_token?: Maybe<Scalars['String']['output']>;
+  last_error?: Maybe<Scalars['String']['output']>;
+  last_synced_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** response of any mutation on the table "atlas_connection" */
+export type Atlas_Connection_Mutation_Response = {
+  __typename?: 'atlas_connection_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Atlas_Connection>;
+};
+
+/** on_conflict condition type for table "atlas_connection" */
+export type Atlas_Connection_On_Conflict = {
+  constraint: Atlas_Connection_Constraint;
+  update_columns?: Array<Atlas_Connection_Update_Column>;
+  where?: InputMaybe<Atlas_Connection_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "atlas_connection". */
+export type Atlas_Connection_Order_By = {
+  access_expires_at?: InputMaybe<Order_By>;
+  connected_at?: InputMaybe<Order_By>;
+  encrypted_access_token?: InputMaybe<Order_By>;
+  encrypted_refresh_token?: InputMaybe<Order_By>;
+  last_error?: InputMaybe<Order_By>;
+  last_synced_at?: InputMaybe<Order_By>;
+  user?: InputMaybe<User_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: atlas_connection */
+export type Atlas_Connection_Pk_Columns_Input = {
+  user_id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "atlas_connection" */
+export enum Atlas_Connection_Select_Column {
+  /** column name */
+  AccessExpiresAt = 'access_expires_at',
+  /** column name */
+  ConnectedAt = 'connected_at',
+  /** column name */
+  EncryptedAccessToken = 'encrypted_access_token',
+  /** column name */
+  EncryptedRefreshToken = 'encrypted_refresh_token',
+  /** column name */
+  LastError = 'last_error',
+  /** column name */
+  LastSyncedAt = 'last_synced_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "atlas_connection" */
+export type Atlas_Connection_Set_Input = {
+  access_expires_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  connected_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  encrypted_access_token?: InputMaybe<Scalars['String']['input']>;
+  encrypted_refresh_token?: InputMaybe<Scalars['String']['input']>;
+  last_error?: InputMaybe<Scalars['String']['input']>;
+  last_synced_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "atlas_connection" */
+export type Atlas_Connection_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Atlas_Connection_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Atlas_Connection_Stream_Cursor_Value_Input = {
+  access_expires_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  connected_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  encrypted_access_token?: InputMaybe<Scalars['String']['input']>;
+  encrypted_refresh_token?: InputMaybe<Scalars['String']['input']>;
+  last_error?: InputMaybe<Scalars['String']['input']>;
+  last_synced_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "atlas_connection" */
+export enum Atlas_Connection_Update_Column {
+  /** column name */
+  AccessExpiresAt = 'access_expires_at',
+  /** column name */
+  ConnectedAt = 'connected_at',
+  /** column name */
+  EncryptedAccessToken = 'encrypted_access_token',
+  /** column name */
+  EncryptedRefreshToken = 'encrypted_refresh_token',
+  /** column name */
+  LastError = 'last_error',
+  /** column name */
+  LastSyncedAt = 'last_synced_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+export type Atlas_Connection_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Atlas_Connection_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Atlas_Connection_Bool_Exp;
+};
+
+/** columns and relationships of "atlas_snapshot" */
+export type Atlas_Snapshot = {
+  __typename?: 'atlas_snapshot';
+  fetched_at: Scalars['timestamptz']['output'];
+  id: Scalars['uuid']['output'];
+  league: Scalars['String']['output'];
+  raw_trees: Scalars['jsonb']['output'];
+  tree_version: Scalars['String']['output'];
+  trees: Scalars['jsonb']['output'];
+  /** An object relationship */
+  user: User;
+  user_id: Scalars['uuid']['output'];
+};
+
+
+/** columns and relationships of "atlas_snapshot" */
+export type Atlas_SnapshotRaw_TreesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "atlas_snapshot" */
+export type Atlas_SnapshotTreesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "atlas_snapshot" */
+export type Atlas_Snapshot_Aggregate = {
+  __typename?: 'atlas_snapshot_aggregate';
+  aggregate?: Maybe<Atlas_Snapshot_Aggregate_Fields>;
+  nodes: Array<Atlas_Snapshot>;
+};
+
+export type Atlas_Snapshot_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Atlas_Snapshot_Aggregate_Bool_Exp_Count>;
+};
+
+export type Atlas_Snapshot_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "atlas_snapshot" */
+export type Atlas_Snapshot_Aggregate_Fields = {
+  __typename?: 'atlas_snapshot_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Atlas_Snapshot_Max_Fields>;
+  min?: Maybe<Atlas_Snapshot_Min_Fields>;
+};
+
+
+/** aggregate fields of "atlas_snapshot" */
+export type Atlas_Snapshot_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "atlas_snapshot" */
+export type Atlas_Snapshot_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Atlas_Snapshot_Max_Order_By>;
+  min?: InputMaybe<Atlas_Snapshot_Min_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Atlas_Snapshot_Append_Input = {
+  raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
+  trees?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** input type for inserting array relation for remote table "atlas_snapshot" */
+export type Atlas_Snapshot_Arr_Rel_Insert_Input = {
+  data: Array<Atlas_Snapshot_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Atlas_Snapshot_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "atlas_snapshot". All fields are combined with a logical 'AND'. */
+export type Atlas_Snapshot_Bool_Exp = {
+  _and?: InputMaybe<Array<Atlas_Snapshot_Bool_Exp>>;
+  _not?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+  _or?: InputMaybe<Array<Atlas_Snapshot_Bool_Exp>>;
+  fetched_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  league?: InputMaybe<String_Comparison_Exp>;
+  raw_trees?: InputMaybe<Jsonb_Comparison_Exp>;
+  tree_version?: InputMaybe<String_Comparison_Exp>;
+  trees?: InputMaybe<Jsonb_Comparison_Exp>;
+  user?: InputMaybe<User_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "atlas_snapshot" */
+export enum Atlas_Snapshot_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  AtlasSnapshotPkey = 'atlas_snapshot_pkey',
+  /** unique or primary key constraint on columns "user_id", "league" */
+  AtlasSnapshotUserIdLeagueKey = 'atlas_snapshot_user_id_league_key'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Atlas_Snapshot_Delete_At_Path_Input = {
+  raw_trees?: InputMaybe<Array<Scalars['String']['input']>>;
+  trees?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Atlas_Snapshot_Delete_Elem_Input = {
+  raw_trees?: InputMaybe<Scalars['Int']['input']>;
+  trees?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Atlas_Snapshot_Delete_Key_Input = {
+  raw_trees?: InputMaybe<Scalars['String']['input']>;
+  trees?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** input type for inserting data into table "atlas_snapshot" */
+export type Atlas_Snapshot_Insert_Input = {
+  fetched_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
+  raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
+  tree_version?: InputMaybe<Scalars['String']['input']>;
+  trees?: InputMaybe<Scalars['jsonb']['input']>;
+  user?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Atlas_Snapshot_Max_Fields = {
+  __typename?: 'atlas_snapshot_max_fields';
+  fetched_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
+  tree_version?: Maybe<Scalars['String']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Max_Order_By = {
+  fetched_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
+  tree_version?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Atlas_Snapshot_Min_Fields = {
+  __typename?: 'atlas_snapshot_min_fields';
+  fetched_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
+  tree_version?: Maybe<Scalars['String']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "atlas_snapshot" */
+export type Atlas_Snapshot_Min_Order_By = {
+  fetched_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
+  tree_version?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "atlas_snapshot" */
+export type Atlas_Snapshot_Mutation_Response = {
+  __typename?: 'atlas_snapshot_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Atlas_Snapshot>;
+};
+
+/** on_conflict condition type for table "atlas_snapshot" */
+export type Atlas_Snapshot_On_Conflict = {
+  constraint: Atlas_Snapshot_Constraint;
+  update_columns?: Array<Atlas_Snapshot_Update_Column>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "atlas_snapshot". */
+export type Atlas_Snapshot_Order_By = {
+  fetched_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
+  raw_trees?: InputMaybe<Order_By>;
+  tree_version?: InputMaybe<Order_By>;
+  trees?: InputMaybe<Order_By>;
+  user?: InputMaybe<User_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: atlas_snapshot */
+export type Atlas_Snapshot_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Atlas_Snapshot_Prepend_Input = {
+  raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
+  trees?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** select columns of table "atlas_snapshot" */
+export enum Atlas_Snapshot_Select_Column {
+  /** column name */
+  FetchedAt = 'fetched_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  League = 'league',
+  /** column name */
+  RawTrees = 'raw_trees',
+  /** column name */
+  TreeVersion = 'tree_version',
+  /** column name */
+  Trees = 'trees',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "atlas_snapshot" */
+export type Atlas_Snapshot_Set_Input = {
+  fetched_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
+  raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
+  tree_version?: InputMaybe<Scalars['String']['input']>;
+  trees?: InputMaybe<Scalars['jsonb']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "atlas_snapshot" */
+export type Atlas_Snapshot_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Atlas_Snapshot_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Atlas_Snapshot_Stream_Cursor_Value_Input = {
+  fetched_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
+  raw_trees?: InputMaybe<Scalars['jsonb']['input']>;
+  tree_version?: InputMaybe<Scalars['String']['input']>;
+  trees?: InputMaybe<Scalars['jsonb']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "atlas_snapshot" */
+export enum Atlas_Snapshot_Update_Column {
+  /** column name */
+  FetchedAt = 'fetched_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  League = 'league',
+  /** column name */
+  RawTrees = 'raw_trees',
+  /** column name */
+  TreeVersion = 'tree_version',
+  /** column name */
+  Trees = 'trees',
+  /** column name */
+  UserId = 'user_id'
+}
+
+export type Atlas_Snapshot_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Atlas_Snapshot_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Atlas_Snapshot_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Atlas_Snapshot_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Atlas_Snapshot_Delete_Key_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Atlas_Snapshot_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Atlas_Snapshot_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Atlas_Snapshot_Bool_Exp;
 };
 
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
@@ -2210,6 +2702,34 @@ export type Item_Order_Type_Updates = {
   where: Item_Order_Type_Bool_Exp;
 };
 
+export type Jsonb_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type Jsonb_Comparison_Exp = {
+  _cast?: InputMaybe<Jsonb_Cast_Exp>;
+  /** is the column contained in the given json value */
+  _contained_in?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['jsonb']['input']>;
+  _eq?: InputMaybe<Scalars['jsonb']['input']>;
+  _gt?: InputMaybe<Scalars['jsonb']['input']>;
+  _gte?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: InputMaybe<Scalars['String']['input']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['jsonb']['input']>;
+  _lte?: InputMaybe<Scalars['jsonb']['input']>;
+  _neq?: InputMaybe<Scalars['jsonb']['input']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+};
+
 /** columns and relationships of "league" */
 export type League = {
   __typename?: 'league';
@@ -2958,6 +3478,14 @@ export type Mutation_Root = {
   delete_app_config?: Maybe<App_Config_Mutation_Response>;
   /** delete single row from the table: "app_config" */
   delete_app_config_by_pk?: Maybe<App_Config>;
+  /** delete data from the table: "atlas_connection" */
+  delete_atlas_connection?: Maybe<Atlas_Connection_Mutation_Response>;
+  /** delete single row from the table: "atlas_connection" */
+  delete_atlas_connection_by_pk?: Maybe<Atlas_Connection>;
+  /** delete data from the table: "atlas_snapshot" */
+  delete_atlas_snapshot?: Maybe<Atlas_Snapshot_Mutation_Response>;
+  /** delete single row from the table: "atlas_snapshot" */
+  delete_atlas_snapshot_by_pk?: Maybe<Atlas_Snapshot>;
   /** delete data from the table: "bulk_order" */
   delete_bulk_order?: Maybe<Bulk_Order_Mutation_Response>;
   /** delete single row from the table: "bulk_order" */
@@ -3010,6 +3538,14 @@ export type Mutation_Root = {
   insert_app_config?: Maybe<App_Config_Mutation_Response>;
   /** insert a single row into the table: "app_config" */
   insert_app_config_one?: Maybe<App_Config>;
+  /** insert data into the table: "atlas_connection" */
+  insert_atlas_connection?: Maybe<Atlas_Connection_Mutation_Response>;
+  /** insert a single row into the table: "atlas_connection" */
+  insert_atlas_connection_one?: Maybe<Atlas_Connection>;
+  /** insert data into the table: "atlas_snapshot" */
+  insert_atlas_snapshot?: Maybe<Atlas_Snapshot_Mutation_Response>;
+  /** insert a single row into the table: "atlas_snapshot" */
+  insert_atlas_snapshot_one?: Maybe<Atlas_Snapshot>;
   /** insert data into the table: "bulk_order" */
   insert_bulk_order?: Maybe<Bulk_Order_Mutation_Response>;
   /** insert data into the table: "bulk_order_contribution" */
@@ -3064,6 +3600,18 @@ export type Mutation_Root = {
   update_app_config_by_pk?: Maybe<App_Config>;
   /** update multiples rows of table: "app_config" */
   update_app_config_many?: Maybe<Array<Maybe<App_Config_Mutation_Response>>>;
+  /** update data of the table: "atlas_connection" */
+  update_atlas_connection?: Maybe<Atlas_Connection_Mutation_Response>;
+  /** update single row of the table: "atlas_connection" */
+  update_atlas_connection_by_pk?: Maybe<Atlas_Connection>;
+  /** update multiples rows of table: "atlas_connection" */
+  update_atlas_connection_many?: Maybe<Array<Maybe<Atlas_Connection_Mutation_Response>>>;
+  /** update data of the table: "atlas_snapshot" */
+  update_atlas_snapshot?: Maybe<Atlas_Snapshot_Mutation_Response>;
+  /** update single row of the table: "atlas_snapshot" */
+  update_atlas_snapshot_by_pk?: Maybe<Atlas_Snapshot>;
+  /** update multiples rows of table: "atlas_snapshot" */
+  update_atlas_snapshot_many?: Maybe<Array<Maybe<Atlas_Snapshot_Mutation_Response>>>;
   /** update data of the table: "bulk_order" */
   update_bulk_order?: Maybe<Bulk_Order_Mutation_Response>;
   /** update single row of the table: "bulk_order" */
@@ -3148,6 +3696,30 @@ export type Mutation_RootDelete_App_ConfigArgs = {
 /** mutation root */
 export type Mutation_RootDelete_App_Config_By_PkArgs = {
   id: Scalars['Int']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Atlas_ConnectionArgs = {
+  where: Atlas_Connection_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Atlas_Connection_By_PkArgs = {
+  user_id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Atlas_SnapshotArgs = {
+  where: Atlas_Snapshot_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Atlas_Snapshot_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -3306,6 +3878,34 @@ export type Mutation_RootInsert_App_ConfigArgs = {
 export type Mutation_RootInsert_App_Config_OneArgs = {
   object: App_Config_Insert_Input;
   on_conflict?: InputMaybe<App_Config_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Atlas_ConnectionArgs = {
+  objects: Array<Atlas_Connection_Insert_Input>;
+  on_conflict?: InputMaybe<Atlas_Connection_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Atlas_Connection_OneArgs = {
+  object: Atlas_Connection_Insert_Input;
+  on_conflict?: InputMaybe<Atlas_Connection_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Atlas_SnapshotArgs = {
+  objects: Array<Atlas_Snapshot_Insert_Input>;
+  on_conflict?: InputMaybe<Atlas_Snapshot_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Atlas_Snapshot_OneArgs = {
+  object: Atlas_Snapshot_Insert_Input;
+  on_conflict?: InputMaybe<Atlas_Snapshot_On_Conflict>;
 };
 
 
@@ -3496,6 +4096,56 @@ export type Mutation_RootUpdate_App_Config_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_App_Config_ManyArgs = {
   updates: Array<App_Config_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_ConnectionArgs = {
+  _set?: InputMaybe<Atlas_Connection_Set_Input>;
+  where: Atlas_Connection_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_Connection_By_PkArgs = {
+  _set?: InputMaybe<Atlas_Connection_Set_Input>;
+  pk_columns: Atlas_Connection_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_Connection_ManyArgs = {
+  updates: Array<Atlas_Connection_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_SnapshotArgs = {
+  _append?: InputMaybe<Atlas_Snapshot_Append_Input>;
+  _delete_at_path?: InputMaybe<Atlas_Snapshot_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Atlas_Snapshot_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Atlas_Snapshot_Delete_Key_Input>;
+  _prepend?: InputMaybe<Atlas_Snapshot_Prepend_Input>;
+  _set?: InputMaybe<Atlas_Snapshot_Set_Input>;
+  where: Atlas_Snapshot_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_Snapshot_By_PkArgs = {
+  _append?: InputMaybe<Atlas_Snapshot_Append_Input>;
+  _delete_at_path?: InputMaybe<Atlas_Snapshot_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Atlas_Snapshot_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Atlas_Snapshot_Delete_Key_Input>;
+  _prepend?: InputMaybe<Atlas_Snapshot_Prepend_Input>;
+  _set?: InputMaybe<Atlas_Snapshot_Set_Input>;
+  pk_columns: Atlas_Snapshot_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_Snapshot_ManyArgs = {
+  updates: Array<Atlas_Snapshot_Updates>;
 };
 
 
@@ -3770,6 +4420,18 @@ export type Query_Root = {
   app_config_aggregate: App_Config_Aggregate;
   /** fetch data from the table: "app_config" using primary key columns */
   app_config_by_pk?: Maybe<App_Config>;
+  /** fetch data from the table: "atlas_connection" */
+  atlas_connection: Array<Atlas_Connection>;
+  /** fetch aggregated fields from the table: "atlas_connection" */
+  atlas_connection_aggregate: Atlas_Connection_Aggregate;
+  /** fetch data from the table: "atlas_connection" using primary key columns */
+  atlas_connection_by_pk?: Maybe<Atlas_Connection>;
+  /** fetch data from the table: "atlas_snapshot" */
+  atlas_snapshot: Array<Atlas_Snapshot>;
+  /** fetch aggregated fields from the table: "atlas_snapshot" */
+  atlas_snapshot_aggregate: Atlas_Snapshot_Aggregate;
+  /** fetch data from the table: "atlas_snapshot" using primary key columns */
+  atlas_snapshot_by_pk?: Maybe<Atlas_Snapshot>;
   /** fetch data from the table: "bulk_order" */
   bulk_order: Array<Bulk_Order>;
   /** fetch aggregated fields from the table: "bulk_order" */
@@ -3869,6 +4531,52 @@ export type Query_RootApp_Config_AggregateArgs = {
 
 export type Query_RootApp_Config_By_PkArgs = {
   id: Scalars['Int']['input'];
+};
+
+
+export type Query_RootAtlas_ConnectionArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Connection_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Connection_Order_By>>;
+  where?: InputMaybe<Atlas_Connection_Bool_Exp>;
+};
+
+
+export type Query_RootAtlas_Connection_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Connection_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Connection_Order_By>>;
+  where?: InputMaybe<Atlas_Connection_Bool_Exp>;
+};
+
+
+export type Query_RootAtlas_Connection_By_PkArgs = {
+  user_id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootAtlas_SnapshotArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Snapshot_Order_By>>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+};
+
+
+export type Query_RootAtlas_Snapshot_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Snapshot_Order_By>>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+};
+
+
+export type Query_RootAtlas_Snapshot_By_PkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -4175,6 +4883,22 @@ export type Subscription_Root = {
   app_config_by_pk?: Maybe<App_Config>;
   /** fetch data from the table in a streaming manner: "app_config" */
   app_config_stream: Array<App_Config>;
+  /** fetch data from the table: "atlas_connection" */
+  atlas_connection: Array<Atlas_Connection>;
+  /** fetch aggregated fields from the table: "atlas_connection" */
+  atlas_connection_aggregate: Atlas_Connection_Aggregate;
+  /** fetch data from the table: "atlas_connection" using primary key columns */
+  atlas_connection_by_pk?: Maybe<Atlas_Connection>;
+  /** fetch data from the table in a streaming manner: "atlas_connection" */
+  atlas_connection_stream: Array<Atlas_Connection>;
+  /** fetch data from the table: "atlas_snapshot" */
+  atlas_snapshot: Array<Atlas_Snapshot>;
+  /** fetch aggregated fields from the table: "atlas_snapshot" */
+  atlas_snapshot_aggregate: Atlas_Snapshot_Aggregate;
+  /** fetch data from the table: "atlas_snapshot" using primary key columns */
+  atlas_snapshot_by_pk?: Maybe<Atlas_Snapshot>;
+  /** fetch data from the table in a streaming manner: "atlas_snapshot" */
+  atlas_snapshot_stream: Array<Atlas_Snapshot>;
   /** fetch data from the table: "bulk_order" */
   bulk_order: Array<Bulk_Order>;
   /** fetch aggregated fields from the table: "bulk_order" */
@@ -4307,6 +5031,66 @@ export type Subscription_RootApp_Config_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<App_Config_Stream_Cursor_Input>>;
   where?: InputMaybe<App_Config_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_ConnectionArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Connection_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Connection_Order_By>>;
+  where?: InputMaybe<Atlas_Connection_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_Connection_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Connection_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Connection_Order_By>>;
+  where?: InputMaybe<Atlas_Connection_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_Connection_By_PkArgs = {
+  user_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootAtlas_Connection_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Atlas_Connection_Stream_Cursor_Input>>;
+  where?: InputMaybe<Atlas_Connection_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_SnapshotArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Snapshot_Order_By>>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_Snapshot_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Snapshot_Order_By>>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_Snapshot_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootAtlas_Snapshot_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Atlas_Snapshot_Stream_Cursor_Input>>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
 };
 
 
@@ -4711,6 +5495,10 @@ export type Timestamptz_Comparison_Exp = {
 export type User = {
   __typename?: 'user';
   admin: Scalars['Boolean']['output'];
+  /** An array relationship */
+  atlas_snapshots: Array<Atlas_Snapshot>;
+  /** An aggregate relationship */
+  atlas_snapshots_aggregate: Atlas_Snapshot_Aggregate;
   discord_avatar?: Maybe<Scalars['String']['output']>;
   discord_name?: Maybe<Scalars['String']['output']>;
   discord_user_id?: Maybe<Scalars['String']['output']>;
@@ -4726,6 +5514,26 @@ export type User = {
   user_league_mechanics: Array<User_League_Mechanic>;
   /** An aggregate relationship */
   user_league_mechanics_aggregate: User_League_Mechanic_Aggregate;
+};
+
+
+/** columns and relationships of "user" */
+export type UserAtlas_SnapshotsArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Snapshot_Order_By>>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserAtlas_Snapshots_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Snapshot_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Snapshot_Order_By>>;
+  where?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
 };
 
 
@@ -4796,6 +5604,8 @@ export type User_Bool_Exp = {
   _not?: InputMaybe<User_Bool_Exp>;
   _or?: InputMaybe<Array<User_Bool_Exp>>;
   admin?: InputMaybe<Boolean_Comparison_Exp>;
+  atlas_snapshots?: InputMaybe<Atlas_Snapshot_Bool_Exp>;
+  atlas_snapshots_aggregate?: InputMaybe<Atlas_Snapshot_Aggregate_Bool_Exp>;
   discord_avatar?: InputMaybe<String_Comparison_Exp>;
   discord_name?: InputMaybe<String_Comparison_Exp>;
   discord_user_id?: InputMaybe<String_Comparison_Exp>;
@@ -4824,6 +5634,7 @@ export enum User_Constraint {
 /** input type for inserting data into table "user" */
 export type User_Insert_Input = {
   admin?: InputMaybe<Scalars['Boolean']['input']>;
+  atlas_snapshots?: InputMaybe<Atlas_Snapshot_Arr_Rel_Insert_Input>;
   discord_avatar?: InputMaybe<Scalars['String']['input']>;
   discord_name?: InputMaybe<Scalars['String']['input']>;
   discord_user_id?: InputMaybe<Scalars['String']['input']>;
@@ -5409,6 +6220,7 @@ export type User_On_Conflict = {
 /** Ordering options when selecting data from "user". */
 export type User_Order_By = {
   admin?: InputMaybe<Order_By>;
+  atlas_snapshots_aggregate?: InputMaybe<Atlas_Snapshot_Aggregate_Order_By>;
   discord_avatar?: InputMaybe<Order_By>;
   discord_name?: InputMaybe<Order_By>;
   discord_user_id?: InputMaybe<Order_By>;
@@ -5558,6 +6370,18 @@ export type PipelineStatusQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PipelineStatusQuery = { __typename?: 'query_root', character_aggregate: { __typename?: 'character_aggregate', aggregate?: { __typename?: 'character_aggregate_fields', count: number } | null }, character_stats_aggregate: { __typename?: 'character_stats_aggregate', aggregate?: { __typename?: 'character_stats_aggregate_fields', count: number, max?: { __typename?: 'character_stats_max_fields', updated_at?: string | null } | null } | null } };
+
+export type AtlasSnapshotsSubscriptionVariables = Exact<{
+  league: Scalars['String']['input'];
+}>;
+
+
+export type AtlasSnapshotsSubscription = { __typename?: 'subscription_root', atlas_snapshot: Array<{ __typename?: 'atlas_snapshot', id: string, user_id: string, tree_version: string, trees: any, fetched_at: string }> };
+
+export type MyAtlasConnectionSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyAtlasConnectionSubscription = { __typename?: 'subscription_root', atlas_connection: Array<{ __typename?: 'atlas_connection', user_id: string, connected_at: string, last_synced_at?: string | null, last_error?: string | null }> };
 
 export type BulkOrderContributorFieldsFragment = { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null };
 
@@ -5867,6 +6691,29 @@ export const PipelineStatusDocument = gql`
 }
     `;
 export type PipelineStatusQueryResult = Apollo.QueryResult<PipelineStatusQuery, PipelineStatusQueryVariables>;
+export const AtlasSnapshotsDocument = gql`
+    subscription AtlasSnapshots($league: String!) {
+  atlas_snapshot(where: {league: {_eq: $league}}) {
+    id
+    user_id
+    tree_version
+    trees
+    fetched_at
+  }
+}
+    `;
+export type AtlasSnapshotsSubscriptionResult = Apollo.SubscriptionResult<AtlasSnapshotsSubscription>;
+export const MyAtlasConnectionDocument = gql`
+    subscription MyAtlasConnection {
+  atlas_connection {
+    user_id
+    connected_at
+    last_synced_at
+    last_error
+  }
+}
+    `;
+export type MyAtlasConnectionSubscriptionResult = Apollo.SubscriptionResult<MyAtlasConnectionSubscription>;
 export const BulkOrdersDocument = gql`
     subscription BulkOrders {
   bulk_order(order_by: {created_at: desc}) {

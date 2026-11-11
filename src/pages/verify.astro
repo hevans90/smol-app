@@ -34,11 +34,67 @@ const { BASE_HREF } = import.meta.env;
     user_save_failed: 'Could not save your account. Try again shortly.',
   };
 
-  const verifier = localStorage.getItem('poe_verifier');
-  const expectedState = localStorage.getItem('poe_state');
+  // Two flows land here: the login, and the atlas opt-in started from the
+  // Farm page. Each stored its own state, which is how we tell them apart.
+  const atlasState = localStorage.getItem('poe_atlas_state');
+  const isAtlasConnect = !!atlasState && state === atlasState;
+  const prefix = isAtlasConnect ? 'poe_atlas' : 'poe';
+
+  const verifier = localStorage.getItem(`${prefix}_verifier`);
+  const expectedState = localStorage.getItem(`${prefix}_state`);
   // single use, whatever happens next
-  localStorage.removeItem('poe_verifier');
-  localStorage.removeItem('poe_state');
+  localStorage.removeItem(`${prefix}_verifier`);
+  localStorage.removeItem(`${prefix}_state`);
+
+  const goBack = (key) => {
+    const returnTo = localStorage.getItem(key);
+    localStorage.removeItem(key);
+    window.location.href =
+      returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')
+        ? returnTo
+        : BASE_HREF || '/';
+  };
+
+  // Atlas opt-in: the code goes to the server, which keeps the token. This
+  // browser never sees it, and the login session is left untouched.
+  const completeAtlasConnect = async () => {
+    document.getElementById('verify-status').textContent =
+      'Connecting your atlas...';
+    if (error) {
+      return error === 'access_denied'
+        ? goBack('poe_atlas_return_to')
+        : fail('Path of Exile did not approve atlas sharing.');
+    }
+    if (!code || !verifier) return fail('This link has expired.');
+
+    const hasuraToken = localStorage.getItem('hasura_token');
+    if (!hasuraToken) return fail('Log in before sharing your atlas.');
+
+    try {
+      const response = await fetch('/api/atlas-connect', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${hasuraToken}`,
+        },
+        body: JSON.stringify({ auth_code: code, poe_verifier: verifier }),
+      });
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}));
+        return fail(
+          {
+            wrong_account:
+              'That is a different Path of Exile account from the one you are logged in with.',
+            poe_rejected: 'Path of Exile rejected the request. Try again.',
+            poe_unreachable: 'Could not reach Path of Exile. Try again shortly.',
+          }[result.error] ?? 'Could not connect your atlas. Try again shortly.',
+        );
+      }
+    } catch {
+      return fail('Could not connect your atlas. Check your connection and try again.');
+    }
+    goBack('poe_atlas_return_to');
+  };
 
   const completeLogin = async () => {
     if (error) {
@@ -80,13 +136,9 @@ const { BASE_HREF } = import.meta.env;
 
     // Back to the page the login was started from (set by startPoEReauth),
     // e.g. a shared /order-book?view=bulk link. Same-origin paths only.
-    const returnTo = localStorage.getItem('poe_return_to');
-    localStorage.removeItem('poe_return_to');
-    window.location.href =
-      returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')
-        ? returnTo
-        : BASE_HREF || '/';
+    goBack('poe_return_to');
   };
 
-  completeLogin();
+  if (isAtlasConnect) completeAtlasConnect();
+  else completeLogin();
 </script>

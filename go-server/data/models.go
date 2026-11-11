@@ -19,6 +19,26 @@ type AppConfig struct {
 	UpdatedAt  time.Time
 }
 
+type AtlasConnection struct {
+	UserID                uuid.UUID
+	EncryptedAccessToken  string
+	EncryptedRefreshToken sql.NullString
+	AccessExpiresAt       time.Time
+	ConnectedAt           time.Time
+	LastSyncedAt          sql.NullTime
+	LastError             sql.NullString
+}
+
+type AtlasSnapshot struct {
+	ID          uuid.UUID
+	UserID      uuid.UUID
+	League      string
+	TreeVersion string
+	Trees       json.RawMessage
+	RawTrees    json.RawMessage
+	FetchedAt   time.Time
+}
+
 type BulkOrder struct {
 	ID          uuid.UUID
 	UserID      uuid.UUID

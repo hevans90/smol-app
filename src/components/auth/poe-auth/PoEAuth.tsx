@@ -3,10 +3,20 @@ import { Buffer } from 'buffer';
 import { isAfter } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { poeStore } from '../../../_state/poe.state';
+import {
+  POE_ATLAS_SCOPES,
+  POE_CLIENT_ID,
+  POE_OAUTH_SCOPES,
+  POE_REDIRECT_URI,
+} from '../../../_utils/poe-oauth';
 
-const generateAuthSecrets = async () => {
-  localStorage.removeItem('poe_verifier');
-  localStorage.removeItem('poe_state');
+// PKCE secrets for one authorize redirect, kept in localStorage under
+// `${prefix}_verifier` / `${prefix}_state` until verify.astro consumes them.
+// The login ('poe') and the atlas opt-in ('poe_atlas') use separate prefixes
+// so verify.astro can tell which flow a callback belongs to.
+const generateAuthSecrets = async (prefix: string) => {
+  localStorage.removeItem(`${prefix}_verifier`);
+  localStorage.removeItem(`${prefix}_state`);
 
   function base64urlEncode(value: Uint8Array) {
     return Buffer.from(value)
@@ -30,37 +40,50 @@ const generateAuthSecrets = async () => {
 
   const codeChallenge = base64urlEncode(new Uint8Array(hashBuffer));
 
-  localStorage.setItem('poe_verifier', codeVerifier);
-  localStorage.setItem('poe_state', poeState);
+  localStorage.setItem(`${prefix}_verifier`, codeVerifier);
+  localStorage.setItem(`${prefix}_state`, poeState);
 
   return { poeState, codeChallenge };
 };
 
-const generateUrlParams = async () => {
-  const { poeState, codeChallenge } = await generateAuthSecrets();
+const generateUrlParams = async (prefix = 'poe', scope = POE_OAUTH_SCOPES) => {
+  const { poeState, codeChallenge } = await generateAuthSecrets(prefix);
 
   return new URLSearchParams({
-    client_id: 'smolapp',
+    client_id: POE_CLIENT_ID,
     response_type: 'code',
-    scope: 'account:profile account:stashes',
+    scope,
     state: poeState,
-    redirect_uri: 'https://smol-app.netlify.app/api/auth',
+    redirect_uri: POE_REDIRECT_URI,
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
   });
 };
 
-// Members who logged in before the account:stashes scope was added only have
-// an account:profile token. Rather than forcing everyone to re-login, the
-// stash-check feature calls this lazily (only once someone actually tries to
-// use it) to grab a fresh token with both scopes, then bounces back to
-// wherever they were via poe_return_to (see verify.astro).
+// Members who logged in before the account:stashes scope was added hold a
+// token without it. Rather than forcing everyone to re-login, the feature
+// that needs the scope calls this lazily (only once someone actually tries
+// to use it) to grab a fresh token with every current scope, then bounces
+// back to wherever they were via poe_return_to (see verify.astro).
 export const startPoEReauth = async (returnTo?: string) => {
   localStorage.setItem(
     'poe_return_to',
     returnTo ?? window.location.pathname + window.location.search,
   );
   const params = await generateUrlParams();
+  window.location.href = `https://www.pathofexile.com/oauth/authorize?${params.toString()}`;
+};
+
+// "Share my atlas" on the Farm page: a second, separate grant limited to
+// POE_ATLAS_SCOPES. verify.astro hands its code to /api/atlas-connect, which
+// keeps the resulting token server-side; the login token in this browser is
+// not replaced.
+export const startAtlasConnect = async () => {
+  localStorage.setItem(
+    'poe_atlas_return_to',
+    window.location.pathname + window.location.search,
+  );
+  const params = await generateUrlParams('poe_atlas', POE_ATLAS_SCOPES);
   window.location.href = `https://www.pathofexile.com/oauth/authorize?${params.toString()}`;
 };
 

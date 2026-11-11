@@ -1,4 +1,6 @@
 - "!include public_app_config.yaml"
+- "!include public_atlas_connection.yaml"
+- "!include public_atlas_snapshot.yaml"
 - "!include public_bulk_order.yaml"
 - "!include public_bulk_order_contribution.yaml"
 - "!include public_character.yaml"

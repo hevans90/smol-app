@@ -2,6 +2,11 @@ import type { Handler, HandlerEvent } from '@netlify/functions';
 import { addSeconds } from 'date-fns';
 import { sign } from 'jsonwebtoken';
 import fetch from 'node-fetch';
+import {
+  POE_CLIENT_ID,
+  POE_OAUTH_SCOPES,
+  POE_REDIRECT_URI,
+} from '../../src/_utils/poe-oauth';
 import { POE_USER_AGENT } from '../lib/poe';
 import { hasuraUrl } from '../lib/require-user';
 
@@ -61,12 +66,12 @@ export const handler: Handler = async (event: HandlerEvent) => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        client_id: 'smolapp',
+        client_id: POE_CLIENT_ID,
         client_secret: process.env.POE_CLIENT_SECRET as string,
         grant_type: 'authorization_code',
         code: auth_code,
-        redirect_uri: 'https://smol-app.netlify.app/api/auth',
-        scope: 'account:profile account:stashes',
+        redirect_uri: POE_REDIRECT_URI,
+        scope: POE_OAUTH_SCOPES,
         code_verifier: poe_verifier,
       }),
     });

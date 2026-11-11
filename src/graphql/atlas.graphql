@@ -1,0 +1,20 @@
+subscription AtlasSnapshots($league: String!) {
+  atlas_snapshot(where: { league: { _eq: $league } }) {
+    id
+    user_id
+    tree_version
+    trees
+    fetched_at
+  }
+}
+
+# The caller's own opt-in to server-side atlas syncing (permissions return
+# nobody else's row, and never the token columns). Empty = not sharing.
+subscription MyAtlasConnection {
+  atlas_connection {
+    user_id
+    connected_at
+    last_synced_at
+    last_error
+  }
+}

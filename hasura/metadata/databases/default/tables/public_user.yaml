@@ -2,6 +2,13 @@ table:
   name: user
   schema: public
 array_relationships:
+  - name: atlas_snapshots
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: atlas_snapshot
+          schema: public
   - name: user_item_orders
     using:
       foreign_key_constraint_on:

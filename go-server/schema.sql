@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict xtcsFBKcEkYyz3abOC82jzPUWbVEiiVynUDttZDfFXjhUUwQh8gukggCJbrLtYK
+\restrict Xr6oqEZ2UWJ6p6LhET8Me0o9Lc0Z5H3977qXhO9KhgxdAgiGZeYEmK7Te9ehGFd
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -39,6 +39,20 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 CREATE FUNCTION hdb_catalog.gen_hasura_uuid() RETURNS uuid
     LANGUAGE sql
     AS $$select gen_random_uuid()$$;
+
+
+--
+-- Name: atlas_snapshot_touch_fetched_at(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.atlas_snapshot_touch_fetched_at() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    NEW.fetched_at := now();
+    RETURN NEW;
+END;
+$$;
 
 
 --
@@ -288,6 +302,37 @@ CREATE TABLE public.app_config (
     league_name text NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT app_config_single_row CHECK ((id = 1))
+);
+
+
+--
+-- Name: atlas_connection; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.atlas_connection (
+    user_id uuid NOT NULL,
+    encrypted_access_token text NOT NULL,
+    encrypted_refresh_token text,
+    access_expires_at timestamp with time zone NOT NULL,
+    connected_at timestamp with time zone DEFAULT now() NOT NULL,
+    last_synced_at timestamp with time zone,
+    last_error text
+);
+
+
+--
+-- Name: atlas_snapshot; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.atlas_snapshot (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL,
+    league text NOT NULL,
+    tree_version text NOT NULL,
+    trees jsonb NOT NULL,
+    raw_trees jsonb NOT NULL,
+    fetched_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT atlas_snapshot_trees_is_array CHECK ((jsonb_typeof(trees) = 'array'::text))
 );
 
 
@@ -578,6 +623,30 @@ ALTER TABLE ONLY public.app_config
 
 
 --
+-- Name: atlas_connection atlas_connection_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.atlas_connection
+    ADD CONSTRAINT atlas_connection_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: atlas_snapshot atlas_snapshot_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.atlas_snapshot
+    ADD CONSTRAINT atlas_snapshot_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: atlas_snapshot atlas_snapshot_user_id_league_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.atlas_snapshot
+    ADD CONSTRAINT atlas_snapshot_user_id_league_key UNIQUE (user_id, league);
+
+
+--
 -- Name: bulk_order_contribution bulk_order_contribution_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -769,6 +838,13 @@ CREATE INDEX idx_poe_name ON public."user" USING btree (poe_name);
 
 
 --
+-- Name: atlas_snapshot atlas_snapshot_touch_fetched_at; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER atlas_snapshot_touch_fetched_at BEFORE INSERT OR UPDATE ON public.atlas_snapshot FOR EACH ROW EXECUTE FUNCTION public.atlas_snapshot_touch_fetched_at();
+
+
+--
 -- Name: bulk_order_contribution bulk_order_contribution_guard; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -838,6 +914,22 @@ ALTER TABLE ONLY hdb_catalog.hdb_cron_event_invocation_logs
 
 ALTER TABLE ONLY hdb_catalog.hdb_scheduled_event_invocation_logs
     ADD CONSTRAINT hdb_scheduled_event_invocation_logs_event_id_fkey FOREIGN KEY (event_id) REFERENCES hdb_catalog.hdb_scheduled_events(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: atlas_connection atlas_connection_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.atlas_connection
+    ADD CONSTRAINT atlas_connection_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+
+--
+-- Name: atlas_snapshot atlas_snapshot_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.atlas_snapshot
+    ADD CONSTRAINT atlas_snapshot_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE RESTRICT ON DELETE CASCADE;
 
 
 --
@@ -932,5 +1024,5 @@ ALTER TABLE ONLY public.user_league_mechanic
 -- PostgreSQL database dump complete
 --
 
-\unrestrict xtcsFBKcEkYyz3abOC82jzPUWbVEiiVynUDttZDfFXjhUUwQh8gukggCJbrLtYK
+\unrestrict Xr6oqEZ2UWJ6p6LhET8Me0o9Lc0Z5H3977qXhO9KhgxdAgiGZeYEmK7Te9ehGFd
 

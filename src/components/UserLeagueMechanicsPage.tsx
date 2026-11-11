@@ -1,5 +1,5 @@
 import GraphQLAppWrapper from '../_utils/GraphQLAppWrapper';
-import { UserLeagueMechanics } from './react/graphql-provided/UserLeagueMechanics';
+import { FarmBoard } from './react/graphql-provided/FarmBoard';
 
 export const UserLeagueMechanicsPage = ({
   hasuraUri,
@@ -9,7 +9,7 @@ export const UserLeagueMechanicsPage = ({
   return (
     <>
       <GraphQLAppWrapper uri={hasuraUri}>
-        <UserLeagueMechanics />
+        <FarmBoard />
       </GraphQLAppWrapper>
     </>
   );

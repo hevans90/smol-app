@@ -19,5 +19,12 @@ const { BASE_HREF } = import.meta.env;
   localStorage.setItem('discord_userdata', user_data);
   localStorage.setItem('discord_expiry', expiry);
 
-  window.location.href = BASE_HREF;
+  // Go back to the page the member connected Discord from (set by the auth
+  // modal), e.g. a shared /order-book?view=bulk link. Same-origin paths only.
+  const returnTo = localStorage.getItem('discord_return_to');
+  localStorage.removeItem('discord_return_to');
+  window.location.href =
+    returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')
+      ? returnTo
+      : BASE_HREF;
 </script>

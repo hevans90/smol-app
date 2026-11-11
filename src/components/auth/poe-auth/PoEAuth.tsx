@@ -64,22 +64,32 @@ export const startPoEReauth = async (returnTo?: string) => {
   window.location.href = `https://www.pathofexile.com/oauth/authorize?${params.toString()}`;
 };
 
+// Signs the member out of the app entirely: the PoE token and the hasura
+// token minted alongside it. Dispatches `storage` so the auth modal reacts.
+export const clearPoESession = () => {
+  localStorage.removeItem('poe_token');
+  localStorage.removeItem('poe_expiry');
+  localStorage.removeItem('poe_username');
+  localStorage.removeItem('hasura_user_id');
+  localStorage.removeItem('hasura_token');
+  window.dispatchEvent(new Event('storage'));
+
+  poeStore.set({ expiry: '', token: '', username: '', id: '' });
+};
+
 const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
   const [url, setUrl] = useState<string>();
   const [loggedIn, setloggedIn] = useState<boolean>(false);
+  // PoE token has lapsed but the member is still signed in to the app (the
+  // hasura token has no expiry). PoE-backed features — stash check, profile,
+  // characters — are off until they reconnect.
+  const [expired, setExpired] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(
     localStorage.getItem('poe_username'),
   );
 
   const logout = () => {
-    localStorage.removeItem('poe_token');
-    localStorage.removeItem('poe_expiry');
-    localStorage.removeItem('poe_username');
-    localStorage.removeItem('hasura_user_id');
-    localStorage.removeItem('hasura_token');
-    window.dispatchEvent(new Event('storage'));
-
-    poeStore.set({ expiry: '', token: '', username: '', id: '' });
+    clearPoESession();
     setUsername(null);
   };
 
@@ -95,6 +105,11 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
       isAfter(new Date(existingExpiry), new Date());
 
     setloggedIn(loggedInCheck);
+    setExpired(
+      !loggedInCheck &&
+        !!existingUsername &&
+        !!localStorage.getItem('hasura_token'),
+    );
 
     if (loggedInCheck) {
       poeStore.set({
@@ -105,7 +120,10 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
       });
     }
 
-    if (!loggedInCheck) {
+    // Only the instance that actually renders the login link may mint PKCE
+    // secrets: they live in localStorage, so a second (logoutOnly) instance
+    // generating its own would overwrite the verifier the link depends on.
+    if (!loggedInCheck && !logoutOnly) {
       generateUrlParams().then((params) =>
         setUrl(
           `https://www.pathofexile.com/oauth/authorize?${params.toString()}`,
@@ -122,6 +140,31 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
           <a href="/profile">
             <div className="hidden text-primary-500 md:block">{username}</div>
           </a>
+          <button
+            onClick={logout}
+            className="mr-2 bg-transparent hover:bg-transparent hover:text-primary-300"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    );
+
+  if (logoutOnly && expired)
+    return (
+      <div
+        className="flex items-center gap-3 rounded border-2 border-red-400 bg-gray-950"
+        title="Your PoE session expired. Reconnect to use stash check and your profile."
+      >
+        <img src="/poe-logo-original.png" className="h-12" alt="" />
+        <div className="flex grow items-center justify-between gap-2">
+          <div className="hidden text-primary-800 md:block">{username}</div>
+          <button
+            onClick={() => void startPoEReauth()}
+            className="bg-transparent text-red-400 hover:bg-transparent hover:text-primary-300"
+          >
+            Reconnect
+          </button>
           <button
             onClick={logout}
             className="mr-2 bg-transparent hover:bg-transparent hover:text-primary-300"

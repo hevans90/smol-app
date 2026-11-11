@@ -1,8 +1,21 @@
 import { useStore } from '@nanostores/react';
-import { isAfter } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { discordStore } from '../../../_state/discord.state';
 import { poeStore } from '../../../_state/poe.state';
+
+type StoredDiscordUser = { id: string; avatar: string; global_name: string };
+
+// The Discord identity saved by verify-discord.astro. Returns undefined when
+// nothing usable is stored (never linked, logged out, or a failed OAuth round
+// trip that stored an error payload with no id).
+export const getStoredDiscordUser = (): StoredDiscordUser | undefined => {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('discord_userdata') ?? '');
+    return parsed?.id ? (parsed as StoredDiscordUser) : undefined;
+  } catch {
+    return undefined;
+  }
+};
 
 const DiscordAuth = ({
   discordOauthUrl,
@@ -11,29 +24,10 @@ const DiscordAuth = ({
   discordOauthUrl: string;
   logoutOnly?: boolean;
 }) => {
-  const getUserDataFromLocalStorage = () => {
-    const existingDiscordUserDataJson =
-      localStorage.getItem('discord_userdata');
-    let existingDiscordUserData: {
-      id: string;
-      avatar: string;
-      global_name: string;
-    } | null = null;
-
-    if (existingDiscordUserDataJson) {
-      existingDiscordUserData = JSON.parse(existingDiscordUserDataJson);
-      return existingDiscordUserData;
-    }
-  };
-
   const { token: loggedIntoPoE } = useStore(poeStore);
 
   const [loggedIn, setloggedIn] = useState<boolean>(false);
-  const [userData, setUserData] = useState<{
-    id: string;
-    avatar: string;
-    global_name: string;
-  } | null>(null);
+  const [userData, setUserData] = useState<StoredDiscordUser | null>(null);
 
   const logout = () => {
     localStorage.removeItem('discord_token');
@@ -45,23 +39,17 @@ const DiscordAuth = ({
   };
 
   useEffect(() => {
-    const existingUserData = getUserDataFromLocalStorage();
-    const existingToken = localStorage.getItem('discord_token');
-    const existingExpiry = localStorage.getItem('discord_expiry');
+    const existingUserData = getStoredDiscordUser();
 
-    const loggedInCheck =
-      !!existingUserData &&
-      !!existingToken &&
-      !!existingExpiry &&
-      isAfter(new Date(existingExpiry), new Date());
+    // Linked for as long as the identity is stored — the token's expiry is
+    // deliberately ignored, since nothing calls Discord with it after login.
+    setloggedIn(!!existingUserData);
 
-    setloggedIn(loggedInCheck);
-
-    if (loggedInCheck) {
+    if (existingUserData) {
       setUserData(existingUserData);
       discordStore.set({
-        expiry: existingExpiry,
-        token: existingToken,
+        expiry: localStorage.getItem('discord_expiry') ?? '',
+        token: localStorage.getItem('discord_token') ?? '',
         username: existingUserData.global_name,
         id: existingUserData.id,
       });

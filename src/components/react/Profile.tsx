@@ -1,6 +1,6 @@
 import { useMyHasuraUser } from '../../hooks/useMyHasuraId';
 import { usePoEProfile } from '../../hooks/usePoEProfile';
-import { SetMyGuild } from './SetMyGuild';
+import { LeagueMembershipStatus } from './graphql-provided/LeagueMembershipNotice';
 import { Spinner } from './ui/Spinner';
 
 const Profile = () => {
@@ -27,7 +27,7 @@ const Profile = () => {
                 </div>
               ))}
             </div>
-            <SetMyGuild automatic={false} />
+            <LeagueMembershipStatus />
           </div>
         )}
       </div>

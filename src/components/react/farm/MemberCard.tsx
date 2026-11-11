@@ -20,7 +20,7 @@ export const MemberCard = ({
   onOpen: (treeIndex: number) => void;
 }) => {
   const { user, data } = member;
-  const [treeIndex, setTreeIndex] = useState(0);
+  const [treeIndex, setTreeIndex] = useState(member.mainIndex);
   const [hovered, setHovered] = useState<string>();
   const { summary, hashes } = member.trees[treeIndex] ?? member.trees[0];
 
@@ -164,6 +164,7 @@ export const MemberCard = ({
               )}
             >
               {tree.name} · {each.allocated}
+              {member.mainKnown && index === member.mainIndex && ' · selected'}
             </button>
           ))}
         </div>

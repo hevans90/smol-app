@@ -1,6 +1,7 @@
 import {
   CURRENT_ATLAS_VERSION,
   parseLeagueAccount,
+  unexpectedLeagueAccountKeys,
 } from '../../src/_utils/atlas-league-account';
 import {
   POE_ATLAS_SCOPES,
@@ -212,7 +213,12 @@ export const syncConnection = async (
     }
     if (!response.ok) throw new Error(`PoE API returned ${response.status}`);
 
-    const { trees, rawTrees } = parseLeagueAccount(await response.json());
+    const body = await response.json();
+    const unexpected = unexpectedLeagueAccountKeys(body);
+    if (unexpected.length) {
+      console.log('league-account has undocumented fields:', unexpected.join(', '));
+    }
+    const { trees, rawTrees } = parseLeagueAccount(body);
     await hasuraAdmin(
       `mutation SaveAtlasSnapshot($snapshot: atlas_snapshot_insert_input!, $userId: uuid!, $now: timestamptz!) {
         insert_atlas_snapshot_one(

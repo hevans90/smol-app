@@ -156,10 +156,6 @@ export const STRATEGY_SHARE_THRESHOLD = 0.12;
 export const strategyOf = (summary: TreeSummary): MechanicInvestment[] =>
   summary.mechanics.filter(({ share }) => share >= STRATEGY_SHARE_THRESHOLD);
 
-/** Every hash allocated in any of a member's trees. */
-export const allocatedHashes = (trees: AtlasTree[]): Set<number> =>
-  new Set(trees.flatMap((tree) => tree.hashes));
-
 /** How alike two atlases are: shared nodes over all nodes either took, 0-1. */
 export const atlasSimilarity = (a: Set<number>, b: Set<number>): number => {
   if (!a.size || !b.size) return 0;

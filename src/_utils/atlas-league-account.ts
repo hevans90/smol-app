@@ -2,7 +2,12 @@
 // atlas.ts so bundling a function doesn't pull in the node lookups.
 
 /** One allocated tree as stored in atlas_snapshot.trees. */
-export type AtlasTree = { name: string; hashes: number[] };
+export type AtlasTree = {
+  name: string;
+  hashes: number[];
+  /** the tree currently selected in game, when GGG's response says so */
+  active?: boolean;
+};
 
 // The tree export new syncs are stamped with. Bump when a new league's
 // export has been generated (and add its loader in atlas.ts).
@@ -12,6 +17,39 @@ const toHashes = (value: unknown): number[] =>
   Array.isArray(value)
     ? value.filter((hash): hash is number => Number.isInteger(hash))
     : [];
+
+// GGG documents only `name` and `hashes` per tree: nothing says which tree is
+// the one selected in game. These are the names such a flag would plausibly
+// have if the real response carries one; unexpectedLeagueAccountKeys() below
+// is how we find out what it actually sends.
+const ACTIVE_FLAGS = ['active', 'selected', 'is_active', 'is_selected', 'current'];
+const isActive = (tree: any) =>
+  ACTIVE_FLAGS.some((flag) => tree?.[flag] === true) || undefined;
+
+const KNOWN_ACCOUNT_KEYS = new Set(['atlas_passive_trees', 'atlas_passives', 'mercenaries']);
+const KNOWN_TREE_KEYS = new Set(['name', 'hashes']);
+
+/**
+ * Field names in a /league-account response that the docs don't mention
+ * (names only, never values). The sync logs them: an undocumented field is
+ * the only way the selected tree could reach us.
+ */
+export const unexpectedLeagueAccountKeys = (response: unknown): string[] => {
+  const root = (response ?? {}) as Record<string, any>;
+  const account = (root.league_account ?? root) as Record<string, any>;
+  const found = new Set<string>();
+  for (const key of Object.keys(account ?? {})) {
+    if (!KNOWN_ACCOUNT_KEYS.has(key)) found.add(key);
+  }
+  for (const tree of Array.isArray(account?.atlas_passive_trees)
+    ? account.atlas_passive_trees
+    : []) {
+    for (const key of Object.keys(tree ?? {})) {
+      if (!KNOWN_TREE_KEYS.has(key)) found.add(`atlas_passive_trees[].${key}`);
+    }
+  }
+  return [...found].sort();
+};
 
 /**
  * Pulls the atlas trees out of GGG's GET /league-account/<league> response.
@@ -33,6 +71,7 @@ export const parseLeagueAccount = (
       trees: account.atlas_passive_trees.map((tree: any, index: number) => ({
         name: typeof tree?.name === 'string' && tree.name ? tree.name : `Tree ${index + 1}`,
         hashes: toHashes(tree?.hashes),
+        active: isActive(tree),
       })),
     };
   }

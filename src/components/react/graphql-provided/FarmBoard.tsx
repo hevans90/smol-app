@@ -6,7 +6,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { farmFilterStore } from '../../../_state/farm';
 import {
   CURRENT_ATLAS_VERSION,
-  allocatedHashes,
   atlasSimilarity,
   loadAtlasData,
   strategyOf,
@@ -154,15 +153,18 @@ export const FarmBoard = () => {
         .sort((a, b) => b.summary.allocated - a.summary.allocated);
       if (!trees.length) continue;
 
+      const activeIndex = trees.findIndex(({ tree }) => tree.active);
+      const mainIndex = Math.max(activeIndex, 0);
+      const main = trees[mainIndex];
       built.push({
         user,
         fetchedAt: snapshot.fetched_at,
         data,
         trees,
-        hashes: allocatedHashes(trees.map(({ tree }) => tree)),
-        strategy: new Set(
-          trees.flatMap(({ summary }) => strategyOf(summary).map(({ key }) => key)),
-        ),
+        mainIndex,
+        mainKnown: activeIndex >= 0,
+        hashes: main.hashes,
+        strategy: new Set(strategyOf(main.summary).map(({ key }) => key)),
       });
     }
 
@@ -181,7 +183,7 @@ export const FarmBoard = () => {
     return { members: built, pending, unsupported };
   }, [userData, snapshotData, atlasByVersion, myUserId]);
 
-  // everyone's nodes overlaid, for members on the current tree version
+  // everyone's main tree overlaid, for members on the current tree version
   const heat = useMemo<GuildHeat | undefined>(() => {
     if (!currentData) return undefined;
     const current = members.filter(({ data }) => data === currentData);
@@ -300,6 +302,9 @@ export const FarmBoard = () => {
           onToggle={toggleFilter}
           onClear={() => farmFilterStore.set([])}
           onOpenHeat={() => setOpen({ kind: 'guild' })}
+          onOpenMember={(member) =>
+            setOpen({ kind: 'member', userId: member.user.id, tree: member.mainIndex })
+          }
         />
       )}
 

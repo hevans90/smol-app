@@ -19,6 +19,7 @@ import {
   type SetUserAdminMutation,
   type SetUserAdminMutationVariables,
 } from '../../../graphql-api';
+import { ATLAS_VERSIONS } from '../../../_utils/atlas';
 import { useAdminAccess } from '../../../hooks/useAdminAccess';
 import { Select } from '../ui/Select';
 import { Spinner } from '../ui/Spinner';
@@ -55,6 +56,8 @@ const LeagueControl = () => {
   // league name awaiting confirmation, from either the swap dropdown or the
   // free-text input
   const [pending, setPending] = useState<string | null>(null);
+  // a new league is almost always on the newest patch this build knows
+  const [pendingVersion, setPendingVersion] = useState(ATLAS_VERSIONS[0]);
   const [selectResetKey, setSelectResetKey] = useState(0);
 
   const config = data?.app_config_by_pk;
@@ -69,6 +72,7 @@ const LeagueControl = () => {
 
   const reset = () => {
     setPending(null);
+    setPendingVersion(ATLAS_VERSIONS[0]);
     setDraft('');
     setSelectResetKey((key) => key + 1);
   };
@@ -76,13 +80,29 @@ const LeagueControl = () => {
   const submit = async () => {
     if (!pending) return;
     try {
-      await setLeague({ variables: { leagueName: pending } });
+      await setLeague({ variables: { leagueName: pending, gameVersion: pendingVersion } });
       toast.success('League updated — the server is resyncing now');
       reset();
     } catch (error: any) {
       toast.error(`Could not update league: ${error.message}`);
     }
   };
+
+  const changeVersion = async (gameVersion: string) => {
+    if (!config) return;
+    try {
+      await setLeague({ variables: { leagueName: config.league_name, gameVersion } });
+      toast.success(`Game version set to ${gameVersion}`);
+    } catch (error: any) {
+      toast.error(`Could not update game version: ${error.message}`);
+    }
+  };
+
+  // versions with an atlas tree in this build, plus the configured one even
+  // if it has none (so the select shows the truth)
+  const versionOptions = [
+    ...new Set([...ATLAS_VERSIONS, ...(config ? [config.game_version] : [])]),
+  ];
 
   if (loading) return <Spinner />;
 
@@ -97,6 +117,24 @@ const LeagueControl = () => {
             {!config.league && ' · no ladder data synced yet'}
           </div>
         )}
+        {config && (
+          <label className="mt-2 flex items-center gap-2 text-sm text-primary-800">
+            Game version
+            <select
+              className="rounded bg-gray-800 px-2 py-1 text-primary-300"
+              value={config.game_version}
+              disabled={saving}
+              onChange={(event) => void changeVersion(event.target.value)}
+            >
+              {versionOptions.map((version) => (
+                <option key={version} value={version}>
+                  {version}
+                  {ATLAS_VERSIONS.includes(version) ? '' : ' (no atlas tree)'}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
       </div>
 
       {pending ? (
@@ -106,6 +144,20 @@ const LeagueControl = () => {
             <span className="font-bold text-primary-300">{pending}</span>? This
             repoints the ladder, stats sweep and frontend.
           </span>
+          <label className="flex items-center gap-2 text-sm text-primary-800">
+            Game version
+            <select
+              className="rounded bg-gray-900 px-2 py-1 text-primary-300"
+              value={pendingVersion}
+              onChange={(event) => setPendingVersion(event.target.value)}
+            >
+              {ATLAS_VERSIONS.map((version) => (
+                <option key={version} value={version}>
+                  {version}
+                </option>
+              ))}
+            </select>
+          </label>
           <div className="flex items-center gap-3">
             <button
               className="rounded bg-red-800 px-4 py-2 text-white hover:bg-red-900"

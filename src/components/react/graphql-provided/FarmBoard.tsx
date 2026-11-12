@@ -5,7 +5,6 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import { useEffect, useMemo, useState } from 'react';
 import { farmFilterStore } from '../../../_state/farm';
 import {
-  CURRENT_ATLAS_VERSION,
   atlasSimilarity,
   loadAtlasData,
   strategyOf,
@@ -84,6 +83,7 @@ export const FarmBoard = () => {
     useSubscription<UsersSubSubscription>(UsersSubDocument);
   const { data: leagueData } = useQuery<LeagueQuery>(LeagueDocument);
   const league = leagueData?.app_config_by_pk?.league_name ?? '';
+  const gameVersion = leagueData?.app_config_by_pk?.game_version;
 
   const { data: snapshotData } = useSubscription<
     AtlasSnapshotsSubscription,
@@ -101,47 +101,33 @@ export const FarmBoard = () => {
   const selected = useStore(farmFilterStore);
   const [open, setOpen] = useState<Open>();
 
-  // ---- atlas lookups, one per tree version in use -------------------------
-  const [atlasByVersion, setAtlasByVersion] = useState<
-    Record<string, AtlasData | null>
-  >({});
-  const versionsNeeded = useMemo(
-    () => [
-      ...new Set([
-        CURRENT_ATLAS_VERSION,
-        ...(snapshotData?.atlas_snapshot ?? []).map((s) => s.tree_version),
-      ]),
-    ],
-    [snapshotData],
-  );
+  // ---- the atlas tree of the league's game version --------------------------
+  // undefined while loading, null when this build has no tree for it
+  const [data, setData] = useState<AtlasData | null>();
   useEffect(() => {
-    for (const version of versionsNeeded) {
-      if (version in atlasByVersion) continue;
-      void loadAtlasData(version).then((data) =>
-        // null = this build has no lookup for that version
-        setAtlasByVersion((current) => ({ ...current, [version]: data ?? null })),
-      );
-    }
-  }, [versionsNeeded]);
-  const currentData = atlasByVersion[CURRENT_ATLAS_VERSION];
+    if (!gameVersion) return;
+    let live = true;
+    setData(undefined);
+    void loadAtlasData(gameVersion).then((loaded) => live && setData(loaded ?? null));
+    return () => {
+      live = false;
+    };
+  }, [gameVersion]);
 
   // ---- members who share an atlas with points in it ------------------------
-  const { members, pending, unsupported } = useMemo(() => {
+  const { members, resyncing } = useMemo(() => {
     const users = new Map((userData?.user ?? []).map((user) => [user.id, user]));
     const built: FarmMember[] = [];
-    let pending = 0;
-    let unsupported = 0;
+    // synced before the league's game version changed: their hashes belong to
+    // the old tree, and the next sync replaces them
+    let resyncing = 0;
+    if (!data) return { members: built, resyncing };
 
     for (const snapshot of snapshotData?.atlas_snapshot ?? []) {
       const user = users.get(snapshot.user_id);
       if (!user) continue;
-      const data = atlasByVersion[snapshot.tree_version];
-      if (data === undefined) {
-        pending++;
-        continue;
-      }
-      if (data === null) {
-        unsupported++;
+      if (snapshot.tree_version !== data.version) {
+        resyncing++;
         continue;
       }
       const trees: FarmTree[] = (snapshot.trees as AtlasTree[])
@@ -198,20 +184,18 @@ export const FarmBoard = () => {
       if (mine) return (b.similarity ?? 0) - (a.similarity ?? 0);
       return a.fetchedAt < b.fetchedAt ? 1 : -1;
     });
-    return { members: built, pending, unsupported };
-  }, [userData, snapshotData, atlasByVersion, myUserId]);
+    return { members: built, resyncing };
+  }, [userData, snapshotData, data, myUserId]);
 
-  // everyone's main tree overlaid, for members on the current tree version
+  // everyone's main tree overlaid
   const heat = useMemo<GuildHeat | undefined>(() => {
-    if (!currentData) return undefined;
-    const current = members.filter(({ data }) => data === currentData);
-    if (!current.length) return undefined;
+    if (!data || !members.length) return undefined;
     const counts = new Map<number, number>();
-    for (const { hashes } of current) {
+    for (const { hashes } of members) {
       for (const hash of hashes) counts.set(hash, (counts.get(hash) ?? 0) + 1);
     }
-    return { data: currentData, counts, members: current.length };
-  }, [members, currentData]);
+    return { data, counts, members: members.length };
+  }, [members, data]);
 
   const visible = members.filter(
     ({ user, strategy }) =>
@@ -242,9 +226,7 @@ export const FarmBoard = () => {
 
   return (
     <div className="mt-48 flex w-full flex-col gap-6 px-4 pb-16">
-      {Object.values(atlasByVersion).map(
-        (data) => data && <AtlasTreeDefs key={data.version} data={data} />,
-      )}
+      {data && <AtlasTreeDefs data={data} />}
 
       {/* my atlas */}
       <div className="flex flex-wrap items-center gap-3">
@@ -311,10 +293,16 @@ export const FarmBoard = () => {
 
       {myUserId && connection === null && <ShareAtlasPanel />}
 
-      {currentData && members.length > 0 && (
+      {data === null && (
+        <div className="text-sm text-red-400">
+          No atlas tree for game version {gameVersion} in this build
+        </div>
+      )}
+
+      {data && members.length > 0 && (
         <GuildOverview
           members={members}
-          data={currentData}
+          data={data}
           heat={heat}
           selected={selected}
           onToggle={toggleFilter}
@@ -333,12 +321,8 @@ export const FarmBoard = () => {
             : `${visible.length} of ${members.length} sharing`}
         </span>
         {notSharing > 0 && <span>{notSharing} not sharing</span>}
-        {unsupported > 0 && (
-          <span className="text-red-400">
-            {unsupported} on an atlas version this build can't read
-          </span>
-        )}
-        {pending > 0 && <Spinner width={16} />}
+        {resyncing > 0 && <span>{resyncing} waiting to resync for {gameVersion}</span>}
+        {data === undefined && <Spinner width={16} />}
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

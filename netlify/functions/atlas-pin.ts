@@ -30,7 +30,7 @@ export const handler: Handler = async (event) => {
   try {
     const league = await configuredLeague();
     if (!league) return json(503, { error: 'no_league' });
-    const pinned = await pinTree(userId, league, tree as number | null);
+    const pinned = await pinTree(userId, league.name, tree as number | null);
     return pinned ? json(200, { tree }) : json(409, { error: 'not_shared' });
   } catch (e) {
     console.error('Atlas pin failed:', e instanceof Error ? e.message : e);

@@ -83,6 +83,7 @@ export type String_Comparison_Exp = {
 /** columns and relationships of "app_config" */
 export type App_Config = {
   __typename?: 'app_config';
+  game_version: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   /** An object relationship */
   league?: Maybe<League>;
@@ -131,6 +132,7 @@ export type App_Config_Bool_Exp = {
   _and?: InputMaybe<Array<App_Config_Bool_Exp>>;
   _not?: InputMaybe<App_Config_Bool_Exp>;
   _or?: InputMaybe<Array<App_Config_Bool_Exp>>;
+  game_version?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   league?: InputMaybe<League_Bool_Exp>;
   league_name?: InputMaybe<String_Comparison_Exp>;
@@ -150,6 +152,7 @@ export type App_Config_Inc_Input = {
 
 /** input type for inserting data into table "app_config" */
 export type App_Config_Insert_Input = {
+  game_version?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   league?: InputMaybe<League_Obj_Rel_Insert_Input>;
   league_name?: InputMaybe<Scalars['String']['input']>;
@@ -159,6 +162,7 @@ export type App_Config_Insert_Input = {
 /** aggregate max on columns */
 export type App_Config_Max_Fields = {
   __typename?: 'app_config_max_fields';
+  game_version?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   league_name?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -167,6 +171,7 @@ export type App_Config_Max_Fields = {
 /** aggregate min on columns */
 export type App_Config_Min_Fields = {
   __typename?: 'app_config_min_fields';
+  game_version?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   league_name?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -190,6 +195,7 @@ export type App_Config_On_Conflict = {
 
 /** Ordering options when selecting data from "app_config". */
 export type App_Config_Order_By = {
+  game_version?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   league?: InputMaybe<League_Order_By>;
   league_name?: InputMaybe<Order_By>;
@@ -204,6 +210,8 @@ export type App_Config_Pk_Columns_Input = {
 /** select columns of table "app_config" */
 export enum App_Config_Select_Column {
   /** column name */
+  GameVersion = 'game_version',
+  /** column name */
   Id = 'id',
   /** column name */
   LeagueName = 'league_name',
@@ -213,6 +221,7 @@ export enum App_Config_Select_Column {
 
 /** input type for updating data in table "app_config" */
 export type App_Config_Set_Input = {
+  game_version?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   league_name?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -246,6 +255,7 @@ export type App_Config_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type App_Config_Stream_Cursor_Value_Input = {
+  game_version?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   league_name?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -259,6 +269,8 @@ export type App_Config_Sum_Fields = {
 
 /** update columns of table "app_config" */
 export enum App_Config_Update_Column {
+  /** column name */
+  GameVersion = 'game_version',
   /** column name */
   Id = 'id',
   /** column name */
@@ -6112,14 +6124,15 @@ export type KnownLeaguesSubscription = { __typename?: 'subscription_root', leagu
 export type AppConfigSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AppConfigSubscription = { __typename?: 'subscription_root', app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, updated_at: string, league?: { __typename?: 'league', id: string, url?: string | null, description?: string | null, start_at: string, end_at: string } | null } | null };
+export type AppConfigSubscription = { __typename?: 'subscription_root', app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, game_version: string, updated_at: string, league?: { __typename?: 'league', id: string, url?: string | null, description?: string | null, start_at: string, end_at: string } | null } | null };
 
 export type SetLeagueMutationVariables = Exact<{
   leagueName: Scalars['String']['input'];
+  gameVersion: Scalars['String']['input'];
 }>;
 
 
-export type SetLeagueMutation = { __typename?: 'mutation_root', update_app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, updated_at: string } | null };
+export type SetLeagueMutation = { __typename?: 'mutation_root', update_app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, game_version: string, updated_at: string } | null };
 
 export type PipelineStatusQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6210,7 +6223,7 @@ export type LeagueCharactersSubscription = { __typename?: 'subscription_root', c
 export type LeagueQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LeagueQuery = { __typename?: 'query_root', app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, league?: { __typename?: 'league', url?: string | null, start_at: string, register_at: string, realm: string, id: string, end_at: string, delve_event: boolean, description?: string | null, category_id?: string | null } | null } | null };
+export type LeagueQuery = { __typename?: 'query_root', app_config_by_pk?: { __typename?: 'app_config', id: number, league_name: string, game_version: string, league?: { __typename?: 'league', url?: string | null, start_at: string, register_at: string, realm: string, id: string, end_at: string, delve_event: boolean, description?: string | null, category_id?: string | null } | null } | null };
 
 export type MyLeagueMembershipSubscriptionVariables = Exact<{
   userId: Scalars['uuid']['input'];
@@ -6380,6 +6393,7 @@ export const AppConfigDocument = gql`
   app_config_by_pk(id: 1) {
     id
     league_name
+    game_version
     updated_at
     league {
       id
@@ -6393,10 +6407,14 @@ export const AppConfigDocument = gql`
     `;
 export type AppConfigSubscriptionResult = Apollo.SubscriptionResult<AppConfigSubscription>;
 export const SetLeagueDocument = gql`
-    mutation SetLeague($leagueName: String!) {
-  update_app_config_by_pk(pk_columns: {id: 1}, _set: {league_name: $leagueName}) {
+    mutation SetLeague($leagueName: String!, $gameVersion: String!) {
+  update_app_config_by_pk(
+    pk_columns: {id: 1}
+    _set: {league_name: $leagueName, game_version: $gameVersion}
+  ) {
     id
     league_name
+    game_version
     updated_at
   }
 }
@@ -6623,6 +6641,7 @@ export const LeagueDocument = gql`
   app_config_by_pk(id: 1) {
     id
     league_name
+    game_version
     league {
       url
       start_at

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict jp4rRPCXdieNATdefocOKvCTWFbauNhNdEpCdnegCdnzWU36PMcGNQjqAIJIK51
+\restrict GcZQvfCGBBH8NCho3wmzShgHEY7XSWrrDzVHwv0WKLFlojGo02uG6tdthzVo3Cp
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -301,6 +301,7 @@ CREATE TABLE public.app_config (
     id integer DEFAULT 1 NOT NULL,
     league_name text NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    game_version text DEFAULT '3.29.1'::text NOT NULL,
     CONSTRAINT app_config_single_row CHECK ((id = 1))
 );
 
@@ -982,5 +983,5 @@ ALTER TABLE ONLY public.user_item_order
 -- PostgreSQL database dump complete
 --
 
-\unrestrict jp4rRPCXdieNATdefocOKvCTWFbauNhNdEpCdnegCdnzWU36PMcGNQjqAIJIK51
+\unrestrict GcZQvfCGBBH8NCho3wmzShgHEY7XSWrrDzVHwv0WKLFlojGo02uG6tdthzVo3Cp
 

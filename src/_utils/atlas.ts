@@ -48,7 +48,6 @@ export const MECHANICS_WITH_ICON = new Set([
 ]);
 
 export {
-  CURRENT_ATLAS_VERSION,
   parseLeagueAccount,
   type AtlasTree,
 } from './atlas-league-account';
@@ -59,6 +58,11 @@ const loaders: Record<string, () => Promise<{ default: unknown }>> = {
   '3.29.1': () => import('../assets/atlas/atlas-3.29.1.json'),
   '3.30.0': () => import('../assets/atlas/atlas-3.30.0.json'),
 };
+
+/** Game versions this build can draw, newest first: what Admin offers. */
+export const ATLAS_VERSIONS = Object.keys(loaders).sort((a, b) =>
+  b.localeCompare(a, undefined, { numeric: true }),
+);
 
 export const loadAtlasData = async (
   version: string,

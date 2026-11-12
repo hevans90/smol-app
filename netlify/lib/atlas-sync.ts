@@ -1,5 +1,4 @@
 import {
-  CURRENT_ATLAS_VERSION,
   parseLeagueAccount,
   stampTreeChanges,
   unexpectedLeagueAccountKeys,
@@ -190,7 +189,7 @@ const fetchLeagueAccount = (league: string, accessToken: string) =>
  */
 export const syncConnection = async (
   connection: AtlasConnection,
-  league: string,
+  { name: league, gameVersion }: ActiveLeague,
 ): Promise<SyncResult> => {
   const { user_id: userId } = connection;
   try {
@@ -254,7 +253,7 @@ export const syncConnection = async (
         snapshot: {
           user_id: userId,
           league,
-          tree_version: CURRENT_ATLAS_VERSION,
+          tree_version: gameVersion,
           trees,
           raw_trees: rawTrees ?? [],
         },
@@ -272,11 +271,16 @@ export const syncConnection = async (
   }
 };
 
-export const configuredLeague = async (): Promise<string | undefined> => {
-  const { app_config_by_pk } = await hasuraAdmin<{
-    app_config_by_pk: { league_name: string } | null;
-  }>(`query ConfiguredLeague { app_config_by_pk(id: 1) { league_name } }`);
-  return app_config_by_pk?.league_name || undefined;
+/** The league the app is pointed at, and the game version it runs on. */
+export type ActiveLeague = { name: string; gameVersion: string };
+
+export const configuredLeague = async (): Promise<ActiveLeague | undefined> => {
+  const { app_config_by_pk: config } = await hasuraAdmin<{
+    app_config_by_pk: { league_name: string; game_version: string } | null;
+  }>(`query ConfiguredLeague { app_config_by_pk(id: 1) { league_name game_version } }`);
+  return config?.league_name
+    ? { name: config.league_name, gameVersion: config.game_version }
+    : undefined;
 };
 
 export const connectionOf = async (userId: string) => {

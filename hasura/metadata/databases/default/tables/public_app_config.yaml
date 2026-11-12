@@ -15,6 +15,7 @@ select_permissions:
   - role: dev
     permission:
       columns:
+        - game_version
         - id
         - league_name
         - updated_at
@@ -23,6 +24,7 @@ select_permissions:
   - role: user
     permission:
       columns:
+        - game_version
         - id
         - league_name
         - updated_at
@@ -32,6 +34,7 @@ update_permissions:
   - role: dev
     permission:
       columns:
+        - game_version
         - league_name
       filter:
         _exists:

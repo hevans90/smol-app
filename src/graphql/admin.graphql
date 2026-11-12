@@ -36,6 +36,7 @@ subscription AppConfig {
   app_config_by_pk(id: 1) {
     id
     league_name
+    game_version
     updated_at
     league {
       id
@@ -47,13 +48,14 @@ subscription AppConfig {
   }
 }
 
-mutation SetLeague($leagueName: String!) {
+mutation SetLeague($leagueName: String!, $gameVersion: String!) {
   update_app_config_by_pk(
     pk_columns: { id: 1 }
-    _set: { league_name: $leagueName }
+    _set: { league_name: $leagueName, game_version: $gameVersion }
   ) {
     id
     league_name
+    game_version
     updated_at
   }
 }

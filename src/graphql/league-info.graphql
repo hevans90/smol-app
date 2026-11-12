@@ -2,6 +2,7 @@ query League {
   app_config_by_pk(id: 1) {
     id
     league_name
+    game_version
     league {
       url
       start_at

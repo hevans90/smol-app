@@ -14,9 +14,10 @@ import (
 )
 
 type AppConfig struct {
-	ID         int32
-	LeagueName string
-	UpdatedAt  time.Time
+	ID          int32
+	LeagueName  string
+	UpdatedAt   time.Time
+	GameVersion string
 }
 
 type AtlasConnection struct {

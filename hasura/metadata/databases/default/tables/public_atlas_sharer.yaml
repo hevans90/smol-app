@@ -1,0 +1,18 @@
+table:
+  name: atlas_sharer
+  schema: public
+select_permissions:
+  - role: dev
+    permission:
+      columns:
+        - user_id
+        - connected_at
+      filter: {}
+    comment: who shares their atlas; never the tokens (see atlas_connection)
+  - role: user
+    permission:
+      columns:
+        - user_id
+        - connected_at
+      filter: {}
+    comment: who shares their atlas; never the tokens (see atlas_connection)

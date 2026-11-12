@@ -8,6 +8,7 @@ import {
   type AtlasTree,
 } from '../../../_utils/atlas';
 import {
+  AtlasSharersDocument,
   AtlasSnapshotsDocument,
   GuildBuildStatsDocument,
   LeagueDocument,
@@ -17,6 +18,7 @@ import {
   ProfileOrdersDocument,
   ProfileUserDocument,
   UsersSubDocument,
+  type AtlasSharersSubscription,
   type AtlasSnapshotsSubscription,
   type AtlasSnapshotsSubscriptionVariables,
   type GuildBuildStatsSubscription,
@@ -205,6 +207,18 @@ export const ProfileScreen = ({ discordOauthUrl }: { discordOauthUrl: string }) 
     return { summary, twin };
   }, [user, atlasData, snapshotData, usersData]);
 
+  // sharing ≠ having a tree: a fresh league has no trees yet, but a member who
+  // connected or already has a snapshot row is sharing
+  const { data: sharerData } = useSubscription<AtlasSharersSubscription>(AtlasSharersDocument);
+  const sharingAtlas = useMemo(() => {
+    // wait for the tree data too, or a real tree flashes "no tree" first
+    if (!user || !snapshotData || !sharerData || atlasData === undefined) return undefined;
+    return (
+      sharerData.atlas_sharer.some(({ user_id }) => user_id === user.id) ||
+      snapshotData.atlas_snapshot.some(({ user_id }) => user_id === user.id)
+    );
+  }, [user, snapshotData, sharerData, atlasData]);
+
   const badges = badgesFor({ characters, ledger, sharesAtlas: !!atlas });
 
   // ---- gear and tree drawer (as on the ladder) -------------------------------
@@ -267,7 +281,7 @@ export const ProfileScreen = ({ discordOauthUrl }: { discordOauthUrl: string }) 
         </div>
 
         <div className="flex min-w-0 flex-col gap-4">
-          {user && <AtlasPanel atlas={atlas} isMe={isMe} />}
+          {user && <AtlasPanel atlas={atlas} isMe={isMe} sharing={sharingAtlas} />}
           {ledger && ledger.allies.length > 0 && <AlliesPanel allies={ledger.allies} />}
           {isMe && <AccountPanel discordOauthUrl={discordOauthUrl} />}
         </div>

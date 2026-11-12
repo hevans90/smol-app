@@ -30,6 +30,11 @@ type AtlasConnection struct {
 	LastError             sql.NullString
 }
 
+type AtlasSharer struct {
+	UserID      uuid.UUID
+	ConnectedAt time.Time
+}
+
 type AtlasSnapshot struct {
 	ID          uuid.UUID
 	UserID      uuid.UUID

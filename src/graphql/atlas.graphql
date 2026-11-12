@@ -19,3 +19,11 @@ subscription MyAtlasConnection {
     last_error
   }
 }
+
+# Every member who shares their atlas (connected, whether or not there's a
+# tree this league yet). User ids only; the tokens never leave the server.
+subscription AtlasSharers {
+  atlas_sharer {
+    user_id
+  }
+}

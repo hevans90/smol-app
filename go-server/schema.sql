@@ -338,6 +338,16 @@ CREATE TABLE public.atlas_connection (
 
 
 --
+-- Name: atlas_sharer; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.atlas_sharer AS
+ SELECT atlas_connection.user_id,
+    atlas_connection.connected_at
+   FROM public.atlas_connection;
+
+
+--
 -- Name: atlas_snapshot; Type: TABLE; Schema: public; Owner: -
 --
 

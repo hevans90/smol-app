@@ -12,12 +12,24 @@ export type AtlasProfile = {
   twin?: { user: PersonRef; similarity: number };
 };
 
-export const AtlasPanel = ({ atlas, isMe }: { atlas?: AtlasProfile; isMe: boolean }) => {
+export const AtlasPanel = ({
+  atlas,
+  isMe,
+  sharing,
+}: {
+  atlas?: AtlasProfile;
+  isMe: boolean;
+  /** shares their atlas, whether or not there's a tree this league yet; undefined while loading */
+  sharing?: boolean;
+}) => {
   if (!atlas) {
+    if (sharing === undefined) return null;
     return (
       <Panel title="Atlas">
         <div className="text-sm text-primary-800">
-          {isMe ? (
+          {sharing ? (
+            'No atlas tree in this league yet'
+          ) : isMe ? (
             <>
               Not shared. <a href="/mechanics">Share it on the Farm page</a>
             </>

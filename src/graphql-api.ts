@@ -505,6 +505,114 @@ export type Atlas_Connection_Updates = {
   where: Atlas_Connection_Bool_Exp;
 };
 
+/** columns and relationships of "atlas_sharer" */
+export type Atlas_Sharer = {
+  __typename?: 'atlas_sharer';
+  connected_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** aggregated selection of "atlas_sharer" */
+export type Atlas_Sharer_Aggregate = {
+  __typename?: 'atlas_sharer_aggregate';
+  aggregate?: Maybe<Atlas_Sharer_Aggregate_Fields>;
+  nodes: Array<Atlas_Sharer>;
+};
+
+/** aggregate fields of "atlas_sharer" */
+export type Atlas_Sharer_Aggregate_Fields = {
+  __typename?: 'atlas_sharer_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Atlas_Sharer_Max_Fields>;
+  min?: Maybe<Atlas_Sharer_Min_Fields>;
+};
+
+
+/** aggregate fields of "atlas_sharer" */
+export type Atlas_Sharer_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Atlas_Sharer_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "atlas_sharer". All fields are combined with a logical 'AND'. */
+export type Atlas_Sharer_Bool_Exp = {
+  _and?: InputMaybe<Array<Atlas_Sharer_Bool_Exp>>;
+  _not?: InputMaybe<Atlas_Sharer_Bool_Exp>;
+  _or?: InputMaybe<Array<Atlas_Sharer_Bool_Exp>>;
+  connected_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "atlas_sharer" */
+export type Atlas_Sharer_Insert_Input = {
+  connected_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Atlas_Sharer_Max_Fields = {
+  __typename?: 'atlas_sharer_max_fields';
+  connected_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** aggregate min on columns */
+export type Atlas_Sharer_Min_Fields = {
+  __typename?: 'atlas_sharer_min_fields';
+  connected_at?: Maybe<Scalars['timestamptz']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** response of any mutation on the table "atlas_sharer" */
+export type Atlas_Sharer_Mutation_Response = {
+  __typename?: 'atlas_sharer_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Atlas_Sharer>;
+};
+
+/** Ordering options when selecting data from "atlas_sharer". */
+export type Atlas_Sharer_Order_By = {
+  connected_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "atlas_sharer" */
+export enum Atlas_Sharer_Select_Column {
+  /** column name */
+  ConnectedAt = 'connected_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** input type for updating data in table "atlas_sharer" */
+export type Atlas_Sharer_Set_Input = {
+  connected_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "atlas_sharer" */
+export type Atlas_Sharer_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Atlas_Sharer_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Atlas_Sharer_Stream_Cursor_Value_Input = {
+  connected_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+export type Atlas_Sharer_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Atlas_Sharer_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Atlas_Sharer_Bool_Exp;
+};
+
 /** columns and relationships of "atlas_snapshot" */
 export type Atlas_Snapshot = {
   __typename?: 'atlas_snapshot';
@@ -3597,6 +3705,8 @@ export type Mutation_Root = {
   delete_atlas_connection?: Maybe<Atlas_Connection_Mutation_Response>;
   /** delete single row from the table: "atlas_connection" */
   delete_atlas_connection_by_pk?: Maybe<Atlas_Connection>;
+  /** delete data from the table: "atlas_sharer" */
+  delete_atlas_sharer?: Maybe<Atlas_Sharer_Mutation_Response>;
   /** delete data from the table: "atlas_snapshot" */
   delete_atlas_snapshot?: Maybe<Atlas_Snapshot_Mutation_Response>;
   /** delete single row from the table: "atlas_snapshot" */
@@ -3653,6 +3763,10 @@ export type Mutation_Root = {
   insert_atlas_connection?: Maybe<Atlas_Connection_Mutation_Response>;
   /** insert a single row into the table: "atlas_connection" */
   insert_atlas_connection_one?: Maybe<Atlas_Connection>;
+  /** insert data into the table: "atlas_sharer" */
+  insert_atlas_sharer?: Maybe<Atlas_Sharer_Mutation_Response>;
+  /** insert a single row into the table: "atlas_sharer" */
+  insert_atlas_sharer_one?: Maybe<Atlas_Sharer>;
   /** insert data into the table: "atlas_snapshot" */
   insert_atlas_snapshot?: Maybe<Atlas_Snapshot_Mutation_Response>;
   /** insert a single row into the table: "atlas_snapshot" */
@@ -3713,6 +3827,10 @@ export type Mutation_Root = {
   update_atlas_connection_by_pk?: Maybe<Atlas_Connection>;
   /** update multiples rows of table: "atlas_connection" */
   update_atlas_connection_many?: Maybe<Array<Maybe<Atlas_Connection_Mutation_Response>>>;
+  /** update data of the table: "atlas_sharer" */
+  update_atlas_sharer?: Maybe<Atlas_Sharer_Mutation_Response>;
+  /** update multiples rows of table: "atlas_sharer" */
+  update_atlas_sharer_many?: Maybe<Array<Maybe<Atlas_Sharer_Mutation_Response>>>;
   /** update data of the table: "atlas_snapshot" */
   update_atlas_snapshot?: Maybe<Atlas_Snapshot_Mutation_Response>;
   /** update single row of the table: "atlas_snapshot" */
@@ -3809,6 +3927,12 @@ export type Mutation_RootDelete_Atlas_ConnectionArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Atlas_Connection_By_PkArgs = {
   user_id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Atlas_SharerArgs = {
+  where: Atlas_Sharer_Bool_Exp;
 };
 
 
@@ -3981,6 +4105,18 @@ export type Mutation_RootInsert_Atlas_ConnectionArgs = {
 export type Mutation_RootInsert_Atlas_Connection_OneArgs = {
   object: Atlas_Connection_Insert_Input;
   on_conflict?: InputMaybe<Atlas_Connection_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Atlas_SharerArgs = {
+  objects: Array<Atlas_Sharer_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Atlas_Sharer_OneArgs = {
+  object: Atlas_Sharer_Insert_Input;
 };
 
 
@@ -4191,6 +4327,19 @@ export type Mutation_RootUpdate_Atlas_Connection_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Atlas_Connection_ManyArgs = {
   updates: Array<Atlas_Connection_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_SharerArgs = {
+  _set?: InputMaybe<Atlas_Sharer_Set_Input>;
+  where: Atlas_Sharer_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Atlas_Sharer_ManyArgs = {
+  updates: Array<Atlas_Sharer_Updates>;
 };
 
 
@@ -4483,6 +4632,10 @@ export type Query_Root = {
   atlas_connection_aggregate: Atlas_Connection_Aggregate;
   /** fetch data from the table: "atlas_connection" using primary key columns */
   atlas_connection_by_pk?: Maybe<Atlas_Connection>;
+  /** fetch data from the table: "atlas_sharer" */
+  atlas_sharer: Array<Atlas_Sharer>;
+  /** fetch aggregated fields from the table: "atlas_sharer" */
+  atlas_sharer_aggregate: Atlas_Sharer_Aggregate;
   /** fetch data from the table: "atlas_snapshot" */
   atlas_snapshot: Array<Atlas_Snapshot>;
   /** fetch aggregated fields from the table: "atlas_snapshot" */
@@ -4605,6 +4758,24 @@ export type Query_RootAtlas_Connection_AggregateArgs = {
 
 export type Query_RootAtlas_Connection_By_PkArgs = {
   user_id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootAtlas_SharerArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Sharer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Sharer_Order_By>>;
+  where?: InputMaybe<Atlas_Sharer_Bool_Exp>;
+};
+
+
+export type Query_RootAtlas_Sharer_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Sharer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Sharer_Order_By>>;
+  where?: InputMaybe<Atlas_Sharer_Bool_Exp>;
 };
 
 
@@ -4919,6 +5090,12 @@ export type Subscription_Root = {
   atlas_connection_by_pk?: Maybe<Atlas_Connection>;
   /** fetch data from the table in a streaming manner: "atlas_connection" */
   atlas_connection_stream: Array<Atlas_Connection>;
+  /** fetch data from the table: "atlas_sharer" */
+  atlas_sharer: Array<Atlas_Sharer>;
+  /** fetch aggregated fields from the table: "atlas_sharer" */
+  atlas_sharer_aggregate: Atlas_Sharer_Aggregate;
+  /** fetch data from the table in a streaming manner: "atlas_sharer" */
+  atlas_sharer_stream: Array<Atlas_Sharer>;
   /** fetch data from the table: "atlas_snapshot" */
   atlas_snapshot: Array<Atlas_Snapshot>;
   /** fetch aggregated fields from the table: "atlas_snapshot" */
@@ -5081,6 +5258,31 @@ export type Subscription_RootAtlas_Connection_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Atlas_Connection_Stream_Cursor_Input>>;
   where?: InputMaybe<Atlas_Connection_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_SharerArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Sharer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Sharer_Order_By>>;
+  where?: InputMaybe<Atlas_Sharer_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_Sharer_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Atlas_Sharer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Atlas_Sharer_Order_By>>;
+  where?: InputMaybe<Atlas_Sharer_Bool_Exp>;
+};
+
+
+export type Subscription_RootAtlas_Sharer_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Atlas_Sharer_Stream_Cursor_Input>>;
+  where?: InputMaybe<Atlas_Sharer_Bool_Exp>;
 };
 
 
@@ -6177,6 +6379,11 @@ export type MyAtlasConnectionSubscriptionVariables = Exact<{ [key: string]: neve
 
 export type MyAtlasConnectionSubscription = { __typename?: 'subscription_root', atlas_connection: Array<{ __typename?: 'atlas_connection', user_id: string, connected_at: string, last_synced_at?: string | null, last_error?: string | null }> };
 
+export type AtlasSharersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AtlasSharersSubscription = { __typename?: 'subscription_root', atlas_sharer: Array<{ __typename?: 'atlas_sharer', user_id?: string | null }> };
+
 export type BulkOrderContributorFieldsFragment = { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null };
 
 export type BulkOrdersSubscriptionVariables = Exact<{
@@ -6583,6 +6790,14 @@ export const MyAtlasConnectionDocument = gql`
 }
     `;
 export type MyAtlasConnectionSubscriptionResult = Apollo.SubscriptionResult<MyAtlasConnectionSubscription>;
+export const AtlasSharersDocument = gql`
+    subscription AtlasSharers {
+  atlas_sharer {
+    user_id
+  }
+}
+    `;
+export type AtlasSharersSubscriptionResult = Apollo.SubscriptionResult<AtlasSharersSubscription>;
 export const BulkOrdersDocument = gql`
     subscription BulkOrders($league: String!) {
   bulk_order(where: {league: {_eq: $league}}, order_by: {created_at: desc}) {

@@ -6,6 +6,7 @@ import { strategyOf } from '../../../_utils/atlas';
 import { TREE_COLOURS } from '../../../_utils/atlas-geometry';
 import { AtlasTreeThumb, type ThumbLayer } from '../atlas/AtlasTree';
 import { MechanicRow, notableCount } from './Mechanic';
+import { profileHref } from '../profile/links';
 import type { FarmMember } from './types';
 
 // Mechanic rows shown before the rest collapse into "+n more".
@@ -75,7 +76,12 @@ export const MemberCard = ({
         )}
         <div className="min-w-0 flex-1">
           <div className="truncate text-primary-500">
-            {name}
+            <a
+              href={profileHref({ id: user.id })}
+              className="text-primary-500 no-underline hover:text-primary-300 hover:underline"
+            >
+              {name}
+            </a>
             {isMe && <span className="ml-1 text-primary-800">(you)</span>}
           </div>
           <div className="truncate text-xs text-primary-800">

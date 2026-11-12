@@ -15,6 +15,7 @@ import { CharacterSheet } from '../character-sheet/CharacterSheet';
 import { CharacterStatSheet } from '../character-sheet/CharacterStatSheet';
 import { RegisteredUserCount } from '../RegisteredUserCount';
 import { ModalDrawer } from '../ui/ModalDrawer';
+import { profileHref } from '../profile/links';
 import { Spinner } from '../ui/Spinner';
 
 export const LeagueLadder = () => {
@@ -332,7 +333,14 @@ const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
                       className="truncate px-4 py-2"
                       title={character.poe_account_name}
                     >
-                      {character.poe_account_name}
+                      <a
+                        href={profileHref({ account: character.poe_account_name })}
+                        // the row itself opens the character sheet
+                        onClick={(event) => event.stopPropagation()}
+                        className="text-inherit no-underline hover:text-primary-300 hover:underline"
+                      >
+                        {character.poe_account_name}
+                      </a>
                     </td>
                     <td className="truncate px-4 py-2" title={character.name}>
                       {character.name}

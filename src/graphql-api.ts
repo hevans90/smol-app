@@ -6265,6 +6265,54 @@ export type OrderTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type OrderTypesQuery = { __typename?: 'query_root', item_order_type: Array<{ __typename?: 'item_order_type', value: string }> };
 
+export type ProfileCharacterFieldsFragment = { __typename?: 'character', id: string, name: string, class: string, level: number, experience: any, rank: number, dead: boolean, retired: boolean, challenges: number, twitch?: string | null, poe_account_name: string, stats?: { __typename?: 'character_stats', main_skill?: string | null, combined_dps: number, total_dps: number, full_dps: number, total_dot_dps: number, life: number, life_unreserved: number, energy_shield: number, ward: number, mana: number, total_ehp: number, armour: number, evasion: number, block_chance: number, spell_block_chance: number, spell_suppression_chance: number, fire_resist: number, cold_resist: number, lightning_resist: number, chaos_resist: number, crit_chance: number, crit_multiplier: number, attack_speed: number, updated_at: string } | null };
+
+export type ProfileUserSubscriptionVariables = Exact<{
+  where: User_Bool_Exp;
+}>;
+
+
+export type ProfileUserSubscription = { __typename?: 'subscription_root', user: Array<{ __typename?: 'user', admin: boolean, id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }> };
+
+export type ProfileCharactersSubscriptionVariables = Exact<{
+  account: Scalars['String']['input'];
+  league: Scalars['String']['input'];
+}>;
+
+
+export type ProfileCharactersSubscription = { __typename?: 'subscription_root', character: Array<{ __typename?: 'character', id: string, name: string, class: string, level: number, experience: any, rank: number, dead: boolean, retired: boolean, challenges: number, twitch?: string | null, poe_account_name: string, stats?: { __typename?: 'character_stats', main_skill?: string | null, combined_dps: number, total_dps: number, full_dps: number, total_dot_dps: number, life: number, life_unreserved: number, energy_shield: number, ward: number, mana: number, total_ehp: number, armour: number, evasion: number, block_chance: number, spell_block_chance: number, spell_suppression_chance: number, fire_resist: number, cold_resist: number, lightning_resist: number, chaos_resist: number, crit_chance: number, crit_multiplier: number, attack_speed: number, updated_at: string } | null }> };
+
+export type GuildBuildStatsSubscriptionVariables = Exact<{
+  league: Scalars['String']['input'];
+}>;
+
+
+export type GuildBuildStatsSubscription = { __typename?: 'subscription_root', character: Array<{ __typename?: 'character', id: string, stats?: { __typename?: 'character_stats', combined_dps: number, total_ehp: number, life: number, energy_shield: number } | null }> };
+
+export type ProfileOrdersSubscriptionVariables = Exact<{
+  userId: Scalars['uuid']['input'];
+  league: Scalars['String']['input'];
+}>;
+
+
+export type ProfileOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', id: string, description?: string | null, type: Item_Order_Type_Enum, icon_url?: string | null, link_url?: string | null, priority: boolean, created_at: string, updated_at: string, user_id: string, fulfilled_by?: string | null, user: { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null }, fulfilled_by_user?: { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null } | null }> };
+
+export type ProfileBulkContributionsSubscriptionVariables = Exact<{
+  userId: Scalars['uuid']['input'];
+  league: Scalars['String']['input'];
+}>;
+
+
+export type ProfileBulkContributionsSubscription = { __typename?: 'subscription_root', bulk_order_contribution: Array<{ __typename?: 'bulk_order_contribution', id: string, quantity: number, created_at: string, bulk_order: { __typename?: 'bulk_order', id: string, item_name: string, icon_url?: string | null, user: { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null } } }> };
+
+export type ProfileBulkOrdersSubscriptionVariables = Exact<{
+  userId: Scalars['uuid']['input'];
+  league: Scalars['String']['input'];
+}>;
+
+
+export type ProfileBulkOrdersSubscription = { __typename?: 'subscription_root', bulk_order: Array<{ __typename?: 'bulk_order', id: string, item_name: string, icon_url?: string | null, quantity: number, created_at: string, completed_at?: string | null, cancelled_at?: string | null, contributions: Array<{ __typename?: 'bulk_order_contribution', id: string, quantity: number, created_at: string, user: { __typename?: 'user', id: string, guild?: string | null, poe_name?: string | null, poe_user_id?: string | null, discord_name?: string | null, discord_avatar?: string | null, discord_user_id?: string | null } }> }> };
+
 export type RegisteredUsersSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6361,6 +6409,47 @@ export const BulkOrderContributorFieldsFragmentDoc = gql`
   discord_name
   discord_user_id
   discord_avatar
+}
+    `;
+export const ProfileCharacterFieldsFragmentDoc = gql`
+    fragment ProfileCharacterFields on character {
+  id
+  name
+  class
+  level
+  experience
+  rank
+  dead
+  retired
+  challenges
+  twitch
+  poe_account_name
+  stats {
+    main_skill
+    combined_dps
+    total_dps
+    full_dps
+    total_dot_dps
+    life
+    life_unreserved
+    energy_shield
+    ward
+    mana
+    total_ehp
+    armour
+    evasion
+    block_chance
+    spell_block_chance
+    spell_suppression_chance
+    fire_resist
+    cold_resist
+    lightning_resist
+    chaos_resist
+    crit_chance
+    crit_multiplier
+    attack_speed
+    updated_at
+  }
 }
     `;
 export const UserFieldsFragmentDoc = gql`
@@ -6703,6 +6792,112 @@ export const OrderTypesDocument = gql`
 }
     `;
 export type OrderTypesQueryResult = Apollo.QueryResult<OrderTypesQuery, OrderTypesQueryVariables>;
+export const ProfileUserDocument = gql`
+    subscription ProfileUser($where: user_bool_exp!) {
+  user(where: $where, limit: 1) {
+    ...UserFields
+    admin
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export type ProfileUserSubscriptionResult = Apollo.SubscriptionResult<ProfileUserSubscription>;
+export const ProfileCharactersDocument = gql`
+    subscription ProfileCharacters($account: String!, $league: String!) {
+  character(
+    where: {poe_account_name: {_ilike: $account}, league: {_eq: $league}}
+    order_by: {rank: asc}
+  ) {
+    ...ProfileCharacterFields
+  }
+}
+    ${ProfileCharacterFieldsFragmentDoc}`;
+export type ProfileCharactersSubscriptionResult = Apollo.SubscriptionResult<ProfileCharactersSubscription>;
+export const GuildBuildStatsDocument = gql`
+    subscription GuildBuildStats($league: String!) {
+  character(where: {league: {_eq: $league}}) {
+    id
+    stats {
+      combined_dps
+      total_ehp
+      life
+      energy_shield
+    }
+  }
+}
+    `;
+export type GuildBuildStatsSubscriptionResult = Apollo.SubscriptionResult<GuildBuildStatsSubscription>;
+export const ProfileOrdersDocument = gql`
+    subscription ProfileOrders($userId: uuid!, $league: String!) {
+  user_item_order(
+    where: {league: {_eq: $league}, _or: [{user_id: {_eq: $userId}}, {fulfilled_by: {_eq: $userId}}]}
+    order_by: {updated_at: desc}
+  ) {
+    id
+    description
+    type
+    icon_url
+    link_url
+    priority
+    created_at
+    updated_at
+    user_id
+    fulfilled_by
+    user {
+      ...UserFields
+    }
+    fulfilled_by_user {
+      ...UserFields
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export type ProfileOrdersSubscriptionResult = Apollo.SubscriptionResult<ProfileOrdersSubscription>;
+export const ProfileBulkContributionsDocument = gql`
+    subscription ProfileBulkContributions($userId: uuid!, $league: String!) {
+  bulk_order_contribution(
+    where: {user_id: {_eq: $userId}, bulk_order: {league: {_eq: $league}}}
+    order_by: {created_at: desc}
+  ) {
+    id
+    quantity
+    created_at
+    bulk_order {
+      id
+      item_name
+      icon_url
+      user {
+        ...UserFields
+      }
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export type ProfileBulkContributionsSubscriptionResult = Apollo.SubscriptionResult<ProfileBulkContributionsSubscription>;
+export const ProfileBulkOrdersDocument = gql`
+    subscription ProfileBulkOrders($userId: uuid!, $league: String!) {
+  bulk_order(
+    where: {user_id: {_eq: $userId}, league: {_eq: $league}}
+    order_by: {created_at: desc}
+  ) {
+    id
+    item_name
+    icon_url
+    quantity
+    created_at
+    completed_at
+    cancelled_at
+    contributions {
+      id
+      quantity
+      created_at
+      user {
+        ...UserFields
+      }
+    }
+  }
+}
+    ${UserFieldsFragmentDoc}`;
+export type ProfileBulkOrdersSubscriptionResult = Apollo.SubscriptionResult<ProfileBulkOrdersSubscription>;
 export const RegisteredUsersDocument = gql`
     subscription RegisteredUsers {
   user_aggregate {

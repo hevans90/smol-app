@@ -1,0 +1,140 @@
+# Everything the profile page shows. A profile is a user (by id) or, for
+# ladder players who never signed up, just a PoE account name.
+
+fragment ProfileCharacterFields on character {
+  id
+  name
+  class
+  level
+  experience
+  rank
+  dead
+  retired
+  challenges
+  twitch
+  poe_account_name
+  stats {
+    main_skill
+    combined_dps
+    total_dps
+    full_dps
+    total_dot_dps
+    life
+    life_unreserved
+    energy_shield
+    ward
+    mana
+    total_ehp
+    armour
+    evasion
+    block_chance
+    spell_block_chance
+    spell_suppression_chance
+    fire_resist
+    cold_resist
+    lightning_resist
+    chaos_resist
+    crit_chance
+    crit_multiplier
+    attack_speed
+    updated_at
+  }
+}
+
+subscription ProfileUser($where: user_bool_exp!) {
+  user(where: $where, limit: 1) {
+    ...UserFields
+    admin
+  }
+}
+
+subscription ProfileCharacters($account: String!, $league: String!) {
+  character(
+    where: { poe_account_name: { _ilike: $account }, league: { _eq: $league } }
+    order_by: { rank: asc }
+  ) {
+    ...ProfileCharacterFields
+  }
+}
+
+# every computed build in the league, to place the profile's against
+subscription GuildBuildStats($league: String!) {
+  character(where: { league: { _eq: $league } }) {
+    id
+    stats {
+      combined_dps
+      total_ehp
+      life
+      energy_shield
+    }
+  }
+}
+
+subscription ProfileOrders($userId: uuid!, $league: String!) {
+  user_item_order(
+    where: {
+      league: { _eq: $league }
+      _or: [{ user_id: { _eq: $userId } }, { fulfilled_by: { _eq: $userId } }]
+    }
+    order_by: { updated_at: desc }
+  ) {
+    id
+    description
+    type
+    icon_url
+    link_url
+    priority
+    created_at
+    updated_at
+    user_id
+    fulfilled_by
+    user {
+      ...UserFields
+    }
+    fulfilled_by_user {
+      ...UserFields
+    }
+  }
+}
+
+subscription ProfileBulkContributions($userId: uuid!, $league: String!) {
+  bulk_order_contribution(
+    where: { user_id: { _eq: $userId }, bulk_order: { league: { _eq: $league } } }
+    order_by: { created_at: desc }
+  ) {
+    id
+    quantity
+    created_at
+    bulk_order {
+      id
+      item_name
+      icon_url
+      user {
+        ...UserFields
+      }
+    }
+  }
+}
+
+subscription ProfileBulkOrders($userId: uuid!, $league: String!) {
+  bulk_order(
+    where: { user_id: { _eq: $userId }, league: { _eq: $league } }
+    order_by: { created_at: desc }
+  ) {
+    id
+    item_name
+    icon_url
+    quantity
+    created_at
+    completed_at
+    cancelled_at
+    contributions {
+      id
+      quantity
+      created_at
+      user {
+        ...UserFields
+      }
+    }
+  }
+}

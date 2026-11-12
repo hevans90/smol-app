@@ -1,16 +1,8 @@
 import GraphQLAppWrapper from '../_utils/GraphQLAppWrapper';
-import PoECharacters from './react/PoECharacters';
-import Profile from './react/Profile';
+import { ProfileScreen } from './react/graphql-provided/ProfileScreen';
 
-export const ProfilePage = ({ hasuraUri }: { hasuraUri: string }) => {
-  return (
-    <>
-      <GraphQLAppWrapper uri={hasuraUri}>
-        <div className="mt-8 flex w-full flex-col items-center justify-center">
-          <Profile />
-          <PoECharacters />
-        </div>
-      </GraphQLAppWrapper>
-    </>
-  );
-};
+export const ProfilePage = ({ hasuraUri }: { hasuraUri: string }) => (
+  <GraphQLAppWrapper uri={hasuraUri}>
+    <ProfileScreen />
+  </GraphQLAppWrapper>
+);

@@ -162,9 +162,8 @@ export const GuildOverview = ({
   return (
     <section className="grid gap-6 rounded border border-gray-800 bg-gray-900 p-4 xl:grid-cols-[1fr_18rem]">
       <div className="flex min-w-0 flex-col gap-4">
-        <div className="flex items-baseline justify-between gap-4">
-          <h2 className="m-0 text-lg text-primary-500">What the guild farms</h2>
-          {selected.length > 0 && (
+        {selected.length > 0 && (
+          <div className="flex justify-end">
             <button
               type="button"
               onClick={onClear}
@@ -172,8 +171,8 @@ export const GuildOverview = ({
             >
               Clear filter
             </button>
-          )}
-        </div>
+          </div>
+        )}
 
         {groups.map(({ key, title, hint, tiles }) => (
           <div key={key} className="flex flex-col gap-2">

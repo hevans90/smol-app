@@ -89,7 +89,7 @@ export const hasTiers = (data: AtlasData) => !!MECHANIC_TIERS[data.version];
 export const MECHANICS_WITH_ICON = new Set([
   'abyss', 'altar_eater', 'altar_exarch', 'bestiary', 'betrayal', 'beyond',
   'blight', 'breach', 'conquerors', 'delirium', 'delve', 'divination', 'essence',
-  'expedition', 'harbinger', 'harvest', 'heist', 'incursion', 'labyrinth',
+  'expedition', 'gold', 'harbinger', 'harvest', 'heist', 'incursion', 'labyrinth',
   'legion', 'maven', 'memories', 'mercenaries', 'mirage', 'ritual', 'rogue_exiles',
   'sanctum', 'sentinels', 'settlers_of_kalguur', 'shaper_elder', 'shrines', 'strongboxes',
   'synthesis', 'torment', 'ultimatum', 'wildwood',

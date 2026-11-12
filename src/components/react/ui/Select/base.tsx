@@ -82,10 +82,16 @@ export function BaseSelect({
   listContentRef.current = options.map(({ value }) => value);
   const isTypingRef = React.useRef(false);
 
-  const click = useClick(context, { event: 'mousedown' });
-  const dismiss = useDismiss(context);
-  const role = useRole(context, { role: 'listbox' });
+  // every interaction is always passed and switched off with `enabled`:
+  // useInteractions memoises on its argument, so swapping in an empty list
+  // while disabled froze the select shut once it became enabled (React only
+  // compares deps up to the old, empty length)
+  const enabled = !disabled;
+  const click = useClick(context, { event: 'mousedown', enabled });
+  const dismiss = useDismiss(context, { enabled });
+  const role = useRole(context, { role: 'listbox', enabled });
   const listNav = useListNavigation(context, {
+    enabled,
     listRef,
     activeIndex,
     selectedIndex: selectedIndices.length > 0 ? selectedIndices[0] : null,
@@ -93,6 +99,7 @@ export function BaseSelect({
     loop: true,
   });
   const typeahead = useTypeahead(context, {
+    enabled,
     listRef: listContentRef,
     activeIndex,
     selectedIndex: selectedIndices.length > 0 ? selectedIndices[0] : null,
@@ -106,9 +113,13 @@ export function BaseSelect({
     },
   });
 
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    disabled ? [] : [dismiss, role, listNav, typeahead, click],
-  );
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+    dismiss,
+    role,
+    listNav,
+    typeahead,
+    click,
+  ]);
 
   const handleSelect = (index: number) => {
     if (disabled) return; // Prevent interaction when disabled

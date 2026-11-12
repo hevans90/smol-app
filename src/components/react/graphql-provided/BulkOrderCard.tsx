@@ -5,6 +5,7 @@ import { getWikiImgSrcFromUrl } from '../../../_utils/item-urls';
 import { matchBulkOrder } from '../../../_utils/stash-matching';
 import type { BulkOrdersSubscription } from '../../../graphql-api';
 import type { AggregatedStashItem } from '../../../models/ggg-stash';
+import { profileHref } from '../profile/links';
 import { Button } from '../ui/Button';
 import { BulkProgressBar, type BulkProgressSegment } from '../ui/BulkProgressBar';
 
@@ -182,7 +183,9 @@ export const BulkOrderCard = ({
           )}
           <div className="mt-0.5 flex items-center gap-2 text-xs text-primary-800">
             <span>
-              {contributorDisplayName(order.user)}
+              <a href={profileHref({ id: order.user.id })} className="text-inherit no-underline hover:text-primary-300">
+                {contributorDisplayName(order.user)}
+              </a>
               {isMine && ' (you)'}
             </span>
             <span aria-hidden>·</span>
@@ -204,13 +207,18 @@ export const BulkOrderCard = ({
       {segments.length > 0 && (
         <div className="flex flex-wrap items-center gap-1">
           {segments.map((segment) => (
-            <ContributorAvatar
+            <a
               key={segment.userId}
-              user={
-                order.contributions.find((c) => c.user.id === segment.userId)!
-                  .user
-              }
-            />
+              href={profileHref({ id: segment.userId })}
+              className="rounded-full no-underline"
+            >
+              <ContributorAvatar
+                user={
+                  order.contributions.find((c) => c.user.id === segment.userId)!
+                    .user
+                }
+              />
+            </a>
           ))}
           <span className="ml-1 text-xs text-primary-800">
             {segments.length} contributor{segments.length === 1 ? '' : 's'}

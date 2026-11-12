@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { strategyOf, type AtlasData } from '../../../_utils/atlas';
 import { TREE_COLOURS, type TreeLayer } from '../../../_utils/atlas-geometry';
 import { AtlasTreeExplorer } from '../atlas/AtlasTree';
+import { profileHref } from '../profile/links';
 import { Dialog, DialogContent, DialogHeading } from '../ui/Dialog';
 import { MechanicRow, notableCount } from './Mechanic';
 import type { FarmMember } from './types';
@@ -93,7 +94,14 @@ export const MemberAtlasDialog = ({
   return (
     <Shell
       onClose={onClose}
-      title={member.user.discord_name ?? member.user.poe_name}
+      title={
+        <a
+          href={profileHref({ id: member.user.id })}
+          className="text-inherit no-underline hover:text-primary-300"
+        >
+          {member.user.discord_name ?? member.user.poe_name}
+        </a>
+      }
       tree={
         <AtlasTreeExplorer
           data={data}

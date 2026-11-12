@@ -10,6 +10,7 @@ import {
   prepareDiscordLink,
 } from '../../auth/discord-auth/DiscordAuth';
 import { clearPoESession, startPoEReauth } from '../../auth/poe-auth/PoEAuth';
+import { myProfileHref } from '../profile/links';
 
 type Session = {
   signedIn: boolean;
@@ -95,7 +96,7 @@ const PoEChip = ({ session }: { session: Session }) => {
   }
   return (
     <a
-      href="/profile"
+      href={myProfileHref()}
       title="Path of Exile"
       className={twMerge(chip, 'border-primary-900 text-primary-500 hover:border-primary-600 hover:text-primary-300')}
     >

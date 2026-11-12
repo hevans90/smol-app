@@ -9,6 +9,7 @@ import {
   POE_OAUTH_SCOPES,
   POE_REDIRECT_URI,
 } from '../../../_utils/poe-oauth';
+import { myProfileHref } from '../../react/profile/links';
 
 // PKCE secrets for one authorize redirect, kept in localStorage under
 // `${prefix}_verifier` / `${prefix}_state` until verify.astro consumes them.
@@ -160,7 +161,7 @@ const PoEAuth = ({ logoutOnly }: { logoutOnly?: boolean }) => {
       <div className="flex items-center gap-3 rounded border-2 border-primary-800 bg-gray-950">
         <img src="/poe-logo-original.png" className="h-12" />
         <div className="flex grow justify-between">
-          <a href="/profile">
+          <a href={myProfileHref()}>
             <div className="hidden text-primary-500 md:block">{username}</div>
           </a>
           <button

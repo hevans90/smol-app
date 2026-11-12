@@ -42,6 +42,7 @@ import { AtlasPanel, type AtlasProfile } from '../profile/AtlasPanel';
 import { BuildPanel } from '../profile/BuildPanel';
 import { CharacterRoster } from '../profile/CharacterRoster';
 import { AlliesPanel, LedgerPanel } from '../profile/LedgerPanel';
+import { profileHref } from '../profile/links';
 import { badgesFor, buildLedger, type ProfileCharacter } from '../profile/model';
 import { ProfileHero } from '../profile/ProfileHero';
 import { ModalDrawer } from '../ui/ModalDrawer';
@@ -59,7 +60,10 @@ const readTarget = (): Target => {
   const account = params.get('account');
   if (id) return { id };
   if (account) return { account };
-  return { id: localStorage.getItem('hasura_user_id')?.trim() ?? '' };
+  // bare /profile is your own: put your id in the URL so it can be shared
+  const mine = localStorage.getItem('hasura_user_id')?.trim() ?? '';
+  if (mine) window.history.replaceState(window.history.state, '', profileHref({ id: mine }));
+  return { id: mine };
 };
 
 // The tree that stands for a member: the one they pinned, the one GGG flags,

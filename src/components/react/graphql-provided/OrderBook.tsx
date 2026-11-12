@@ -51,6 +51,7 @@ import {
   orderBookTypeFiltersStore,
 } from '../../../_state/order-book';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
+import { profileHref } from '../profile/links';
 import { Button } from '../ui/Button';
 import {
   Dialog,
@@ -522,7 +523,9 @@ export const OrderBook = () => {
                                 <img src="/discord-logo.svg" className="h-4" />
                               </div>
                             )}
-                            {user?.discord_name}
+                            <a href={profileHref({ id: user.id })} className="text-inherit no-underline hover:text-primary-300">
+                              {user.discord_name}
+                            </a>
                             {isMe && (
                               <div className="hidden text-primary-500 lg:block">
                                 (you)
@@ -676,7 +679,12 @@ export const OrderBook = () => {
                                 </div>
                               )}
 
-                              {fulfilled_by_user.discord_name}
+                              <a
+                                href={profileHref({ id: fulfilled_by_user.id })}
+                                className="text-inherit no-underline hover:text-primary-300"
+                              >
+                                {fulfilled_by_user.discord_name}
+                              </a>
                               {fulfilled_by_user.discord_user_id ===
                                 myDiscordId && (
                                 <div className="text-primary-500">(you)</div>

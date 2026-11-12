@@ -6,8 +6,11 @@ fragment BulkOrderContributorFields on user {
   discord_avatar
 }
 
-subscription BulkOrders {
-  bulk_order(order_by: { created_at: desc }) {
+subscription BulkOrders($league: String!) {
+  bulk_order(
+    where: { league: { _eq: $league } }
+    order_by: { created_at: desc }
+  ) {
     id
     user_id
     item_name

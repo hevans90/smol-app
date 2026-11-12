@@ -71,6 +71,7 @@ select_permissions:
         - completed_at
         - created_at
         - updated_at
+        - league
       filter: {}
       allow_aggregations: true
     comment: ""
@@ -88,6 +89,7 @@ select_permissions:
         - completed_at
         - created_at
         - updated_at
+        - league
       filter: {}
       allow_aggregations: true
     comment: ""

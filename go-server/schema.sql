@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict GcZQvfCGBBH8NCho3wmzShgHEY7XSWrrDzVHwv0WKLFlojGo02uG6tdthzVo3Cp
+\restrict ZryJL8m7hd9Uke6OPQBEuWWQdYKLC00ANYO2gpY5AWlIvO4MAyWQpAUSyMdciCt
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -162,6 +162,22 @@ BEGIN
   _new := NEW;
   _new."updated_at" = NOW();
   RETURN _new;
+END;
+$$;
+
+
+--
+-- Name: set_order_league(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.set_order_league() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.league IS NULL THEN
+        SELECT league_name INTO NEW.league FROM public.app_config WHERE id = 1;
+    END IF;
+    RETURN NEW;
 END;
 $$;
 
@@ -354,6 +370,7 @@ CREATE TABLE public.bulk_order (
     completed_at timestamp with time zone,
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    league text NOT NULL,
     CONSTRAINT bulk_order_quantity_positive CHECK ((quantity > 0))
 );
 
@@ -529,7 +546,8 @@ CREATE TABLE public.user_item_order (
     priority boolean DEFAULT false NOT NULL,
     item_base_type text,
     icon_url text,
-    item_category text
+    item_category text,
+    league text NOT NULL
 );
 
 
@@ -792,6 +810,13 @@ CREATE INDEX bulk_order_contribution_bulk_order_id_idx ON public.bulk_order_cont
 
 
 --
+-- Name: bulk_order_league_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX bulk_order_league_idx ON public.bulk_order USING btree (league);
+
+
+--
 -- Name: idx_league_rules_league_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -810,6 +835,13 @@ CREATE INDEX idx_leagues_category_id ON public.league USING btree (category_id);
 --
 
 CREATE INDEX idx_poe_name ON public."user" USING btree (poe_name);
+
+
+--
+-- Name: user_item_order_league_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX user_item_order_league_idx ON public.user_item_order USING btree (league);
 
 
 --
@@ -848,6 +880,13 @@ CREATE TRIGGER notify_public_app_config_changed AFTER UPDATE ON public.app_confi
 
 
 --
+-- Name: bulk_order set_bulk_order_league; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER set_bulk_order_league BEFORE INSERT ON public.bulk_order FOR EACH ROW EXECUTE FUNCTION public.set_order_league();
+
+
+--
 -- Name: app_config set_public_app_config_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -873,6 +912,13 @@ CREATE TRIGGER set_public_character_stats_updated_at BEFORE UPDATE ON public.cha
 --
 
 CREATE TRIGGER set_public_user_item_order_updated_at BEFORE UPDATE ON public.user_item_order FOR EACH ROW EXECUTE FUNCTION public.set_current_timestamp_updated_at();
+
+
+--
+-- Name: user_item_order set_user_item_order_league; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER set_user_item_order_league BEFORE INSERT ON public.user_item_order FOR EACH ROW EXECUTE FUNCTION public.set_order_league();
 
 
 --
@@ -983,5 +1029,5 @@ ALTER TABLE ONLY public.user_item_order
 -- PostgreSQL database dump complete
 --
 
-\unrestrict GcZQvfCGBBH8NCho3wmzShgHEY7XSWrrDzVHwv0WKLFlojGo02uG6tdthzVo3Cp
+\unrestrict ZryJL8m7hd9Uke6OPQBEuWWQdYKLC00ANYO2gpY5AWlIvO4MAyWQpAUSyMdciCt
 

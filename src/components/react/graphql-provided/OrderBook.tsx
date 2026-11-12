@@ -28,6 +28,7 @@ import {
   type UpdateUserItemOrderMutation,
   type UpdateUserItemOrderMutationVariables,
   type UserItemOrdersSubscription,
+  type UserItemOrdersSubscriptionVariables,
 } from '../../../graphql-api';
 import { usePoEStash } from '../../../hooks/usePoEStash';
 import { matchRegularOrder } from '../../../_utils/stash-matching';
@@ -72,9 +73,14 @@ const getWikiImgSrcFromUrl = (url: string) => {
 };
 
 export const OrderBook = () => {
-  const { data: orders, loading } = useSubscription<UserItemOrdersSubscription>(
-    UserItemOrdersDocument,
-  );
+  // orders belong to the league they were placed in
+  const { data: leagueData } = useQuery<LeagueQuery>(LeagueDocument);
+  const league = leagueData?.app_config_by_pk?.league_name;
+  const { data: orders, loading: ordersLoading } = useSubscription<
+    UserItemOrdersSubscription,
+    UserItemOrdersSubscriptionVariables
+  >(UserItemOrdersDocument, { variables: { league: league ?? '' }, skip: !league });
+  const loading = ordersLoading || !league;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -92,8 +98,6 @@ export const OrderBook = () => {
   // "Check my stash" — one scan for the whole list, reused by every row's
   // StashMatchBadge (and the fulfill dialog's quick-fill) rather than each
   // order doing its own.
-  const { data: leagueData } = useQuery<LeagueQuery>(LeagueDocument);
-  const league = leagueData?.app_config_by_pk?.league_name;
   const {
     loading: stashLoading,
     items: stashItems,

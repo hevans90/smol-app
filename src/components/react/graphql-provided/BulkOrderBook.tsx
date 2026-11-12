@@ -25,6 +25,7 @@ import {
   LeagueDocument,
   UpdateBulkOrderDocument,
   type BulkOrdersSubscription,
+  type BulkOrdersSubscriptionVariables,
   type DeleteBulkOrderContributionMutation,
   type DeleteBulkOrderContributionMutationVariables,
   type DeleteBulkOrderMutation,
@@ -70,8 +71,14 @@ const sumOf = (order: BulkOrderWithContributions) =>
   order.contributions.reduce((acc, c) => acc + c.quantity, 0);
 
 export const BulkOrderBook = () => {
-  const { data: orders, loading } =
-    useSubscription<BulkOrdersSubscription>(BulkOrdersDocument);
+  // orders belong to the league they were placed in
+  const { data: leagueData } = useQuery<LeagueQuery>(LeagueDocument);
+  const league = leagueData?.app_config_by_pk?.league_name;
+  const { data: orders, loading: ordersLoading } = useSubscription<
+    BulkOrdersSubscription,
+    BulkOrdersSubscriptionVariables
+  >(BulkOrdersDocument, { variables: { league: league ?? '' }, skip: !league });
+  const loading = ordersLoading || !league;
   const { data: myUser } = useMyHasuraUser();
   const myUserId = myUser?.id;
 
@@ -83,8 +90,6 @@ export const BulkOrderBook = () => {
   // "Check my stash" — one scan for the whole board, reused by every card's
   // badge and by whichever BulkContributeDialog happens to be open, rather
   // than each order scanning independently.
-  const { data: leagueData } = useQuery<LeagueQuery>(LeagueDocument);
-  const league = leagueData?.app_config_by_pk?.league_name;
   const {
     loading: stashLoading,
     items: stashItems,

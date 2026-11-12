@@ -53,6 +53,7 @@ type BulkOrder struct {
 	CompletedAt sql.NullTime
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
+	League      string
 }
 
 type BulkOrderContribution struct {
@@ -248,4 +249,5 @@ type UserItemOrder struct {
 	ItemBaseType sql.NullString
 	IconUrl      sql.NullString
 	ItemCategory sql.NullString
+	League       string
 }

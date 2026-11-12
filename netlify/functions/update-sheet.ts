@@ -11,13 +11,29 @@ const getCurrentDistinctBaseTypes = async () => {
     'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET as string,
   };
 
+  // open orders of the configured league only
+  const leagueResponse = await fetch(hasuraURL, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      query: `query ConfiguredLeague { app_config_by_pk(id: 1) { league_name } }`,
+    }),
+  });
+  const league = (
+    (await leagueResponse.json()) as {
+      data: { app_config_by_pk: { league_name: string } | null };
+    }
+  ).data.app_config_by_pk?.league_name;
+  if (!league) throw new Error('no league configured in app_config');
+
   const hasuraResponse = await fetch(hasuraURL, {
     method: 'POST',
     headers,
     body: JSON.stringify({
+      variables: { league },
       query: `
-      query BaseTypes {
-          user_item_order(distinct_on: item_base_type, order_by: {item_base_type: asc}, where: {item_base_type: {_nin: ["null", ""]}, fulfilled_by: {_is_null: true}}) {
+      query BaseTypes($league: String!) {
+          user_item_order(distinct_on: item_base_type, order_by: {item_base_type: asc}, where: {league: {_eq: $league}, item_base_type: {_nin: ["null", ""]}, fulfilled_by: {_is_null: true}}) {
             item_base_type
             type
         }

@@ -1,5 +1,8 @@
-subscription UserItemOrders {
-  user_item_order(order_by: { updated_at: desc }) {
+subscription UserItemOrders($league: String!) {
+  user_item_order(
+    where: { league: { _eq: $league } }
+    order_by: { updated_at: desc }
+  ) {
     created_at
     updated_at
     description

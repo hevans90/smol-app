@@ -66,6 +66,7 @@ select_permissions:
         - id
         - item_base_type
         - item_category
+        - league
         - link_url
         - priority
         - type
@@ -83,6 +84,7 @@ select_permissions:
         - id
         - item_base_type
         - item_category
+        - league
         - link_url
         - priority
         - type

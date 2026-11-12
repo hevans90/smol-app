@@ -949,6 +949,7 @@ export type Bulk_Order = {
   icon_url?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   item_name: Scalars['String']['output'];
+  league: Scalars['String']['output'];
   link_url?: Maybe<Scalars['String']['output']>;
   quantity: Scalars['Int']['output'];
   updated_at: Scalars['timestamptz']['output'];
@@ -1027,6 +1028,7 @@ export type Bulk_Order_Bool_Exp = {
   icon_url?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   item_name?: InputMaybe<String_Comparison_Exp>;
+  league?: InputMaybe<String_Comparison_Exp>;
   link_url?: InputMaybe<String_Comparison_Exp>;
   quantity?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -1417,6 +1419,7 @@ export type Bulk_Order_Insert_Input = {
   icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   item_name?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
   quantity?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -1434,6 +1437,7 @@ export type Bulk_Order_Max_Fields = {
   icon_url?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   item_name?: Maybe<Scalars['String']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
   link_url?: Maybe<Scalars['String']['output']>;
   quantity?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -1450,6 +1454,7 @@ export type Bulk_Order_Min_Fields = {
   icon_url?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   item_name?: Maybe<Scalars['String']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
   link_url?: Maybe<Scalars['String']['output']>;
   quantity?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -1489,6 +1494,7 @@ export type Bulk_Order_Order_By = {
   icon_url?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_name?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
   link_url?: InputMaybe<Order_By>;
   quantity?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
@@ -1518,6 +1524,8 @@ export enum Bulk_Order_Select_Column {
   /** column name */
   ItemName = 'item_name',
   /** column name */
+  League = 'league',
+  /** column name */
   LinkUrl = 'link_url',
   /** column name */
   Quantity = 'quantity',
@@ -1536,6 +1544,7 @@ export type Bulk_Order_Set_Input = {
   icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   item_name?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
   quantity?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -1577,6 +1586,7 @@ export type Bulk_Order_Stream_Cursor_Value_Input = {
   icon_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   item_name?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
   quantity?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -1605,6 +1615,8 @@ export enum Bulk_Order_Update_Column {
   Id = 'id',
   /** column name */
   ItemName = 'item_name',
+  /** column name */
+  League = 'league',
   /** column name */
   LinkUrl = 'link_url',
   /** column name */
@@ -5609,6 +5621,7 @@ export type User_Item_Order = {
   id: Scalars['uuid']['output'];
   item_base_type?: Maybe<Scalars['String']['output']>;
   item_category?: Maybe<Scalars['String']['output']>;
+  league: Scalars['String']['output'];
   link_url?: Maybe<Scalars['String']['output']>;
   priority: Scalars['Boolean']['output'];
   type: Item_Order_Type_Enum;
@@ -5694,6 +5707,7 @@ export type User_Item_Order_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   item_base_type?: InputMaybe<String_Comparison_Exp>;
   item_category?: InputMaybe<String_Comparison_Exp>;
+  league?: InputMaybe<String_Comparison_Exp>;
   link_url?: InputMaybe<String_Comparison_Exp>;
   priority?: InputMaybe<Boolean_Comparison_Exp>;
   type?: InputMaybe<Item_Order_Type_Enum_Comparison_Exp>;
@@ -5718,6 +5732,7 @@ export type User_Item_Order_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   item_base_type?: InputMaybe<Scalars['String']['input']>;
   item_category?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
   priority?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<Item_Order_Type_Enum>;
@@ -5736,6 +5751,7 @@ export type User_Item_Order_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   item_base_type?: Maybe<Scalars['String']['output']>;
   item_category?: Maybe<Scalars['String']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
   link_url?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
@@ -5750,6 +5766,7 @@ export type User_Item_Order_Max_Order_By = {
   id?: InputMaybe<Order_By>;
   item_base_type?: InputMaybe<Order_By>;
   item_category?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
   link_url?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -5765,6 +5782,7 @@ export type User_Item_Order_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   item_base_type?: Maybe<Scalars['String']['output']>;
   item_category?: Maybe<Scalars['String']['output']>;
+  league?: Maybe<Scalars['String']['output']>;
   link_url?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   user_id?: Maybe<Scalars['uuid']['output']>;
@@ -5779,6 +5797,7 @@ export type User_Item_Order_Min_Order_By = {
   id?: InputMaybe<Order_By>;
   item_base_type?: InputMaybe<Order_By>;
   item_category?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
   link_url?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
@@ -5810,6 +5829,7 @@ export type User_Item_Order_Order_By = {
   id?: InputMaybe<Order_By>;
   item_base_type?: InputMaybe<Order_By>;
   item_category?: InputMaybe<Order_By>;
+  league?: InputMaybe<Order_By>;
   link_url?: InputMaybe<Order_By>;
   priority?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
@@ -5839,6 +5859,8 @@ export enum User_Item_Order_Select_Column {
   ItemBaseType = 'item_base_type',
   /** column name */
   ItemCategory = 'item_category',
+  /** column name */
+  League = 'league',
   /** column name */
   LinkUrl = 'link_url',
   /** column name */
@@ -5872,6 +5894,7 @@ export type User_Item_Order_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   item_base_type?: InputMaybe<Scalars['String']['input']>;
   item_category?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
   priority?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<Item_Order_Type_Enum>;
@@ -5896,6 +5919,7 @@ export type User_Item_Order_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   item_base_type?: InputMaybe<Scalars['String']['input']>;
   item_category?: InputMaybe<Scalars['String']['input']>;
+  league?: InputMaybe<Scalars['String']['input']>;
   link_url?: InputMaybe<Scalars['String']['input']>;
   priority?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<Item_Order_Type_Enum>;
@@ -5919,6 +5943,8 @@ export enum User_Item_Order_Update_Column {
   ItemBaseType = 'item_base_type',
   /** column name */
   ItemCategory = 'item_category',
+  /** column name */
+  League = 'league',
   /** column name */
   LinkUrl = 'link_url',
   /** column name */
@@ -6153,7 +6179,9 @@ export type MyAtlasConnectionSubscription = { __typename?: 'subscription_root', 
 
 export type BulkOrderContributorFieldsFragment = { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null };
 
-export type BulkOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type BulkOrdersSubscriptionVariables = Exact<{
+  league: Scalars['String']['input'];
+}>;
 
 
 export type BulkOrdersSubscription = { __typename?: 'subscription_root', bulk_order: Array<{ __typename?: 'bulk_order', id: string, user_id: string, item_name: string, description?: string | null, icon_url?: string | null, link_url?: string | null, quantity: number, cancelled_at?: string | null, completed_at?: string | null, created_at: string, updated_at: string, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, contributions: Array<{ __typename?: 'bulk_order_contribution', id: string, quantity: number, delivery: string, note?: string | null, created_at: string, user: { __typename?: 'user', id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } }> }> };
@@ -6242,7 +6270,9 @@ export type RegisteredUsersSubscriptionVariables = Exact<{ [key: string]: never;
 
 export type RegisteredUsersSubscription = { __typename?: 'subscription_root', user_aggregate: { __typename?: 'user_aggregate', aggregate?: { __typename?: 'user_aggregate_fields', count: number } | null } };
 
-export type UserItemOrdersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type UserItemOrdersSubscriptionVariables = Exact<{
+  league: Scalars['String']['input'];
+}>;
 
 
 export type UserItemOrdersSubscription = { __typename?: 'subscription_root', user_item_order: Array<{ __typename?: 'user_item_order', created_at: string, updated_at: string, description?: string | null, id: string, link_url?: string | null, type: Item_Order_Type_Enum, item_base_type?: string | null, item_category?: string | null, icon_url?: string | null, priority: boolean, user: { __typename?: 'user', guild?: string | null, id: string, poe_name?: string | null, discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null }, fulfilled_by_user?: { __typename?: 'user', discord_name?: string | null, discord_user_id?: string | null, discord_avatar?: string | null } | null }> };
@@ -6465,8 +6495,8 @@ export const MyAtlasConnectionDocument = gql`
     `;
 export type MyAtlasConnectionSubscriptionResult = Apollo.SubscriptionResult<MyAtlasConnectionSubscription>;
 export const BulkOrdersDocument = gql`
-    subscription BulkOrders {
-  bulk_order(order_by: {created_at: desc}) {
+    subscription BulkOrders($league: String!) {
+  bulk_order(where: {league: {_eq: $league}}, order_by: {created_at: desc}) {
     id
     user_id
     item_name
@@ -6684,8 +6714,8 @@ export const RegisteredUsersDocument = gql`
     `;
 export type RegisteredUsersSubscriptionResult = Apollo.SubscriptionResult<RegisteredUsersSubscription>;
 export const UserItemOrdersDocument = gql`
-    subscription UserItemOrders {
-  user_item_order(order_by: {updated_at: desc}) {
+    subscription UserItemOrders($league: String!) {
+  user_item_order(where: {league: {_eq: $league}}, order_by: {updated_at: desc}) {
     created_at
     updated_at
     description

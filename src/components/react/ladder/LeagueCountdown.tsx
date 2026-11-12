@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 // The empty ladder: a unique-item name plate for the league and a countdown
@@ -24,6 +24,35 @@ const useNow = (active: boolean) => {
     return () => clearTimeout(timer);
   }, [active]);
   return now;
+};
+
+// How far to move the content from the section's centre to the viewport's,
+// kept within the section so it never rides up over the ladder header
+const useViewportCentre = () => {
+  const section = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLDivElement>(null);
+  const [shift, setShift] = useState(0);
+  useLayoutEffect(() => {
+    const outer = section.current;
+    const inner = content.current;
+    if (!outer || !inner) return;
+    const measure = () => {
+      const { top, height } = outer.getBoundingClientRect();
+      const slack = Math.max(0, (height - inner.offsetHeight) / 2);
+      const wanted = window.innerHeight / 2 - (top + height / 2);
+      setShift(Math.round(Math.min(slack, Math.max(-slack, wanted))));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(outer);
+    observer.observe(inner);
+    window.addEventListener('resize', measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, []);
+  return { section, content, shift };
 };
 
 const NamePlate = ({ title, subtitle }: { title: string; subtitle: string }) => (
@@ -64,10 +93,8 @@ const Unit = ({
 }) => (
   <div className={twMerge('flex flex-col items-center', solo ? 'w-auto' : 'w-16 sm:w-24 md:w-32')}>
     <span
-      // re-keyed each change so the flip animation plays on the digit that moved
-      key={value}
       className={twMerge(
-        'font-fontinSmallcaps tabular-nums leading-none motion-safe:animate-countdown-flip',
+        'font-fontinSmallcaps tabular-nums leading-none',
         solo ? 'text-8xl sm:text-9xl md:text-[12rem]' : 'text-5xl sm:text-6xl md:text-8xl',
         hot ? 'text-[#ff9b6b]' : 'text-primary-400',
       )}
@@ -77,7 +104,16 @@ const Unit = ({
           : '0 0 16px rgba(223,207,121,.45), 0 0 38px rgba(175,96,37,.35)',
       }}
     >
-      {String(value).padStart(2, '0')}
+      {[...String(value).padStart(2, '0')].map((digit, index, digits) => (
+        <span
+          // keyed by place (from the right) and value, so only a digit that
+          // changed remounts and replays the flip: 23 -> 24 flips just the 4
+          key={`${digits.length - index}:${digit}`}
+          className="inline-block motion-safe:animate-countdown-flip"
+        >
+          {digit}
+        </span>
+      ))}
     </span>
     <span className="mt-2 font-fontinSmallcaps text-xs uppercase tracking-[0.3em] text-primary-800 md:text-sm">
       {label}
@@ -102,6 +138,7 @@ export const LeagueCountdown = ({
 }) => {
   const start = startsAt ? new Date(startsAt).getTime() : undefined;
   const now = useNow(start !== undefined && start > Date.now() - SECOND);
+  const { section, content, shift } = useViewportCentre();
   const left = start !== undefined ? start - now : undefined;
   const counting = left !== undefined && left > 0;
 
@@ -124,10 +161,15 @@ export const LeagueCountdown = ({
     : [];
 
   return (
-    <div className="relative flex min-h-[28rem] flex-1 flex-col items-center justify-center overflow-hidden px-4 py-12 text-center">
+    <div
+      ref={section}
+      className="relative flex min-h-[28rem] flex-1 flex-col items-center justify-center overflow-hidden px-4 py-12 text-center"
+    >
       {/* glow and embers */}
       <div
         aria-hidden
+        // follows the content to the viewport's centre
+        style={{ marginTop: shift }}
         className={twMerge(
           'pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl',
           finalMinute
@@ -159,7 +201,11 @@ export const LeagueCountdown = ({
         </div>
       )}
 
-      <div className="relative flex w-full flex-col items-center gap-6">
+      <div
+        ref={content}
+        className="relative flex w-full flex-col items-center gap-6"
+        style={{ transform: `translateY(${shift}px)` }}
+      >
         <NamePlate
           title={leagueName}
           subtitle={counting ? 'Begins in' : start !== undefined ? 'Has begun' : 'Ladder'}

@@ -523,7 +523,7 @@ export const OrderBook = () => {
                                 <img src="/discord-logo.svg" className="h-4" />
                               </div>
                             )}
-                            <a href={profileHref({ id: user.id })} className="text-inherit no-underline hover:text-primary-300">
+                            <a href={profileHref(user)} className="text-inherit no-underline hover:text-primary-300">
                               {user.discord_name}
                             </a>
                             {isMe && (
@@ -680,7 +680,7 @@ export const OrderBook = () => {
                               )}
 
                               <a
-                                href={profileHref({ id: fulfilled_by_user.id })}
+                                href={profileHref(fulfilled_by_user)}
                                 className="text-inherit no-underline hover:text-primary-300"
                               >
                                 {fulfilled_by_user.discord_name}

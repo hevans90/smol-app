@@ -96,7 +96,7 @@ export const MemberAtlasDialog = ({
       onClose={onClose}
       title={
         <a
-          href={profileHref({ id: member.user.id })}
+          href={profileHref(member.user)}
           className="text-inherit no-underline hover:text-primary-300"
         >
           {member.user.discord_name ?? member.user.poe_name}

@@ -74,7 +74,7 @@ export const AtlasPanel = ({ atlas, isMe }: { atlas?: AtlasProfile; isMe: boolea
 
       {twin && (
         <a
-          href={profileHref({ id: twin.user.id })}
+          href={profileHref(twin.user)}
           className="mt-5 flex items-center gap-3 rounded-md border border-gray-800 bg-gray-950/50 p-2.5 no-underline hover:border-primary-900"
         >
           <MemberAvatar user={twin.user} className="h-8 w-8" />

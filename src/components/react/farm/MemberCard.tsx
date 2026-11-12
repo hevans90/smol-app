@@ -77,7 +77,7 @@ export const MemberCard = ({
         <div className="min-w-0 flex-1">
           <div className="truncate text-primary-500">
             <a
-              href={profileHref({ id: user.id })}
+              href={profileHref(user)}
               className="text-primary-500 no-underline hover:text-primary-300 hover:underline"
             >
               {name}

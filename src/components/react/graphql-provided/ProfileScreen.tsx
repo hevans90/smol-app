@@ -42,7 +42,7 @@ import { AtlasPanel, type AtlasProfile } from '../profile/AtlasPanel';
 import { BuildPanel } from '../profile/BuildPanel';
 import { CharacterRoster } from '../profile/CharacterRoster';
 import { AlliesPanel, LedgerPanel } from '../profile/LedgerPanel';
-import { profileHref } from '../profile/links';
+import { accountFromSlug, profileHref } from '../profile/links';
 import { badgesFor, buildLedger, type ProfileCharacter } from '../profile/model';
 import { ProfileHero } from '../profile/ProfileHero';
 import { ModalDrawer } from '../ui/ModalDrawer';
@@ -51,19 +51,18 @@ import { Spinner } from '../ui/Spinner';
 // _ilike treats _ and % as wildcards, and account names can contain _
 const exactLike = (value: string) => value.replace(/[\\%_]/g, (char) => `\\${char}`);
 
-/** Whose profile: ?id=<user id>, ?account=<PoE account>, or your own. */
+/** Whose profile: /profile/<account>, ?id=<user id>, or your own. */
 type Target = { id: string } | { account: string };
 
 const readTarget = (): Target => {
+  const slug = window.location.pathname.match(/^\/profile\/([^/]+)\/?$/)?.[1];
+  if (slug) return { account: accountFromSlug(decodeURIComponent(slug)) };
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
-  const account = params.get('account');
+  const account = params.get('account') ?? localStorage.getItem('poe_username')?.trim();
   if (id) return { id };
   if (account) return { account };
-  // bare /profile is your own: put your id in the URL so it can be shared
-  const mine = localStorage.getItem('hasura_user_id')?.trim() ?? '';
-  if (mine) window.history.replaceState(window.history.state, '', profileHref({ id: mine }));
-  return { id: mine };
+  return { id: localStorage.getItem('hasura_user_id')?.trim() ?? '' };
 };
 
 // The tree that stands for a member: the one they pinned, the one GGG flags,
@@ -103,6 +102,15 @@ export const ProfileScreen = () => {
   const user = userData?.user[0];
   const accountName = user?.poe_name ?? ('account' in target ? target.account : '');
   const isMe = !!user && user.id === myId;
+
+  // every older form (?id=, ?account=, bare /profile) settles on /profile/<account>
+  useEffect(() => {
+    if (!user?.poe_name) return;
+    const canonical = profileHref(user.poe_name);
+    if (window.location.pathname + window.location.search !== canonical) {
+      window.history.replaceState(window.history.state, '', canonical);
+    }
+  }, [user?.poe_name]);
 
   const { data: characterData } = useSubscription<
     ProfileCharactersSubscription,

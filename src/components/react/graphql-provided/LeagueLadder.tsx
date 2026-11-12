@@ -334,7 +334,7 @@ const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
                       title={character.poe_account_name}
                     >
                       <a
-                        href={profileHref({ account: character.poe_account_name })}
+                        href={profileHref(character.poe_account_name)}
                         // the row itself opens the character sheet
                         onClick={(event) => event.stopPropagation()}
                         className="text-inherit no-underline hover:text-primary-300 hover:underline"

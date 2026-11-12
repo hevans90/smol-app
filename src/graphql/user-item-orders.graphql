@@ -23,6 +23,7 @@ subscription UserItemOrders($league: String!) {
     }
     fulfilled_by_user {
       id
+      poe_name
       discord_name
       discord_user_id
       discord_avatar

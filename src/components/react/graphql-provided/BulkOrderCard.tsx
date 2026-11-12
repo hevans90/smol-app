@@ -183,7 +183,7 @@ export const BulkOrderCard = ({
           )}
           <div className="mt-0.5 flex items-center gap-2 text-xs text-primary-800">
             <span>
-              <a href={profileHref({ id: order.user.id })} className="text-inherit no-underline hover:text-primary-300">
+              <a href={profileHref(order.user)} className="text-inherit no-underline hover:text-primary-300">
                 {contributorDisplayName(order.user)}
               </a>
               {isMine && ' (you)'}
@@ -206,20 +206,20 @@ export const BulkOrderCard = ({
 
       {segments.length > 0 && (
         <div className="flex flex-wrap items-center gap-1">
-          {segments.map((segment) => (
-            <a
-              key={segment.userId}
-              href={profileHref({ id: segment.userId })}
-              className="rounded-full no-underline"
-            >
-              <ContributorAvatar
-                user={
-                  order.contributions.find((c) => c.user.id === segment.userId)!
-                    .user
-                }
-              />
-            </a>
-          ))}
+          {segments.map((segment) => {
+            const user = order.contributions.find(
+              (c) => c.user.id === segment.userId,
+            )!.user;
+            return (
+              <a
+                key={segment.userId}
+                href={profileHref(user)}
+                className="rounded-full no-underline"
+              >
+                <ContributorAvatar user={user} />
+              </a>
+            );
+          })}
           <span className="ml-1 text-xs text-primary-800">
             {segments.length} contributor{segments.length === 1 ? '' : 's'}
           </span>

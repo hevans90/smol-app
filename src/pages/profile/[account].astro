@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+import { ProfilePage } from '../../components/ProfilePage';
+
+// Rendered on request (one route for every account), but the HTML is the same
+// for all of them: the profile island reads the account from the URL. So let
+// the CDN keep each one until the next deploy.
+export const prerender = false;
+
+Astro.response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+Astro.response.headers.set('Netlify-CDN-Cache-Control', 'public, durable, s-maxage=31536000');
+
+const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
+---
+
+<Layout title="Profile" authPrompt={true}>
+  <main class="flex flex-col items-start relative">
+    <ProfilePage hasuraUri={hasuraUri} client:only="react" />
+  </main>
+</Layout>

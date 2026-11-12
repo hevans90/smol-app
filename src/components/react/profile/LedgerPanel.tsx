@@ -6,7 +6,7 @@ import { compact, personName, type ActivityEvent, type Ledger, type PersonRef } 
 import { Panel } from './Panel';
 
 const Person = ({ user }: { user: PersonRef }) => (
-  <a href={profileHref({ id: user.id })} className="text-primary-400 no-underline hover:text-primary-300">
+  <a href={profileHref(user)} className="text-primary-400 no-underline hover:text-primary-300">
     {personName(user)}
   </a>
 );

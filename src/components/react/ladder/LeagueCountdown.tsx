@@ -10,19 +10,30 @@ const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 
-const useNow = (active: boolean) => {
+// The time, re-rendered whenever the second left to `start` changes. Checked
+// every frame rather than on a timer: timers drift and get throttled, and one
+// landing either side of the boundary shows a second twice or skips one.
+const useCountdownNow = (start?: number) => {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
-    if (!active) return;
-    // tick on the second boundary so every unit flips together
-    let timer: ReturnType<typeof setTimeout>;
-    const tick = () => {
-      setNow(Date.now());
-      timer = setTimeout(tick, SECOND - (Date.now() % SECOND));
+    if (start === undefined) return;
+    const secondOf = (time: number) => Math.floor((start - time) / SECOND);
+    let shown = secondOf(Date.now());
+    let frame = 0;
+    const loop = () => {
+      const current = Date.now();
+      const second = secondOf(current);
+      if (second !== shown) {
+        shown = second;
+        setNow(current);
+      }
+      // stop once it has started and the "has begun" state is showing
+      if (current < start + SECOND) frame = requestAnimationFrame(loop);
     };
-    timer = setTimeout(tick, SECOND - (Date.now() % SECOND));
-    return () => clearTimeout(timer);
-  }, [active]);
+    setNow(Date.now());
+    frame = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(frame);
+  }, [start]);
   return now;
 };
 
@@ -137,7 +148,7 @@ export const LeagueCountdown = ({
   startsAt?: string | null;
 }) => {
   const start = startsAt ? new Date(startsAt).getTime() : undefined;
-  const now = useNow(start !== undefined && start > Date.now() - SECOND);
+  const now = useCountdownNow(start);
   const { section, content, shift } = useViewportCentre();
   const left = start !== undefined ? start - now : undefined;
   const counting = left !== undefined && left > 0;

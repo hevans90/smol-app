@@ -9,7 +9,8 @@ import {
  * Whether the logged-in user's PoE account has a character on the current
  * league's ladder. This replaced the guild check (GGG's API stopped exposing
  * guilds) and mirrors what Hasura enforces: non-members can read everything
- * but cannot create, edit, fulfil or contribute to orders.
+ * and place or edit their own orders (so orders can go in before the league
+ * starts), but cannot fulfil or contribute to anyone else's.
  *
  * A subscription, so it flips on its own once the next scheduled ladder
  * sync (every 5 minutes) picks up a newly created character.

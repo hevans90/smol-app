@@ -17,16 +17,8 @@ insert_permissions:
   - role: dev
     permission:
       check:
-        _and:
-          - user_id:
-              _eq: X-Hasura-User-Id
-          - _exists:
-              _table:
-                name: league_member
-                schema: public
-              _where:
-                user_id:
-                  _eq: X-Hasura-User-Id
+        user_id:
+          _eq: X-Hasura-User-Id
       columns:
         - user_id
         - item_name
@@ -38,16 +30,8 @@ insert_permissions:
   - role: user
     permission:
       check:
-        _and:
-          - user_id:
-              _eq: X-Hasura-User-Id
-          - _exists:
-              _table:
-                name: league_member
-                schema: public
-              _where:
-                user_id:
-                  _eq: X-Hasura-User-Id
+        user_id:
+          _eq: X-Hasura-User-Id
       columns:
         - user_id
         - item_name

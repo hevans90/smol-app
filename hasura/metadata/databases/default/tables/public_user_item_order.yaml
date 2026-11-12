@@ -12,16 +12,8 @@ insert_permissions:
   - role: dev
     permission:
       check:
-        _and:
-          - user_id:
-              _eq: X-Hasura-User-Id
-          - _exists:
-              _table:
-                name: league_member
-                schema: public
-              _where:
-                user_id:
-                  _eq: X-Hasura-User-Id
+        user_id:
+          _eq: X-Hasura-User-Id
       columns:
         - description
         - icon_url
@@ -35,16 +27,8 @@ insert_permissions:
   - role: user
     permission:
       check:
-        _and:
-          - user_id:
-              _eq: X-Hasura-User-Id
-          - _exists:
-              _table:
-                name: league_member
-                schema: public
-              _where:
-                user_id:
-                  _eq: X-Hasura-User-Id
+        user_id:
+          _eq: X-Hasura-User-Id
       columns:
         - description
         - icon_url
@@ -105,15 +89,18 @@ update_permissions:
         - priority
         - type
       filter:
-        _exists:
-          _table:
-            name: league_member
-            schema: public
-          _where:
-            user_id:
+        _or:
+          - user_id:
               _eq: X-Hasura-User-Id
+          - _exists:
+              _table:
+                name: league_member
+                schema: public
+              _where:
+                user_id:
+                  _eq: X-Hasura-User-Id
       check: null
-    comment: editing or fulfilling orders requires a character in the current league
+    comment: owners can edit their own orders; fulfilling someone else's needs a character in the current league
   - role: user
     permission:
       columns:
@@ -126,15 +113,18 @@ update_permissions:
         - priority
         - type
       filter:
-        _exists:
-          _table:
-            name: league_member
-            schema: public
-          _where:
-            user_id:
+        _or:
+          - user_id:
               _eq: X-Hasura-User-Id
+          - _exists:
+              _table:
+                name: league_member
+                schema: public
+              _where:
+                user_id:
+                  _eq: X-Hasura-User-Id
       check: null
-    comment: editing or fulfilling orders requires a character in the current league
+    comment: owners can edit their own orders; fulfilling someone else's needs a character in the current league
 delete_permissions:
   - role: dev
     permission:

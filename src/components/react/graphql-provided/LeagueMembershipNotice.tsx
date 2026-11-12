@@ -17,8 +17,8 @@ export const LeagueMembershipStatus = () => {
     </div>
   ) : (
     <div className="text-sm text-primary-800">
-      No character on the league ladder yet. You can browse, but placing and
-      fulfilling orders needs one (the ladder syncs every 5 minutes).
+      No character on the league ladder yet. You can place orders, but
+      fulfilling and contributing need one (the ladder syncs every 5 minutes).
     </div>
   );
 };
@@ -51,8 +51,8 @@ export const LeagueMembershipNotice = () => {
           'Your PoE account has'
         )}{' '}
         no character on the {league ? `${league} ` : 'league '}ladder. You can
-        browse orders, but creating, fulfilling and contributing are disabled
-        until you make one. The ladder syncs every 5 minutes.
+        place orders, but fulfilling and contributing are disabled until you
+        make one. The ladder syncs every 5 minutes.
       </div>
     </div>
   );

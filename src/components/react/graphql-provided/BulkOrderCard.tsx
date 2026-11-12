@@ -1,7 +1,7 @@
 import { IconTrash } from '@tabler/icons-react';
 import ReactTimeAgo from 'react-time-ago';
 import { twMerge } from 'tailwind-merge';
-import { getWikiImgSrcFromUrl } from '../../../_utils/utils';
+import { getWikiImgSrcFromUrl } from '../../../_utils/item-urls';
 import { matchBulkOrder } from '../../../_utils/stash-matching';
 import type { BulkOrdersSubscription } from '../../../graphql-api';
 import type { AggregatedStashItem } from '../../../models/ggg-stash';

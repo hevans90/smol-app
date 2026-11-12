@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import { type ReactNode } from 'react';
 import { Toaster, resolveValue, toast } from 'react-hot-toast';
-import { apolloBootstrapper } from './apollo-bootstrapper';
+import { sharedApolloClient } from './apollo-bootstrapper';
 
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
 import { Toast } from '../components/react/ui/Toast';
@@ -27,7 +27,7 @@ const GraphQLAppWrapper = ({
 
   return (
     <ApolloProvider
-      client={apolloBootstrapper({
+      client={sharedApolloClient({
         uri,
         token: hasuraAccessToken,
         secure: process.env.NODE_ENV === 'production',

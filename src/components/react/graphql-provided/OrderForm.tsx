@@ -6,7 +6,7 @@ import {
   decodeAndParsePob,
   extractUniqueItemNamesFromPob,
 } from '../../../_utils/pob-decode';
-import { getUniqueItemWikiInfo, searchUniquesByNameOrBase } from '../../../_utils/utils';
+import { loadItemData } from '../../../hooks/useItemData';
 import {
   Item_Order_Type_Enum,
   type UpdateUserItemOrderMutationVariables,
@@ -69,8 +69,12 @@ function pickedOrderItemToPreviewRow(item: PickedOrderItem): PreviewRow {
 // straight through searchUniquesByNameOrBase + getUniqueItemWikiInfo
 // (matching the same resolution searchAllOrderItems does for its own
 // unique results), rather than going through the general multi-kind search.
-function uniqueNameToPickedItem(name: string, icon: string): PickedOrderItem {
-  const wiki = getUniqueItemWikiInfo(name);
+function uniqueNameToPickedItem(
+  itemData: Awaited<ReturnType<typeof loadItemData>>,
+  name: string,
+  icon: string,
+): PickedOrderItem {
+  const wiki = itemData.getUniqueItemWikiInfo(name);
   return {
     kind: 'unique',
     name,
@@ -161,12 +165,13 @@ export const OrderForm = ({
     try {
       const parsed = await decodeAndParsePob(encoded.trim());
       const names = extractUniqueItemNamesFromPob(parsed);
+      const itemData = await loadItemData();
       const added: { name: string; icon: string }[] = [];
       for (const name of names) {
-        const results = searchUniquesByNameOrBase(name, 1);
+        const results = itemData.searchUniquesByNameOrBase(name, 1);
         const match = results[0];
         if (match) {
-          addPreviewRow(uniqueNameToPickedItem(match.name, match.icon));
+          addPreviewRow(uniqueNameToPickedItem(itemData, match.name, match.icon));
           added.push({ name: match.name, icon: match.icon });
         }
       }

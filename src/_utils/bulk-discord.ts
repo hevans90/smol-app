@@ -8,7 +8,7 @@
 // `content` line (who gets pinged, if anyone) with one rich `embed` (the
 // actual card).
 
-import { getWikiImgSrcFromUrl } from './utils';
+import { getWikiImgSrcFromUrl } from './item-urls';
 
 export type BulkDiscordUser = {
   id: string;

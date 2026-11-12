@@ -1,6 +1,6 @@
 import type { Placement } from '@floating-ui/react';
 import React, { useMemo } from 'react';
-import { buildOrderItemPreview } from '../../../_utils/utils';
+import { useItemData } from '../../../hooks/useItemData';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
 import { ItemDetail } from './ItemDetail';
 
@@ -32,7 +32,12 @@ export const OrderItemPopover: React.FC<OrderItemPopoverProps> = ({
   children,
   placement,
 }) => {
-  const preview = useMemo(() => buildOrderItemPreview(order), [order]);
+  // unwrapped until the item data has loaded
+  const itemData = useItemData();
+  const preview = useMemo(
+    () => itemData?.buildOrderItemPreview(order),
+    [itemData, order],
+  );
 
   if (!preview) return <>{children}</>;
 

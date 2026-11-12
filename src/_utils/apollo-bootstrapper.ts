@@ -32,26 +32,11 @@ export const apolloBootstrapper = ({
     typePolicies: {
       Subscription: {
         fields: {
+          // each live result is the whole list, so it replaces the last one
+          // (merging would keep deleted orders around)
           user_item_order: {
-            merge(existing: User_Item_Order[] = [], incoming) {
-              const merged = [...existing];
-
-              incoming.forEach((incomingItem: User_Item_Order) => {
-                // Find if the item already exists in the cache
-                const existingItemIndex = existing.findIndex(
-                  (item) => item.id === incomingItem.id,
-                );
-
-                // If the item exists, update it; otherwise, add it to the list
-                if (existingItemIndex > -1) {
-                  merged[existingItemIndex] = incomingItem;
-                } else {
-                  merged.push(incomingItem);
-                }
-              });
-
-              return merged;
-            },
+            merge: (_existing: User_Item_Order[] | undefined, incoming: User_Item_Order[]) =>
+              incoming,
           },
         },
       },
@@ -66,14 +51,16 @@ export const apolloBootstrapper = ({
     headers,
   });
 
-  const wsLink = new GraphQLWsLink(
-    createClient({
-      url: `${secure ? 'wss' : 'ws'}://${uri}`,
-      connectionParams: {
-        headers,
-      },
-    }),
-  );
+  const wsClient = createClient({
+    url: `${secure ? 'wss' : 'ws'}://${uri}`,
+    connectionParams: {
+      headers,
+    },
+    // a tab switch unsubscribes everything before the next page subscribes;
+    // stay connected through it
+    lazyCloseTimeout: 30_000,
+  });
+  const wsLink = new GraphQLWsLink(wsClient);
 
   //   const wsLink = new GraphQLWsLink({
   //     url: `${secure ? 'wss' : 'ws'}://${uri}`,
@@ -103,9 +90,33 @@ export const apolloBootstrapper = ({
     cache: new InMemoryCache(cacheConfig),
     link,
     defaultOptions: options,
-    //remove in production
-    connectToDevTools: true,
+    connectToDevTools: process.env.NODE_ENV !== 'production',
   });
 
+  sockets.set(client, wsClient);
   return client;
+};
+
+const sockets = new WeakMap<ApolloClient<NormalizedCacheObject>, { dispose: () => void }>();
+
+let shared:
+  | { key: string; client: ApolloClient<NormalizedCacheObject> }
+  | undefined;
+
+/**
+ * The one client every island on the page uses. Page navigation (view
+ * transitions) keeps this module loaded, so the socket, its subscriptions
+ * and the cache carry over between tabs instead of reconnecting each time.
+ * A different token (login, role change) replaces it.
+ */
+export const sharedApolloClient = (props: ApolloBootstrapperProps) => {
+  const key = `${props.uri}|${props.token}|${props.secure}`;
+  if (shared?.key !== key) {
+    if (shared) {
+      shared.client.stop();
+      sockets.get(shared.client)?.dispose();
+    }
+    shared = { key, client: apolloBootstrapper(props) };
+  }
+  return shared.client;
 };

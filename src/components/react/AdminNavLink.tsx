@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import { twMerge } from 'tailwind-merge';
-import { apolloBootstrapper } from '../../_utils/apollo-bootstrapper';
+import { sharedApolloClient } from '../../_utils/apollo-bootstrapper';
 import { useAdminAccess } from '../../hooks/useAdminAccess';
 
 const AdminNavLinkInner = ({ className }: { className?: string }) => {
@@ -45,7 +45,7 @@ export const AdminNavLink = ({
 
   return (
     <ApolloProvider
-      client={apolloBootstrapper({
+      client={sharedApolloClient({
         uri: hasuraUri,
         token,
         secure: process.env.NODE_ENV === 'production',

@@ -17,7 +17,9 @@ export default defineConfig({
   server: {
     port: 3001,
   },
-  output: 'server',
+  // Pages are built once and served from the CDN; their data loads in the
+  // browser. Only the OAuth callbacks (verify*.astro) render per request.
+  output: 'hybrid',
   adapter: netlify({
     imageCDN: isDevelopment ? false : true,
   }),

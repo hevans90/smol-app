@@ -1,4 +1,7 @@
 ---
+// reads the OAuth callback query on the server
+export const prerender = false;
+
 import Layout from '../layouts/Layout.astro';
 
 const code = Astro.url.searchParams.get('code') || '';

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { guessWikiIconUrlFromName, searchStackablesByName } from '../../../_utils/utils';
+import { guessWikiIconUrlFromName } from '../../../_utils/item-urls';
+import { useItemData } from '../../../hooks/useItemData';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
 
 export type PickedStackable =
@@ -51,6 +52,7 @@ export const StackableItemPicker = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [triggerWidth, setTriggerWidth] = useState<number>();
   const inputRef = useRef<HTMLInputElement>(null);
+  const itemData = useItemData();
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedQuery(query), DEBOUNCE_MS);
@@ -69,7 +71,7 @@ export const StackableItemPicker = ({
   }, []);
 
   const trimmed = debouncedQuery.trim();
-  const results = trimmed ? searchStackablesByName(trimmed) : [];
+  const results = trimmed && itemData ? itemData.searchStackablesByName(trimmed) : [];
   const tokens = trimmed.toLowerCase().split(/\s+/).filter(Boolean);
   // the escape hatch is always the last row when there's a query
   const rowCount = results.length + (trimmed ? 1 : 0);

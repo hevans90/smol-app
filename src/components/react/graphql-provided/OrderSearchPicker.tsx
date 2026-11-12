@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import {
-  guessWikiIconUrlFromName,
-  searchAllOrderItems,
-  type OrderSearchKind,
-  type OrderSearchResult,
-} from '../../../_utils/utils';
+import { guessWikiIconUrlFromName } from '../../../_utils/item-urls';
+import type { OrderSearchKind, OrderSearchResult } from '../../../_utils/utils';
+import { useItemData } from '../../../hooks/useItemData';
 import { OrderItemPopover } from '../item-hovers/OrderItemPopover';
 import { ItemIcon } from '../ui/ItemIcon';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/Popover';
@@ -62,6 +59,7 @@ export const OrderSearchPicker = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [triggerWidth, setTriggerWidth] = useState<number>();
   const inputRef = useRef<HTMLInputElement>(null);
+  const itemData = useItemData();
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedQuery(query), DEBOUNCE_MS);
@@ -80,7 +78,7 @@ export const OrderSearchPicker = ({
   }, []);
 
   const trimmed = debouncedQuery.trim();
-  const results = trimmed ? searchAllOrderItems(trimmed) : [];
+  const results = trimmed && itemData ? itemData.searchAllOrderItems(trimmed) : [];
   const tokens = trimmed.toLowerCase().split(/\s+/).filter(Boolean);
   // the escape hatch is always the last row when there's a query
   const rowCount = results.length + (trimmed ? 1 : 0);

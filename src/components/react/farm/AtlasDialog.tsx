@@ -95,7 +95,13 @@ export const MemberAtlasDialog = ({
       onClose={onClose}
       title={member.user.discord_name ?? member.user.poe_name}
       tree={
-        <AtlasTreeExplorer data={data} layers={layers} highlight={highlight} className="h-full" />
+        <AtlasTreeExplorer
+          data={data}
+          layers={layers}
+          highlight={highlight}
+          showRoutes
+          className="h-full"
+        />
       }
       side={
         <div className="flex flex-col gap-4" onMouseLeave={() => setHighlight(undefined)}>

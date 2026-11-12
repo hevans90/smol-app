@@ -115,6 +115,82 @@ export const layerPaths = (data: AtlasData, layers: TreeLayer[], nodeScale = 1) 
   return layers.map(({ colour }, index) => ({ colour, edges: edges[index], nodes: nodes[index] }));
 };
 
+const adjacencyCache = new WeakMap<AtlasData, Map<number, number[]>>();
+
+const adjacency = (data: AtlasData) => {
+  let links = adjacencyCache.get(data);
+  if (!links) {
+    links = new Map();
+    for (const [a, b] of data.edges) {
+      if (!links.has(a)) links.set(a, []);
+      if (!links.has(b)) links.set(b, []);
+      links.get(a)!.push(b);
+      links.get(b)!.push(a);
+    }
+    adjacencyCache.set(data, links);
+  }
+  return links;
+};
+
+/**
+ * The shortest way to allocate `target` from what is already allocated (or
+ * the start): the nodes to take, ending at `target`, plus the one it hangs
+ * off. Empty when `target` is allocated already or unreachable.
+ */
+export const routeTo = (data: AtlasData, allocated: Set<number>, target: number) => {
+  if (allocated.has(target) || data.nodes[target]?.kind === 'start') {
+    return { from: undefined, nodes: [] as number[] };
+  }
+  const links = adjacency(data);
+  const cameFrom = new Map<number, number | undefined>();
+  const queue: number[] = [];
+  for (const [hash, node] of Object.entries(data.nodes)) {
+    const id = Number(hash);
+    if (allocated.has(id) || node.kind === 'start') {
+      cameFrom.set(id, undefined);
+      queue.push(id);
+    }
+  }
+  for (let head = 0; head < queue.length; head++) {
+    const current = queue[head];
+    if (current === target) break;
+    for (const next of links.get(current) ?? []) {
+      if (cameFrom.has(next)) continue;
+      cameFrom.set(next, current);
+      queue.push(next);
+    }
+  }
+  if (!cameFrom.has(target)) return { from: undefined, nodes: [] as number[] };
+  const nodes: number[] = [];
+  let step: number | undefined = target;
+  while (step !== undefined && cameFrom.get(step) !== undefined) {
+    nodes.unshift(step);
+    step = cameFrom.get(step);
+  }
+  return { from: step, nodes };
+};
+
+/** One path along a chain of adjacent nodes, curving where the tree does. */
+export const chainPath = (data: AtlasData, chain: number[]) => {
+  let d = '';
+  for (let index = 1; index < chain.length; index++) {
+    const a = chain[index - 1];
+    const b = chain[index];
+    const edge = data.edges.find(
+      ([from, to]) => (from === a && to === b) || (from === b && to === a),
+    );
+    if (edge) d += edgeD(data, edge);
+  }
+  return d;
+};
+
+/** A ring just outside a node, for hover and selection. */
+export const ringPath = (data: AtlasData, hash: number, gap = 1.45) => {
+  const node = data.nodes[hash];
+  if (node?.x === undefined || node.y === undefined) return '';
+  return circle(node.x, node.y, Math.round(Math.max(NODE_RADIUS[node.kind], 40) * gap));
+};
+
 // The full, unallocated tree is identical for everyone on a version: built
 // once and shared by every thumbnail.
 const baseCache = new WeakMap<AtlasData, Map<number, { edges: string; nodes: string }>>();

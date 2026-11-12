@@ -5,8 +5,11 @@ import {
   NODE_RADIUS,
   TREE_COLOURS,
   baseTree,
+  chainPath,
   layerPaths,
   nodesPath,
+  ringPath,
+  routeTo,
   treeViewBox,
   type TreeLayer,
 } from '../../../_utils/atlas-geometry';
@@ -104,11 +107,15 @@ const KIND_LABEL: Partial<Record<AtlasNode['kind'], string>> = {
   gateway: 'Gateway',
 };
 
+// how far the pointer may move before a press counts as a drag, not a click
+const DRAG_THRESHOLD = 4;
+
 export const AtlasTreeExplorer = ({
   data,
   layers,
   highlight,
   noteFor,
+  showRoutes = false,
   className,
 }: {
   data: AtlasData;
@@ -118,6 +125,11 @@ export const AtlasTreeExplorer = ({
   highlight?: Set<number>;
   /** an extra tooltip line for a node, e.g. "4 members" */
   noteFor?: (hash: number) => string | undefined;
+  /**
+   * For one person's tree: hovering a node it lacks traces the shortest
+   * route to it and says how many points that costs.
+   */
+  showRoutes?: boolean;
   className?: string;
 }) => {
   const full = useMemo(() => treeViewBox(data), [data]);
@@ -167,36 +179,73 @@ export const AtlasTreeExplorer = ({
     return () => svg.removeEventListener('wheel', onWheel);
   }, [full]);
 
-  const drag = useRef<{ x: number; y: number }>();
-  const [tip, setTip] = useState<{ hash: number; x: number; y: number }>();
+  // a press becomes a drag only once it moves; until then it may be a click
+  const press = useRef<{ x: number; y: number; dragging: boolean }>();
+  const [dragging, setDragging] = useState(false);
+  const [hovered, setHovered] = useState<number>();
+  const [pointer, setPointer] = useState<{ x: number; y: number }>();
+  // a clicked node keeps its tooltip and ring until dismissed
+  const [selected, setSelected] = useState<number>();
+  useEffect(() => setSelected(undefined), [data, layers]);
+
+  useEffect(() => {
+    if (selected === undefined) return;
+    const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setSelected(undefined);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected]);
+
+  const hashAt = (target: EventTarget) => {
+    const hash = (target as SVGElement).dataset?.hash;
+    return hash ? Number(hash) : undefined;
+  };
 
   const onPointerDown = (event: PointerEvent<SVGSVGElement>) => {
-    drag.current = { x: event.clientX, y: event.clientY };
+    if (event.button !== 0) return;
+    press.current = { x: event.clientX, y: event.clientY, dragging: false };
     event.currentTarget.setPointerCapture(event.pointerId);
   };
   const onPointerMove = (event: PointerEvent<SVGSVGElement>) => {
-    if (drag.current) {
+    const current = press.current;
+    if (current) {
+      const dx = event.clientX - current.x;
+      const dy = event.clientY - current.y;
+      if (!current.dragging && Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+      if (!current.dragging) {
+        current.dragging = true;
+        setDragging(true);
+        setHovered(undefined);
+      }
       const { scale } = measure();
-      const dx = (event.clientX - drag.current.x) * scale;
-      const dy = (event.clientY - drag.current.y) * scale;
-      drag.current = { x: event.clientX, y: event.clientY };
-      setView((current) => ({ ...current, x: current.x - dx, y: current.y - dy }));
-      setTip(undefined);
+      press.current = { x: event.clientX, y: event.clientY, dragging: true };
+      setView((view) => ({ ...view, x: view.x - dx * scale, y: view.y - dy * scale }));
       return;
     }
-    const hash = (event.target as SVGElement).dataset?.hash;
-    if (!hash) return setTip(undefined);
     const { rect } = measure();
-    setTip({
-      hash: Number(hash),
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
+    setHovered(hashAt(event.target));
+    setPointer({ x: event.clientX - rect.left, y: event.clientY - rect.top });
   };
-  const endDrag = () => (drag.current = undefined);
+  const onPointerUp = (event: PointerEvent<SVGSVGElement>) => {
+    const wasDrag = press.current?.dragging;
+    press.current = undefined;
+    setDragging(false);
+    if (wasDrag) return;
+    // pointer capture retargets the release to the svg: find what is under it
+    const under = document.elementFromPoint(event.clientX, event.clientY);
+    const hash = under ? hashAt(under) : undefined;
+    setSelected((current) => (hash === undefined || hash === current ? undefined : hash));
+  };
+  const onPointerCancel = () => {
+    press.current = undefined;
+    setDragging(false);
+  };
 
   const base = baseTree(data);
   const drawn = useMemo(() => layerPaths(data, layers), [data, layers]);
+  const allocated = useMemo(
+    () => new Set(layers.flatMap(({ hashes }) => [...hashes])),
+    [layers],
+  );
   const highlightPath = useMemo(
     () => (highlight?.size ? nodesPath(data, (hash) => highlight.has(hash), 1.35) : ''),
     [data, highlight],
@@ -213,37 +262,112 @@ export const AtlasTreeExplorer = ({
             data-hash={hash}
             cx={node.x}
             cy={node.y}
-            r={NODE_RADIUS[node.kind] * 1.6}
+            r={Math.max(NODE_RADIUS[node.kind], 40) * 1.6}
             fill="transparent"
+            className="cursor-pointer"
           />
         )),
     [data],
   );
 
-  const tipNode = tip ? data.nodes[tip.hash] : undefined;
-  const tipNote = tip ? noteFor?.(tip.hash) : undefined;
+  // the node the tooltip is about: a pinned one wins over the hovered one
+  const focus = selected ?? (dragging ? undefined : hovered);
+  const route = useMemo(
+    () =>
+      showRoutes && focus !== undefined
+        ? routeTo(data, allocated, focus)
+        : { from: undefined, nodes: [] },
+    [showRoutes, focus, data, allocated],
+  );
+  const routeD = useMemo(
+    () =>
+      route.nodes.length
+        ? {
+            edges: chainPath(data, [route.from!, ...route.nodes]),
+            nodes: nodesPath(data, (hash) => route.nodes.includes(hash)),
+          }
+        : undefined,
+    [data, route],
+  );
+
+  // where the tooltip hangs: the pointer, or a pinned node's position on screen
+  let anchor = pointer;
+  if (selected !== undefined && svgRef.current) {
+    const node = data.nodes[selected];
+    const { scale, left, top } = measure();
+    if (node?.x !== undefined && node.y !== undefined) {
+      anchor = { x: (node.x - left) / scale, y: (node.y - top) / scale };
+    }
+  }
+  const box = svgRef.current?.getBoundingClientRect();
+  const tipNode = focus !== undefined ? data.nodes[focus] : undefined;
+  const tipNote = focus !== undefined ? noteFor?.(focus) : undefined;
+  const status =
+    focus === undefined || !showRoutes
+      ? undefined
+      : allocated.has(focus)
+        ? 'Allocated'
+        : route.nodes.length
+          ? `${route.nodes.length} ${route.nodes.length === 1 ? 'point' : 'points'} away`
+          : undefined;
 
   return (
     <div className={twMerge('relative overflow-hidden rounded bg-gray-950', className)}>
       <svg
         ref={svgRef}
         viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`}
-        className="h-full w-full cursor-grab touch-none select-none active:cursor-grabbing"
+        className={twMerge(
+          'h-full w-full touch-none select-none',
+          dragging ? 'cursor-grabbing [&_*]:cursor-grabbing' : 'cursor-grab',
+        )}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        onPointerLeave={() => setTip(undefined)}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
+        onPointerLeave={() => setHovered(undefined)}
       >
         <path d={base.edges} fill="none" stroke={TREE_COLOURS.edge} strokeWidth={14} />
         <path d={base.nodes} fill={TREE_COLOURS.node} />
         <LitLayers drawn={drawn} edgeWidth={litEdgeWidth(1)} />
+        {routeD && (
+          <g className="pointer-events-none">
+            <path
+              d={routeD.edges}
+              fill="none"
+              stroke={TREE_COLOURS.highlight}
+              strokeWidth={litEdgeWidth(1)}
+              strokeLinecap="round"
+              strokeDasharray="60 40"
+            />
+            <path d={routeD.nodes} fill={TREE_COLOURS.highlight} fillOpacity={0.55} />
+          </g>
+        )}
         {highlightPath && (
           <path
             d={highlightPath}
             fill="none"
             stroke={TREE_COLOURS.highlight}
             strokeWidth={18}
+            className="pointer-events-none"
+          />
+        )}
+        {hovered !== undefined && hovered !== selected && !dragging && (
+          <path
+            d={ringPath(data, hovered)}
+            fill="none"
+            stroke="#e5e7eb"
+            strokeOpacity={0.7}
+            strokeWidth={14}
+            className="pointer-events-none"
+          />
+        )}
+        {selected !== undefined && (
+          <path
+            d={ringPath(data, selected)}
+            fill="none"
+            stroke="#f9fafb"
+            strokeWidth={22}
+            className="pointer-events-none"
           />
         )}
         {targets}
@@ -251,23 +375,31 @@ export const AtlasTreeExplorer = ({
 
       <button
         type="button"
-        onClick={() => setView(full)}
+        onClick={() => {
+          setView(full);
+          setSelected(undefined);
+        }}
         className="absolute bottom-2 right-2 rounded border border-primary-900 bg-gray-900 px-2 py-1 text-xs text-primary-800 hover:text-primary-300"
       >
         Reset view
       </button>
 
-      {tip && tipNode && (
+      {tipNode && anchor && (
         <div
+          role="tooltip"
           className="pointer-events-none absolute z-10 w-72 rounded border border-primary-900 bg-gray-900 p-3 text-sm shadow-lg"
           style={{
-            left: Math.min(tip.x + 16, (svgRef.current?.clientWidth ?? 0) - 300),
-            top: tip.y + 16,
+            left: anchor.x,
+            top: anchor.y,
+            // open away from the nearest edges, so it never spills out
+            transform: `translate(${
+              box && anchor.x > box.width / 2 ? 'calc(-100% - 16px)' : '16px'
+            }, ${box && anchor.y > box.height / 2 ? 'calc(-100% - 16px)' : '16px'})`,
           }}
         >
           <div className="text-primary-400">{tipNode.name}</div>
           <div className="mb-2 text-xs text-primary-800">
-            {[KIND_LABEL[tipNode.kind], data.mechanics[tipNode.mechanic], tipNote]
+            {[KIND_LABEL[tipNode.kind], data.mechanics[tipNode.mechanic], status, tipNote]
               .filter(Boolean)
               .join(' · ')}
           </div>

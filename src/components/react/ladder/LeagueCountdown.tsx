@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { PepeLayer } from './PepeLayer';
+
 // The empty ladder: a unique-item name plate for the league and a countdown
 // to its start, building up as it gets close. Once it has started (or with no
 // start time) it says the ladder fills on the next sync.
@@ -211,6 +213,7 @@ export const LeagueCountdown = ({
           ))}
         </div>
       )}
+      {counting && <PepeLayer frantic={finalMinute} />}
 
       <div
         ref={content}

@@ -1,4 +1,3 @@
-import { formatDistanceToNowStrict, isFuture } from 'date-fns';
 import { useQuery, useSubscription } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 
@@ -18,6 +17,7 @@ import { RegisteredUserCount } from '../RegisteredUserCount';
 import { ModalDrawer } from '../ui/ModalDrawer';
 import { profileHref } from '../profile/links';
 import { Spinner } from '../ui/Spinner';
+import { LeagueCountdown } from '../ladder/LeagueCountdown';
 
 export const LeagueLadder = () => {
   const { data: leagueInfo } = useQuery<LeagueQuery>(LeagueDocument);
@@ -28,7 +28,7 @@ export const LeagueLadder = () => {
   const leagueName = config?.league_name;
   const league = config?.league;
 
-  const { data: charactersResponse, loading: charactersLoading } =
+  const { data: charactersResponse } =
     useSubscription<
       LeagueCharactersSubscription,
       LeagueCharactersSubscriptionVariables
@@ -61,11 +61,15 @@ export const LeagueLadder = () => {
         )}
       </div>
 
-      <CharacterTable
-        characters={charactersResponse?.character ?? []}
-        loading={!charactersResponse || charactersLoading}
-        startsAt={league?.start_at}
-      />
+      {charactersResponse && !charactersResponse.character.length && leagueName ? (
+        <LeagueCountdown leagueName={leagueName} startsAt={league?.start_at} />
+      ) : charactersResponse ? (
+        <CharacterTable characters={charactersResponse.character} />
+      ) : (
+        <div className="mt-24 flex justify-center">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };
@@ -96,14 +100,9 @@ const sortAccessors: Record<
   total_ehp: (character) => character.stats?.total_ehp ?? -1,
 };
 
-// the ladder's empty state: the table's shape with faint placeholder rows
-const GHOST_ROWS = 8;
-
-const CharacterTable: React.FC<{
-  characters: LadderCharacter[];
-  loading: boolean;
-  startsAt?: string | null;
-}> = ({ characters, loading, startsAt }) => {
+const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
+  characters,
+}) => {
   const initialRowsPerPage = parseInt(
     localStorage.getItem('rowsPerPage') || '25',
     10,
@@ -277,7 +276,7 @@ const CharacterTable: React.FC<{
     <>
       <div className="flex h-[85%] w-full flex-col lg:h-[90%]">
         {/* Table Wrapper */}
-        <div className="relative grow overflow-auto">
+        <div className="grow overflow-auto">
           {/* table-fixed only takes effect with an explicit width (min-width
               alone falls back to auto layout, letting column widths jump as
               row content changes on sort) */}
@@ -431,41 +430,8 @@ const CharacterTable: React.FC<{
                   </tr>
                 );
               })}
-              {characters.length === 0 &&
-                Array.from({ length: GHOST_ROWS }, (_, row) => (
-                  <tr key={`ghost-${row}`} aria-hidden style={{ opacity: 1 - row / GHOST_ROWS }}>
-                    {Array.from({ length: 9 }, (_, cell) => (
-                      <td key={cell} className="py-3 pr-4">
-                        <div
-                          className={`h-3 rounded bg-gray-800/70 ${loading ? 'animate-pulse' : ''}`}
-                          style={{ width: `${40 + ((row * 7 + cell * 13) % 45)}%` }}
-                        />
-                      </td>
-                    ))}
-                  </tr>
-                ))}
             </tbody>
           </table>
-          {characters.length === 0 && !loading && (
-            <div className="pointer-events-none absolute inset-x-0 top-24 flex flex-col items-center gap-1 text-center">
-              <div className="font-fontinSmallcaps text-2xl text-primary-500">
-                {startsAt && isFuture(new Date(startsAt))
-                  ? `League starts ${formatDistanceToNowStrict(new Date(startsAt), { addSuffix: true })}`
-                  : 'Nobody on the ladder yet'}
-              </div>
-              <div className="text-sm text-primary-800">
-                {startsAt && isFuture(new Date(startsAt))
-                  ? new Date(startsAt).toLocaleString(undefined, {
-                      weekday: 'long',
-                      day: 'numeric',
-                      month: 'long',
-                      hour: 'numeric',
-                      minute: '2-digit',
-                    })
-                  : 'The ladder syncs every 5 minutes'}
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Pagination Controls - Always at the Bottom */}

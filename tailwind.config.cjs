@@ -48,6 +48,23 @@ module.exports = {
         fontinSmallcaps: ['fontin-smallcaps', 'sans-serif'],
       },
       keyframes: {
+        'countdown-flip': {
+          '0%': { opacity: '0.2', transform: 'translateY(-0.15em) scale(1.08)' },
+          '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+        'countdown-glow': {
+          '0%, 100%': { opacity: '0.75', transform: 'translate(-50%, -50%) scale(1)' },
+          '50%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1.08)' },
+        },
+        'countdown-heartbeat': {
+          '0%, 100%': { opacity: '0.7', transform: 'translate(-50%, -50%) scale(1)' },
+          '15%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1.15)' },
+        },
+        'ember-rise': {
+          '0%': { transform: 'translateY(0)', opacity: '0' },
+          '10%': { opacity: '1' },
+          '100%': { transform: 'translateY(-28rem)', opacity: '0' },
+        },
         // Dark -> slightly-lighter green, low opacity throughout so row text
         // stays readable at every point in the cycle. Used to flag orders a
         // "Stash check" found without adding a text badge on every row.
@@ -58,6 +75,11 @@ module.exports = {
       },
       animation: {
         'stash-found': 'stash-found 2.5s ease-in-out infinite',
+        // the ladder's league countdown
+        'countdown-flip': 'countdown-flip 0.35s ease-out',
+        'countdown-glow': 'countdown-glow 6s ease-in-out infinite',
+        'countdown-heartbeat': 'countdown-heartbeat 1s ease-in-out infinite',
+        'ember-rise': 'ember-rise 8s linear infinite',
       },
     },
     screens,

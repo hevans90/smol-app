@@ -1,3 +1,4 @@
+import { formatDistanceToNowStrict, isFuture } from 'date-fns';
 import { useQuery, useSubscription } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 
@@ -60,7 +61,11 @@ export const LeagueLadder = () => {
         )}
       </div>
 
-      <CharacterTable characters={charactersResponse?.character ?? []} />
+      <CharacterTable
+        characters={charactersResponse?.character ?? []}
+        loading={!charactersResponse || charactersLoading}
+        startsAt={league?.start_at}
+      />
     </div>
   );
 };
@@ -91,9 +96,14 @@ const sortAccessors: Record<
   total_ehp: (character) => character.stats?.total_ehp ?? -1,
 };
 
-const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
-  characters,
-}) => {
+// the ladder's empty state: the table's shape with faint placeholder rows
+const GHOST_ROWS = 8;
+
+const CharacterTable: React.FC<{
+  characters: LadderCharacter[];
+  loading: boolean;
+  startsAt?: string | null;
+}> = ({ characters, loading, startsAt }) => {
   const initialRowsPerPage = parseInt(
     localStorage.getItem('rowsPerPage') || '25',
     10,
@@ -170,7 +180,7 @@ const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
       })
     : characters;
 
-  const totalPages = Math.ceil(sortedCharacters.length / rowsPerPage);
+  const totalPages = Math.max(1, Math.ceil(sortedCharacters.length / rowsPerPage));
 
   const indexOfLastCharacter = currentPage * rowsPerPage;
   const indexOfFirstCharacter = indexOfLastCharacter - rowsPerPage;
@@ -267,7 +277,7 @@ const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
     <>
       <div className="flex h-[85%] w-full flex-col lg:h-[90%]">
         {/* Table Wrapper */}
-        <div className="grow overflow-auto">
+        <div className="relative grow overflow-auto">
           {/* table-fixed only takes effect with an explicit width (min-width
               alone falls back to auto layout, letting column widths jump as
               row content changes on sort) */}
@@ -421,8 +431,41 @@ const CharacterTable: React.FC<{ characters: LadderCharacter[] }> = ({
                   </tr>
                 );
               })}
+              {characters.length === 0 &&
+                Array.from({ length: GHOST_ROWS }, (_, row) => (
+                  <tr key={`ghost-${row}`} aria-hidden style={{ opacity: 1 - row / GHOST_ROWS }}>
+                    {Array.from({ length: 9 }, (_, cell) => (
+                      <td key={cell} className="py-3 pr-4">
+                        <div
+                          className={`h-3 rounded bg-gray-800/70 ${loading ? 'animate-pulse' : ''}`}
+                          style={{ width: `${40 + ((row * 7 + cell * 13) % 45)}%` }}
+                        />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
             </tbody>
           </table>
+          {characters.length === 0 && !loading && (
+            <div className="pointer-events-none absolute inset-x-0 top-24 flex flex-col items-center gap-1 text-center">
+              <div className="font-fontinSmallcaps text-2xl text-primary-500">
+                {startsAt && isFuture(new Date(startsAt))
+                  ? `League starts ${formatDistanceToNowStrict(new Date(startsAt), { addSuffix: true })}`
+                  : 'Nobody on the ladder yet'}
+              </div>
+              <div className="text-sm text-primary-800">
+                {startsAt && isFuture(new Date(startsAt))
+                  ? new Date(startsAt).toLocaleString(undefined, {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'long',
+                      hour: 'numeric',
+                      minute: '2-digit',
+                    })
+                  : 'The ladder syncs every 5 minutes'}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Pagination Controls - Always at the Bottom */}

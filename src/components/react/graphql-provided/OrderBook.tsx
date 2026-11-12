@@ -700,8 +700,44 @@ export const OrderBook = () => {
             )}
             {!filteredOrders?.length && (
               <tr>
-                <td className="text-lg" colSpan={3}>
-                  <div className="mt-4">No orders found</div>
+                <td colSpan={9}>
+                  {orders?.user_item_order.length ? (
+                    // there are orders, the filters hide them all
+                    <div className="mt-12 flex flex-col items-center gap-2 text-center text-primary-800">
+                      <div>
+                        {orders.user_item_order.length} orders hidden by filters
+                      </div>
+                      <button
+                        type="button"
+                        className="bg-transparent p-0 text-primary-500 underline hover:bg-transparent hover:text-primary-300"
+                        onClick={() => {
+                          orderBookShowFulfilledStore.set(true);
+                          orderBookShowInactiveStore.set(true);
+                          orderBookTypeFiltersStore.set(
+                            Object.fromEntries(
+                              (orderTypes?.item_order_type ?? []).map(({ value }) => [
+                                value,
+                                true,
+                              ]),
+                            ),
+                          );
+                          orderBookFuzzySearchStore.set('');
+                          if (inputRef.current) inputRef.current.value = '';
+                        }}
+                      >
+                        Reset filters
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="mt-12 flex flex-col items-center gap-3 text-center text-primary-800">
+                      <div className="font-fontinSmallcaps text-2xl text-primary-500">
+                        No orders this league yet
+                      </div>
+                      <Button className="h-auto text-lg" onClick={() => setCreateModalOpen(true)}>
+                        Create Order
+                      </Button>
+                    </div>
+                  )}
                 </td>
               </tr>
             )}

@@ -577,9 +577,8 @@ export const BulkOrderBook = () => {
         {filteredOrders.length === 0 && allOrders.length === 0 && (
           <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-primary-800">
             <div className="font-fontinSmallcaps text-2xl text-primary-500">
-              No bulk orders yet
+              No bulk orders this league yet
             </div>
-            <div>Ask the guild for a big batch of currency in one place.</div>
             <Button
               className="h-auto text-lg"
               onClick={() => {

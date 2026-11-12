@@ -496,7 +496,7 @@ export const BulkOrderBook = () => {
   }
 
   return (
-    <div className="relative mt-32 flex h-[calc(100vh-8rem)] w-full flex-col gap-3 px-4">
+    <div className="relative mt-8 flex min-h-0 w-full flex-1 flex-col gap-3 px-4 pb-2">
       <div className="absolute -top-6 flex gap-2">
         <span className="text-primary-600">{filteredOrders.length}</span>
         <span className="text-primary-900">bulk orders</span>

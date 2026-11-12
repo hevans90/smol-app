@@ -5,7 +5,7 @@ import GraphQLAppWrapper from '../../_utils/GraphQLAppWrapper';
 import { LeagueMembershipStatus } from '../react/graphql-provided/LeagueMembershipNotice';
 import { Button } from '../react/ui/Button';
 import { Dialog, DialogContent, DialogHeading } from '../react/ui/Dialog';
-import { getStoredDiscordUser } from './discord-auth/DiscordAuth';
+import { getStoredDiscordUser, prepareDiscordLink } from './discord-auth/DiscordAuth';
 import { clearPoESession, startPoEReauth } from './poe-auth/PoEAuth';
 
 type StepState = 'done' | 'current' | 'locked';
@@ -157,17 +157,7 @@ export const AuthModal = ({
             {discordDone ? null : poeDone ? (
               <a
                 href={discordOauthUrl}
-                onClick={() => {
-                  // read back by verify-discord.astro
-                  localStorage.setItem('discord_return_to', currentPage());
-                  // Tells /api/discord-auth which account to link: a browser
-                  // redirect can't send an Authorization header, so the
-                  // hasura JWT rides along in a cookie that lives just long
-                  // enough for the round trip.
-                  const secure =
-                    window.location.protocol === 'https:' ? '; Secure' : '';
-                  document.cookie = `smol_link_token=${loginState?.hasuraAccessToken}; path=/; max-age=600; SameSite=Lax${secure}`;
-                }}
+                onClick={prepareDiscordLink}
                 className="flex items-center gap-2 whitespace-nowrap rounded-md bg-discord-500 px-3 py-2 leading-5 text-white no-underline hover:bg-discord-400 hover:text-white"
               >
                 <img src="/discord-logo.svg" alt="" className="h-5 w-5" />

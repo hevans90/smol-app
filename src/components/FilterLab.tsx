@@ -167,7 +167,7 @@ export const FilterLab = ({
   return (
     <>
       <GraphQLAppWrapper uri={hasuraUri}>
-        <div className="mt-40 flex h-full w-full flex-col gap-16">
+        <div className="mt-6 flex h-full w-full flex-col gap-16">
           <section className="flex flex-col gap-1">
             <h2>Strictness</h2>
             <DiscreteSlider

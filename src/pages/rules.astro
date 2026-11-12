@@ -1,10 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-import { Image } from 'astro:assets';
-
-import logoSrc from '../assets/smol-logo.png';
-
 const version = 'settlers_1.0.2';
 ---
 
@@ -18,13 +14,8 @@ const version = 'settlers_1.0.2';
 
 <Layout title="Smol Rules" authPrompt={false}>
   <main class="flex flex-col items-start h-full relative">
-    <Image
-      src={logoSrc}
-      alt="logo"
-      class="w-16 md:w-28 absolute top-12 left-20 md:left-0"
-    />
 
-    <div class="flex flex-col mx-4 sm:mx-0 mt-40">
+    <div class="flex flex-col mx-4 sm:mx-0 mt-6">
       <h1 class="text-primary-500">Smol Rules</h1>
       <ul class="list-disc list-inside space-y-2">
         <li>

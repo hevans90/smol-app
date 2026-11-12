@@ -22,6 +22,20 @@ export const getStoredDiscordUser = (): StoredDiscordUser | undefined => {
   }
 };
 
+// Runs just before following the Discord OAuth link: remembers the page to
+// come back to (read by verify-discord.astro) and tells /api/discord-auth
+// which account to link. A browser redirect can't send an Authorization
+// header, so the hasura JWT rides along in a cookie that lives just long
+// enough for the round trip.
+export const prepareDiscordLink = () => {
+  localStorage.setItem(
+    'discord_return_to',
+    window.location.pathname + window.location.search,
+  );
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `smol_link_token=${localStorage.getItem('hasura_token')}; path=/; max-age=600; SameSite=Lax${secure}`;
+};
+
 const DiscordAuth = ({
   discordOauthUrl,
   logoutOnly,

@@ -211,7 +211,7 @@ export const FarmBoard = () => {
 
   if (usersLoading || !userData) {
     return (
-      <div className="mt-48 flex w-full justify-center">
+      <div className="mt-24 flex w-full justify-center">
         <Spinner />
       </div>
     );
@@ -225,7 +225,7 @@ export const FarmBoard = () => {
   const notSharing = userData.user.length - (snapshotData?.atlas_snapshot.length ?? 0);
 
   return (
-    <div className="mt-48 flex w-full flex-col gap-6 px-4 pb-16">
+    <div className="mt-6 flex w-full flex-col gap-6 px-4 pb-16">
       {data && <AtlasTreeDefs data={data} />}
 
       {/* my atlas */}

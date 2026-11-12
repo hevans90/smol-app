@@ -29,9 +29,11 @@ export const OrdersPage = ({ hasuraUri }: { hasuraUri: string }) => {
 
   return (
     <GraphQLAppWrapper uri={hasuraUri}>
-      <OrdersViewSwitcher active={view} />
-      <LeagueMembershipNotice />
-      {view === 'bulk' ? <BulkOrderBook /> : <OrderBook />}
+      <div className="flex h-full w-full flex-col">
+        <OrdersViewSwitcher active={view} />
+        <LeagueMembershipNotice />
+        {view === 'bulk' ? <BulkOrderBook /> : <OrderBook />}
+      </div>
     </GraphQLAppWrapper>
   );
 };

@@ -6,7 +6,7 @@ const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
 ---
 
 <Layout title="Orders" authPrompt={true}>
-  <main class="flex flex-col items-start relative">
+  <main class="flex flex-col items-start relative h-full">
     <OrdersPage hasuraUri={hasuraUri} client:only="react" />
   </main>
 </Layout>

@@ -1,43 +1,27 @@
 import { ApolloProvider } from '@apollo/client';
-import { twMerge } from 'tailwind-merge';
+import { useEffect } from 'react';
 import { sharedApolloClient } from '../../_utils/apollo-bootstrapper';
 import { useAdminAccess } from '../../hooks/useAdminAccess';
 
-const AdminNavLinkInner = ({ className }: { className?: string }) => {
-  const { isAdmin, adminPending } = useAdminAccess();
+const Watcher = () => {
+  const { isAdmin, adminPending, loading } = useAdminAccess();
 
-  if (!isAdmin && !adminPending) return null;
+  // the head script in Layout.astro set data-admin from the token; follow
+  // the live flag from here on
+  useEffect(() => {
+    if (loading) return;
+    document.documentElement.toggleAttribute('data-admin', isAdmin || adminPending);
+  }, [isAdmin, adminPending, loading]);
 
-  const isCurrent = window.location.pathname.startsWith('/admin');
-
-  return (
-    <a
-      href="/admin"
-      className={twMerge(
-        className,
-        isCurrent
-          ? 'bg-gray-800 text-primary-500'
-          : 'bg-gray-900 hover:bg-gray-800 hover:text-primary-500',
-      )}
-    >
-      Admin
-    </a>
-  );
+  return null;
 };
 
 /**
- * Nav item that appears (in realtime) only for users with the admin flag.
- * Runs its own Apollo client because the navigation lives outside the
- * page-level GraphQL providers; useAdminAccess doubles as the token
- * upgrade/downgrade watcher on every page.
+ * Renders nothing. Watches the member's admin flag on every page: shows or
+ * hides the Admin tab (via html[data-admin]) and, through useAdminAccess,
+ * re-mints the token when the flag and the token's roles disagree.
  */
-export const AdminNavLink = ({
-  hasuraUri,
-  className,
-}: {
-  hasuraUri: string;
-  className?: string;
-}) => {
+export const AdminAccessWatcher = ({ hasuraUri }: { hasuraUri: string }) => {
   const token = localStorage.getItem('hasura_token');
   const myId = localStorage.getItem('hasura_user_id');
 
@@ -51,7 +35,7 @@ export const AdminNavLink = ({
         secure: process.env.NODE_ENV === 'production',
       })}
     >
-      <AdminNavLinkInner className={className} />
+      <Watcher />
     </ApolloProvider>
   );
 };

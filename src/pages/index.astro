@@ -1,9 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-import { Image } from 'astro:assets';
-
-import logoSrc from '../assets/smol-logo.png';
 import { LadderPage } from '../components/LadderPage';
 
 const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
@@ -11,11 +8,6 @@ const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
 
 <Layout title="Smol app" authPrompt={true}>
   <main class="flex flex-col items-start h-full relative">
-    <Image
-      src={logoSrc}
-      alt="logo"
-      class="w-16 md:w-28 absolute top-6 left-20 md:left-0"
-    />
 
     <LadderPage hasuraUri={hasuraUri} client:only="react" />
   </main>

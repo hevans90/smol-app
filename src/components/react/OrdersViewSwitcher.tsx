@@ -16,10 +16,7 @@ export const OrdersViewSwitcher = ({ active }: { active: OrdersView }) => {
     );
 
   return (
-    // fixed + out-of-flow so it never disturbs OrderBook's/BulkOrderBook's
-    // own top-margin and viewport-height math (both assume they own the
-    // full flow below the nav)
-    <div className="fixed left-1/2 top-20 z-20 flex w-fit -translate-x-1/2 gap-1 rounded-md border border-primary-900 border-opacity-40 bg-gray-900 p-1 shadow-lg md:top-16">
+    <div className="mx-auto mt-3 flex w-fit shrink-0 gap-1 rounded-md border border-primary-900 border-opacity-40 bg-gray-900 p-1">
       <a href="/order-book" className={tabClass(active === 'orders')}>
         Item Orders
       </a>

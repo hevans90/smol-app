@@ -1,7 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import '../../base.css';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Navigation from '../components/Navigation.astro';
 interface Props {
   title: string;
@@ -9,8 +8,6 @@ interface Props {
 }
 
 const { title, authPrompt } = Astro.props;
-
-import Auth from '../components/auth/Auth.astro';
 
 // Bump to force every browser to drop its stored session and preferences
 // (e.g. after changing what a login stores).
@@ -45,13 +42,37 @@ const version = 'settlers_1.0.2';
         if (stored !== version) localStorage.setItem('version', version);
       }
     </script>
+    <script is:inline>
+      // Show the Admin tab from the first paint: admins' tokens carry the
+      // "dev" role. Page swaps (view transitions) replace <html>'s
+      // attributes, so it is set again after each one. AdminAccessWatcher
+      // then follows the live admin flag.
+      {
+        const markAdmin = () => {
+          let admin = false;
+          try {
+            const token = localStorage.getItem('hasura_token');
+            const payload = token?.split('.')[1];
+            if (payload) {
+              const claims = JSON.parse(
+                atob(payload.replace(/-/g, '+').replace(/_/g, '/')),
+              )['https://hasura.io/jwt/claims'];
+              admin = claims?.['x-hasura-allowed-roles']?.includes('dev') ?? false;
+            }
+          } catch {}
+          document.documentElement.toggleAttribute('data-admin', admin);
+        };
+        markAdmin();
+        document.addEventListener('astro:after-swap', markAdmin);
+      }
+    </script>
   </head>
-  <body
-    class="max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-7xl 2xl:max-w-[90rem] sm:m-auto h-screen"
-  >
-    <Breadcrumbs />
-    <Navigation />
-    <Auth authPrompt={authPrompt} />
-    <slot />
+  <body class="h-screen">
+    <Navigation authPrompt={authPrompt} />
+    <div
+      class="mx-auto h-full max-w-xl pt-14 md:max-w-2xl lg:max-w-5xl xl:max-w-7xl 2xl:max-w-[90rem]"
+    >
+      <slot />
+    </div>
   </body>
 </html>

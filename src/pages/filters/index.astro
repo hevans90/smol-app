@@ -5,19 +5,13 @@ import { Image } from 'astro:assets';
 
 import filterImage1Src from '../../assets/filter_1.png';
 import filterImage2Src from '../../assets/filter_2.png';
-import logoSrc from '../../assets/smol-logo.png';
 ---
 
 <Layout title="Filters" authPrompt={true}>
   <main
     class="flex flex-col pt-8 text-md xl:text-lg 2xl:text-2xl gap-4 relative h-full"
   >
-    <Image
-      src={logoSrc}
-      alt="logo"
-      class="w-16 md:w-28 absolute top-6 md:top-12 left-20 md:left-0"
-    />
-    <div class="flex flex-col gap-4 mx-4 sm:mx-0 mt-32">
+    <div class="flex flex-col gap-4 mx-4 sm:mx-0 mt-6">
       <span>
         Daetherion has created a Filterblade module to enable
         <span class="text-primary-300"> automatic highlighting of bases </span>

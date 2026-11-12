@@ -57,6 +57,7 @@ import type { AtlasTree } from './atlas-league-account';
 // Loaded on demand: each lookup is ~170KB and only the Farm page needs it.
 const loaders: Record<string, () => Promise<{ default: unknown }>> = {
   '3.29.1': () => import('../assets/atlas/atlas-3.29.1.json'),
+  '3.30.0': () => import('../assets/atlas/atlas-3.30.0.json'),
 };
 
 export const loadAtlasData = async (

@@ -59,6 +59,11 @@ export const MECHANIC_LABELS = {
   torment: 'Torment',
   scarabs: 'Scarabs',
   threads: 'Threads',
+  mirage: 'Mirage',
+  wildwood: 'Viridian Wildwood',
+  sentinels: 'Sentinels',
+  gold: 'Gold',
+  divination: 'Divination cards',
   maven: 'Maven',
   conquerors: 'Conquerors',
   shaper_elder: 'Shaper / Elder',
@@ -72,6 +77,9 @@ export const MECHANIC_LABELS = {
 
 // Matched against the icon's base file name, lower-cased, in order.
 export const ICON_RULES = [
+  // 3.30's Threads notables that steer which thread types drop are drawn
+  // with the icon of the mechanic they select (WheelofDisablingDelirium)
+  [/^wheelofdisabling/, 'threads'],
   [/breach/, 'breach'],
   [/delirium/, 'delirium'],
   [/abyss/, 'abyss'],
@@ -108,7 +116,12 @@ export const ICON_RULES = [
   [/vaal/, 'vaal_side_areas'],
   [/atlasmemories|memor/, 'memories'],
   [/bossmapdrops/, 'bosses'],
-  [/mapnode|mapnotable|itemquantity|modifiertier|atlasmapmod|scryingorb|^map/, 'maps'],
+  [/mirage/, 'mirage'],
+  [/azmeriforest/, 'wildwood'],
+  [/sentine[lk]/, 'sentinels'],
+  [/atlasgold|masterygold/, 'gold'],
+  [/divination|scryingorb/, 'divination'],
+  [/mapnode|mapnotable|itemquantity|modifiertier|atlasmapmod|monsters|anomal|^map/, 'maps'],
 ];
 
 // Matched against "<name>\n<stats>", in order. Only reached when no icon
@@ -151,6 +164,10 @@ export const KEYWORD_RULES = [
   [/vaal side area|corrupted area/i, 'vaal_side_areas'],
   [/atlas memor/i, 'memories'],
   [/map boss|unique boss/i, 'bosses'],
+  [/\bmirage/i, 'mirage'],
+  [/wildwood|\bazmeri/i, 'wildwood'],
+  [/\bsentinel/i, 'sentinels'],
+  [/divination card/i, 'divination'],
   [/\bmaps?\b/i, 'maps'],
 ];
 

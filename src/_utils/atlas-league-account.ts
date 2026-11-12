@@ -43,7 +43,7 @@ export const stampTreeChanges = (
 
 // The tree export new syncs are stamped with. Bump when a new league's
 // export has been generated (and add its loader in atlas.ts).
-export const CURRENT_ATLAS_VERSION = '3.29.1';
+export const CURRENT_ATLAS_VERSION = '3.30.0';
 
 const toHashes = (value: unknown): number[] =>
   Array.isArray(value)

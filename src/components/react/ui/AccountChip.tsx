@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-// Branded account chips: a solid block with the service's logo (and the
-// Discord avatar), then the name. Used in the header and on profiles.
+// Branded account chips: a solid block with the service's logo, then the
+// Discord avatar if any, then the name. Used in the header and on profiles.
 
 type Tone = 'poe' | 'discord' | 'expired' | 'off';
 
@@ -56,8 +56,7 @@ export const AccountChipBody = ({
     <span
       className={twMerge(
         // fixed minimum width so stacked chips start their names at the same x
-        'flex min-w-[2.25rem] items-center justify-center gap-1.5 px-1 transition-colors',
-        avatarUrl && 'px-2',
+        'flex min-w-[2.25rem] items-center justify-center px-1 transition-colors',
         BLOCK[tone],
       )}
     >
@@ -74,12 +73,18 @@ export const AccountChipBody = ({
           className={twMerge('h-4 w-4', tone === 'off' && 'opacity-40')}
         />
       )}
-      {avatarUrl && <img src={avatarUrl} alt="" className="h-6 w-6 rounded-full" />}
     </span>
+    {/* the avatar sits on the chip's own background, beside the name */}
+    {avatarUrl && (
+      <span className="flex items-center pl-1.5 pr-1.5 sm:pr-0">
+        <img src={avatarUrl} alt="" className="h-6 w-6 rounded-full" />
+      </span>
+    )}
     {label && (
       <span
         className={twMerge(
           'flex min-w-0 items-center px-2.5',
+          avatarUrl && 'pl-2',
           LABEL[tone],
           labelClassName,
         )}

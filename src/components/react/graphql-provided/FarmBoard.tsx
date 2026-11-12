@@ -187,9 +187,9 @@ export const FarmBoard = () => {
     return { members: built, resyncing };
   }, [userData, snapshotData, data, myUserId]);
 
-  // everyone's main tree overlaid
+  // everyone's main tree overlaid (a bare tree until someone shares)
   const heat = useMemo<GuildHeat | undefined>(() => {
-    if (!data || !members.length) return undefined;
+    if (!data) return undefined;
     const counts = new Map<number, number>();
     for (const { hashes } of members) {
       for (const hash of hashes) counts.set(hash, (counts.get(hash) ?? 0) + 1);
@@ -299,7 +299,7 @@ export const FarmBoard = () => {
         </div>
       )}
 
-      {data && members.length > 0 && (
+      {data && (
         <GuildOverview
           members={members}
           data={data}

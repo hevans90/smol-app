@@ -40,11 +40,59 @@ export type AtlasData = {
 };
 
 // Mechanics with artwork in public/league-icons.
+// 3.30 split league mechanics into tiers on the atlas tree:
+//   primary   - the Thread mechanics, with full clusters
+//   secondary - the tree can guarantee at least one encounter in a map
+//   tertiary  - the tree only raises the chance they appear
+// Mechanics outside these (altars, bosses, gold...) are "other". Versions
+// before the split have no tiers.
+export type MechanicTier = 'primary' | 'secondary' | 'tertiary';
+
+const TIERS_330: Record<string, MechanicTier> = {
+  abyss: 'primary',
+  bestiary: 'primary',
+  betrayal: 'primary',
+  blight: 'primary',
+  breach: 'primary',
+  expedition: 'primary',
+  incursion: 'primary',
+  legion: 'primary',
+  ritual: 'primary',
+  ultimatum: 'primary',
+  essence: 'secondary',
+  harvest: 'secondary',
+  mercenaries: 'secondary',
+  rogue_exiles: 'secondary',
+  settlers_of_kalguur: 'secondary',
+  shrines: 'secondary',
+  strongboxes: 'secondary',
+  torment: 'secondary',
+  beyond: 'tertiary',
+  delirium: 'tertiary',
+  mirage: 'tertiary',
+  sentinels: 'tertiary',
+  wildwood: 'tertiary',
+};
+
+const MECHANIC_TIERS: Record<string, Record<string, MechanicTier>> = {
+  '3.30.0': TIERS_330,
+};
+
+/** The mechanic's tier in this tree version; undefined for "other" or pre-3.30. */
+export const tierOf = (data: AtlasData, mechanic: string): MechanicTier | undefined =>
+  MECHANIC_TIERS[data.version]?.[mechanic];
+
+export const hasTiers = (data: AtlasData) => !!MECHANIC_TIERS[data.version];
+
+// public/league-icons/<key>.webp; most are game minimap icons (via poedb).
+// conquerors and shaper_elder are composites of the influence symbols.
 export const MECHANICS_WITH_ICON = new Set([
   'abyss', 'altar_eater', 'altar_exarch', 'bestiary', 'betrayal', 'beyond',
-  'blight', 'breach', 'delirium', 'delve', 'essence', 'expedition',
-  'harbinger', 'harvest', 'heist', 'incursion', 'labyrinth', 'legion',
-  'ritual', 'sanctum', 'settlers_of_kalguur', 'ultimatum',
+  'blight', 'breach', 'conquerors', 'delirium', 'delve', 'divination', 'essence',
+  'expedition', 'harbinger', 'harvest', 'heist', 'incursion', 'labyrinth',
+  'legion', 'maven', 'memories', 'mercenaries', 'mirage', 'ritual', 'rogue_exiles',
+  'sanctum', 'sentinels', 'settlers_of_kalguur', 'shaper_elder', 'shrines', 'strongboxes',
+  'synthesis', 'torment', 'ultimatum', 'wildwood',
 ]);
 
 export {

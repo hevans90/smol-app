@@ -1,11 +1,27 @@
 import { useMemo, useState, type FocusEvent, type MouseEvent, type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { strategyOf, type AtlasData, type MechanicInvestment } from '../../../_utils/atlas';
+import {
+  hasTiers,
+  strategyOf,
+  tierOf,
+  type AtlasData,
+  type MechanicInvestment,
+  type MechanicTier,
+} from '../../../_utils/atlas';
 import { AtlasTreeThumb } from '../atlas/AtlasTree';
 import { HeatLegend, heatLayers, type GuildHeat } from './AtlasDialog';
 import { MechanicIcon } from './Mechanic';
 import { MemberAvatar, memberName } from './MemberAvatar';
 import type { FarmMember } from './types';
+
+type Tile = { mechanic: string; label: string; farmers: Farmer[] };
+
+const TIER_GROUPS: { key: MechanicTier | 'other'; title: string; hint?: string }[] = [
+  { key: 'primary', title: 'Primary', hint: 'Thread mechanics' },
+  { key: 'secondary', title: 'Secondary' },
+  { key: 'tertiary', title: 'Tertiary' },
+  { key: 'other', title: 'Other' },
+];
 
 type Hover = { left: number; top?: number; bottom?: number; content: ReactNode };
 
@@ -62,7 +78,7 @@ export const GuildOverview = ({
     };
   const hide = () => setHover(undefined);
 
-  const { tiles, uncovered } = useMemo(() => {
+  const groups = useMemo(() => {
     const label = (mechanic: string) => data.mechanics[mechanic] ?? mechanic;
     const farmers = new Map<string, Farmer[]>();
     for (const member of members) {
@@ -79,24 +95,35 @@ export const GuildOverview = ({
 
     const generic = new Set(data.generic);
     const farmable = [
-      ...new Set(Object.values(data.nodes).map(({ mechanic }) => mechanic)),
+      ...new Set([
+        ...Object.values(data.nodes).map(({ mechanic }) => mechanic),
+        ...farmers.keys(),
+      ]),
     ].filter((mechanic) => !generic.has(mechanic));
 
-    return {
-      tiles: [...farmers]
-        .map(([mechanic, list]) => ({
+    // farmed mechanics first (most farmers first), then the rest as empty tiles
+    const tilesFor = (mechanics: string[]): Tile[] =>
+      mechanics
+        .map((mechanic) => ({
           mechanic,
           label: label(mechanic),
-          farmers: list.sort((a, b) => b.investment.weight - a.investment.weight),
+          farmers: (farmers.get(mechanic) ?? []).sort(
+            (a, b) => b.investment.weight - a.investment.weight,
+          ),
         }))
         .sort(
           (a, b) => b.farmers.length - a.farmers.length || a.label.localeCompare(b.label),
-        ),
-      uncovered: farmable
-        .filter((mechanic) => !farmers.has(mechanic))
-        .map((mechanic) => ({ mechanic, label: label(mechanic) }))
-        .sort((a, b) => a.label.localeCompare(b.label)),
-    };
+        );
+
+    if (!hasTiers(data)) {
+      return [{ key: 'all', title: undefined, hint: undefined, tiles: tilesFor(farmable) }];
+    }
+    return TIER_GROUPS.map(({ key, title, hint }) => ({
+      key,
+      title,
+      hint,
+      tiles: tilesFor(farmable.filter((mechanic) => (tierOf(data, mechanic) ?? 'other') === key)),
+    })).filter(({ tiles }) => tiles.length);
   }, [members, data]);
 
   const layers = useMemo(() => (heat ? heatLayers(heat) : []), [heat]);
@@ -148,78 +175,85 @@ export const GuildOverview = ({
           )}
         </div>
 
-        <div
-          className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5"
-          onMouseLeave={hide}
-        >
-          {tiles.map(({ mechanic, label, farmers }) => {
-            const active = selected.includes(mechanic);
-            return (
-              <div
-                key={mechanic}
-                className={twMerge(
-                  'flex flex-col gap-2 rounded border bg-gray-950 p-2',
-                  active ? 'border-primary-500' : 'border-gray-800',
-                )}
-              >
-                <button
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => onToggle(mechanic)}
-                  onMouseEnter={hide}
-                  title={active ? 'Show everyone' : `Show only ${label} farmers`}
-                  className="flex items-center gap-2 rounded bg-transparent p-0 text-left hover:bg-transparent"
-                >
-                  <MechanicIcon mechanic={mechanic} className="h-7 w-7" />
-                  <span
+        {groups.map(({ key, title, hint, tiles }) => (
+          <div key={key} className="flex flex-col gap-2">
+            {title && (
+              <div className="flex items-baseline gap-2">
+                <h3 className="m-0 text-sm font-normal uppercase tracking-wider text-primary-600">
+                  {title}
+                </h3>
+                {hint && <span className="text-xs text-primary-800">{hint}</span>}
+              </div>
+            )}
+            <div
+              className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5"
+              onMouseLeave={hide}
+            >
+              {tiles.map(({ mechanic, label, farmers }) => {
+                const active = selected.includes(mechanic);
+                if (!farmers.length) {
+                  return (
+                    <div
+                      key={mechanic}
+                      className="flex items-center gap-2 rounded border border-dashed border-gray-800 bg-gray-950/50 p-2 opacity-60"
+                    >
+                      <MechanicIcon mechanic={mechanic} className="h-7 w-7 grayscale" />
+                      <span className="min-w-0 flex-1 truncate text-primary-800">{label}</span>
+                      <span className="text-sm tabular-nums text-primary-900">0</span>
+                    </div>
+                  );
+                }
+                return (
+                  <div
+                    key={mechanic}
                     className={twMerge(
-                      'min-w-0 flex-1 truncate',
-                      active ? 'text-primary-300' : 'text-primary-500',
+                      'flex flex-col gap-2 rounded border bg-gray-950 p-2',
+                      active ? 'border-primary-500' : 'border-gray-800',
                     )}
                   >
-                    {label}
-                  </span>
-                  <span className="text-sm tabular-nums text-primary-800">
-                    {farmers.length}
-                  </span>
-                </button>
-                <div className="flex flex-wrap gap-1">
-                  {farmers.map((farmer) => (
                     <button
-                      key={farmer.member.user.id}
                       type="button"
-                      aria-label={`${memberName(farmer.member.user)} farms ${label}: open their atlas tree`}
-                      onClick={() => onOpenMember(farmer.member)}
-                      onMouseEnter={show(farmerCard(label, farmer))}
-                      onFocus={show(farmerCard(label, farmer))}
-                      onBlur={hide}
-                      className="rounded-full bg-transparent p-0 hover:bg-transparent hover:ring-2 hover:ring-primary-500"
+                      aria-pressed={active}
+                      onClick={() => onToggle(mechanic)}
+                      onMouseEnter={hide}
+                      title={active ? 'Show everyone' : `Show only ${label} farmers`}
+                      className="flex items-center gap-2 rounded bg-transparent p-0 text-left hover:bg-transparent"
                     >
-                      <MemberAvatar user={farmer.member.user} className="h-7 w-7" />
+                      <MechanicIcon mechanic={mechanic} className="h-7 w-7" />
+                      <span
+                        className={twMerge(
+                          'min-w-0 flex-1 truncate',
+                          active ? 'text-primary-300' : 'text-primary-500',
+                        )}
+                      >
+                        {label}
+                      </span>
+                      <span className="text-sm tabular-nums text-primary-800">
+                        {farmers.length}
+                      </span>
                     </button>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {uncovered.length > 0 && (
-          <div>
-            <h3 className="m-0 mb-2 text-sm font-normal text-primary-800">Nobody farms</h3>
-            <div className="flex flex-wrap gap-1.5">
-              {uncovered.map(({ mechanic, label }) => (
-                <span
-                  key={mechanic}
-                  className="flex items-center gap-1.5 rounded border border-gray-800 px-2 py-1 text-xs text-primary-800"
-                >
-                  <MechanicIcon mechanic={mechanic} className="h-4 w-4 text-[10px]" />
-                  {label}
-                </span>
-              ))}
+                    <div className="flex flex-wrap gap-1">
+                      {farmers.map((farmer) => (
+                        <button
+                          key={farmer.member.user.id}
+                          type="button"
+                          aria-label={`${memberName(farmer.member.user)} farms ${label}: open their atlas tree`}
+                          onClick={() => onOpenMember(farmer.member)}
+                          onMouseEnter={show(farmerCard(label, farmer))}
+                          onFocus={show(farmerCard(label, farmer))}
+                          onBlur={hide}
+                          className="rounded-full bg-transparent p-0 hover:bg-transparent hover:ring-2 hover:ring-primary-500"
+                        >
+                          <MemberAvatar user={farmer.member.user} className="h-7 w-7" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        )}
+        ))}
       </div>
 
       {heat && (
@@ -228,15 +262,21 @@ export const GuildOverview = ({
           <button
             type="button"
             onClick={onOpenHeat}
+            disabled={!heat.members}
             aria-label="Open the guild atlas"
-            className="max-w-xs rounded border border-gray-800 bg-gray-950 p-1 hover:border-primary-800 hover:bg-gray-950"
+            className="relative max-w-xs rounded border border-gray-800 bg-gray-950 p-1 hover:border-primary-800 hover:bg-gray-950 disabled:cursor-default disabled:hover:border-gray-800"
           >
             <AtlasTreeThumb
               data={heat.data}
               layers={layers}
               label="Every sharing member's atlas overlaid"
-              className="w-full"
+              className={twMerge('w-full', !heat.members && 'opacity-75')}
             />
+            {!heat.members && (
+              <span className="absolute inset-0 flex items-center justify-center text-sm text-primary-500">
+                Nobody sharing yet
+              </span>
+            )}
           </button>
           <HeatLegend members={heat.members} />
         </div>

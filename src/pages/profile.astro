@@ -1,14 +1,16 @@
 ---
+import { discordOauthUrl as buildDiscordOauthUrl } from '../_utils/discord-oauth';
 import Layout from '../layouts/Layout.astro';
 
 import { ProfilePage } from '../components/ProfilePage';
 
 const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
+const discordOauthUrl = buildDiscordOauthUrl();
 ---
 
 <Layout title="Profile" authPrompt={true}>
   <main class="flex flex-col items-start relative">
 
-    <ProfilePage hasuraUri={hasuraUri} client:only="react" />
+    <ProfilePage hasuraUri={hasuraUri} discordOauthUrl={discordOauthUrl} client:only="react" />
   </main>
 </Layout>

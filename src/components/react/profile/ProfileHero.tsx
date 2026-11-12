@@ -1,6 +1,7 @@
 import { IconBrandTwitch, IconSkull } from '@tabler/icons-react';
 import { twMerge } from 'tailwind-merge';
 import { MemberAvatar } from '../farm/MemberAvatar';
+import { AccountChipBody, accountChipClass } from '../ui/AccountChip';
 import { ascendancyCrest, classArt } from './classes';
 import { isRanked, personName, type Badge, type PersonRef, type ProfileCharacter } from './model';
 
@@ -120,14 +121,22 @@ export const ProfileHero = ({
                   <span className="rounded bg-primary-800 px-1.5 text-xs text-gray-950">Admin</span>
                 )}
               </div>
-              <a
-                href={poeProfileUrl(accountName)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-primary-800 no-underline hover:text-primary-300"
-              >
-                {accountName}
-              </a>
+              <div className="mt-1.5 flex flex-wrap gap-1.5 md:justify-end">
+                {user?.discord_name && (
+                  <div title="Discord" className={accountChipClass('discord', 'h-8')}>
+                    <AccountChipBody service="discord" tone="discord" label={user.discord_name} />
+                  </div>
+                )}
+                <a
+                  href={poeProfileUrl(accountName)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Path of Exile profile"
+                  className={accountChipClass('poe', 'h-8')}
+                >
+                  <AccountChipBody service="poe" tone="poe" label={accountName} />
+                </a>
+              </div>
             </div>
           </div>
           {badges.length > 0 && (

@@ -1,7 +1,6 @@
 import { IconLogout } from '@tabler/icons-react';
 import { isAfter } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { discordStore } from '../../../_state/discord.state';
 import { poeStore } from '../../../_state/poe.state';
 import { AuthModal } from '../../auth/auth-modal';
@@ -11,6 +10,11 @@ import {
 } from '../../auth/discord-auth/DiscordAuth';
 import { clearPoESession, startPoEReauth } from '../../auth/poe-auth/PoEAuth';
 import { myProfileHref } from '../profile/links';
+import {
+  AccountChipBody,
+  accountChipClass,
+  discordAvatarUrl,
+} from '../ui/AccountChip';
 
 type Session = {
   signedIn: boolean;
@@ -63,9 +67,6 @@ const signOut = () => {
   clearPoESession();
 };
 
-const chip =
-  'flex h-9 items-center gap-2 rounded-full border bg-gray-900 p-1 text-sm no-underline transition-colors sm:pr-3';
-
 // Path of Exile: who you're signed in as (to your profile), a reconnect when
 // the PoE token has lapsed, or the sign-in.
 const PoEChip = ({ session }: { session: Session }) => {
@@ -74,10 +75,9 @@ const PoEChip = ({ session }: { session: Session }) => {
       <button
         type="button"
         onClick={() => void startPoEReauth()}
-        className={twMerge(chip, 'border-primary-800 pr-3 text-primary-500 hover:border-primary-500')}
+        className={accountChipClass('poe')}
       >
-        <img src="/poe-logo-original.png" alt="" className="h-7 w-7 object-contain" />
-        Sign in
+        <AccountChipBody service="poe" tone="poe" label="Sign in" />
       </button>
     );
   }
@@ -87,21 +87,25 @@ const PoEChip = ({ session }: { session: Session }) => {
         type="button"
         onClick={() => void startPoEReauth()}
         title="Your Path of Exile session expired: stash check and your profile are off until you reconnect"
-        className={twMerge(chip, 'border-red-400 text-red-400 hover:border-red-300 hover:text-red-300')}
+        className={accountChipClass('expired')}
       >
-        <img src="/poe-logo-original.png" alt="" className="h-7 w-7 object-contain" />
-        <span className="hidden sm:inline">Reconnect</span>
+        <AccountChipBody
+          service="poe"
+          tone="expired"
+          label="Reconnect"
+          labelClassName="hidden sm:flex"
+        />
       </button>
     );
   }
   return (
-    <a
-      href={myProfileHref()}
-      title="Path of Exile"
-      className={twMerge(chip, 'border-primary-900 text-primary-500 hover:border-primary-600 hover:text-primary-300')}
-    >
-      <img src="/poe-logo-original.png" alt="" className="h-7 w-7 object-contain" />
-      <span className="hidden max-w-[9rem] truncate sm:inline">{session.poeName}</span>
+    <a href={myProfileHref()} title="Your profile" className={accountChipClass('poe')}>
+      <AccountChipBody
+        service="poe"
+        tone="poe"
+        label={session.poeName}
+        labelClassName="hidden sm:flex"
+      />
     </a>
   );
 };
@@ -117,24 +121,14 @@ const DiscordChip = ({
   const { discord } = session;
   if (discord) {
     return (
-      <div
-        title="Discord"
-        className={twMerge(chip, 'border-discord-500/60 text-primary-500')}
-      >
-        {discord.avatar ? (
-          <img
-            src={`https://cdn.discordapp.com/avatars/${discord.id}/${discord.avatar}.png?size=64`}
-            alt=""
-            className="h-7 w-7 rounded-full"
-          />
-        ) : (
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-discord-500">
-            <img src="/discord-logo.svg" alt="" className="h-4 w-4" />
-          </span>
-        )}
-        <span className="hidden max-w-[9rem] truncate sm:inline">
-          {discord.global_name}
-        </span>
+      <div title="Discord" className={accountChipClass('discord')}>
+        <AccountChipBody
+          service="discord"
+          tone="discord"
+          avatarUrl={discordAvatarUrl(discord.id, discord.avatar)}
+          label={discord.global_name}
+          labelClassName="hidden sm:flex"
+        />
       </div>
     );
   }
@@ -142,12 +136,14 @@ const DiscordChip = ({
     return (
       <div
         title="Sign in with Path of Exile first"
-        className={twMerge(chip, 'cursor-not-allowed border-gray-800 text-gray-600')}
+        className={accountChipClass('off', 'cursor-not-allowed')}
       >
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gray-800">
-          <img src="/discord-logo.svg" alt="" className="h-4 w-4 opacity-40" />
-        </span>
-        <span className="hidden sm:inline">Discord</span>
+        <AccountChipBody
+          service="discord"
+          tone="off"
+          label="Discord"
+          labelClassName="hidden sm:flex"
+        />
       </div>
     );
   }
@@ -155,12 +151,15 @@ const DiscordChip = ({
     <a
       href={discordOauthUrl}
       onClick={prepareDiscordLink}
-      className={twMerge(chip, 'border-discord-500 bg-discord-500 text-white hover:border-discord-400 hover:bg-discord-400 hover:text-white')}
+      title="Connect Discord"
+      className={accountChipClass('discord')}
     >
-      <span className="flex h-7 w-7 items-center justify-center">
-        <img src="/discord-logo.svg" alt="" className="h-4 w-4" />
-      </span>
-      <span className="hidden sm:inline">Connect</span>
+      <AccountChipBody
+        service="discord"
+        tone="discord"
+        label="Connect"
+        labelClassName="hidden sm:flex"
+      />
     </a>
   );
 };
@@ -197,7 +196,7 @@ const AuthWidget = ({
               signOut();
               window.location.reload();
             }}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-transparent text-primary-800 hover:bg-gray-800 hover:text-primary-300"
+            className="flex h-9 w-9 items-center justify-center rounded-md bg-transparent text-primary-800 hover:bg-gray-800 hover:text-primary-300"
           >
             <IconLogout size={18} />
           </button>

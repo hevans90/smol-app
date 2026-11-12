@@ -1,19 +1,16 @@
 import { useMemo } from 'react';
 import { usePoECharacters } from '../../../hooks/usePoECharacters';
 import { startPoEReauth } from '../../auth/poe-auth/PoEAuth';
-import { getStoredDiscordUser } from '../../auth/discord-auth/DiscordAuth';
+import {
+  getStoredDiscordUser,
+  prepareDiscordLink,
+} from '../../auth/discord-auth/DiscordAuth';
 import { LeagueMembershipStatus } from '../graphql-provided/LeagueMembershipNotice';
+import { AccountChipBody, accountChipClass } from '../ui/AccountChip';
 import { Button } from '../ui/Button';
 import { Spinner } from '../ui/Spinner';
 import { ascendancyCrest } from './classes';
 import { Panel } from './Panel';
-
-const Row = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <div className="flex items-baseline justify-between gap-3 border-b border-gray-800/80 py-2 text-sm">
-    <span className="text-primary-800">{label}</span>
-    <span className="min-w-0 text-right text-primary-500">{children}</span>
-  </div>
-);
 
 /** Every character on the account, every league: read from GGG on demand. */
 const Career = () => {
@@ -88,7 +85,7 @@ const Career = () => {
   );
 };
 
-export const AccountPanel = () => {
+export const AccountPanel = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
   const poeName = localStorage.getItem('poe_username');
   const poeExpiry = localStorage.getItem('poe_expiry');
   const poeValid = !!poeExpiry && new Date(poeExpiry) > new Date();
@@ -96,20 +93,35 @@ export const AccountPanel = () => {
 
   return (
     <Panel title="Your account">
-      <Row label="Path of Exile">
+      <div className="flex flex-col gap-2">
         {poeValid ? (
-          poeName
+          <div className={accountChipClass('poe', 'h-10 hover:shadow-[inset_0_0_0_2px_theme(colors.primary.800)]')}>
+            <AccountChipBody service="poe" tone="poe" label={poeName} />
+          </div>
         ) : (
           <button
             type="button"
             onClick={() => void startPoEReauth()}
-            className="bg-transparent p-0 text-red-400 underline hover:bg-transparent hover:text-red-300"
+            title="Your Path of Exile session expired"
+            className={accountChipClass('expired', 'h-10')}
           >
-            Session expired, reconnect
+            <AccountChipBody service="poe" tone="expired" label="Session expired, reconnect" />
           </button>
         )}
-      </Row>
-      <Row label="Discord">{discord ? discord.global_name : 'Not linked'}</Row>
+        {discord ? (
+          <div className={accountChipClass('discord', 'h-10 hover:shadow-[inset_0_0_0_2px_theme(colors.discord.500)]')}>
+            <AccountChipBody service="discord" tone="discord" label={discord.global_name} />
+          </div>
+        ) : (
+          <a
+            href={discordOauthUrl}
+            onClick={prepareDiscordLink}
+            className={accountChipClass('discord', 'h-10')}
+          >
+            <AccountChipBody service="discord" tone="discord" label="Connect Discord" />
+          </a>
+        )}
+      </div>
       <div className="py-2">
         <LeagueMembershipStatus />
       </div>

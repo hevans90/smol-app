@@ -79,7 +79,7 @@ const mainTree = (trees: AtlasTree[], pinned?: number | null) => {
   );
 };
 
-export const ProfileScreen = () => {
+export const ProfileScreen = ({ discordOauthUrl }: { discordOauthUrl: string }) => {
   const [target] = useState(readTarget);
   const myId = localStorage.getItem('hasura_user_id')?.trim();
 
@@ -269,7 +269,7 @@ export const ProfileScreen = () => {
         <div className="flex min-w-0 flex-col gap-4">
           {user && <AtlasPanel atlas={atlas} isMe={isMe} />}
           {ledger && ledger.allies.length > 0 && <AlliesPanel allies={ledger.allies} />}
-          {isMe && <AccountPanel />}
+          {isMe && <AccountPanel discordOauthUrl={discordOauthUrl} />}
         </div>
       </div>
 

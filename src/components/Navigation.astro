@@ -1,4 +1,5 @@
 ---
+import { discordOauthUrl as buildDiscordOauthUrl } from '../_utils/discord-oauth';
 import AuthWidget from './react/graphql-provided/AuthWidget';
 import { AdminAccessWatcher } from './react/AdminNavLink';
 
@@ -8,8 +9,7 @@ interface Props {
 
 const { authPrompt } = Astro.props;
 const hasuraUri = import.meta.env.HASURA_GRAPHQL_URI as string;
-const { DISCORD_CLIENT_ID, DISCORD_REDIRECT } = import.meta.env;
-const discordOauthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${DISCORD_REDIRECT}&scope=identify&response_type=code`;
+const discordOauthUrl = buildDiscordOauthUrl();
 
 type Route = { path: string; display: string; adminOnly?: boolean };
 

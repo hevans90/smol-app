@@ -80,6 +80,41 @@ export const nodesPath = (
   return d;
 };
 
+/** One lit layer of a tree: these nodes, in this colour. */
+export type TreeLayer = { colour: string; hashes: Set<number> };
+
+/**
+ * Paths for lit layers, listed dimmest first. A node takes the last layer it
+ * is in; an edge takes the dimmer of its two ends, so a path running from a
+ * popular node to a rarer one is still drawn, in the rarer colour. Thumbnail
+ * and explorer both draw from this, so they always agree.
+ */
+export const layerPaths = (data: AtlasData, layers: TreeLayer[], nodeScale = 1) => {
+  const rank = new Map<number, number>();
+  layers.forEach(({ hashes }, index) => {
+    for (const hash of hashes) rank.set(hash, index);
+  });
+  // the start node joins whichever layer its neighbour is in
+  const rankOf = (hash: number) =>
+    data.nodes[hash]?.kind === 'start' ? Infinity : rank.get(hash);
+
+  const edges = layers.map(() => '');
+  for (const edge of data.edges) {
+    const a = rankOf(edge[0]);
+    const b = rankOf(edge[1]);
+    if (a === undefined || b === undefined) continue;
+    const index = Math.min(a, b);
+    if (index !== Infinity) edges[index] += edgeD(data, edge);
+  }
+  const nodes = layers.map(() => '');
+  for (const [hash, index] of rank) {
+    const node = data.nodes[hash];
+    if (node?.x === undefined || node.y === undefined) continue;
+    nodes[index] += circle(node.x, node.y, Math.round(NODE_RADIUS[node.kind] * nodeScale));
+  }
+  return layers.map(({ colour }, index) => ({ colour, edges: edges[index], nodes: nodes[index] }));
+};
+
 // The full, unallocated tree is identical for everyone on a version: built
 // once and shared by every thumbnail.
 const baseCache = new WeakMap<AtlasData, Map<number, { edges: string; nodes: string }>>();

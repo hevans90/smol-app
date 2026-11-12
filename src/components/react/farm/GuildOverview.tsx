@@ -1,9 +1,8 @@
 import { useMemo, useState, type FocusEvent, type MouseEvent, type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { strategyOf, type AtlasData, type MechanicInvestment } from '../../../_utils/atlas';
-import { TREE_COLOURS } from '../../../_utils/atlas-geometry';
-import { AtlasTreeThumb, type ThumbLayer } from '../atlas/AtlasTree';
-import { HeatLegend, heatColour, type GuildHeat } from './AtlasDialog';
+import { AtlasTreeThumb } from '../atlas/AtlasTree';
+import { HeatLegend, heatLayers, type GuildHeat } from './AtlasDialog';
 import { MechanicIcon } from './Mechanic';
 import { MemberAvatar, memberName } from './MemberAvatar';
 import type { FarmMember } from './types';
@@ -100,19 +99,7 @@ export const GuildOverview = ({
     };
   }, [members, data]);
 
-  const heatLayers = useMemo<ThumbLayer[]>(() => {
-    if (!heat) return [];
-    const byColour = new Map<string, Set<number>>();
-    for (const [hash, count] of heat.counts) {
-      const colour = heatColour(count, heat.members);
-      if (!byColour.has(colour)) byColour.set(colour, new Set());
-      byColour.get(colour)!.add(hash);
-    }
-    // dimmest first, so the nodes most members took end up on top
-    return TREE_COLOURS.heat
-      .filter((colour) => byColour.has(colour))
-      .map((colour) => ({ colour, hashes: byColour.get(colour)! }));
-  }, [heat]);
+  const layers = useMemo(() => (heat ? heatLayers(heat) : []), [heat]);
 
   const farmerCard = (label: string, { member, investment, also }: Farmer) => (
     <>
@@ -246,7 +233,7 @@ export const GuildOverview = ({
           >
             <AtlasTreeThumb
               data={heat.data}
-              layers={heatLayers}
+              layers={layers}
               label="Every sharing member's atlas overlaid"
               className="w-full"
             />

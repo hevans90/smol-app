@@ -5,9 +5,10 @@ import {
   NODE_RADIUS,
   TREE_COLOURS,
   baseTree,
-  edgesPath,
+  layerPaths,
   nodesPath,
   treeViewBox,
+  type TreeLayer,
 } from '../../../_utils/atlas-geometry';
 
 // Two ways of drawing an atlas tree, in the manner of pobb.in's tree preview:
@@ -17,7 +18,8 @@ import {
 //   AtlasTreeExplorer  pan, zoom and a tooltip per node; one at a time
 
 // Thumbnails are drawn at ~1/60 scale, where true-size nodes would vanish.
-const THUMB_NODE_SCALE = 2.1;
+// (any larger and clustered notables merge into blobs the full view lacks)
+const THUMB_NODE_SCALE = 1.5;
 // ...but the unallocated background stays fine-grained, or it turns to mush
 const THUMB_BASE_SCALE = 1.2;
 const baseId = (data: AtlasData) => `atlas-base-${data.version.replace(/\W/g, '-')}`;
@@ -40,8 +42,31 @@ export const AtlasTreeDefs = ({ data }: { data: AtlasData }) => {
   );
 };
 
-/** One lit layer of a thumbnail: nodes, and the edges between them. */
-export type ThumbLayer = { colour: string; hashes: Set<number> };
+/** One lit layer: nodes, and the edges between them. Dimmest first. */
+export type ThumbLayer = TreeLayer;
+
+// Lit edges as a fixed fraction of a small node's radius, so the thumbnail and
+// the explorer keep the same proportions
+const litEdgeWidth = (nodeScale: number) => NODE_RADIUS.small * nodeScale * 0.8;
+
+/** Every layer's edges under every layer's nodes, so no dot is cut by a line. */
+const LitLayers = ({ drawn, edgeWidth }: { drawn: ReturnType<typeof layerPaths>; edgeWidth: number }) => (
+  <>
+    {drawn.map(({ colour, edges }, index) => (
+      <path
+        key={`e${index}`}
+        d={edges}
+        fill="none"
+        stroke={colour}
+        strokeWidth={edgeWidth}
+        strokeLinecap="round"
+      />
+    ))}
+    {drawn.map(({ colour, nodes }, index) => (
+      <path key={`n${index}`} d={nodes} fill={colour} />
+    ))}
+  </>
+);
 
 export const AtlasTreeThumb = ({
   data,
@@ -56,15 +81,7 @@ export const AtlasTreeThumb = ({
   className?: string;
 }) => {
   const view = treeViewBox(data);
-  const drawn = useMemo(
-    () =>
-      layers.map(({ colour, hashes }) => ({
-        colour,
-        edges: edgesPath(data, (hash) => hashes.has(hash)),
-        nodes: nodesPath(data, (hash) => hashes.has(hash), THUMB_NODE_SCALE),
-      })),
-    [data, layers],
-  );
+  const drawn = useMemo(() => layerPaths(data, layers, THUMB_NODE_SCALE), [data, layers]);
 
   return (
     <svg
@@ -74,12 +91,7 @@ export const AtlasTreeThumb = ({
       className={twMerge('block', className)}
     >
       <use href={`#${baseId(data)}`} />
-      {drawn.map(({ colour, edges, nodes }, index) => (
-        <g key={index}>
-          <path d={edges} fill="none" stroke={colour} strokeWidth={54} strokeLinecap="round" />
-          <path d={nodes} fill={colour} />
-        </g>
-      ))}
+      <LitLayers drawn={drawn} edgeWidth={litEdgeWidth(THUMB_NODE_SCALE)} />
     </svg>
   );
 };
@@ -94,14 +106,14 @@ const KIND_LABEL: Partial<Record<AtlasNode['kind'], string>> = {
 
 export const AtlasTreeExplorer = ({
   data,
-  lit,
+  layers,
   highlight,
   noteFor,
   className,
 }: {
   data: AtlasData;
-  /** hash -> colour, for every node that should be lit */
-  lit: Map<number, string>;
+  /** what is lit, dimmest first; the same layers a thumbnail takes */
+  layers: TreeLayer[];
   /** nodes to call out (e.g. the mechanic hovered in a side list) */
   highlight?: Set<number>;
   /** an extra tooltip line for a node, e.g. "4 members" */
@@ -184,21 +196,7 @@ export const AtlasTreeExplorer = ({
   const endDrag = () => (drag.current = undefined);
 
   const base = baseTree(data);
-  const litEdges = useMemo(() => {
-    // an edge takes the colour of its ends when both are lit
-    const byColour = new Map<string, Set<number>>();
-    for (const [hash, colour] of lit) {
-      if (!byColour.has(colour)) byColour.set(colour, new Set());
-      byColour.get(colour)!.add(hash);
-    }
-    return {
-      all: edgesPath(data, (hash) => lit.has(hash)),
-      colours: [...byColour].map(([colour, hashes]) => ({
-        colour,
-        nodes: nodesPath(data, (hash) => hashes.has(hash)),
-      })),
-    };
-  }, [data, lit]);
+  const drawn = useMemo(() => layerPaths(data, layers), [data, layers]);
   const highlightPath = useMemo(
     () => (highlight?.size ? nodesPath(data, (hash) => highlight.has(hash), 1.35) : ''),
     [data, highlight],
@@ -239,17 +237,7 @@ export const AtlasTreeExplorer = ({
       >
         <path d={base.edges} fill="none" stroke={TREE_COLOURS.edge} strokeWidth={14} />
         <path d={base.nodes} fill={TREE_COLOURS.node} />
-        <path
-          d={litEdges.all}
-          fill="none"
-          stroke={TREE_COLOURS.allocated}
-          strokeOpacity={0.75}
-          strokeWidth={22}
-          strokeLinecap="round"
-        />
-        {litEdges.colours.map(({ colour, nodes }) => (
-          <path key={colour} d={nodes} fill={colour} />
-        ))}
+        <LitLayers drawn={drawn} edgeWidth={litEdgeWidth(1)} />
         {highlightPath && (
           <path
             d={highlightPath}

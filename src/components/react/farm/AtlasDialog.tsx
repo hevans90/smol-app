@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { strategyOf, type AtlasData } from '../../../_utils/atlas';
-import { TREE_COLOURS } from '../../../_utils/atlas-geometry';
+import { TREE_COLOURS, type TreeLayer } from '../../../_utils/atlas-geometry';
 import { AtlasTreeExplorer } from '../atlas/AtlasTree';
 import { Dialog, DialogContent, DialogHeading } from '../ui/Dialog';
 import { MechanicRow, notableCount } from './Mechanic';
@@ -55,10 +55,7 @@ export const MemberAtlasDialog = ({
   const { summary, hashes } = member.trees[treeIndex] ?? member.trees[0];
   const { data } = member;
 
-  const lit = useMemo(
-    () => new Map([...hashes].map((hash) => [hash, TREE_COLOURS.allocated])),
-    [hashes],
-  );
+  const layers = useMemo(() => [{ colour: TREE_COLOURS.allocated, hashes }], [hashes]);
 
   // allocated notables and keystones of each mechanic, with their hashes so
   // hovering one can find it on the tree
@@ -98,7 +95,7 @@ export const MemberAtlasDialog = ({
       onClose={onClose}
       title={member.user.discord_name ?? member.user.poe_name}
       tree={
-        <AtlasTreeExplorer data={data} lit={lit} highlight={highlight} className="h-full" />
+        <AtlasTreeExplorer data={data} layers={layers} highlight={highlight} className="h-full" />
       }
       side={
         <div className="flex flex-col gap-4" onMouseLeave={() => setHighlight(undefined)}>
@@ -186,6 +183,19 @@ export const heatColour = (count: number, members: number) => {
   return steps[Math.max(step, 0)];
 };
 
+/** The heat map as tree layers, dimmest first: the same for preview and dialog. */
+export const heatLayers = ({ counts, members }: GuildHeat): TreeLayer[] => {
+  const byColour = new Map<string, Set<number>>();
+  for (const [hash, count] of counts) {
+    const colour = heatColour(count, members);
+    if (!byColour.has(colour)) byColour.set(colour, new Set());
+    byColour.get(colour)!.add(hash);
+  }
+  return TREE_COLOURS.heat
+    .filter((colour) => byColour.has(colour))
+    .map((colour) => ({ colour, hashes: byColour.get(colour)! }));
+};
+
 export const HeatLegend = ({ members }: { members: number }) => (
   <div className="flex items-center gap-2 text-xs text-primary-800">
     <span>1</span>
@@ -208,13 +218,7 @@ export const GuildAtlasDialog = ({
   heat: GuildHeat;
   onClose: () => void;
 }) => {
-  const lit = useMemo(
-    () =>
-      new Map(
-        [...heat.counts].map(([hash, count]) => [hash, heatColour(count, heat.members)]),
-      ),
-    [heat],
-  );
+  const layers = useMemo(() => heatLayers(heat), [heat]);
 
   // the notables most members took
   const popular = useMemo(
@@ -235,7 +239,7 @@ export const GuildAtlasDialog = ({
       tree={
         <AtlasTreeExplorer
           data={heat.data}
-          lit={lit}
+          layers={layers}
           highlight={highlight}
           noteFor={(hash) => {
             const count = heat.counts.get(hash);

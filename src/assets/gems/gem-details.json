@@ -616,6 +616,10 @@
     "costMultiplier": "130%",
     "qualityText": "Supported Skills deal (0-10)% increased Fire Damage"
   },
+  "Communion": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-10)% increased Spell Damage"
+  },
   "Companionship": {
     "costMultiplier": "140%",
     "qualityText": "Supported Skills have (0-20)% increased Minion maximum Life"
@@ -696,6 +700,10 @@
     "qualityText": "(0-20)% increased Skill Effect Duration",
     "instant": true
   },
+  "Coursing Current": {
+    "costMultiplier": "130%",
+    "qualityText": "(0-10)% increased Duration of Ailments inflicted with Supported Skills"
+  },
   "Crackling Lance": {
     "costResource": "Mana",
     "costRange": "14-26",
@@ -749,6 +757,10 @@
     "costRange": "8-14",
     "qualityText": "(0-20)% increased Cooldown Recovery Rate"
   },
+  "Crystalfall": {
+    "costMultiplier": "150%",
+    "qualityText": "Supported Skills deal (0-10)% increased Melee Damage"
+  },
   "Cull the Weak": {
     "costMultiplier": "120%",
     "qualityText": "Recover (0-2)% of Life when Supported Skills Cull an Enemy"
@@ -774,6 +786,16 @@
   "Damage on Full Life": {
     "costMultiplier": "130%",
     "qualityText": "Supported Skills deal (0-10)% increased Damage"
+  },
+  "Dark Bargain": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "Sacrifices +(0-2)% of Skeletons Life to deal that much Chaos Damage"
+  },
+  "Dark Bargain of Trarthus": {
+    "costResource": "Mana",
+    "costRange": "7-13",
+    "qualityText": "(0-20)% chance to gain an additional Ruin on use"
   },
   "Dash": {
     "costResource": "Mana",
@@ -865,6 +887,11 @@
     "instant": true
   },
   "Divine Blast": {
+    "costResource": "Mana",
+    "costRange": "10",
+    "qualityText": "+(0-0.3) metres to radius"
+  },
+  "Divine Blast of Radiance": {
     "costResource": "Mana",
     "costRange": "10",
     "qualityText": "+(0-0.3) metres to radius"
@@ -1648,6 +1675,11 @@
     "costRange": "13",
     "qualityText": "(0-20)% more Damage when expending a Power Charge"
   },
+  "Holy Hammers of Spirals": {
+    "costResource": "Mana",
+    "costRange": "13",
+    "qualityText": "(0-20)% more Damage per Power Charge removed"
+  },
   "Holy Strike": {
     "costResource": "Mana",
     "costRange": "10",
@@ -1656,6 +1688,11 @@
   "Holy Sweep": {
     "costResource": "Mana",
     "costRange": "9-14",
+    "qualityText": "+(0-0.4) metres to radius"
+  },
+  "Holy Sweep of Hammerfalls": {
+    "costResource": "Mana",
+    "costRange": "15-23",
     "qualityText": "+(0-0.4) metres to radius"
   },
   "Hydrosphere": {
@@ -2058,6 +2095,12 @@
   "Mana Leech": {
     "qualityText": "Supported Skills deal (0-10)% increased Damage while Leeching Mana"
   },
+  "Mana-Infused Staff": {
+    "costResource": "Mana",
+    "costRange": "30%",
+    "qualityText": "?",
+    "instant": true
+  },
   "Manabond": {
     "costResource": "Mana",
     "costRange": "5%",
@@ -2190,6 +2233,26 @@
   },
   "Pacifism": {
     "qualityText": "Supported Skills have (0-10)% chance to cause Monsters to Flee on Hit"
+  },
+  "Pact of Beidat": {
+    "costResource": "Mana",
+    "costRange": "33",
+    "qualityText": "?"
+  },
+  "Pact of Ghorr": {
+    "costResource": "Mana",
+    "costRange": "33",
+    "qualityText": "?"
+  },
+  "Pact of K'Tash": {
+    "costResource": "Mana",
+    "costRange": "33",
+    "qualityText": "?"
+  },
+  "Pact of Lycia": {
+    "costResource": "Mana",
+    "costRange": "33",
+    "qualityText": "?"
   },
   "Penance Brand": {
     "costResource": "Mana",
@@ -2446,6 +2509,11 @@
   "Reap": {
     "costResource": "Life",
     "costRange": "25-46",
+    "qualityText": "+(0-5)% more Damage per Blood Charge"
+  },
+  "Reap of Butchery": {
+    "costResource": "Life",
+    "costRange": "31-58",
     "qualityText": "+(0-5)% more Damage per Blood Charge"
   },
   "Reave": {

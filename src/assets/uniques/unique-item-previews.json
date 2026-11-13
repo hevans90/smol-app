@@ -1142,6 +1142,16 @@
     "levelReq": 60,
     "strReq": 95
   },
+  "Baleful Dominion": {
+    "baseType": "Hypnotic Eye Jewel",
+    "corrupted": false,
+    "explicitMods": [
+      "Subjugating (100-8000) souls in the thrall of Kurgal",
+      "Passives affected are Conquered by the Abyssal",
+      "Historic"
+    ],
+    "implicitMods": []
+  },
   "Bated Breath": {
     "baseType": "Chain Belt",
     "corrupted": false,
@@ -3477,6 +3487,16 @@
     ],
     "implicitMods": []
   },
+  "Destructive Aspiration": {
+    "baseType": "Ghastly Eye Jewel",
+    "corrupted": false,
+    "explicitMods": [
+      "Subjugating (100-8000) souls in the thrall of Amanamu",
+      "Passives affected are Conquered by the Abyssal",
+      "Historic"
+    ],
+    "implicitMods": []
+  },
   "Devoto's Devotion": {
     "baseType": "Nightmare Bascinet",
     "corrupted": false,
@@ -3821,6 +3841,17 @@
       "Armour also applies to Lightning Damage taken from Hits",
       "Lightning Resistance does not affect Lightning Damage taken",
       "Nearby Enemies have Lightning Resistance equal to yours"
+    ],
+    "implicitMods": []
+  },
+  "Dread Captain's Cutlass": {
+    "baseType": "Ghostflame Blade",
+    "corrupted": false,
+    "explicitMods": [
+      "Crafted: true",
+      "Implicits: 2",
+      "Can be Allflame Crafted as if Rare",
+      "Cannot gain Intangibility"
     ],
     "implicitMods": []
   },
@@ -4422,6 +4453,16 @@
     ],
     "implicitMods": []
   },
+  "Extinguishing Grasp": {
+    "baseType": "Searching Eye Jewel",
+    "corrupted": false,
+    "explicitMods": [
+      "Subjugating (100-8000) souls in the thrall of Ulaman",
+      "Passives affected are Conquered by the Abyssal",
+      "Historic"
+    ],
+    "implicitMods": []
+  },
   "Extractor Mentis": {
     "baseType": "Agate Amulet",
     "corrupted": false,
@@ -4793,6 +4834,16 @@
     ],
     "intReq": 149,
     "levelReq": 68
+  },
+  "Festering Vengeance": {
+    "baseType": "Murderous Eye Jewel",
+    "corrupted": false,
+    "explicitMods": [
+      "Subjugating (100-8000) souls in the thrall of Tecrod",
+      "Passives affected are Conquered by the Abyssal",
+      "Historic"
+    ],
+    "implicitMods": []
   },
   "Fevered Mind": {
     "baseType": "Cobalt Jewel",
@@ -6943,7 +6994,8 @@
     "explicitMods": [
       "Can't use Life Flasks",
       "+(55-70) to maximum Mana",
-      "Increases and Reductions to Effect of Flasks applied to you also applies to Effect of Arcane Surge on you at (200-250)% of their value",
+      "Increases and Reductions to Effect of Flasks applied to you",
+      "also applies to Effect of Arcane Surge on you at (200-250)% of their value",
       "You have Arcane Surge during Effect of any Mana Flask",
       "Mana Flask Effects are not removed when Unreserved Mana is Filled",
       "Mana Flask Effects do not Queue"
@@ -9920,6 +9972,16 @@
     ],
     "implicitMods": []
   },
+  "Reclaimed Malevolence": {
+    "baseType": "Assembled Eye Jewel",
+    "corrupted": false,
+    "explicitMods": [
+      "Binding (100-8000) souls to phylacteries to sustain Zorath",
+      "Passives affected are Conquered by the Abyssal",
+      "Historic"
+    ],
+    "implicitMods": []
+  },
   "Redbeak": {
     "baseType": "Rusted Sword",
     "corrupted": false,
@@ -10537,7 +10599,7 @@
     "baseType": "Diamond Ring",
     "corrupted": false,
     "explicitMods": [
-      "Trigger level 10 Consecrate when you deal a Critical Strike",
+      "Trigger Level 10 Consecrate when you deal a Critical Strike",
       "(30-35)% increased Global Critical Strike Chance",
       "(10-15)% increased Light Radius",
       "(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike",
@@ -10855,6 +10917,23 @@
       "Your Maximum Resistances are (70-72)%"
     ],
     "implicitMods": []
+  },
+  "Replica Maata's Teaching": {
+    "baseType": "Karui Sceptre",
+    "corrupted": false,
+    "explicitMods": [
+      "+(30-40) to Intelligence",
+      "(8-16)% increased Attack Speed",
+      "Minions have (15-30)% increased Movement Speed",
+      "Non-Spectre Minions' Base Attack time is equal to",
+      "the Attack time of your Main Hand Weapon"
+    ],
+    "implicitMods": [
+      "26% increased Elemental Damage"
+    ],
+    "intReq": 96,
+    "levelReq": 56,
+    "strReq": 96
   },
   "Replica Malachai's Artifice": {
     "baseType": "Unset Ring",
@@ -11708,6 +11787,19 @@
     ],
     "levelReq": 18
   },
+  "Rotmother's Mutiny": {
+    "baseType": "Pearlescent Amulet",
+    "corrupted": false,
+    "explicitMods": [
+      "+(8-10)% to all Elemental Resistances",
+      "+(20-25)% to all Elemental Resistances",
+      "+(1-3)% to all maximum Resistances",
+      "(25-75)% increased Light Radius",
+      "+1% to Chaos Resistance per 1% Lightning Resistance"
+    ],
+    "implicitMods": [],
+    "levelReq": 28
+  },
   "Rotting Legion": {
     "baseType": "Loricated Ringmail",
     "corrupted": false,
@@ -12014,9 +12106,9 @@
     "baseType": "Leather Belt",
     "corrupted": false,
     "explicitMods": [
+      "You have Resonating Shrine Buff while affected by no Flasks",
       "+(23-32) to Intelligence",
-      "+(23-37)% to Chaos Resistance",
-      "You have Resonating Shrine Buff while affected by no Flasks"
+      "+(23-37)% to Chaos Resistance"
     ],
     "implicitMods": [
       "+(25-40) to maximum Life"
@@ -12029,11 +12121,11 @@
     "dexReq": 85,
     "explicitMods": [
       "Grants Level 20 Savage Barnacle",
-      "+99 to Armour",
-      "+99 to Evasion Rating",
-      "101% increased Armour and Evasion",
-      "+3% to Maximum Cold Resistance",
-      "+33% to Cold Resistance"
+      "+(50-100) to Armour",
+      "+(50-100) to Evasion Rating",
+      "(100-200)% increased Armour and Evasion",
+      "+3% to maximum Cold Resistance",
+      "+(30-40)% to Cold Resistance"
     ],
     "implicitMods": [
       "60% increased Block Recovery"
@@ -12982,10 +13074,10 @@
     "dexReq": 84,
     "explicitMods": [
       "Has 6 Abyssal Sockets",
-      "11% increased Attack Speed per socketed Searching Eye Jewel",
-      "31% increased Critical Strike Chance per socketed Hypnotic Eye Jewel",
-      "29% increased Physical Damage per socketed Murderous Eye Jewel",
-      "Minions have 27% chance to Impale on Attack Hit per socketed Ghastly Eye Jewel"
+      "(25-50)% increased Physical Damage per socketed Murderous Eye Jewel",
+      "(8-16)% increased Attack Speed per socketed Searching Eye Jewel",
+      "(20-40)% increased Critical Strike Chance per socketed Hypnotic Eye Jewel",
+      "Minions have (20-40)% chance to Impale on Attack Hit per socketed Ghastly Eye Jewel"
     ],
     "implicitMods": [
       "50% increased Critical Strike Chance"
@@ -13306,8 +13398,8 @@
     "baseType": "Topaz Flask",
     "corrupted": false,
     "explicitMods": [
-      "35% chance to gain a Flask Charge when you deal a Critical Strike",
-      "All Damage from Critical Strike can apply Lightning Ailments during effect",
+      "(20-40)% chance to gain a Flask Charge when you deal a Critical Strike",
+      "All Damage from Critical Strikes can apply Lightning Ailments during effect",
       "50% reduced Duration"
     ],
     "implicitMods": [],
@@ -13412,9 +13504,9 @@
     "baseType": "Faithful Helmet",
     "corrupted": false,
     "explicitMods": [
-      "176% increased Explicit Modifier magnitudes",
-      "Has (4-0) Abyssal Sockets",
-      "[0-4 consumed abyssal jewel modifiers]",
+      "Crafted: true",
+      "(120-240)% increased Explicit Modifier magnitudes",
+      "Has 4 Abyssal Sockets",
       "Socketed Rare Abyssal Jewels will be Consumed",
       "One modifier from Consumed Jewels will be retained",
       "Cannot have non-Abyssal sockets"
@@ -14164,7 +14256,7 @@
       "Minions gain (59-83)% of Physical Damage as Extra Chaos Damage"
     ],
     "implicitMods": [
-      "+22% Chance to Block Attack Damage while wielding a Staff"
+      "+22% Chance to Block Attack Damage"
     ],
     "levelReq": 64
   },
@@ -14285,19 +14377,35 @@
   "The Crimson Storm": {
     "baseType": "Steelwood Bow",
     "corrupted": false,
-    "dexReq": 190,
     "explicitMods": [
-      "(25-35)% increased Critical Strike Chance",
+      "Crafted: true",
+      "Suffix: None",
+      "Variant: Pre 3.17.0",
+      "Variant: Current",
+      "Requires Level 57, 190 Dex",
+      "Implicits: 2",
       "6% increased Movement Speed",
+      "(60-80)% increased Physical Damage",
+      "(25-35)% increased Critical Strike Chance",
       "50% chance to inflict Bleeding on Critical Strike with Attacks",
       "Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges",
       "Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies",
       "50% chance to Maim Enemies on Critical Strike with Attacks"
     ],
-    "implicitMods": [
-      "(60-80)% increased Physical Damage"
+    "implicitMods": []
+  },
+  "The Crustacean's Call": {
+    "baseType": "Primordial Staff",
+    "corrupted": false,
+    "explicitMods": [
+      "Socketed Spells are Supported by level 20 Crab Totem",
+      "Totems have 100% increased Movement Speed",
+      "(150-200)% increased Spell Damage",
+      "(50-75)% increased Totem Duration",
+      "+2 to maximum number of Summoned Totems",
+      "+25% Chance to Block Spell Damage"
     ],
-    "levelReq": 57
+    "implicitMods": []
   },
   "The Dancing Dervish": {
     "baseType": "Reaver Sword",
@@ -14390,7 +14498,8 @@
       "(20-30)% increased Critical Strike Chance",
       "(0.4-0.5)% of Chaos Damage Leeched as Life",
       "Gain a Flask Charge when you deal a Critical Strike",
-      "Gain (40-75)% of Physical Damage as Extra Chaos Damage if you've used an Amethyst Flask Recently"
+      "Gain (40-75)% of Physical Damage as Extra Chaos Damage if you've",
+      "used an Amethyst Flask Recently"
     ],
     "implicitMods": [
       "20% increased Area of Effect"
@@ -14428,6 +14537,20 @@
     "implicitMods": [],
     "intReq": 112,
     "levelReq": 54
+  },
+  "The Draugur's Lantern": {
+    "baseType": "Ancient Spirit Shield",
+    "corrupted": false,
+    "explicitMods": [
+      "(15-20)% Chance to Block Spell Damage",
+      "(5-10)% increased Spell Damage",
+      "+(66-99) to maximum Life",
+      "Ignites you inflict deal Damage (15-20)% faster",
+      "Draugurflames burn enemies around you for 8 seconds after you Ignite a target"
+    ],
+    "implicitMods": [],
+    "intReq": 110,
+    "levelReq": 45
   },
   "The Druggery": {
     "baseType": "Cloth Belt",
@@ -14578,7 +14701,8 @@
       "(90-110)% increased Fire Damage",
       "Adds (180-230) to (310-360) Fire Damage",
       "(14-18)% increased Attack Speed",
-      "Inflict Fire Exposure on Hit against Enemies with 5 Cinderflame, applying -25% to Fire Resistance",
+      "Inflict Fire Exposure on Hit against Enemies with",
+      "5 Cinderflame, applying -25% to Fire Resistance",
       "Trigger Level 20 Cinders when Equipped"
     ],
     "implicitMods": [
@@ -15551,9 +15675,12 @@
       "(120-160)% increased Physical Damage",
       "(20-30)% increased Critical Strike Chance",
       "Gain a Flask Charge when you deal a Critical Strike",
-      "Gain (20-40)% of Physical Damage as Extra Cold Damage if you've used a Sapphire Flask Recently",
-      "Gain (20-40)% of Physical Damage as Extra Fire Damage if you've used a Ruby Flask Recently",
-      "Gain (20-40)% of Physical Damage as Extra Lightning Damage if you've used a Topaz Flask Recently"
+      "Gain (20-40)% of Physical Damage as Extra Cold Damage if you've",
+      "used a Sapphire Flask Recently",
+      "Gain (20-40)% of Physical Damage as Extra Fire Damage if you've",
+      "used a Ruby Flask Recently",
+      "Gain (20-40)% of Physical Damage as Extra Lightning Damage if you've",
+      "used a Topaz Flask Recently"
     ],
     "implicitMods": [
       "20% increased Area of Effect"
@@ -16026,6 +16153,21 @@
     "implicitMods": [],
     "levelReq": 23,
     "strReq": 28
+  },
+  "The Unblinking Eye": {
+    "baseType": "Harlequin Mask",
+    "corrupted": false,
+    "dexReq": 64,
+    "explicitMods": [
+      "+(15-20)% chance to Suppress Spell Damage",
+      "+(50-100) to Dexterity",
+      "(120-160)% increased Evasion and Energy Shield",
+      "Increases and Reductions to your Evasion Rating also apply to your Spell Damage",
+      "Physical Damage Reduction is zero"
+    ],
+    "implicitMods": [],
+    "intReq": 64,
+    "levelReq": 57
   },
   "The Unseen Hue": {
     "baseType": "Opal Ring",
@@ -16783,6 +16925,20 @@
       "+(16-24) to Dexterity and Intelligence"
     ],
     "levelReq": 23
+  },
+  "Unholy Accomplice": {
+    "baseType": "Cloth Belt",
+    "corrupted": false,
+    "explicitMods": [
+      "(30-50)% increased Spell Damage",
+      "+(50-77) to maximum Life",
+      "(15-25)% increased Stun and Block Recovery",
+      "+(23-37)% to Lightning and Chaos Resistances",
+      "Pact Skills have (30-50)% increased Cast Speed",
+      "Pact Skills have (30-50)% increased Cooldown Recovery Rate",
+      "Pact Skills grant Boons instead of Afflictions"
+    ],
+    "implicitMods": []
   },
   "United in Dream": {
     "baseType": "Cutlass",
@@ -17655,6 +17811,20 @@
     ],
     "implicitMods": []
   },
+  "Waxen Soul": {
+    "baseType": "Saint's Hauberk",
+    "corrupted": false,
+    "explicitMods": [
+      "(10-20)% increased maximum Life",
+      "+(17-29)% to Chaos Resistance",
+      "Curse Skills cost Life instead of Mana",
+      "Curse Aura Skills reserve Life instead of Mana",
+      "Gain a random Blood Shrine buff every 10 seconds",
+      "2% increased Effect of Shrine Buffs on you for each 5% of Life Reserved",
+      "10% chance to Trigger Explosive Toad when you kill an Enemy"
+    ],
+    "implicitMods": []
+  },
   "Weight of Sin": {
     "baseType": "Viridian Jewel",
     "corrupted": true,
@@ -18349,6 +18519,19 @@
       "100% chance to create Consecrated Ground when you Block"
     ],
     "implicitMods": []
+  },
+  "Zana's Ingenuity": {
+    "baseType": "Prismatic Ring",
+    "corrupted": false,
+    "explicitMods": [
+      "(5-15)% increased Attack Speed",
+      "+(-15-15)% to all Elemental Resistances",
+      "Unaffected by Chilled Ground"
+    ],
+    "implicitMods": [
+      "+(8-10)% to all Elemental Resistances"
+    ],
+    "levelReq": 64
   },
   "Zeel's Amplifier": {
     "baseType": "Polished Spiked Shield",

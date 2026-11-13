@@ -15,7 +15,7 @@ FROM debian:bookworm
 # power the character stats sweep (the extract-stats.lua driver script is
 # embedded in the Go binary).
 # Keep POB_VERSION in sync with headless-pob/Dockerfile; bump each league.
-ARG POB_VERSION=v2.66.2
+ARG POB_VERSION=v2.67.2
 # LuaJIT has no releases, only the rolling v2.1 branch, so it MUST be pinned
 # to a commit: building from the branch tip broke every PoB run in production
 # on 2026-11-11, after a lexer change (c41d727d, 2026-10-20) stopped LuaJIT

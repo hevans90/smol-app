@@ -6314,12 +6314,12 @@
     "variantId": "CorruptingFever"
   },
   "Coursing Current": {
-    "description": "Supports skills that hit enemies.",
+    "description": "Supports any skill that hits enemies.",
     "explicitMods": [
       "(20-28)% increased Effect of Chill inflicted with Supported Skills",
       "(20-28)% increased Effect of Shock inflicted with Supported Skills",
-      "Chill enemies when they are Shocked by your Hits, reducing Action Speed by Shock Effect",
-      "Shock enemies when they are Chilled by your Hits, increasing Damage taken by Chill Effect"
+      "Chill enemies when they are Shocked by Hits from Supported Skills, reducing Action Speed by Shock Effect",
+      "Shock enemies when they are Chilled by Hits from Supported Skills, increasing Damage taken by Chill Effect"
     ],
     "gameId": "Metadata/Items/Gems/SupportGemCrustaceousGrasp",
     "levelReqMax": 76,
@@ -6335,10 +6335,12 @@
     "reqStr": 0,
     "reqStrMax": 0,
     "reqStrMin": 0,
-    "tagString": "Exceptional, Support",
+    "tagString": "Exceptional, Cold, Lightning, Support",
     "tags": {
+      "cold": true,
       "exceptional": true,
       "intelligence": true,
+      "lightning": true,
       "low_max_level": true,
       "support": true
     },

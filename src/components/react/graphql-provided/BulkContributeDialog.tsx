@@ -10,6 +10,7 @@ import {
   DialogHeading,
 } from '../ui/Dialog';
 import { Button } from '../ui/Button';
+import { NOT_A_MEMBER_REASON } from './LeagueMembershipNotice';
 import type { BulkOrderWithContributions } from './BulkOrderCard';
 
 export type BulkContributeValues = {
@@ -127,9 +128,12 @@ export const BulkContributeDialog = ({
   onOpenChange,
   onSubmit,
   stashItems,
+  notMember,
 }: {
   order: BulkOrderWithContributions;
   myUser: BulkDiscordUser | undefined;
+  /** No character in the league: Hasura refuses contributions. */
+  notMember?: boolean;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (values: BulkContributeValues) => Promise<void>;
@@ -315,6 +319,9 @@ export const BulkContributeDialog = ({
             <DiscordPreview content={preview.content} embed={preview.embeds[0]} />
           </div>
 
+          {notMember && (
+            <div className="text-sm text-red-400">{NOT_A_MEMBER_REASON}</div>
+          )}
           <div className="flex gap-3">
             <Button
               className={twMerge(
@@ -322,7 +329,7 @@ export const BulkContributeDialog = ({
                 willComplete && 'border-emerald-500 text-emerald-400',
               )}
               onClick={handleSubmit}
-              disabled={submitting || quantity < 1}
+              disabled={submitting || quantity < 1 || notMember}
               loading={submitting}
             >
               {willComplete ? '🎉 Complete the order' : 'Contribute'}

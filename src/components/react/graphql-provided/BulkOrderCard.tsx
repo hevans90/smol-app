@@ -8,6 +8,7 @@ import type { AggregatedStashItem } from '../../../models/ggg-stash';
 import { profileHref } from '../profile/links';
 import { Button } from '../ui/Button';
 import { BulkProgressBar, type BulkProgressSegment } from '../ui/BulkProgressBar';
+import { NOT_A_MEMBER_REASON } from './LeagueMembershipNotice';
 
 // Driven by the board's single "Check my stash" scan (see BulkOrderBook.tsx)
 // — this never scans on its own, it just reports the cached result.
@@ -92,9 +93,12 @@ export const BulkOrderCard = ({
   onDelete,
   onWithdraw,
   stashItems,
+  notMember,
 }: {
   order: BulkOrderWithContributions;
   myUserId: string | undefined;
+  /** No character in the league: Hasura refuses contributions. */
+  notMember?: boolean;
   onContribute: (order: BulkOrderWithContributions) => void;
   onEdit: (order: BulkOrderWithContributions) => void;
   onCancel: (order: BulkOrderWithContributions) => void;
@@ -245,7 +249,11 @@ export const BulkOrderCard = ({
       <div className="flex flex-wrap items-center gap-2">
         {status === 'active' && remaining > 0 && (
           <Button
-            className="h-auto border-primary-500 bg-primary-900 bg-opacity-30"
+            className={twMerge(
+              'h-auto border-primary-500 bg-primary-900 bg-opacity-30',
+              notMember && 'opacity-50',
+            )}
+            title={notMember ? NOT_A_MEMBER_REASON : undefined}
             onClick={() => onContribute(order)}
           >
             Contribute

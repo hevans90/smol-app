@@ -23,8 +23,12 @@ export const LeagueMembershipStatus = () => {
   );
 };
 
+/** Why fulfil / contribute is refused for a non-member, on those buttons and dialogs. */
+export const NOT_A_MEMBER_REASON =
+  'Fulfilling and contributing need a character on the league ladder (synced every 5 minutes).';
+
 // Explains to a logged-in non-member why order actions are being refused.
-// Fixed + out-of-flow so it never disturbs the order books' own layout math.
+// In the page flow above the order book, so it never covers the table.
 export const LeagueMembershipNotice = () => {
   const { isMember } = useLeagueMembership();
   const { data: leagueData } = useQuery<LeagueQuery>(LeagueDocument);
@@ -37,12 +41,12 @@ export const LeagueMembershipNotice = () => {
   return (
     <div
       role="status"
-      className="fixed bottom-4 left-4 z-20 max-w-sm rounded-md border border-red-400 bg-gray-900 p-3 text-sm shadow-lg"
+      className="mx-4 mt-3 rounded-md border border-red-400/60 bg-gray-900 px-3 py-2 text-sm"
     >
-      <div className="mb-1 font-bold text-red-400">
-        No character in the league yet
-      </div>
-      <div>
+      <span className="mr-2 font-bold text-red-400">
+        No character in the league yet.
+      </span>
+      <span>
         {poeName ? (
           <>
             <span className="text-primary-500">{poeName}</span> has
@@ -53,7 +57,7 @@ export const LeagueMembershipNotice = () => {
         no character on the {league ? `${league} ` : 'league '}ladder. You can
         place orders, but fulfilling and contributing are disabled until you
         make one. The ladder syncs every 5 minutes.
-      </div>
+      </span>
     </div>
   );
 };

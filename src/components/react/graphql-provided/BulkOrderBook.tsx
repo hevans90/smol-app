@@ -38,6 +38,7 @@ import {
   type UpdateBulkOrderMutation,
   type UpdateBulkOrderMutationVariables,
 } from '../../../graphql-api';
+import { useLeagueMembership } from '../../../hooks/useLeagueMembership';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import { usePoEStash } from '../../../hooks/usePoEStash';
 import { Button } from '../ui/Button';
@@ -81,6 +82,8 @@ export const BulkOrderBook = () => {
   const loading = ordersLoading || !league;
   const { data: myUser } = useMyHasuraUser();
   const myUserId = myUser?.id;
+  // Hasura refuses contributions from accounts with no character in the league
+  const notMember = useLeagueMembership().isMember === false;
 
   const showCompleted = useStore(bulkShowCompletedStore);
   const showCancelled = useStore(bulkShowCancelledStore);
@@ -624,6 +627,7 @@ export const BulkOrderBook = () => {
               onDelete={handleDelete}
               onWithdraw={(contribution) => handleWithdraw(order, contribution)}
               stashItems={stashChecked ? stashItems : null}
+              notMember={notMember}
             />
           ))}
         </div>
@@ -663,6 +667,7 @@ export const BulkOrderBook = () => {
           }}
           onSubmit={(values) => handleContribute(contributeOrder, values)}
           stashItems={stashChecked ? stashItems : null}
+          notMember={notMember}
         />
       )}
 

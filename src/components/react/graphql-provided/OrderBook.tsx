@@ -53,6 +53,7 @@ import {
 } from '../../../_state/order-book';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import { profileHref } from '../profile/links';
+import { useLeagueMembership } from '../../../hooks/useLeagueMembership';
 import { Button } from '../ui/Button';
 import {
   Dialog,
@@ -61,6 +62,7 @@ import {
   DialogHeading,
 } from '../ui/Dialog';
 import { Toggle } from '../ui/Toggle';
+import { NOT_A_MEMBER_REASON } from './LeagueMembershipNotice';
 import { OrderBookFilters } from './OrderBookFilters';
 import { OrderForm, type OrderFormInputs } from './OrderForm';
 TimeAgo.addDefaultLocale(en);
@@ -96,6 +98,8 @@ export const OrderBook = () => {
   const showInactive = useStore(orderBookShowInactiveStore);
   const showFulfilled = useStore(orderBookShowFulfilledStore);
   const typeFilters = useStore(orderBookTypeFiltersStore);
+  // Hasura refuses fulfils from accounts with no character in the league
+  const notMember = useLeagueMembership().isMember === false;
 
   // "Check my stash" — one scan for the whole list, reused by every row's
   // StashMatchBadge (and the fulfill dialog's quick-fill) rather than each
@@ -626,6 +630,8 @@ export const OrderBook = () => {
                     <td>
                       {!isMe && user.discord_user_id && !orderFulfilled && (
                         <Button
+                          className={notMember ? 'opacity-50' : undefined}
+                          title={notMember ? NOT_A_MEMBER_REASON : undefined}
                           onClick={() => {
                             invariant(user.discord_user_id);
                             invariant(description);
@@ -881,9 +887,14 @@ export const OrderBook = () => {
             <span>Guild Stash 1</span>
           </label>
 
+          {notMember && (
+            <div className="mb-3 max-w-md text-sm text-red-400">
+              {NOT_A_MEMBER_REASON}
+            </div>
+          )}
           <Button
             onClick={() => handleOrderFulfillment()}
-            disabled={fulfillmentInProgress}
+            disabled={fulfillmentInProgress || notMember}
           >
             {fulfillmentInProgress ? 'Fulfilling...' : 'Fulfill'}
           </Button>

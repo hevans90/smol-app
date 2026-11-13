@@ -49,6 +49,7 @@ import {
   orderBookShowFulfilledStore,
   orderBookShowInactiveStore,
   orderBookTypeFiltersStore,
+  showOrderTypes,
 } from '../../../_state/order-book';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import { profileHref } from '../profile/links';
@@ -127,13 +128,8 @@ export const OrderBook = () => {
       );
     }
 
-    result = result?.filter(({ type }) => {
-      const enabledOrderTypes = Object.entries(typeFilters)
-        .filter(([_, value]) => !!value)
-        .map(([type]) => type);
-
-      return enabledOrderTypes.includes(type);
-    });
+    // only types you've switched off are hidden; any not set yet show
+    result = result?.filter(({ type }) => typeFilters[type] !== false);
     if (result?.length && fuzzyQuery?.length) {
       result = fuzzySearch(fuzzyQuery, result, {
         keySelector: (order) => [
@@ -713,14 +709,7 @@ export const OrderBook = () => {
                         onClick={() => {
                           orderBookShowFulfilledStore.set(true);
                           orderBookShowInactiveStore.set(true);
-                          orderBookTypeFiltersStore.set(
-                            Object.fromEntries(
-                              (orderTypes?.item_order_type ?? []).map(({ value }) => [
-                                value,
-                                true,
-                              ]),
-                            ),
-                          );
+                          orderBookTypeFiltersStore.set({});
                           orderBookFuzzySearchStore.set('');
                           if (inputRef.current) inputRef.current.value = '';
                         }}
@@ -760,6 +749,7 @@ export const OrderBook = () => {
                   orderId: updateModalState?.orderId ?? '',
                 },
               });
+              if (data.type) showOrderTypes([data.type]);
               setUpdateModalOpen(false);
               exportBaseDataToSpreadsheet();
             }}
@@ -793,10 +783,14 @@ export const OrderBook = () => {
                   })),
                 },
               });
+              showOrderTypes(
+                items.map((item) => item.type ?? Item_Order_Type_Enum.Unique),
+              );
               setCreateModalOpen(false);
               exportBaseDataToSpreadsheet();
             }}
             onSubmit={(data) => {
+              showOrderTypes([data.type ?? Item_Order_Type_Enum.Other]);
               createItemOrder({
                 variables: {
                   type: data.type ?? Item_Order_Type_Enum.Other,

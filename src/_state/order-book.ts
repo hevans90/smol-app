@@ -35,4 +35,14 @@ export const orderBookTypeFiltersStore = persistentAtom<{
   }
 );
 
+/** Turn these types' filters on, so an order you just placed isn't hidden. */
+export const showOrderTypes = (types: Item_Order_Type_Enum[]) => {
+  const current = orderBookTypeFiltersStore.get();
+  if (types.every((type) => current[type] !== false)) return;
+  orderBookTypeFiltersStore.set({
+    ...current,
+    ...Object.fromEntries(types.map((type) => [type, true])),
+  });
+};
+
 export const orderBookFuzzySearchStore = atom<string>('');

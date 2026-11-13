@@ -26,11 +26,12 @@ export const OrderBookFilters = ({
         <div key={i} className="flex gap-2">
           <img className="h-10 w-10 p-1" src={`/order-types/${value}.webp`} />
           <Toggle
-            value={typeFilters?.[value as Item_Order_Type_Enum]}
+            // on unless switched off
+            value={typeFilters?.[value as Item_Order_Type_Enum] !== false}
             onChange={() =>
               orderBookTypeFiltersStore.set({
                 ...typeFilters,
-                [value]: !typeFilters?.[value as Item_Order_Type_Enum],
+                [value]: typeFilters?.[value as Item_Order_Type_Enum] === false,
               })
             }
             label={typeMap[value as Item_Order_Type_Enum]}

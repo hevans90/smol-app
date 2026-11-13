@@ -41,6 +41,7 @@ import {
 import { useLeagueMembership } from '../../../hooks/useLeagueMembership';
 import { useMyHasuraUser } from '../../../hooks/useMyHasuraId';
 import { usePoEStash } from '../../../hooks/usePoEStash';
+import { matchBulkOrder } from '../../../_utils/stash-matching';
 import { Button } from '../ui/Button';
 import {
   Dialog,
@@ -57,10 +58,11 @@ import {
 } from './BulkContributeDialog';
 import {
   BulkOrderCard,
+  bulkOrderStatus,
   type BulkOrderWithContributions,
 } from './BulkOrderCard';
 import { BulkOrderForm, type BulkOrderFormValues } from './BulkOrderForm';
-import { StashScopeReauthPrompt } from './StashScopeReauthPrompt';
+import { StashCheck } from './StashCheck';
 
 const SORT_OPTIONS: { value: BulkOrderSort; display: string }[] = [
   { value: 'newest', display: 'Newest first' },
@@ -93,19 +95,9 @@ export const BulkOrderBook = () => {
   // "Check my stash" — one scan for the whole board, reused by every card's
   // badge and by whichever BulkContributeDialog happens to be open, rather
   // than each order scanning independently.
-  const {
-    loading: stashLoading,
-    items: stashItems,
-    progress: stashProgress,
-    error: stashError,
-    scanStash,
-    hasToken: hasPoEToken,
-  } = usePoEStash(league ?? '');
-  const [stashChecked, setStashChecked] = useState(false);
-
-  useEffect(() => {
-    if (stashProgress.phase === 'done') setStashChecked(true);
-  }, [stashProgress.phase]);
+  const stash = usePoEStash(league ?? '');
+  // matched against as soon as tabs arrive, so finds show mid-scan
+  const stashItems = stash.scanned ? stash.items : null;
 
   const [insertBulkOrder] = useMutation<
     InsertBulkOrderMutation,
@@ -189,6 +181,17 @@ export const BulkOrderBook = () => {
   // still runs its OLD one, whose .catch() would read stale pre-conflict
   // data. A ref sidesteps that: it always holds the latest value regardless
   // of which render's closure is executing when the mutation resolves.
+  // other people's open orders you could contribute to from your stash
+  const stashMatches = stashItems
+    ? allOrders.filter(
+        (order) =>
+          order.user.id !== myUserId &&
+          bulkOrderStatus(order) === 'active' &&
+          sumOf(order) < order.quantity &&
+          matchBulkOrder(stashItems, order).matched,
+      ).length
+    : 0;
+
   const allOrdersRef = useRef(allOrders);
   allOrdersRef.current = allOrders;
 
@@ -546,33 +549,8 @@ export const BulkOrderBook = () => {
           defaultIndex={SORT_OPTIONS.findIndex((o) => o.value === sort)}
           onSelectChange={(value) => bulkSortStore.set(value as BulkOrderSort)}
         />
-        {hasPoEToken && (
-          <div className="flex items-center gap-2">
-            <Button
-              className="h-auto text-lg"
-              disabled={stashLoading || !league}
-              onClick={() => {
-                setStashChecked(false);
-                void scanStash();
-              }}
-            >
-              {stashLoading ? 'Checking your stash…' : 'Stash check'}
-            </Button>
-            {stashLoading && stashProgress.phase === 'fetching-tabs' && (
-              <span className="whitespace-nowrap text-xs text-primary-900">
-                Tab {stashProgress.currentTabIndex} of {stashProgress.totalTabs}
-              </span>
-            )}
-            {stashError?.kind === 'missing-scope' && <StashScopeReauthPrompt />}
-            {stashError?.kind === 'rate-limited' && (
-              <span className="text-sm text-red-400">
-                Rate-limited — try again in {stashError.retryAfterSeconds}s.
-              </span>
-            )}
-            {(stashError?.kind === 'network' || stashError?.kind === 'unknown') && (
-              <span className="text-sm text-red-400">Couldn't check your stash: {stashError.message}</span>
-            )}
-          </div>
+        {stash.hasToken && (
+          <StashCheck stash={stash} matches={stashMatches} disabled={!league} />
         )}
       </div>
 
@@ -626,7 +604,7 @@ export const BulkOrderBook = () => {
               onUncancel={handleUncancel}
               onDelete={handleDelete}
               onWithdraw={(contribution) => handleWithdraw(order, contribution)}
-              stashItems={stashChecked ? stashItems : null}
+              stashItems={stashItems}
               notMember={notMember}
             />
           ))}
@@ -666,7 +644,7 @@ export const BulkOrderBook = () => {
             if (!open) setContributeOrder(null);
           }}
           onSubmit={(values) => handleContribute(contributeOrder, values)}
-          stashItems={stashChecked ? stashItems : null}
+          stashItems={stashItems}
           notMember={notMember}
         />
       )}

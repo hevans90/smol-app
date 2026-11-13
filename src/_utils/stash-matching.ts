@@ -32,7 +32,10 @@ export const matchBulkOrder = (
   );
   return {
     matched: hits.length > 0,
-    availableQuantity: hits.reduce((sum, item) => sum + (item.stackSize ?? 1), 0),
+    availableQuantity: hits.reduce(
+      (sum, item) => sum + (item.stackSize ?? 1),
+      0,
+    ),
     locations: hits.map((item) => ({
       tabId: item.tabId,
       tabName: item.tabName,
@@ -66,10 +69,25 @@ export type RegularFulfillVerdict = {
   // the order's stored item_base_type — surfaced as a soft warning, not a
   // reason to say "not found", since the name match is the stronger signal.
   baseTypeMismatch?: boolean;
-  // order.type is 'base'/'gem'/'other', or there's no usable identity to
-  // match against at all.
+  // an 'other' order, or one with nothing to match on
   unverifiable?: boolean;
 };
+
+// GGG sends rarity capitalised ("Unique"); frameType is the fallback
+// (3 = unique, 4 = gem).
+const isUnique = (item: AggregatedStashItem) =>
+  item.rarity?.toLowerCase() === 'unique' || item.frameType === 3;
+const isGem = (item: AggregatedStashItem) =>
+  item.rarity?.toLowerCase() === 'gem' || item.frameType === 4;
+
+const lower = (text?: string | null) => text?.trim().toLowerCase() ?? '';
+
+const FOULBORN_PREFIX = 'foulborn ';
+
+const found = (hit: AggregatedStashItem | undefined): RegularFulfillVerdict =>
+  hit
+    ? { matched: true, location: { tabId: hit.tabId, tabName: hit.tabName } }
+    : { matched: false };
 
 export const matchRegularOrder = (
   items: AggregatedStashItem[],
@@ -80,36 +98,64 @@ export const matchRegularOrder = (
     item_base_type?: string | null;
   },
 ): RegularFulfillVerdict => {
+  // item_order_type_enum: 'unique', 'base', 'gem', 'other'
+  // (hasura/seeds/default/1705593048567_item_order_type.sql)
+  if (order.type === 'gem') {
+    // the order search stores the gem's name as its base type; PoB names
+    // support gems without the " Support" the game shows
+    const needle = lower(order.item_base_type) || lower(order.description);
+    if (!needle) return { matched: false, unverifiable: true };
+    const names = new Set([needle, `${needle} support`]);
+    return found(
+      items.find(
+        (item) =>
+          isGem(item) &&
+          (names.has(lower(item.typeLine)) || names.has(lower(item.baseType))),
+      ),
+    );
+  }
+
+  if (order.type === 'base') {
+    // any non-unique item on that base will do (white, magic or rare)
+    const needle = lower(order.item_base_type);
+    if (!needle) return { matched: false, unverifiable: true };
+    return found(
+      items.find(
+        (item) =>
+          !isUnique(item) && !isGem(item) && lower(item.baseType) === needle,
+      ),
+    );
+  }
+
   if (order.type !== 'unique') {
-    // item_order_type_enum's full value set is 'unique', 'base', 'gem', and
-    // 'other' (hasura/seeds/default/1705593048567_item_order_type.sql) —
-    // only uniques have a canonical identity (a real name) this can match a
-    // stash item against; the rest share a base type across many different
-    // items (base/gem) or are pure free text (other) with nothing reliable
-    // to match on.
+    // free text: nothing reliable to match on
     return { matched: false, unverifiable: true };
   }
 
-  const candidate = deriveUniqueNameCandidate(order).toLowerCase();
+  const candidate = lower(deriveUniqueNameCandidate(order));
   if (!candidate) return { matched: false, unverifiable: true };
+  const foulborn = candidate.startsWith(FOULBORN_PREFIX);
+  const plainName = foulborn
+    ? candidate.slice(FOULBORN_PREFIX.length)
+    : candidate;
 
-  // Unidentified uniques come back from the stash API with a generic/empty
-  // name, so a name match against them would always false-negative anyway —
-  // excluding them is a correctness improvement, not a limitation to work
-  // around here (surfaced as UI copy instead: "identify it in-game first").
-  const hit = items.find(
-    (item) =>
-      item.rarity === 'unique' &&
-      item.identified &&
-      item.name?.trim().toLowerCase() === candidate,
-  );
+  // Unidentified uniques come back with no name, so they can't match by
+  // name; they're skipped rather than guessed at.
+  const hit = items.find((item) => {
+    if (!isUnique(item) || !item.identified) return false;
+    const name = lower(item.name);
+    // a plain order doesn't want the Foulborn version
+    if (name === candidate) return foulborn || !item.mutated;
+    // a Foulborn order wants the Foulborn version, however GGG names it
+    return foulborn && name === plainName && !!item.mutated;
+  });
   if (!hit) return { matched: false };
 
-  const baseNeedle = order.item_base_type?.trim().toLowerCase();
+  const baseNeedle = lower(order.item_base_type);
   const baseTypeMismatch =
     !!baseNeedle &&
-    hit.baseType?.trim().toLowerCase() !== baseNeedle &&
-    hit.typeLine?.trim().toLowerCase() !== baseNeedle;
+    lower(hit.baseType) !== baseNeedle &&
+    lower(hit.typeLine) !== baseNeedle;
 
   return {
     matched: true,

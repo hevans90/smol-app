@@ -36,7 +36,7 @@ import type { AggregatedStashItem } from '../../../models/ggg-stash';
 import { OrderItemPopover } from '../item-hovers/OrderItemPopover';
 import { ItemIcon } from '../ui/ItemIcon';
 import { Spinner } from '../ui/Spinner';
-import { StashScopeReauthPrompt } from './StashScopeReauthPrompt';
+import { StashCheck } from './StashCheck';
 
 import { IconAlertCircle, IconSearch, IconTrash } from '@tabler/icons-react';
 import TimeAgo from 'javascript-time-ago';
@@ -104,15 +104,9 @@ export const OrderBook = () => {
   // "Check my stash" — one scan for the whole list, reused by every row's
   // StashMatchBadge (and the fulfill dialog's quick-fill) rather than each
   // order doing its own.
-  const {
-    loading: stashLoading,
-    items: stashItems,
-    progress: stashProgress,
-    error: stashError,
-    scanStash,
-    hasToken: hasPoEToken,
-  } = usePoEStash(league ?? '');
-  const [stashChecked, setStashChecked] = useState(false);
+  const stash = usePoEStash(league ?? '');
+  // matched against as soon as tabs arrive, so finds show mid-scan
+  const stashItems = stash.scanned ? stash.items : null;
 
   const exportBaseDataToSpreadsheet = async () => {
     window.location.hostname !== 'localhost' &&
@@ -323,10 +317,6 @@ export const OrderBook = () => {
     }
   }, [loading, userLoading]);
 
-  useEffect(() => {
-    if (stashProgress.phase === 'done') setStashChecked(true);
-  }, [stashProgress.phase]);
-
   if (loading || userLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -337,7 +327,7 @@ export const OrderBook = () => {
   // Reuses the board's cached scan (no new fetch) to show where the item
   // was found once the fulfill dialog for it is open.
   const fulfillStashVerdict =
-    fulfillModalOpen && stashChecked && stashItems
+    fulfillModalOpen && stashItems
       ? matchRegularOrder(stashItems, {
           type: fulfillModalState.type,
           description: fulfillModalState.message,
@@ -345,6 +335,17 @@ export const OrderBook = () => {
           item_base_type: fulfillModalState.itemBaseType,
         })
       : undefined;
+
+  // other people's open orders you could fill from your stash
+  const stashMatches = stashItems
+    ? (orders?.user_item_order ?? []).filter(
+        (order) =>
+          order.user.id !== myUserId &&
+          !order.fulfilled_by_user &&
+          matchRegularOrder(stashItems, { ...order, description: order.description ?? '' })
+            .matched,
+      ).length
+    : 0;
 
   return (
     <div
@@ -393,33 +394,8 @@ export const OrderBook = () => {
             />
           </div>
 
-          {hasPoEToken && (
-            <div className="flex items-center gap-2">
-              <Button
-                className="h-auto text-lg"
-                disabled={stashLoading || !league}
-                onClick={() => {
-                  setStashChecked(false);
-                  void scanStash();
-                }}
-              >
-                {stashLoading ? 'Checking your stash…' : 'Stash check'}
-              </Button>
-              {stashLoading && stashProgress.phase === 'fetching-tabs' && (
-                <span className="whitespace-nowrap text-xs text-primary-900">
-                  Tab {stashProgress.currentTabIndex} of {stashProgress.totalTabs}
-                </span>
-              )}
-              {stashError?.kind === 'missing-scope' && <StashScopeReauthPrompt />}
-              {stashError?.kind === 'rate-limited' && (
-                <span className="text-sm text-red-400">
-                  Rate-limited — try again in {stashError.retryAfterSeconds}s.
-                </span>
-              )}
-              {(stashError?.kind === 'network' || stashError?.kind === 'unknown') && (
-                <span className="text-sm text-red-400">Couldn't check your stash: {stashError.message}</span>
-              )}
-            </div>
+          {stash.hasToken && (
+            <StashCheck stash={stash} matches={stashMatches} disabled={!league} />
           )}
         </div>
       </div>
@@ -485,7 +461,7 @@ export const OrderBook = () => {
                 const isMe = user.id === myUserId;
                 const orderFulfilled = !!fulfilled_by_user;
                 const stashVerdict =
-                  !isMe && stashChecked && stashItems
+                  !isMe && stashItems
                     ? matchRegularOrder(stashItems, {
                         type,
                         description,

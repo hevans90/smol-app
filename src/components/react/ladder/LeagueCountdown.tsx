@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { PepeLayer } from './PepeLayer';
+import { PepeLayer, type PepeMode } from './PepeLayer';
 
 // The empty ladder: a unique-item name plate for the league and a countdown
 // to its start, building up as it gets close. Once it has started (or with no
@@ -159,6 +159,26 @@ export const LeagueCountdown = ({
   const finalHour = counting && left! < HOUR;
   const finalMinute = counting && left! < MINUTE;
 
+  // a couple of minutes of celebration once it starts
+  const [partyOver, setPartyOver] = useState(
+    () => start !== undefined && Date.now() > start + 2 * MINUTE,
+  );
+  useEffect(() => {
+    if (start === undefined) return;
+    const wait = start + 2 * MINUTE - Date.now();
+    setPartyOver(wait <= 0);
+    if (wait <= 0) return;
+    const timer = setTimeout(() => setPartyOver(true), wait);
+    return () => clearTimeout(timer);
+  }, [start]);
+  const pepes: PepeMode | undefined = counting
+    ? finalMinute
+      ? 'frantic'
+      : 'calm'
+    : start !== undefined && !partyOver
+      ? 'party'
+      : undefined;
+
   const units = counting
     ? [
         { label: 'days', value: Math.floor(left! / DAY) },
@@ -213,7 +233,7 @@ export const LeagueCountdown = ({
           ))}
         </div>
       )}
-      {counting && <PepeLayer frantic={finalMinute} />}
+      {pepes && <PepeLayer mode={pepes} area={section} avoid={content} />}
 
       <div
         ref={content}
